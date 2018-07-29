@@ -8,8 +8,8 @@ body {
 
 /* choose a light or dark theme to add to the body tag. */
 .dark-theme {
-    background-color: #0C2733;
-    color: #FFFCF0;   
+    background-color: #181414;
+    color: #fcfbfb;   
 }
 .light-theme {
     background-color: white;
@@ -17,7 +17,7 @@ body {
 }
 
 .container {
-        max-width: 1200px;
+        max-width: 975px;
 }
 
 /* ******** */
@@ -26,25 +26,6 @@ body {
     width: 100%;
 }
 
-/* unvisited link */
-a:link {
-    color: #F25C5C;
-}
-
-/* visited link */
-a:visited {
-    color: #F25C5C;
-}
-
-/* mouse over link */
-a:hover {
-    color: #E92131;
-}
-
-/* selected link */
-a:active {
-    color: #8C2131;
-}
 
 
 /*
@@ -74,7 +55,7 @@ sub-font
 
 
 .headline {
-    font-size: 7.0rem;
+    font-size: 3.5rem;
     line-height: 0.9;
     margin-bottom: 0.25rem;
     margin-top: 1rem;
@@ -127,7 +108,6 @@ sub-font
     margin-top: 2rem;
     margin-bottom: 0.5rem;
     font-weight: 700;
-    color: #8C2131;
 }
 
 .label-text {
@@ -150,7 +130,6 @@ sub-font
     margin-top: 0.5rem;
     margin-bottom: 2rem;
     font-weight: 400;
-    color: #8C2131;
 }
 
 
