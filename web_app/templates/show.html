@@ -1,0 +1,14 @@
+
+
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+<div class="jumbotron">
+  <h1 class="display-4">{{ death.Country }}</h1>
+  <p class="lead">Year: {{ death.Year }}, Sex: {{ death.Sex }}, Age: {{ death.Age }} Number of Deaths:{{ death.Value }}</p>
+</div>
+
+
+{% endblock %}

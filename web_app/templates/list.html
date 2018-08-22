@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<p>United Nation's DataBase with number of deaths per Country</p>
+<ul>
+  {% for dead in death %}
+    <li><a href="{{ url_for('show', index=dead.index) }}">{{ dead.Country }}</a></li>
+  {% endfor %}
+
+
+{% endblock %}
