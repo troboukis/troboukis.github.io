@@ -15,10 +15,10 @@
     <style>
 #map {
     position:absolute;
-    left:35%;
+    left:0%;
     top:0;
     bottom:0;
-    width: 65%;
+    width: 100%;
 }
 .map-overlay {
     position: absolute;
@@ -73,10 +73,16 @@
 .map-overlay .listing a:hover {
     background: #f0f0f0;
 }
+
     </style>
 </head>
 <body>
-
+<style>
+.mapboxgl-popup {
+max-width: 400px;
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+</style>
 <!-- <h1>This is a Heading</h1>
 <p>This is a paragraph.</p>
  -->
@@ -97,6 +103,9 @@ var map = new mapboxgl.Map({
     minZoom: 11.5,
     
 });
+
+
+
 
 
 </script>
