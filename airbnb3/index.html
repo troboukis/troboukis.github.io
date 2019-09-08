@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+<!--     <title>Page Title</title> -->
+
+
+    <meta charset='utf-8' />
+    <title>Create a heatmap layer</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+#map {
+    position:absolute;
+    left:35%;
+    top:0;
+    bottom:0;
+    width: 65%;
+}
+.map-overlay {
+    position: absolute;
+    width: 25%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.map-overlay fieldset {
+    display: none;
+    background: #ddd;
+    border: none;
+    padding: 10px;
+    margin: 0;
+}
+
+.map-overlay input {
+    display: block;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    padding: 10px;
+    margin: 0;
+}
+
+.map-overlay .listing {
+    overflow: auto;
+    max-height: 100%;
+}
+
+.map-overlay .listing > * {
+    display: block;
+    padding: 5px 10px;
+    margin: 0;
+}
+
+.map-overlay .listing a {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: #404;
+    text-decoration: none;
+}
+
+.map-overlay .listing a:last-child {
+    border: none;
+}
+
+.map-overlay .listing a:hover {
+    background: #f0f0f0;
+}
+    </style>
+</head>
+<body>
+
+<!-- <h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+ -->
+
+
+<div id='map'></div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoidHJvYm91a2lzIiwiYSI6ImNqeDV0eWw1aDA1OXc0OW5wb20ycm1qaHMifQ.lXcLJ969tqakVPJxs63YJw';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/troboukis/ck0at21du35l91cqgym4dte2x',
+    zoom: 12,
+    center: [23.7270,37.9880],
+    pitch: 60,
+    maxZoom: 15,
+    bearing: 750,
+    minZoom: (12),
+    
+});
+
+
+</script>
+
+</body>
+</html>
