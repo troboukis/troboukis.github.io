@@ -26,3 +26,17 @@ function runTheClock() {
 }
 
 var interval = setInterval(runTheClock, 1000);
+
+let screenLog = document.querySelector('#screen-log');
+document.addEventListener('mousemove', logKey);
+
+const SCREENLOG = document.querySelector('#screenLog');
+SCREENLOG.addEventListener('mouseenter', logKey, false);
+SCREENLOG.addEventListener('mouseleave', function(){SCREENLOG.removeAttribute('#screenLog');}, false);
+
+function logKey(e) {
+  screenLog.innerText = `
+    X/Y of the cursor: ${e.clientX}, ${e.clientY}`;
+}
+// When the mouse leaves the circle, remove inline styles with an anonymous function.
+CIRCLE.addEventListener('mouseleave', function(){CIRCLE.removeAttribute("style");}, false);
