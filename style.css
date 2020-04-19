@@ -56,6 +56,16 @@
     fill: none;
 }
 
+.circle {
+    position: absolute;
+    top: 1px;
+    width: 30px;
+    height: 30px;
+    color: transparent;
+    border: 3px solid red;
+    border-radius: 0%;
+}
+
 /* Make all arms rotate around the same center point. */
 /* Optional: Use transition for animation. */
 #hour,
