@@ -1,0 +1,130 @@
+body{
+    max-width: inherit;
+}
+svg{
+    /* background: #dadad1; */
+    display: inline-block;
+    overflow: hidden;
+    padding: 5px 5px;
+    margin: 10px ;
+    opacity:80%;
+    /* left: 11%; */
+  }
+
+.annotation{
+    overflow: visible;
+    /* background: #dadad1; */
+    display: inline-block;
+    padding: 5px 5px;
+    margin: 10px ;
+    bottom: 0;
+}
+.annotation_text{
+    font-family: 'Roboto Slab', serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 12;
+}   
+.line {
+  stroke: #000000;
+  stroke-width: 0.5;
+  padding: 5px 5px;
+  margin: 10px ;
+}
+.legend{
+    width: 300px;
+    height:50px;
+    display: inline-block;
+    overflow: hidden;
+    padding: 5px 5px;
+    margin: 0px ;
+    bottom: 0;
+    /* background: #dadad1; */
+}
+.legend_text{
+    font-family: 'Roboto Slab', serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 12;
+}
+.air_graph_force_title {
+    width: 300px;
+    float:left; /* add this */
+    padding: 5px 5px;
+    margin:10px;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 22;
+    word-wrap: normal;
+}
+.text{
+    width: 300px;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 14;
+    word-wrap: normal;
+}
+.air_graph_force_paragraph {
+    width: 300px;
+    vertical-align: bottom;
+    display: inline-block;
+    overflow: visible;
+    padding: 5px 5px;
+    margin:10px;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 14;
+    word-wrap: normal;
+}
+
+button {
+    vertical-align: top;
+    background-color: #E2E9E9; /* Green */
+    color: #495050;
+    padding: 12px 12px;
+    text-align: center;
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    transition-duration: 0.4s;
+    border-radius: 8px;
+    border: 1px solid #8F9797;
+    border-style: solid;
+    border-color: #c5caca;
+    position:relative;
+    justify-content: center;
+}
+
+button:hover {
+    transition-duration: 0.1s;
+    background-color: #8F9797;
+    color: white;
+  }
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 73px;
+    height: 20px;
+    padding: 2px 1px;
+    font: 12px roboto;
+    background: #484E4E;
+    color:#E2E9E9;
+    border: 1px solid #8F9797;
+    border-radius: 8px;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    border:1px solid;
+  }
+

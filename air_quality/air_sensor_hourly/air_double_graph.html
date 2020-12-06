@@ -1,0 +1,48 @@
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" href="air_css.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Air quality d3 graphic</title>
+    <style>
+      
+
+    </style>
+
+  </head>
+
+  <body>
+    <button id = 'combined'>Όλες οι ωριαίες μετρήσεις</button>
+    <button id = 'dangerous2_5'> Με αυξημένα PM 2.5</button>
+    <button id = 'dangerous10'>Με αυξημένα PM 10</button>
+    
+    <!-- <div id="air_graph_force"></div> -->
+    <div id="force_graphic">
+        <div class="air_graph_force_title">
+          Η ποιότητα του αέρα που ανέπνευσε ένας Αθηναίος το 2020 στο κέντρο της πόλης
+          <p class='text'>Κάθε <span class="dot"></span> αναπαριστά μία ώρα (60'), από τις 14 Ιανουαρίου έως 
+            και τις 2 Δεκεμβρίου 2020 (6901 ώρες συνολικά). Πατώντας το κουμπί <i>"Με αυξημένα PM 2.5"</i> θα ξεχωρίσουν
+            οι ώρες με καλή ποιότητα αέρα από εκείνες με μετρίως έως κακή ποιότητα αέρα σύμφωνα με τον Δείκτη Ποιότητας του Αέρα (AQI)
+            που έχει αναπτύξει η εταιρεία που παράγει τον φορητό αισθητήρα που χρησιμοποιήσαμε. Ο συγκεκριμένος δείκτης καταρτίζεται λαμβάνοντας υπόψη
+            τα επίπεδα ασφαλείας που έχει θέσει ο Παγκόσμιος Οργανισμός Υγείας 
+            καθώς και τα αποτελέσματα των μετρήσεων του αισθητήρα. Το γράφημα προσαρμόζεται αναλόγως πατώντας το κουμπί <i>"Με αυξημένα PM 10"</i>.
+          </p>
+        </div>
+        <!-- <div class="air_graph_force_paragraph"></div> -->
+        <div class="air_graph_force"></div>
+    </div>
+        
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
+    <script src="air_graphics_2.js"></script>
+    <script type="module" src="legend.js"></script>
+    <script type="module" src="air_graph_force.js"></script
+
+
+  </body>
+
+</html>

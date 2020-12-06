@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <head>
+    <title>Ποιότητα αέρα ανά ώρα</title>
+    <style>
+
+      body {
+        max-width: 1000px;
+        max-height: 960px;
+        margin: 1px;
+        
+      }
+
+      div {
+        width: 10px;
+        height: 10px;
+        margin: 0px 0 1px 1px;
+        background: 'white';
+        float: left;
+        margin-right: 0px;
+        position: relative;
+        z-index:1;
+        
+      }
+      .transition-legend{
+        display: inline-block;
+        overflow: hidden;
+        padding: 1px 1px;
+        margin: 0px 0px 1px 1px;
+        opacity:80%;
+        width: 180px;
+        height:30px;
+        background: transparent;
+        float: left;
+        margin-right: 0px;
+        position:relative;
+        top:0px;
+        left:0px;
+      }
+
+      .transition-text{
+        top: 20%;
+        left: 35%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        position: absolute;
+        font-family: 'Roboto Slab', serif;
+        font-weight: 300;
+        font-style: normal;
+        font-size: 9px;
+        padding: 1px 1px;
+        margin: 0px 0px 1px 1px;
+      }
+
+      .transition-text25{
+        font-family: 'Roboto Slab', serif;
+        font-weight: 500;
+        font-style: normal;
+        font-size: 9px;
+        padding: 1px 1px;
+        margin: 0px 0px 1px 1px;
+        color: #99300A;
+        top: 55%;
+        left: 13%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        position: absolute;
+      }
+
+      .transition-text10{
+        font-family: 'Roboto Slab', serif;
+        font-weight: 500;
+        font-style: normal;
+        font-size: 9px;
+        padding: 1px 1px;
+        margin: 0px 0px 1px 1px;
+        color:#0E3354;
+        top: 55%;
+        left: 40%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        position: absolute;
+      }
+
+
+      </style>
+    </head>
+    <body>
+    <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+    <script src="transition.js"></script>
+    </body>
+
+</html>

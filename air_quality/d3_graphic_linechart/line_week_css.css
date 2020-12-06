@@ -1,0 +1,30 @@
+/* #line_chart_week{
+                  background: #dadad1;
+} */
+
+.pollutant-names{
+  font-family: 'Roboto Slab', serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 10;
+}
+.upper-limit-text{
+  font-family: 'Roboto Slab', serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 10;
+}
+
+.axis-x-axis{
+  fill: none;
+  stroke: none;
+  stroke-opacity: .5;
+  shape-rendering: crispEdges;
+}
+
+.axis-y-axis{
+  fill: none;
+  stroke: none;
+  stroke-opacity: .5;
+  shape-rendering: crispEdges;
+}
