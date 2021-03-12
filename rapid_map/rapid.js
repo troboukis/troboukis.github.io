@@ -100,8 +100,6 @@
             }}
           })        
       })
-
-      console.log(fixed)
       
       // MAX VALUES FOR COLORSCALE
       var maxTests = d3.max(fixed, function(d){ return +d.properties.tests_100})
