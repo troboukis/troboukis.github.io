@@ -15,7 +15,7 @@
     "footer footer footer"
   ;
 }
-@media (max-width:800px){
+@media (max-width:500px){
   #root{
     grid-template-columns: 1fr;
     grid-template-rows: 40px 1fr minmax(100px 500px) 30px 10px;
@@ -36,9 +36,6 @@
     background-color: rgb(218, 218, 218, 100%);
     border-radius: 50%;
     display: inline-block;
-    position: fixed;
-    left: 5.5vh;
-    padding:3px 3px 3px 3px;
     -webkit-animation: up-right 2s infinite;
     -moz-animation: up-right 2s infinite;
     -o-animation: up-right 2s infinite;
@@ -59,9 +56,6 @@
     }
 }
 .material-icons{
-  display: inline-block;
-  position: fixed;
-  right: 5.5vh;
   cursor: pointer;
 }
 
@@ -79,7 +73,7 @@
   color: #dadada;
   text-align: center;
   grid-area: header;
-}@media (max-width:800px){
+}@media (max-width:500px){
   .header{
     border-bottom: 1px dotted rgb(218, 218, 218, 20%);
     border-top: 1px dotted rgb(218, 218, 218, 0%);
@@ -93,15 +87,15 @@
   }
   .material-icons{
     display: inline-block;
-    position: fixed;
+    /* position: fixed;
     top:9vh;
-    right:2.5vh;
+    right:2.5vh; */
   }
   .blinking-dot{
     display: inline-block;
-    position: fixed;
+    /* position: fixed;
     top:9vh;
-    left:2.5vh;
+    left:2.5vh; */
   }
 }
 
@@ -125,7 +119,7 @@
   padding-right: 1vh;
   padding-left: 1vh;
   background-color: rgb(43,45,47, 53%); 
-}@media (max-width:800px){
+}@media (max-width:500px){
   #description{
     border-left: 1px dotted rgb(218, 218, 218, 0%);
     text-align: center;
