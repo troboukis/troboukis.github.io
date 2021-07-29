@@ -1,5 +1,4 @@
 #root{
-  min-width: 350px;
   display: grid;
   padding: 20px;
   grid-gap: 10px;
