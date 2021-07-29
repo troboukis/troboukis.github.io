@@ -8,7 +8,7 @@
       gtag('config', 'UA-129030467-1');</script>
   <!-- Google Analytics code -->
   <meta charset="utf-8">
-  <link rel="stylesheet" href="index.css?ver=0.0">
+  <link rel="stylesheet" href="index.css?ver=1.0">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
@@ -19,26 +19,23 @@
     <div id="root">
       <header class='header'>
         <span class="blinking-dot"></span>
-        <text class='msg'>Hover over a country to see our network | Click to read who they are</text>
+        <text class='msg'></text>
         <i class="material-icons" onClick="window.location.reload();">refresh</i>
       </header>
       
       <main id="map"></main>
-      <article id="description">
+      <article class="description">
         <article class = "home-view">
-          <main-title class = "item-title">Our Network<br></main-title>
-          <main-subtitle class='subtitle'>
-            Consists of <span class="orgNum"></span> organizations<br>
-            in <span class="regions"></span> regions.
-          </main-subtitle>
+          <main-title class = "item-title"></main-title>
+          <main-subtitle class='subtitle'></main-subtitle>
           </article>
-        <article class = "org-view">
+        <!-- <article class = "org-view">
           <img class = "org-image" src="">
           <org-title class = "org-title"></org-title>
           <org-subtitle class = "org-sub"></org-subtitle>
-        </article>
+        </article> -->
       </article>
-      <footer class='footer'>footer</footer>
+      <footer class='footer'></footer>
       <div class="loader"></div>
       <div class="loader-loading">Loading...</div>
     </div>
@@ -47,7 +44,7 @@
     <script src="https://d3js.org/d3-random.v1.min.js"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script>
     <script src='https://npmcdn.com/@turf/turf@5.0.4/turf.min.js'></script>
-    <script src="index.js?ver=0.0">
+    <script src="index.js?ver=1.0">
     </script>
   </body>
 

@@ -1,4 +1,4 @@
-function disastersMap(){
+function iMEdDMap(){
   // set margins
   function setWidth() {
     width = document.getElementById("root").clientWidth
@@ -15,8 +15,6 @@ function disastersMap(){
     return "translate(" + x + " " + y + ")"
   }
 
-  // setting divs & svg
-  
   var projection = d3.geoMercator() // set projection to see the whole map
       .scale(width / (1.9 * Math.PI))
       .translate([width / 2, height/2])
@@ -30,11 +28,53 @@ function disastersMap(){
   Promise.all([
     d3.json("custom.geo.json"),
     d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vS708XXymN9Bx2DqK0d5R2w1ANNKTBYN3nQG-TrfSMYuwL8QXMr9wjPUloxe-d9k2VWlGHYS5xvytHJ/pub?gid=0&single=true&output=csv"),
+    d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vS708XXymN9Bx2DqK0d5R2w1ANNKTBYN3nQG-TrfSMYuwL8QXMr9wjPUloxe-d9k2VWlGHYS5xvytHJ/pub?gid=487858598&single=true&output=csv")
     ]).then(ready)
 
   function ready(data){
     var partners = data[1],
+        text = data[2][0]
         mapJson = data[0]['features']
+
+    // Home Page Title and Subtitle
+    function homePageText(display='Visible'){
+      if (display === 'Visible'){
+        orgNumber = new Set(partners.map(d=>d.institution)).size
+        regNumber = new Set(partners.map(d=>d.region)).size
+        const title = text['home-page-title'],
+              subTitle = text['home-page-sub']
+                .replace("*", orgNumber)
+                .replace("**", regNumber)
+        
+        d3.select(".item-title").text(title)
+        d3.select(".subtitle").text(subTitle)
+      }
+    }
+
+    // Header diplay
+    function headerText(display='Visible'){
+      if (display==='Visible'){
+        var header = new Array([text['header-text1'], text['header-text2']])[0]
+        var headerText = d3.select(".msg")
+          .data(header)
+        function repeat(){
+            headerText
+            .text(header[0])
+            .style('opacity',1)
+            .transition()
+            .delay(4000)
+            .duration(200)
+            .ease(d3.easeLinear)
+            .text(header[1])
+            .transition()
+            .delay(4000)
+            .duration(200)
+            .on("end", repeat)         
+          }
+          repeat()
+
+      }
+    }headerText(display='Visible')
     
     d3.select(".svg-map").remove()
     var svg = d3.select("#map")
@@ -42,9 +82,6 @@ function disastersMap(){
       .attr("class", "svg-map")
       .attr("viewBox", "0 0 " + width + " " + height )
       .attr("preserveAspectRatio", "xMidYMid")
-      // .attr("width", width-(margin.left+margin.right))
-      // .attr("height", height-(margin.top+margin.bottom))
-      // .attr("transform", makeTranslate(0,0))
     var g = svg.append("g");
     
     
@@ -68,6 +105,7 @@ function disastersMap(){
       .on("mouseout", function(event, d){
         return d3.select(".msg").text("Mouse over a country to see our network | Click to read who they are")
       })
+      .on("start", homePageText(display='Visible'))
     
     var zoom = d3.zoom()
       .scaleExtent([1, 14])
@@ -85,10 +123,7 @@ function disastersMap(){
     });
     svg.call(zoom);
     
-    function firstView(display="False"){
-      if (display==="True"){
-        d3.select(".org-image")
-            
+    function mapView(){    
         var staticPoints = g.selectAll("points")
             .data(partners)
             .enter().append("circle")
@@ -133,21 +168,8 @@ function disastersMap(){
                       
           }
           repeat()
-        
-        d3.select(".main-title").style('opacity', 1)
-        d3.select("#home").style("opacity", 1)
-        orgNumber = new Set(partners.map(d=>d.institution)).size
-        regNumber = new Set(partners.map(d=>d.region)).size
-        d3.select(".orgNum").text(orgNumber)
-        d3.select(".regions").text(regNumber)
-      } else {
-        d3.select(".home-view").style("opacity", 0)
-        d3.select(".org-title").style("opacity", 0)
-        d3.select(".org-sub").style("opacity", 0)
-        d3.select(".org-image").style("opacity", 0)
-      }
     }
-    firstView(display="True")
+    mapView()
 
     function onClick(){
       d3.selectAll("#map-path")
@@ -173,41 +195,14 @@ function disastersMap(){
 
         })
     }onClick()
-    // function onClick(){
-    //   d3.selectAll(".blinking-points")
-    //     .on("click", function(event, d) {
-    //       d3.select(".home-view")
-    //         .transition()
-    //         .duration(200)
-    //         .ease(d3.easeLinear)
-    //         .style('opacity',0)
-    //         .remove()
-    //       d3.select(".org-title")
-    //         .text(d.institution)
-    //         .style('opacity',1)
-    //       d3.select(".org-sub")
-    //         .text(d.inst_description)
-    //       d3.select(".org-image")
-    //         .attr("src", d.img_link)
-    //     })
-    //   .on("click", function(event, d) {
-    //       d3.select(".org-image")
-    //         .style('opacity',0)
-    //   })
-    // }
-    // onClick()
-  
-  
-  // add <article> and text
 
   
   d3.select(".loader").remove()
   d3.select(".loader-loading").remove()
   }
-  
 }
-disastersMap()
-window.addEventListener("resize", disastersMap);
+iMEdDMap()
+window.addEventListener("resize", iMEdDMap);
 
 // .on("mouseover", function(event, d) {
 //           // console.log(d.properties.admin)

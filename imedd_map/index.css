@@ -1,10 +1,11 @@
 #root{
+  min-width: 350px;
   display: grid;
   padding: 20px;
   grid-gap: 10px;
   background-color: #2b2d2f;
   height: fit-content;
-  grid-template-columns: 1fr 1fr 200px; 
+  grid-template-columns: 100px 1fr 250px; 
   grid-template-rows: 
   30px  
   minmax(1fr) 
@@ -15,31 +16,36 @@
     "footer footer footer"
   ;
 }
-@media (max-width:500px){
+@media (max-width:800px){
   #root{
-    grid-template-columns: 1fr;
+    grid-template-columns: 100px 1fr 300px;
     grid-template-rows: 40px 1fr minmax(100px 500px) 30px 10px;
     grid-template-areas: 
-     "header"
-      "map"
-      'text'
-      "footer";
+     "header header header"
+      "map map map"
+      'text text text'
+      "footer footer footer";
   }
 }
 .msg{
   /* display: inline-block; */
   text-align: center;
+  display: grid;
+  grid-area: msg-text;
+  align-self: center;
 }
 .blinking-dot {
-    height: 1.5vh;
-    width: 1.5vh;
+    height: 15px;
+    width: 15px;
+    align-self: center;
     background-color: rgb(218, 218, 218, 100%);
     border-radius: 50%;
-    display: inline-block;
+    display: grid;
     -webkit-animation: up-right 2s infinite;
     -moz-animation: up-right 2s infinite;
     -o-animation: up-right 2s infinite;
     animation: up-right 2s infinite;
+    grid-area: blinking-dot;
   }
 @keyframes up-right {
     0% {
@@ -57,6 +63,9 @@
 }
 .material-icons{
   cursor: pointer;
+  display: grid;
+  grid-area: refresh;
+  align-self: center;
 }
 
 .header{
@@ -73,7 +82,13 @@
   color: #dadada;
   text-align: center;
   grid-area: header;
-}@media (max-width:500px){
+  display:grid;
+  grid-template-columns: 50px 1fr 50px; 
+  grid-template-rows: 30px ; 
+  grid-template-areas: 
+    "blinking-dot msg-text refresh";
+
+}@media (max-width:800px){
   .header{
     border-bottom: 1px dotted rgb(218, 218, 218, 20%);
     border-top: 1px dotted rgb(218, 218, 218, 0%);
@@ -81,21 +96,8 @@
     border-bottom-right-radius: 00px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
-    display: block;
     text-align: center;
     font-size: 1.8vh;
-  }
-  .material-icons{
-    display: inline-block;
-    /* position: fixed;
-    top:9vh;
-    right:2.5vh; */
-  }
-  .blinking-dot{
-    display: inline-block;
-    /* position: fixed;
-    top:9vh;
-    left:2.5vh; */
   }
 }
 
@@ -109,18 +111,16 @@
   grid-template-columns: 200px 1fr;
   grid-area: footer;
 }
-#description{
-  align-content: center;
-  display: grid;
+.description{
+  display: inline-block;
   grid-area: text;
   text-align: right;
+  align-self: center;
   border-left: 1px dotted rgb(218, 218, 218, 20%);
   color: #dadada;
-  padding-right: 1vh;
-  padding-left: 1vh;
-  background-color: rgb(43,45,47, 53%); 
-}@media (max-width:500px){
-  #description{
+  /* background-color: rgb(43,45,47, 53%);  */
+}@media (max-width:800px){
+  .description{
     border-left: 1px dotted rgb(218, 218, 218, 0%);
     text-align: center;
     display: inline-block;
@@ -129,44 +129,43 @@
 
 .item-title{
   font-family:Georgia, Times, "Times New Roman", serif;;
-  font-size: 5vh;
+  font-size: 55px;
   font-weight: 100;  
   line-height: 1;
 }
 
 .subtitle{
   font-family:Georgia, Times, "Times New Roman", serif;;
-  font-size: 2.5vh;
+  font-size: 30px;
   font-weight: 100;
   text-align: right;
   line-height: 1.1;
 }
 
-.org-view{
-  align-content: center;
-  display: grid;
-  grid-area: text;
-  text-align: right;
-  color: #dadada;
-  padding-right: 1vh;
-  padding-left: 1vh;
-  background-color: rgb(43,45,47, 53%);
-  
-}
-.org-image{
+/* .org-view{ */
+  /* align-content: center; */
+  /* display: grid; */
+  /* grid-area: text; */
+  /* text-align: right; */
+  /* color: #dadada; */
+  /* padding-right: 1vh;
+  padding-left: 1vh; */
+  /* background-color: rgb(43,45,47, 53%); */
+/* } */
+/* .org-image{
   width: 160px;
   height: auto;
   margin-left: auto;
   margin-right: 0;
   padding-bottom: 20px;
-}
-.org-title{
+} */
+/* .org-title{
   font-family:Georgia, Times, "Times New Roman", serif;;
   font-size: 3vh;
   font-weight: 100;  
   line-height: 1;
-  padding-bottom: 20px;
-}
+  padding-bottom: 20px; */
+/* } */
 .org-sub{
   font-family:Georgia, Times, "Times New Roman", serif;;
   font-size: 1.5vh;
@@ -207,13 +206,12 @@
   font-family: Georgia, Times, "Times New Roman", serif;;
   font-weight: 300;
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-hr{
+/* hr{
   width: fit-content;
-}
+} */
 
