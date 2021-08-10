@@ -1,0 +1,17 @@
+svg .tick > text {
+  font-size: 10;
+  
+}
+
+
+.y_axis path {
+  display:none;
+}
+
+.y_axis line {
+  display:none;
+}
+
+/* .x_axis path {
+  display:none;
+} */

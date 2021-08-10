@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+{{> page_header }}
+
+<html lang="en" >
+  
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Major League Baseball&#39;s Parity Problem</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+  <h1>
+      Major League Baseball's Parity Problem
+      </h1>
+  
+      <h5>
+      by Chris Gilligan • August 9, 2021 
+      </h5>
+  
+      <p>
+          A few years ago, before trash can sign-stealing, sticky stuff, and pandemic-shortened seasons, one of Major League Baseball’s hottest topics was the threat of 
+          <a href="https://mlb.nbcsports.com/2019/12/30/top-25-baseball-stories-of-the-decade-no-5-tanking-epidemic/"> tanking </a>
+          — that teams may be incentivized to endure seasons of well-below-average performance in order to secure high draft picks, and that, in turn, their fans would be subject to these periods of less-than-competitive baseball.
+      </p>
+  
+      <p>
+          Of course, the more some teams are losing, the more others are 
+          <a href="https://www.sbnation.com/mlb/2019/10/1/20881219/mlb-100-wins-season-record"> winning</a>. 
+          From 2017-19, 10 teams reached 100 wins, after just five had reached that mark in the previous 11 seasons. Seven teams lost 100 or more games in just the last two full seasons.
+      </p>
+  
+      <p>
+          So how pronounced is the disparity? To illustrate the spread, I took a look at the daily standings for each year since the 1994 strike, visualizing the standard deviation in team wins as teams became more disparate throughout the seasons. I found that the 2019 season ended with the highest disparity among team win totals that the league has seen since the 1994 strike (16.6 wins), over 14% higher than the next-highest season-ending deviation value in that time (14.5 in 2002).
+      </p>
+
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300&family=Poppins:wght@100&display=swap" rel="stylesheet">
+
+
+<div id="chart"></div>
+<div id="legend"></div>
+  
+</head>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/7.0.0/d3.min.js'></script><script  src="./script.js"></script>
+
+  <p>
+    <br>
+    <br>
+     What does this type of disparity actually look like in the standings? In 2019, the average non-first place team finished a staggering 24.8 games out of first place, up dramatically from 15.0 just four years prior in 2015. At the July 31st trade deadline in 2019, just two of baseball’s six divisions were led by any less than 6.5 games. By comparison, at the 2014 deadline, baseball’s largest division lead was 4.0 games.
+</p>
+
+<p>
+    2019’ss standard deviation in team wins (16.6) and winning percentages (.102) each continued four-year trends of increasing disparity, bringing the league to alarming levels of spread before the shortened 2020 season. At the 2021 All-Star Break, the season's wins deviation value was 8.1, putting the league on pace for another year of haves and have-nots.
+    <br>
+  </p>
+
+
+
+</body>
+</html>
+
+{{> page_footer }}
+
