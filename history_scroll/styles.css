@@ -1,0 +1,43 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.scroll-container {
+    font-family: Arial, sans-serif;
+}
+
+/* Additional styling as needed */
+.scroll-img {
+    position: fixed; /* Fixed position */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    object-fit: cover; /* Cover the area without distorting the aspect ratio */
+    z-index: -1; /* Ensure it stays behind the content */
+    transition: opacity .5s ease; /* Smooth transition for the fade effect */
+    opacity: 0; /* Start with the image invisible */
+    transform: translate3d(0,0,0); /* Force GPU acceleration */
+
+}
+
+
+.scroll-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Keep each section the height of the viewport */
+}
+
+.content-box {
+    background-color: rgba(255, 255, 255, 0.75); /* 20% transparent white */
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 80%; /* Adjust as needed */
+    margin: auto; /* Centers the box horizontally */
+}
+
+
+/* Add additional styling as needed */
