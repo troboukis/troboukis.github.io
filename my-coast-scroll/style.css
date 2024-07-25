@@ -4,7 +4,7 @@
     height: 100vh;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     #main-container {
         min-width: 100%;
     }
@@ -48,19 +48,6 @@ figure img, figure svg {
     transition: opacity 0.5s;
 }
 
-figure p {
-    text-align: center;
-    padding: 1rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -moz-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    font-size: 8rem;
-    font-weight: 900;
-    color: #fff;
-}
 
 .step {
     margin: 0 auto 2rem auto;
@@ -68,7 +55,7 @@ figure p {
     background-color: rgba(0, 0, 0, 0);
 }
 .step:first-of-type {
-    margin-top: 50vh; /* Adjust this value as needed */
+    margin-top: 100vh; /* Adjust this value as needed */
 }
 
 .step:last-child {
