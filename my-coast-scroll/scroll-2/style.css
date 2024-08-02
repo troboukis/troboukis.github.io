@@ -119,6 +119,16 @@ p{
     animation: bounce 2s infinite;
 }
 
+.scroll-text {
+    display: block;
+    font-size: 1.5rem; /* Adjust size as needed */
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    text-align: center;
+    color: #dadada;
+}
+
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
         transform: translateY(0);
