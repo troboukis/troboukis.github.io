@@ -55,7 +55,7 @@ figure img, figure svg {
     background-color: rgba(0, 0, 0, 0);
 }
 .step:first-of-type {
-    margin-top: 100vh; /* Adjust this value as needed */
+    margin-top: 0; /* Adjust this value as needed */
 }
 
 .step:last-child {
@@ -99,4 +99,25 @@ p{
 .over-text {
     color: #d7191c; 
     font-weight: bold;
+}
+.scroll-icon {
+    position: absolute;
+    bottom: 20px; /* Adjust based on your design */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: rgb(240, 6, 6); /* Adjust based on your design */
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
 }
