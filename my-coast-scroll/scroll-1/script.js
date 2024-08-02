@@ -44,14 +44,14 @@ function handleStepEnter(response) {
 function init() {
     // 1. force a resize on load to ensure proper dimensions are sent to scrollama
     handleResize();
-
+    window.scrollTo(0, 0);
     // 2. setup the scroller passing options
     // this will also initialize trigger observations
     // 3. bind scrollama event handlers (this can be chained like below)
     scroller
         .setup({
             step: "#scrolly article .step",
-            offset: 0.75,
+            offset: 0.33,
             debug: false
         })
         .onStepEnter(handleStepEnter);
