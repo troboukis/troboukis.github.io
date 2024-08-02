@@ -102,7 +102,7 @@ p{
 }
 .scroll-icon {
     position: absolute;
-    bottom: 20px; /* Adjust based on your design */
+    top: 50px; /* Adjust based on your design */
     left: 50%;
     transform: translateX(-50%);
     font-size: 2rem;
