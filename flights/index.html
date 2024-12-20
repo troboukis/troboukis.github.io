@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Path Animation</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    .plane {
+      fill: red;
+      stroke: black;
+      stroke-width: 1px;
+    }
+    /* Ensure the heading is visible by positioning it above other elements */
+    h1 {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 9999;
+      font: 1em sans-serif;
+      /* background: white; */
+      margin: 0;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Flight Path Antonov UR-CIC MEM5001 Paris - Heraklion - Nowhere</h1>
+  <!-- Map container -->
+  <div id="map" style="width:800px; height:600px; position:absolute; top:0; left:0;"></div>
+
+  <!-- SVG on top of the map -->
+  <svg width="800" height="600" style="border: 1px solid black; position:absolute; top:0; left:0;"></svg>
+
+  <!-- Include Mapbox GL JS -->
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
+
+  <script>
+    const width = 800;
+    const height = 600;
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoidHJpbGlraXMiLCJhIjoiY2xiNm9mNThtMDJ6bTNxbnFzenE1MzRjdyJ9.6Pl2-MNJKgmQQwtu7dnKVA';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/trilikis/cm4wwnxq6004z01qofwg5hv08',
+      center: [21.8243, 39.0742],
+      zoom: 3.67
+    });
+
+    const svg = d3.select("svg");
+
+    map.on('load', () => {
+      d3.csv("test_flight.csv", d3.autoType).then(flightData => {
+        // Project lat/long to pixel coordinates
+        const projectedData = flightData.map(d => {
+          const p = map.project([d.long, d.lat]);
+          return {...d, x: p.x, y: p.y};
+        });
+
+        // Define line generator using projected coordinates
+        const lineGenerator = d3.line()
+          .x(d => d.x)
+          .y(d => d.y);
+
+        svg.append("path")
+          .datum(projectedData)
+          .attr("d", lineGenerator)
+          .attr("fill", "none")
+          .attr("stroke", "gray")
+          .attr("stroke-width", 2);
+
+        // Add the plane
+        const plane = svg.append("circle")
+          .attr("class", "plane")
+          .attr("r", 5)
+          .attr("cx", projectedData[0].x)
+          .attr("cy", projectedData[0].y);
+
+        let i = 0;
+        function animatePlane() {
+          if (i < projectedData.length - 1) {
+            const timeDiff = flightData[i + 1].Timestamp - flightData[i].Timestamp;
+            plane.transition()
+              .duration(timeDiff)
+              .attr("cx", projectedData[i + 1].x)
+              .attr("cy", projectedData[i + 1].y)
+              .on("end", () => {
+                i++;
+                animatePlane();
+              });
+          } else {
+            i = 0;
+            plane
+              .attr("cx", projectedData[0].x)
+              .attr("cy", projectedData[0].y);
+            animatePlane();
+          }
+        }
+
+        animatePlane();
+      }).catch(error => {
+        console.error("Error loading the CSV file:", error);
+      });
+    });
+  </script>
+</body>
+</html>
