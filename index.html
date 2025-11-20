@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanasis Troboukis | Journalist </title>
+    <style>
+        /* --- NY Times Inspired Styling --- */
+        body {
+            /* Using standard serif fonts found on most systems */
+            font-family: Georgia, 'Times New Roman', Times, serif; 
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* White background */
+            color: #121212; /* Very dark gray for body text */
+            line-height: 1.5;
+            font-size: 18px; /* Slightly larger body font for better reading */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 20px;
+            /* Thin line separator */
+            border-bottom: 1px solid #ddd; 
+        }
+
+        header h1 {
+            font-family: 'Times New Roman', Times, serif; /* Traditional serif for main title */
+            font-size: 3em; 
+            font-weight: 700;
+            letter-spacing: -1px; /* Tighter letter spacing for the masthead feel */
+            margin-bottom: 5px;
+            color: #121212;
+        }
+
+        header p {
+            font-family: Arial, sans-serif; /* Subhead often uses sans-serif for contrast */
+            color: #555;
+            font-size: 1.1em;
+            margin-top: 0;
+        }
+
+        section {
+            padding: 30px 0;
+            border-bottom: 1px solid #eee; /* Light separator between sections */
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        section h2 {
+            font-family: Arial, sans-serif; /* Sans-serif for section headers */
+            font-size: 1.4em;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #000000;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            border-bottom: 3px solid #000; /* Bold black line under the section header */
+        }
+
+        .item {
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+        }
+
+        .item h3 {
+            font-family: Georgia, serif; /* Serif for article/project titles */
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+            line-height: 1.2;
+        }
+
+        .item a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+
+        .item a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .item p {
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        /* Contact links are often simple and centered */
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>Thanasis Troboukis</h1>
+            <p>Journalist</p>
+        </header>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I have served as a reporter and editor-in-chief for some of the largest media organizations in Greece, with experience across <strong>broadcast news</strong>, <strong>investigative reporting</strong>, <strong>documentary production</strong>, and <strong>data journalism</strong>. I was the <strong>Content Director for VICE Media in Greece</strong>, and for the last six years, I worked with a non-profit journalism organization <strong>iMEdD</strong>, where my roles included organizing the annual <strong>International Journalism Forum in Athens</strong>.</p>
+        </section>
+
+        <section id="academic_focus">
+            <h2>Current Academic Focus</h2>
+            <div class="item">
+                <p>I am currently a <strong>3rd-year Computer Science student</strong> at the <strong>Hellenic Open University</strong>, focused on <strong>algorithms, AI, and software development</strong>. I primarily write code in <strong>Python</strong> 🐍 and I am actively expanding my proficiency in <strong>C</strong> 🇨 and <strong>Java</strong> ☕.</p>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Technical & Leadership Projects</h2>
+
+            <div class="item">
+                <h3>Managing Editor - ONE Channel (Alter Ego Media)</h3>
+                <p>Hired in 2018 as a key member of the team mandated to create the <strong>ONE Channel</strong> news network from scratch. My responsibilities included designing operational workflows, developing components of the programming schedule, and active participation in the strategic planning required for every functional and technical need of the new channel.</p>
+                <p>Company: <strong>Alter Ego Media</strong> | Year: 2018 - 2019</p>
+            </div>
+            
+            <div class="item">
+                <h3><a href="https://lab.imedd.org/covid19/?lang=en" target="_blank">COVID-19 Tracker Web Application</a></h3>
+                <p>Part of the team that created a web application that tracked the virus spread in Greece, providing daily updates and informing hundreds of thousands of people.</p>
+            </div>
+
+            <div class="item">
+                <h3><a href="https://crowd-counter.lab.imedd.org/" target="_blank">Crowd Counter Tool</a></h3>
+                <p>As a <strong>Project Manager</strong>, I worked with the Athens-based Cooperative <a href="https://sociality.gr/" target="_blank">Sociality</a> to develop a crowd counter tool. This tool helps journalists and the public estimate the attendance of events like protests or rallies, addressing a frequent point of public debate.</p>
+            </div>
+        </section>
+
+
+        <section id="journalism_portfolio">
+            <h2>Investigative Portfolio</h2>
+
+            <div class="item">
+                <h3><a href="https://www.reportersunited.gr/5937/notheia-sti-dimosia-diavoyleysi/?fbclid=IwY2xjawOMRrVleHRuA2FlbQIxMABicmlkETFlRFRNR2p2eEh0dUhQcUttc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHpjAxxJ-XSozuij9wu8yIAEDDLoUVcoITrzbn97ihAfDvhcz5ZJgIYVZ_fJL_aem_nk7nB5TyUlSzA5oVsWwzJg" target="_blank">INVESTIGATION: Corruption in Public Consultation on Joint Custody Law</a></h3>
+                <p>A joint investigation with <a href="https://themanifoldfiles.org/gr/" target="_blank">The Manifold</a>. Utilizing <strong>machine learning</strong> and data analysis, we revealed that the public consultation for the contentious Greek joint custody law was compromised, as over <strong>63%</strong> (more than 7,000) of the supporting comments were mass-copied duplicates. This debunked the government's claims of record public consensus.</p>
+                <p>Published: <strong>Reporters United</strong> | Date: 07/2021</p>
+            </div>
+
+            <div class="item">
+                <h3><a href="https://www.europeandatajournalism.eu/cp_data_news/femicides-the-undeclared-war-on-women-in-europe/" target="_blank">INVESTIGATION: Femicides—The Undeclared War on Women in Europe</a></h3>
+                <p>I was the <strong>Data Editor</strong> of a major cross-border data investigation conducted with 18 newsrooms across Europe, exposing the staggering shortage of up-to-date, comparable data on femicides and violence against women in the EU.</p>
+                <p>As part of the iMEdD - MIIR - EDJNet team, we created a new database (2010–2021) to generate the most current map of gender-based violence, highlighting the intensification of this crisis during the pandemic.</p>
+                <p>Published: <strong>European Data Journalism Network (EDJNet) - EFSYN</strong> | Date: 02/2023</p>
+            </div>
+
+            <div class="item">
+                <h3><a href="https://www.youtube.com/watch?v=mSkhbkTYuIM" target="_blank">DOCUMENTARY: Paola Meets Dimitr@</a></h3>
+                <p><strong>Executive Producer.</strong> A powerful documentary (VICE Specials) presented by the iconic activist Paola Revenioti. The film chronicles the life of Dimitra in Skala Sykaminia, Lesvos, who lived as a trans person in a closed society, often feeling like a "refugee" in a village that was a symbol of the European migrant crisis.</p>
+                <p>Dimitra's story resonated deeply with public opinion following her tragic death in 2021.</p>
+                <p>Production: <strong>VICE Greece</strong> | Year: 2017</p>
+            </div>
+
+            <div class="item">
+                <h3><a href="https://www.youtube.com/watch?v=BMnOrRf0Wug" target="_blank">DOCUMENTARY: Children for sale</a></h3>
+                <p><strong>Presenter and Producer.</strong> An extensive investigation into a vast underground network of traffickers exploiting poor mothers in Bulgaria by convincing them to sell their infants to wealthy Greek couples.</p>
+                <p>Along with my colleague Kostas Koukoumakas, we took a deep dive, covering the case from the courts and slums in Bulgaria to the NGOs fighting to end the practice, highlighting the enormous toll paid by both mothers and children. <strong>This investigation was shortlisted for the Investigative Award of the European Press Prize 2017.</strong></p>
+                <p>Production: <strong>VICE Greece</strong> | Year: 2017</p>
+            </div>
+            <li>
+<div class="item">
+    <h3><a href="https://www.news247.gr/tag/paradise-papers/" target="_blank">INVESTIGATION: Paradise Papers (ICIJ - Ethnos Newspaper)</a></h3>
+    <p>Participated in the cross-border investigation led by the International Consortium of Investigative Journalists (ICIJ). Lead investigator was Harry Karanikas, renowned Greek investigative reporter. </p>
+    <p>Published: <strong>Ethnos Newspaper</strong> | Year: 2017</p>
+</div>
+            
+            <div class="item">
+                <h3>Awards and Fellowships</h3>
+                <ul>
+                    <li><strong>European Press Prize - Investigative Award (2017):</strong> Shortlisted along with my colleague Kostas Koukoumakas, for our in-depth investigation into child trafficking between Greece and Bulgaria.</li>
+                    <li><strong>Data Journalism Fellowship:</strong> Received a full scholarship from the Stavros Niarchos Foundation to train in Data Journalism through the LEDE program at <strong>Columbia Journalism School</strong> in New York.</li>
+                </ul>
+            </div>
+            
+        </section>
+
+
+        <section id="contact">
+            <h2>Connect</h2>
+            <ul class="contact-list">
+                <li><a href="mailto:troboukis@gmail.com">Email</a></li>
+                <li><a href="https://github.com/troboukis" target="_blank">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/thanasis-troboukis-9a33b031/" target="_blank">LinkedIn</a></li>
+            </ul>
+        </section>
+
+    </div>
+
+</body>
+</html>
