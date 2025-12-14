@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Air quality in Athens</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <main class="viz">
+    <section class="layout">
+      <div class="copy">
+        <h2 class="title">The air quality an Athenian breathed in 2020 (city center)</h2>
+        <p class="text">
+          Each <span class="dot" aria-hidden="true"></span> represents one hour (60’), from Jan 14 to Dec 2, 2020 (6,901 hours).
+          In PM modes, hours split into two groups using a WHO-inspired threshold (AQI-style):
+          “acceptable” vs “elevated”. Color still follows a green–orange–red scale.
+        </p>
+        <div class="controls" role="group" aria-label="Filters">
+      <button id="combined" type="button">All hourly measurements</button>
+      <button id="dangerous2_5" type="button">Higher PM 2.5</button>
+      <button id="dangerous10" type="button">Higher PM 10</button>
+    </div>
+
+        <div class="legend">
+          <div class="legend-row">
+            <span class="dot legend-dot"></span>
+            <span class="legend-label">1-hour average</span>
+          </div>
+          <div class="legend-scale">
+            <span class="swatch green"></span>
+            <span class="swatch orange"></span>
+            <span class="swatch red"></span>
+          </div>
+          <div class="legend-caption">Normal – Moderate – Elevated particles</div>
+        </div>
+      </div>
+
+      <div id="air_graph" class="chart" aria-label="Air quality swarm chart"></div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
