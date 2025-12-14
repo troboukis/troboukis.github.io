@@ -4,108 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanasis Troboukis | Journalist </title>
-    <style>
-        /* --- NY Times Inspired Styling --- */
-        body {
-            /* Using standard serif fonts found on most systems */
-            font-family: Georgia, 'Times New Roman', Times, serif; 
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff; /* White background */
-            color: #121212; /* Very dark gray for body text */
-            line-height: 1.5;
-            font-size: 18px; /* Slightly larger body font for better reading */
-        }
+    <link rel="stylesheet" href="style.css" type="text/css" media="all">
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+    <script src="./earth.js"></script>
 
-        header {
-            text-align: center;
-            padding: 30px 0;
-            margin-bottom: 20px;
-            /* Thin line separator */
-            border-bottom: 1px solid #ddd; 
-        }
-
-        header h1 {
-            font-family: 'Times New Roman', Times, serif; /* Traditional serif for main title */
-            font-size: 3em; 
-            font-weight: 700;
-            letter-spacing: -1px; /* Tighter letter spacing for the masthead feel */
-            margin-bottom: 5px;
-            color: #121212;
-        }
-
-        header p {
-            font-family: Arial, sans-serif; /* Subhead often uses sans-serif for contrast */
-            color: #555;
-            font-size: 1.1em;
-            margin-top: 0;
-        }
-
-        section {
-            padding: 30px 0;
-            border-bottom: 1px solid #eee; /* Light separator between sections */
-        }
-
-        section:last-child {
-            border-bottom: none;
-        }
-
-        section h2 {
-            font-family: Arial, sans-serif; /* Sans-serif for section headers */
-            font-size: 1.4em;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #000000;
-            margin-bottom: 20px;
-            padding-bottom: 5px;
-            border-bottom: 3px solid #000; /* Bold black line under the section header */
-        }
-
-        .item {
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-        }
-
-        .item h3 {
-            font-family: Georgia, serif; /* Serif for article/project titles */
-            font-size: 1.5em;
-            font-weight: 600;
-            margin: 0 0 5px 0;
-            line-height: 1.2;
-        }
-
-        .item a {
-            color: #0056b3;
-            text-decoration: none;
-        }
-
-        .item a:hover {
-            color: #000;
-            text-decoration: underline;
-        }
-
-        .item p {
-            font-size: 0.9em;
-            color: #333;
-        }
-
-        /* Contact links are often simple and centered */
-        .contact-list {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            gap: 40px;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-            font-size: 0.9em;
-        }
-    </style>
 </head>
 <body>
 
@@ -114,6 +20,12 @@
         <header>
             <h1>Thanasis Troboukis</h1>
             <p>Journalist</p>
+            <div id="chartdiv" aria-label="Rotating Earth"></div>
+            <div class="legend">
+            <span class="legend-box"></span>
+            <span class="legend-text">Countries I’ve visited</span>
+            </div>
+
         </header>
 
         <section id="about">
