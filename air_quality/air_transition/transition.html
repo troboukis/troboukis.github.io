@@ -1,96 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="el">
+<head>
   <meta charset="utf-8">
+  <title>Ποιότητα αέρα ανά ώρα</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <head>
-    <title>Ποιότητα αέρα ανά ώρα</title>
-    <style>
 
-      body {
-        max-width: 1000px;
-        max-height: 750px;
-        margin: 1px;
-        
-      }
+  <style>
+    html, body{
+  margin: 0;
+  padding: 0;
+  width: 1000px;
+  height: 750px;
+  overflow: hidden;
+}
 
-      div {
-        width: 13px;
-        height: 13px;
-        margin: 0px 0 1px 1px;
-        background: 'white';
-        float: left;
-        margin-right: 0px;
-        position: relative;
-        z-index:1;
-        
-      }
-      .transition-legend{
-        display: inline-block;
-        overflow: hidden;
-        padding: 1px 1px;
-        margin: 0px 0px 1px 1px;
-        opacity:80%;
-        width: 180px;
-        height:30px;
-        background: transparent;
-        float: left;
-        margin-right: 0px;
-        position:relative;
-        top:0px;
-        left:0px;
-      }
+#viz{
+  width: 1000px;
+  height: 750px;
+  position: relative;
+  overflow: hidden;
+}
 
-      .transition-text{
-        top: 20%;
-        left: 35%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        position: absolute;
-        font-family: 'Roboto Slab', serif;
-        font-weight: 300;
-        font-style: normal;
-        font-size: 9px;
-        padding: 1px 1px;
-        margin: 0px 0px 1px 1px;
-      }
+/* grid container */
+.trans-grid{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 
-      .transition-text25{
-        font-family: 'Roboto Slab', serif;
-        font-weight: 500;
-        font-style: normal;
-        font-size: 9px;
-        padding: 1px 1px;
-        margin: 0px 0px 1px 1px;
-        color: #99300A;
-        top: 55%;
-        left: 13%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        position: absolute;
-      }
+/* grid cells */
+.trans-divs{
+  width: 13px;
+  height: 13px;
+  margin: 0 0 1px 1px;
+  float: left;
+  background: white;
+}
 
-      .transition-text10{
-        font-family: 'Roboto Slab', serif;
-        font-weight: 500;
-        font-style: normal;
-        font-size: 9px;
-        padding: 1px 1px;
-        margin: 0px 0px 1px 1px;
-        color:#0E3354;
-        top: 55%;
-        left: 40%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        position: absolute;
-      }
+/* legend */
+.transition-legend{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 30px;
+  opacity: 0.8;
+  z-index: 10;
+}
 
+/* legend text */
+.transition-text,
+.transition-text25,
+.transition-text10{
+  position: absolute;
+  font-family: 'Roboto Slab', serif;
+  font-size: 9px;
+  line-height: 1; /* prevents extra height */
+}
 
-      </style>
-    </head>
-    <body>
-    <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
-    <script src="transition.js"></script>
-    </body>
+.transition-text{
+  top: 20%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
 
+.transition-text25{
+  top: 55%;
+  left: 13%;
+  transform: translate(-50%, -50%);
+  font-weight: 500;
+  color: #99300A;
+}
+
+.transition-text10{
+  top: 55%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  font-weight: 500;
+  color: #0E3354;
+}
+
+  </style>
+</head>
+
+<body>
+  <div id="viz"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+  <script src="transition.js"></script>
+</body>
 </html>

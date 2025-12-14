@@ -130,3 +130,136 @@
         background: #ff0000;
         border: 1px solid #000;
         }
+
+        .viz-button{
+        display: inline-block;
+        margin: 20px auto 0;
+        padding: 12px 22px;
+
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+
+        color: #fff;
+        background: #000;
+        border: 2px solid #000;
+        text-decoration: none;
+
+        transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .viz-button:hover{
+        background: #ff0000;
+        color: #fff;
+        }
+
+        /* VISUALIZATIONS PAGE */
+        /* Visualizations layout */
+        .viz-list{
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 16px 48px;
+        }
+
+        .viz-item{
+        display: flex;
+        gap: 22px;
+        align-items: flex-start;
+        margin: 26px 0;
+        padding: 18px 0;
+        border-top: 1px solid #e6e6e6;
+        }
+
+        .viz-media{
+        flex: 0 0 70%;
+        min-width: 0;
+        overflow: hidden;
+        }
+
+
+        .viz-meta{
+        flex: 1;
+        min-width: 0;
+        }
+
+        .viz-embed{
+        width: 100%;
+        height: 75vh;
+        min-height: 520px;
+        /* border: 0; */
+        display: block;
+        /* outline: 0; */
+        border-radius: 0;
+        background: transparent;
+        }
+
+
+        .viz-img{
+        width: 100%;
+        height: auto;
+        display: block;
+        /* border: 1px solid #e6e6e6; */
+        border-radius: 10px;
+        background: #fff;
+        }
+
+        .viz-meta h2{
+        margin: 0 0 10px;
+        }
+
+        .viz-links{
+        margin: 10px 0 0;
+        }
+
+        .viz-sep{
+        margin: 0 8px;
+        opacity: 0.6;
+        }
+
+        .viz-tags{
+        margin: 12px 0 0;
+        }
+
+        .tag{
+        display: inline-block;
+        padding: 4px 10px;
+        margin: 0 8px 8px 0;
+        border: 1px solid #e6e6e6;
+        border-radius: 999px;
+        font-size: 12px;
+        }
+
+        /* Responsive: stack on small screens */
+        @media (max-width: 900px){
+        .viz-item{ flex-direction: column; }
+        .viz-media{ flex-basis: auto; }
+        .viz-embed{ height: 360px; }
+        }
+
+        /* Full-width, stacked visualization item */
+        .viz-item--full{
+        display: block;
+        }
+
+        .viz-item--full .viz-media{
+        width: 100%;
+        overflow: hidden;
+        }
+
+        .viz-item--full .viz-embed{
+        width: 100%;
+        height: 85vh;        /* give it room so it won’t scroll */
+        min-height: 700px;   /* tune if needed */
+        border: 1px solid #e6e6e6;
+        border-radius: 10px;
+        display: block;
+        }
+
+        .viz-title{
+        margin: 0 0 12px;
+        }
+
+        .viz-desc{
+        margin: 12px 0 0;
+        max-width: 70ch;     /* optional: keeps text readable */
+        }
