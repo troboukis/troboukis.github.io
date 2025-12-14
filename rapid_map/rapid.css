@@ -1,92 +1,110 @@
-#container {
-    /* display: inline; */
-    /* position: relative; */
-    
-}
-.svg-map {
-    /* font-size: 0; */
-    /* display: inline; */
-    /* position: relative; */
-}
-button {
-    display: inline-block;
-    vertical-align: top;
-    background-color: #E2E9E9; /* Green */
-    color: #495050;
-    padding: 7px 12px;
-    text-align: center;
-    font-size: 12px;
-    font-family: 'Roboto Slab', serif;
-    font-weight: 300;
-    transition-duration: 0.4s;
-    border-radius: 8px;
-    border: 1px solid #8F9797;
-    border-style: solid;
-    border-color: #c5caca;
-    position: -webkit-sticky; /* Safari */
-    position: relative;
-    top: 40px;
-    left:    40px;
-    bottom:   0px;
+html, body{
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-button:focus {
-    background-color: #8F9797;
-    font-weight: 600;
-    color: white;
-    outline:0;
-}
-.greece {
-    fill: #dadada;
+#container{
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-button:hover {
-    transition-duration: 0.1s;
-    background-color: #8F9797;
-    color: white;
-  }
-a {
+/* =====================
+   MAP / SVG
+   ===================== */
+.svg-map svg{
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =====================
+   BUTTONS
+   ===================== */
+button{
+  display: inline-block;
+  vertical-align: top;
+  background-color: #E2E9E9;
+  color: #495050;
+  padding: 7px 12px;
+  text-align: center;
+  font-size: 12px;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 300;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+  border: 1px solid #c5caca;
+
+  position: relative;
+  top: 40px;
+  left: 0;
+  transform: translateX(40px);
+}
+
+button:focus{
+  background-color: #8F9797;
+  font-weight: 600;
+  color: white;
+  outline: 0;
+}
+
+button:hover{
+  transition-duration: 0.1s;
+  background-color: #8F9797;
+  color: white;
+}
+
+/* =====================
+   MAP COLORS
+   ===================== */
+.greece{
+  fill: #dadada;
+}
+
+/* =====================
+   LINKS
+   ===================== */
+a{
   color: black;
 }
 
-div.tooltip {
-        position: fixed;
-        visibility: visible;
-        text-align: left;
-        width: 150px;
-        /* cursor: pointer; */
-        white-space: nowrap;
-        height: 65px;
-        padding: 3px;
-        font: 10px sans-serif;
-        background: #E6ECEC;
-        border: 1px;
-        border: black;
-        /* border-top: 1px dotted black; */
-
-    }
-
-.annotation{
-    /* background: #dadad1; */
-    display: inline;
-    padding: 5px 5px;
-    margin: 10px ;
-    bottom: 0;
-    font-family: 'Roboto Slab', serif;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 10;
-    padding: 12px 12px;
-    position: relative;
+/* =====================
+   TOOLTIP
+   ===================== */
+div.tooltip{
+  position: fixed;
+  visibility: visible;
+  text-align: left;
+  width: 150px;
+  white-space: nowrap;
+  height: 65px;
+  padding: 3px;
+  font: 10px sans-serif;
+  background: #E6ECEC;
+  border: 1px solid black;
 }
+
+/* =====================
+   ANNOTATIONS
+   ===================== */
+.annotation{
+  display: inline;
+  margin: 10px;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 300;
+  font-size: 10px;
+  padding: 12px 12px;
+  position: relative;
+}
+
 .annotation_text{
-    
-    font-family: 'Roboto Slab', serif;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 10px;
-    top: 40px;
-    left:    40px;
-    position: relative;
-    overflow: visible;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 300;
+  font-size: 10px;
+
+  position: relative;
+  top: 40px;
+  left: 0;
+  transform: translateX(40px);
+  overflow: visible;
 }
