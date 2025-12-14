@@ -1,93 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="el">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ποιότητα αέρα ανά ώρα</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    html, body{
-  margin: 0;
-  padding: 0;
-  width: 1000px;
-  height: 750px;
-  overflow: hidden;
-}
-
-#viz{
-  width: 1000px;
-  height: 750px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* grid container */
-.trans-grid{
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-/* grid cells */
-.trans-divs{
-  width: 13px;
-  height: 13px;
-  margin: 0 0 1px 1px;
-  float: left;
-  background: white;
-}
-
-/* legend */
-.transition-legend{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 180px;
-  height: 30px;
-  opacity: 0.8;
-  z-index: 10;
-}
-
-/* legend text */
-.transition-text,
-.transition-text25,
-.transition-text10{
-  position: absolute;
-  font-family: 'Roboto Slab', serif;
-  font-size: 9px;
-  line-height: 1; /* prevents extra height */
-}
-
-.transition-text{
-  top: 20%;
-  left: 35%;
-  transform: translate(-50%, -50%);
-}
-
-.transition-text25{
-  top: 55%;
-  left: 13%;
-  transform: translate(-50%, -50%);
-  font-weight: 500;
-  color: #99300A;
-}
-
-.transition-text10{
-  top: 55%;
-  left: 40%;
-  transform: translate(-50%, -50%);
-  font-weight: 500;
-  color: #0E3354;
-}
-
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div id="viz"></div>
+  <div id="viz" aria-label="Hourly air quality grid (animated)">
+
+    <div class="transition-legend" aria-hidden="true">
+      <div class="transition-text">Hourly Avg. Jan 14. - Dec 2.</div>
+      <div class="transition-text25">PM 2.5</div>
+      <div class="transition-text10">PM 10</div>
+    </div>
+
+    <canvas id="grid" role="img" aria-label="Grid animation of PM10 and PM2.5"></canvas>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
-  <script src="transition.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

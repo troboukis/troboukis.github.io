@@ -1,0 +1,71 @@
+:root{
+  --legend-h: 36px;
+  --pad: 10px;
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
+#viz{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Canvas takes full width; height is set by JS based on rows */
+#grid{
+  display: block;
+  width: 100%;
+  height: auto; /* canvas intrinsic height controlled in JS */
+}
+
+/* Legend overlay */
+.transition-legend{
+  position: absolute;
+  top: var(--pad);
+  left: var(--pad);
+  width: 220px;
+  height: var(--legend-h);
+  opacity: 0.9;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.transition-text,
+.transition-text25,
+.transition-text10{
+  position: absolute;
+  font-family: 'Roboto Slab', serif;
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.transition-text{
+  top: 0;
+  left: 0;
+  font-weight: 300;
+  color: #111;
+}
+
+.transition-text25{
+  bottom: 0;
+  left: 0;
+  font-weight: 700;
+  color: #99300A;
+}
+
+.transition-text10{
+  bottom: 0;
+  left: 70px;
+  font-weight: 700;
+  color: #0E3354;
+}

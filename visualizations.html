@@ -61,7 +61,20 @@
   ></iframe>
 
   <p class="viz-desc">
-    Short description of what the reader is seeing and why it matters.
+    <p>
+  This visualization was built with <strong>JavaScript</strong> and <strong>D3.js</strong>, using scientific color scales to
+  encode hourly particulate measurements (<strong>PM 2.5</strong> and <strong>PM 10</strong>). Instead of generating thousands
+  of HTML elements, the graphic renders the grid on a single <strong>HTML5 Canvas</strong>, which is significantly more efficient
+  for large matrices of marks.
+</p>
+
+<p>
+  The animation alternates between PM 10 and PM 2.5 by interpolating color values over time, applying principles from
+  <strong>data encoding</strong> and <strong>perceptual mapping</strong> to help the viewer compare two environmental signals
+  across the same hourly timeline. The implementation emphasizes <strong>mobile-first responsiveness</strong>, recalculating the
+  grid geometry based on available screen width while preserving consistent scientific thresholds in the color domains.
+</p>
+
     
   </p>
 </section>
