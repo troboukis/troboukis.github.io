@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SVG Sketch Talk</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="controls">
+    <button id="btn">Analyse speech</button>
+    <button id="stop" disabled>Stop</button>
+    <span id="status">Idle</span>
+
+
+  </div>
+<div class="stage">
+  <div class="svgWrap">
+    <object
+      id="svgObj"
+      data="./portrait.svg"
+      type="image/svg+xml">
+    </object>
+  </div>
+</div>
+
+
+  <script src="./script.js"></script>
+</body>
+</html>
