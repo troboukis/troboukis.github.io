@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Οικοδομικές Άδειες - Μητροπολιτικός Πόλος Ελληνικού</title>
 
-    <!-- Leaflet CSS -->
+    <!-- Το CSS του Leaflet για τον χάρτη -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <style>
@@ -22,7 +22,7 @@
             overflow: hidden;
         }
 
-        /* Info Panel */
+        /* Το πάνελ με τις πληροφορίες στα αριστερά */
         #info-panel {
             width: 400px;
             height: 100vh;
@@ -197,13 +197,13 @@
             margin-top: 2px;
         }
 
-        /* Map */
+        /* Ο χάρτης */
         #map {
             flex: 1;
             height: 100vh;
         }
 
-        /* Loading */
+        /* Η οθόνη φόρτωσης */
         #loading {
             position: fixed;
             top: 0;
@@ -236,7 +236,7 @@
             color: #4a5568;
         }
 
-        /* Legend */
+        /* Το υπόμνημα κάτω δεξιά */
         .legend {
             background: white;
             padding: 10px 15px;
@@ -265,7 +265,7 @@
             border: 1px solid rgba(0,0,0,0.2);
         }
 
-        /* Toggle button */
+        /* Κουμπί εμφάνισης/απόκρυψης πάνελ */
         #toggle-panel {
             position: fixed;
             left: 10px;
@@ -285,7 +285,7 @@
             background: #f7fafc;
         }
 
-        /* Mobile Responsive Styles */
+        /* Στυλ για κινητά */
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
@@ -421,7 +421,7 @@
             }
         }
 
-        /* Small phones */
+        /* Για πολύ μικρές οθόνες */
         @media (max-width: 380px) {
             #info-panel {
                 height: 70vh;
@@ -443,16 +443,16 @@
     </style>
 </head>
 <body>
-    <!-- Loading -->
+    <!-- Οθόνη φόρτωσης -->
     <div id="loading">
         <div class="spinner"></div>
         <p>Φόρτωση δεδομένων...</p>
     </div>
 
-    <!-- Toggle Panel Button -->
+    <!-- Κουμπί για το πάνελ -->
     <button id="toggle-panel" onclick="togglePanel()">Εμφάνιση Πληροφοριών</button>
 
-    <!-- Info Panel -->
+    <!-- Πάνελ πληροφοριών -->
     <div id="info-panel">
         <div class="panel-header">
             <h1>Οικοδομικές Άδειες</h1>
@@ -469,76 +469,76 @@
         </div>
     </div>
 
-    <!-- Map -->
+    <!-- Ο χάρτης -->
     <div id="map"></div>
 
-    <!-- Leaflet JS -->
+    <!-- Βιβλιοθήκη Leaflet -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <!-- Proj4js for coordinate conversion -->
+    <!-- Proj4js για μετατροπή συντεταγμένων ΕΓΣΑ -> WGS84 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.min.js"></script>
-    <!-- PapaParse for CSV parsing -->
+    <!-- PapaParse για να διαβάζουμε το CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <script>
-        // Define EGSA'87 projection (EPSG:2100)
+        // Ορισμός του ΕΓΣΑ'87 - το ελληνικό σύστημα συντεταγμένων
         proj4.defs('EPSG:2100', '+proj=tmerc +lat_0=0 +lon_0=24 +k=0.9996 +x_0=500000 +y_0=0 +ellps=GRS80 +towgs84=-199.87,74.79,246.62,0,0,0,0 +units=m +no_defs');
 
-        // CSV URL
+        // Το URL με τα δεδομένα από το Google Sheets
         const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vREhAUeuD8EB4HaM3oSEnkbiHx08HSMpFaHyAaYW424djp-WWVgD2HFiqlw6W0H-CLO8Hht25sCtv8K/pub?gid=155647671&single=true&output=csv';
 
-        // Initialize map centered on Elliniko area
+        // Φτιάχνουμε τον χάρτη, κεντραρισμένο στο Ελληνικό
         const map = L.map('map').setView([37.85, 23.75], 14);
 
-        // Add OpenStreetMap tiles
+        // Βάζουμε το OpenStreetMap σαν υπόβαθρο
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Store all polygons
+        // Εδώ κρατάμε όλα τα πολύγωνα και ποιο είναι επιλεγμένο
         let polygons = [];
         let selectedPolygon = null;
 
-        // Main permit categories
+        // Οι τρεις κύριες κατηγορίες αδειών
         const PERMIT_CLASSES = {
             OIKODOMIKI: 'Οικοδομική Άδεια',
             ANATHEORISI: 'Αναθεώρηση Οικοδομικής Άδειας',
             MIKRIS_KLIMAKAS: 'Έγκριση Εργασιών Μικρής Κλίμακας'
         };
 
-        // Color palette for permit classes
+        // Χρώματα για κάθε κατηγορία
         const permitColors = {
-            [PERMIT_CLASSES.OIKODOMIKI]: '#e53e3e',      // Red
-            [PERMIT_CLASSES.ANATHEORISI]: '#3182ce',     // Blue
-            [PERMIT_CLASSES.MIKRIS_KLIMAKAS]: '#38a169'  // Green
+            [PERMIT_CLASSES.OIKODOMIKI]: '#e53e3e',      // κόκκινο
+            [PERMIT_CLASSES.ANATHEORISI]: '#3182ce',     // μπλε
+            [PERMIT_CLASSES.MIKRIS_KLIMAKAS]: '#38a169'  // πράσινο
         };
 
-        // Classify permit type to main category
+        // Παίρνει τον τύπο άδειας και επιστρέφει την κατηγορία
         function classifyPermit(permitType) {
             if (!permitType) return PERMIT_CLASSES.OIKODOMIKI;
 
             const type = permitType.toLowerCase();
 
-            // Check for Μικρής Κλίμακας first (most specific)
+            // Πρώτα τσεκάρουμε για Μικρής Κλίμακας
             if (type.includes('μικρής κλίμακας') || type.includes('εκτέλεσης εργασιών')) {
                 return PERMIT_CLASSES.MIKRIS_KLIMAKAS;
             }
 
-            // Check for Αναθεώρηση
+            // Μετά για Αναθεώρηση
             if (type.includes('αναθεώρηση') || type.includes('προέγκριση για αναθεώρηση')) {
                 return PERMIT_CLASSES.ANATHEORISI;
             }
 
-            // Default to Οικοδομική Άδεια (includes Προέγκριση, Ενημέρωση, plain Οικοδομική)
+            // Όλα τα υπόλοιπα είναι Οικοδομική Άδεια
             return PERMIT_CLASSES.OIKODOMIKI;
         }
 
-        // Convert EGSA coordinates to WGS84
+        // Μετατρέπει συντεταγμένες από ΕΓΣΑ σε WGS84 (που καταλαβαίνει ο χάρτης)
         function egsaToWgs84(easting, northing) {
             const result = proj4('EPSG:2100', 'EPSG:4326', [easting, northing]);
-            return [result[1], result[0]]; // Return [lat, lng]
+            return [result[1], result[0]];
         }
 
-        // Parse coordinates string to polygon points
+        // Διαβάζει το string με τις συντεταγμένες και φτιάχνει πολύγωνο
         function parseCoordinates(coordString) {
             if (!coordString || coordString.trim() === '') return null;
 
@@ -557,12 +557,12 @@
 
                 return points.length >= 3 ? points : null;
             } catch (e) {
-                console.error('Error parsing coordinates:', e);
+                console.error('Πρόβλημα με τις συντεταγμένες:', e);
                 return null;
             }
         }
 
-        // Format date
+        // Μορφοποίηση ημερομηνίας στα ελληνικά
         function formatDate(dateStr) {
             if (!dateStr) return '-';
             const date = new Date(dateStr);
@@ -570,7 +570,7 @@
             return date.toLocaleDateString('el-GR');
         }
 
-        // Format number
+        // Μορφοποίηση αριθμού με ελληνική μορφή
         function formatNumber(num, decimals = 2) {
             if (num === null || num === undefined || num === '') return '-';
             const n = parseFloat(num);
@@ -578,7 +578,7 @@
             return n.toLocaleString('el-GR', { maximumFractionDigits: decimals });
         }
 
-        // Get badge class based on permit class
+        // Επιστρέφει το CSS class για το χρωματιστό badge
         function getBadgeClass(permitClass) {
             switch (permitClass) {
                 case PERMIT_CLASSES.OIKODOMIKI: return 'badge-oikodomiki';
@@ -588,7 +588,7 @@
             }
         }
 
-        // Display permit info in panel
+        // Εμφανίζει τις πληροφορίες της άδειας στο πάνελ
         function showPermitInfo(data) {
             const content = document.getElementById('panel-content');
 
@@ -702,36 +702,36 @@
                 </div>
             `;
 
-            // Show panel if hidden
+            // Αν είναι κρυμμένο το πάνελ, το ανοίγουμε
             const panel = document.getElementById('info-panel');
             if (panel.classList.contains('hidden')) {
                 togglePanel();
             }
         }
 
-        // Toggle panel visibility
+        // Άνοιγμα/κλείσιμο του πάνελ
         function togglePanel() {
             const panel = document.getElementById('info-panel');
             const toggleBtn = document.getElementById('toggle-panel');
             panel.classList.toggle('hidden');
             toggleBtn.style.display = panel.classList.contains('hidden') ? 'block' : 'none';
 
-            // Invalidate map size after transition
+            // Ξαναυπολογίζουμε το μέγεθος του χάρτη μετά το animation
             setTimeout(() => map.invalidateSize(), 350);
         }
 
-        // Handle window resize
+        // Όταν αλλάζει το μέγεθος του παραθύρου
         window.addEventListener('resize', () => {
             setTimeout(() => map.invalidateSize(), 100);
         });
 
-        // Get color based on permit class
+        // Παίρνει το χρώμα με βάση την κατηγορία
         function getColor(permitType) {
             const permitClass = classifyPermit(permitType);
             return permitColors[permitClass];
         }
 
-        // Load and display data
+        // Φόρτωση και εμφάνιση δεδομένων
         async function loadData() {
             try {
                 const response = await fetch(CSV_URL);
@@ -757,13 +757,13 @@
                                     fillOpacity: 0.4
                                 }).addTo(map);
 
-                                // Store data reference
+                                // Κρατάμε τα δεδομένα πάνω στο πολύγωνο
                                 polygon.permitData = row;
                                 polygons.push(polygon);
 
-                                // Add click handler
+                                // Τι γίνεται όταν κάνεις κλικ
                                 polygon.on('click', function(e) {
-                                    // Reset previous selection
+                                    // Ξεκλειδώνουμε το προηγούμενο
                                     if (selectedPolygon) {
                                         const prevColor = getColor(selectedPolygon.permitData.permit_type);
                                         selectedPolygon.setStyle({
@@ -772,7 +772,7 @@
                                         });
                                     }
 
-                                    // Highlight selected
+                                    // Highlight στο επιλεγμένο
                                     this.setStyle({
                                         weight: 4,
                                         fillOpacity: 0.7
@@ -782,7 +782,7 @@
                                     showPermitInfo(this.permitData);
                                 });
 
-                                // Add hover effect
+                                // Εφέ στο hover
                                 polygon.on('mouseover', function(e) {
                                     if (this !== selectedPolygon) {
                                         this.setStyle({ fillOpacity: 0.6 });
@@ -795,28 +795,28 @@
                                     }
                                 });
 
-                                // Add tooltip showing permit class
+                                // Tooltip με την κατηγορία
                                 const permitClass = classifyPermit(row.permit_type);
                                 polygon.bindTooltip(permitClass, {
                                     permanent: false,
                                     direction: 'center'
                                 });
 
-                                // Extend bounds
+                                // Προσθήκη στα όρια του χάρτη
                                 bounds.push(...coords);
                             }
                         });
 
-                        // Fit map to data with responsive padding
+                        // Κεντράρισμα του χάρτη στα δεδομένα
                         if (bounds.length > 0) {
                             const isMobile = window.innerWidth <= 768;
-                            // On mobile, hide panel first and fit bounds to full screen
+                            // Στο κινητό, κρύβουμε πρώτα το πάνελ
                             if (isMobile) {
                                 const panel = document.getElementById('info-panel');
                                 const toggleBtn = document.getElementById('toggle-panel');
                                 panel.classList.add('hidden');
                                 toggleBtn.style.display = 'block';
-                                // Wait for panel to hide, then fit bounds
+                                // Περιμένουμε λίγο και μετά κεντράρουμε
                                 setTimeout(() => {
                                     map.invalidateSize();
                                     map.fitBounds(bounds, { padding: [30, 30] });
@@ -826,7 +826,7 @@
                             }
                         }
 
-                        // Add legend
+                        // Προσθήκη υπομνήματος
                         const legend = L.control({ position: 'bottomright' });
                         legend.onAdd = function(map) {
                             const div = L.DomUtil.create('div', 'legend');
@@ -849,23 +849,23 @@
                         };
                         legend.addTo(map);
 
-                        // Hide loading
+                        // Κρύβουμε την οθόνη φόρτωσης
                         document.getElementById('loading').style.display = 'none';
 
-                        console.log(`Loaded ${polygons.length} permits with valid coordinates`);
+                        console.log(`Φορτώθηκαν ${polygons.length} άδειες με συντεταγμένες`);
                     },
                     error: function(error) {
-                        console.error('CSV parse error:', error);
+                        console.error('Πρόβλημα με το CSV:', error);
                         document.getElementById('loading').innerHTML = '<p style="color: red;">Σφάλμα φόρτωσης δεδομένων</p>';
                     }
                 });
             } catch (error) {
-                console.error('Fetch error:', error);
+                console.error('Πρόβλημα με το fetch:', error);
                 document.getElementById('loading').innerHTML = '<p style="color: red;">Σφάλμα φόρτωσης δεδομένων</p>';
             }
         }
 
-        // Initialize
+        // Ξεκινάμε!
         loadData();
     </script>
 </body>
