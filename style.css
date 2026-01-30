@@ -110,8 +110,6 @@
         }
 
 
-        /* optional: keep header centered */
-        header { text-align: center; }
 
         .legend{
         display: flex;
