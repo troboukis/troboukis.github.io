@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Οικοδομικές Άδειες - Μητροπολιτικός Πόλος Ελληνικού</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Info Panel */
+        #info-panel {
+            width: 400px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            flex-shrink: 0;
+        }
+
+        #info-panel.hidden {
+            transform: translateX(-100%);
+            position: absolute;
+        }
+
+        #info-panel.hidden + #map {
+            width: 100%;
+        }
+
+        .panel-header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            color: white;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .panel-header h1 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .panel-header p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .panel-content {
+            padding: 20px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .welcome-message svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .info-section h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #718096;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #4a5568;
+            width: 140px;
+            flex-shrink: 0;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 0.85rem;
+            color: #1a202c;
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .info-value.description {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            background: #f7fafc;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 5px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-oikodomiki {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .badge-anatheorisi {
+            background: #bee3f8;
+            color: #2b6cb0;
+        }
+
+        .badge-mikris-klimakas {
+            background: #c6f6d5;
+            color: #276749;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .stat-card {
+            background: #f7fafc;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #718096;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* Map */
+        #map {
+            flex: 1;
+            height: 100vh;
+        }
+
+        /* Loading */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            flex-direction: column;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e2e8f0;
+            border-top-color: #2c5282;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #loading p {
+            margin-top: 15px;
+            color: #4a5568;
+        }
+
+        /* Legend */
+        .legend {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 0.8rem;
+        }
+
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 14px;
+            margin-right: 8px;
+            border-radius: 3px;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+
+        /* Toggle button */
+        #toggle-panel {
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            z-index: 1001;
+            background: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        #toggle-panel:hover {
+            background: #f7fafc;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            #info-panel {
+                width: 100%;
+                height: 60vh;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                top: auto;
+                transform: translateY(0);
+                border-radius: 20px 20px 0 0;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+                z-index: 1000;
+            }
+
+            #info-panel.hidden {
+                transform: translateY(100%);
+                position: fixed;
+            }
+
+            #info-panel::before {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 4px;
+                background: #cbd5e0;
+                border-radius: 2px;
+                margin: 10px auto 5px;
+            }
+
+            .panel-header {
+                padding: 15px 20px;
+                border-radius: 20px 20px 0 0;
+            }
+
+            .panel-header h1 {
+                font-size: 1rem;
+            }
+
+            .panel-header p {
+                font-size: 0.75rem;
+            }
+
+            .close-btn {
+                top: 12px;
+                right: 12px;
+            }
+
+            .panel-content {
+                padding: 15px;
+                max-height: calc(60vh - 100px);
+                overflow-y: auto;
+            }
+
+            #map {
+                height: 100vh;
+                width: 100%;
+            }
+
+            #toggle-panel {
+                bottom: 20px;
+                top: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 12px 24px;
+                font-size: 0.9rem;
+                border-radius: 25px;
+            }
+
+            .info-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .info-label {
+                width: 100%;
+                font-size: 0.75rem;
+                color: #718096;
+            }
+
+            .info-value {
+                font-size: 0.9rem;
+            }
+
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .stat-card {
+                padding: 10px;
+            }
+
+            .stat-value {
+                font-size: 1rem;
+            }
+
+            .stat-label {
+                font-size: 0.65rem;
+            }
+
+            .legend {
+                font-size: 0.7rem;
+                padding: 8px 12px;
+                max-width: 180px;
+            }
+
+            .legend-title {
+                font-size: 0.75rem;
+                margin-bottom: 5px;
+            }
+
+            .legend-color {
+                width: 16px;
+                height: 12px;
+                margin-right: 6px;
+            }
+
+            .welcome-message {
+                padding: 20px 15px;
+            }
+
+            .welcome-message svg {
+                width: 60px;
+                height: 60px;
+            }
+
+            .welcome-message p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 380px) {
+            #info-panel {
+                height: 70vh;
+            }
+
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+
+            .stat-card {
+                padding: 8px;
+            }
+
+            .stat-value {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading -->
+    <div id="loading">
+        <div class="spinner"></div>
+        <p>Φόρτωση δεδομένων...</p>
+    </div>
+
+    <!-- Toggle Panel Button -->
+    <button id="toggle-panel">Εμφάνιση Πληροφοριών</button>
+
+    <!-- Info Panel -->
+    <div id="info-panel">
+        <div class="panel-header">
+            <h1>Οικοδομικές Άδειες</h1>
+            <p>Μητροπολιτικός Πόλος Ελληνικού - Αγ. Κοσμά</p>
+            <button class="close-btn" onclick="togglePanel()">&times;</button>
+        </div>
+        <div class="panel-content" id="panel-content">
+            <div class="welcome-message">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+                <p>Επιλέξτε ένα οικόπεδο στον χάρτη για να δείτε τις πληροφορίες της άδειας.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map -->
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Proj4js for coordinate conversion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.min.js"></script>
+    <!-- PapaParse for CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+    <script>
+        // Define EGSA'87 projection (EPSG:2100)
+        proj4.defs('EPSG:2100', '+proj=tmerc +lat_0=0 +lon_0=24 +k=0.9996 +x_0=500000 +y_0=0 +ellps=GRS80 +towgs84=-199.87,74.79,246.62,0,0,0,0 +units=m +no_defs');
+
+        // CSV URL
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vREhAUeuD8EB4HaM3oSEnkbiHx08HSMpFaHyAaYW424djp-WWVgD2HFiqlw6W0H-CLO8Hht25sCtv8K/pub?gid=155647671&single=true&output=csv';
+
+        // Initialize map centered on Elliniko area
+        const map = L.map('map').setView([37.85, 23.75], 14);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Store all polygons
+        let polygons = [];
+        let selectedPolygon = null;
+
+        // Main permit categories
+        const PERMIT_CLASSES = {
+            OIKODOMIKI: 'Οικοδομική Άδεια',
+            ANATHEORISI: 'Αναθεώρηση Οικοδομικής Άδειας',
+            MIKRIS_KLIMAKAS: 'Έγκριση Εργασιών Μικρής Κλίμακας'
+        };
+
+        // Color palette for permit classes
+        const permitColors = {
+            [PERMIT_CLASSES.OIKODOMIKI]: '#e53e3e',      // Red
+            [PERMIT_CLASSES.ANATHEORISI]: '#3182ce',     // Blue
+            [PERMIT_CLASSES.MIKRIS_KLIMAKAS]: '#38a169'  // Green
+        };
+
+        // Classify permit type to main category
+        function classifyPermit(permitType) {
+            if (!permitType) return PERMIT_CLASSES.OIKODOMIKI;
+
+            const type = permitType.toLowerCase();
+
+            // Check for Μικρής Κλίμακας first (most specific)
+            if (type.includes('μικρής κλίμακας') || type.includes('εκτέλεσης εργασιών')) {
+                return PERMIT_CLASSES.MIKRIS_KLIMAKAS;
+            }
+
+            // Check for Αναθεώρηση
+            if (type.includes('αναθεώρηση') || type.includes('προέγκριση για αναθεώρηση')) {
+                return PERMIT_CLASSES.ANATHEORISI;
+            }
+
+            // Default to Οικοδομική Άδεια (includes Προέγκριση, Ενημέρωση, plain Οικοδομική)
+            return PERMIT_CLASSES.OIKODOMIKI;
+        }
+
+        // Convert EGSA coordinates to WGS84
+        function egsaToWgs84(easting, northing) {
+            const result = proj4('EPSG:2100', 'EPSG:4326', [easting, northing]);
+            return [result[1], result[0]]; // Return [lat, lng]
+        }
+
+        // Parse coordinates string to polygon points
+        function parseCoordinates(coordString) {
+            if (!coordString || coordString.trim() === '') return null;
+
+            try {
+                const points = coordString.split(',').map(pair => {
+                    const parts = pair.trim().split(/\s+/);
+                    if (parts.length >= 2) {
+                        const easting = parseFloat(parts[0]);
+                        const northing = parseFloat(parts[1]);
+                        if (!isNaN(easting) && !isNaN(northing)) {
+                            return egsaToWgs84(easting, northing);
+                        }
+                    }
+                    return null;
+                }).filter(p => p !== null);
+
+                return points.length >= 3 ? points : null;
+            } catch (e) {
+                console.error('Error parsing coordinates:', e);
+                return null;
+            }
+        }
+
+        // Format date
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) return dateStr;
+            return date.toLocaleDateString('el-GR');
+        }
+
+        // Format number
+        function formatNumber(num, decimals = 2) {
+            if (num === null || num === undefined || num === '') return '-';
+            const n = parseFloat(num);
+            if (isNaN(n)) return '-';
+            return n.toLocaleString('el-GR', { maximumFractionDigits: decimals });
+        }
+
+        // Get badge class based on permit class
+        function getBadgeClass(permitClass) {
+            switch (permitClass) {
+                case PERMIT_CLASSES.OIKODOMIKI: return 'badge-oikodomiki';
+                case PERMIT_CLASSES.ANATHEORISI: return 'badge-anatheorisi';
+                case PERMIT_CLASSES.MIKRIS_KLIMAKAS: return 'badge-mikris-klimakas';
+                default: return 'badge-oikodomiki';
+            }
+        }
+
+        // Display permit info in panel
+        function showPermitInfo(data) {
+            const content = document.getElementById('panel-content');
+
+            const permitType = data.permit_type || 'Άδεια';
+            const permitClass = classifyPermit(permitType);
+            const badgeClass = getBadgeClass(permitClass);
+
+            content.innerHTML = `
+                <div class="info-section">
+                    <h3>Βασικά Στοιχεία</h3>
+                    <div class="info-row">
+                        <span class="info-label">ADA</span>
+                        <span class="info-value"><strong>${data.ada || '-'}</strong></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Α/Α Πράξης</span>
+                        <span class="info-value">${data.aa_praxis || '-'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Κατηγορία</span>
+                        <span class="info-value"><span class="badge ${badgeClass}">${permitClass}</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Τύπος</span>
+                        <span class="info-value">${permitType}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Ημ/νία Έκδοσης</span>
+                        <span class="info-value">${formatDate(data.issue_date)}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Ισχύει έως</span>
+                        <span class="info-value">${formatDate(data.valid_until)}</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Περιγραφή Έργου</h3>
+                    <div class="info-value description">${data.description || '-'}</div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Τοποθεσία</h3>
+                    <div class="info-row">
+                        <span class="info-label">Διεύθυνση</span>
+                        <span class="info-value">${data.address || '-'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Πόλη</span>
+                        <span class="info-value">${data.city || '-'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Δήμος</span>
+                        <span class="info-value">${data.municipality || '-'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Περιοχή</span>
+                        <span class="info-value">${data.area || '-'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Ο.Τ.</span>
+                        <span class="info-value">${data.ot || '-'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">ΚΑΕΚ</span>
+                        <span class="info-value">${data.kaek || '-'}</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Ιδιοκτήτης</h3>
+                    <div class="info-value">${data.owner || '-'}</div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Στοιχεία Κτιρίου</h3>
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.plot_area)}</div>
+                            <div class="stat-label">Οικόπεδο (m²)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.coverage_area)}</div>
+                            <div class="stat-label">Κάλυψη (m²)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.building_area)}</div>
+                            <div class="stat-label">Δόμηση (m²)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.uncovered_area)}</div>
+                            <div class="stat-label">Ακάλυπτος (m²)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.volume)}</div>
+                            <div class="stat-label">Όγκος (m³)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.max_height)}</div>
+                            <div class="stat-label">Ύψος (m)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.floors, 0)}</div>
+                            <div class="stat-label">Όροφοι</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.parking_spots, 0)}</div>
+                            <div class="stat-label">Θέσεις Parking</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Show panel if hidden
+            const panel = document.getElementById('info-panel');
+            if (panel.classList.contains('hidden')) {
+                togglePanel();
+            }
+        }
+
+        // Toggle panel visibility
+        function togglePanel() {
+            const panel = document.getElementById('info-panel');
+            const toggleBtn = document.getElementById('toggle-panel');
+            panel.classList.toggle('hidden');
+            toggleBtn.style.display = panel.classList.contains('hidden') ? 'block' : 'none';
+
+            // Invalidate map size after transition
+            setTimeout(() => map.invalidateSize(), 350);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            setTimeout(() => map.invalidateSize(), 100);
+        });
+
+        // Get color based on permit class
+        function getColor(permitType) {
+            const permitClass = classifyPermit(permitType);
+            return permitColors[permitClass];
+        }
+
+        // Load and display data
+        async function loadData() {
+            try {
+                const response = await fetch(CSV_URL);
+                const csvText = await response.text();
+
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        const bounds = [];
+
+                        results.data.forEach((row, index) => {
+                            const coords = parseCoordinates(row.coordinates);
+
+                            if (coords && coords.length >= 3) {
+                                const color = getColor(row.permit_type);
+
+                                const polygon = L.polygon(coords, {
+                                    color: color,
+                                    weight: 2,
+                                    opacity: 0.8,
+                                    fillColor: color,
+                                    fillOpacity: 0.4
+                                }).addTo(map);
+
+                                // Store data reference
+                                polygon.permitData = row;
+                                polygons.push(polygon);
+
+                                // Add click handler
+                                polygon.on('click', function(e) {
+                                    // Reset previous selection
+                                    if (selectedPolygon) {
+                                        const prevColor = getColor(selectedPolygon.permitData.permit_type);
+                                        selectedPolygon.setStyle({
+                                            weight: 2,
+                                            fillOpacity: 0.4
+                                        });
+                                    }
+
+                                    // Highlight selected
+                                    this.setStyle({
+                                        weight: 4,
+                                        fillOpacity: 0.7
+                                    });
+                                    selectedPolygon = this;
+
+                                    showPermitInfo(this.permitData);
+                                });
+
+                                // Add hover effect
+                                polygon.on('mouseover', function(e) {
+                                    if (this !== selectedPolygon) {
+                                        this.setStyle({ fillOpacity: 0.6 });
+                                    }
+                                });
+
+                                polygon.on('mouseout', function(e) {
+                                    if (this !== selectedPolygon) {
+                                        this.setStyle({ fillOpacity: 0.4 });
+                                    }
+                                });
+
+                                // Add tooltip showing permit class
+                                const permitClass = classifyPermit(row.permit_type);
+                                polygon.bindTooltip(permitClass, {
+                                    permanent: false,
+                                    direction: 'center'
+                                });
+
+                                // Extend bounds
+                                bounds.push(...coords);
+                            }
+                        });
+
+                        // Fit map to data
+                        if (bounds.length > 0) {
+                            map.fitBounds(bounds, { padding: [50, 50] });
+                        }
+
+                        // Add legend
+                        const legend = L.control({ position: 'bottomright' });
+                        legend.onAdd = function(map) {
+                            const div = L.DomUtil.create('div', 'legend');
+                            div.innerHTML = `
+                                <div class="legend-title">Κατηγορία Άδειας</div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: ${permitColors[PERMIT_CLASSES.OIKODOMIKI]}"></div>
+                                    <span>${PERMIT_CLASSES.OIKODOMIKI}</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: ${permitColors[PERMIT_CLASSES.ANATHEORISI]}"></div>
+                                    <span>${PERMIT_CLASSES.ANATHEORISI}</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: ${permitColors[PERMIT_CLASSES.MIKRIS_KLIMAKAS]}"></div>
+                                    <span>Εργασίες Μικρής Κλίμακας</span>
+                                </div>
+                            `;
+                            return div;
+                        };
+                        legend.addTo(map);
+
+                        // Hide loading
+                        document.getElementById('loading').style.display = 'none';
+
+                        console.log(`Loaded ${polygons.length} permits with valid coordinates`);
+                    },
+                    error: function(error) {
+                        console.error('CSV parse error:', error);
+                        document.getElementById('loading').innerHTML = '<p style="color: red;">Σφάλμα φόρτωσης δεδομένων</p>';
+                    }
+                });
+            } catch (error) {
+                console.error('Fetch error:', error);
+                document.getElementById('loading').innerHTML = '<p style="color: red;">Σφάλμα φόρτωσης δεδομένων</p>';
+            }
+        }
+
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>
