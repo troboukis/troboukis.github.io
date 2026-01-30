@@ -450,7 +450,7 @@
     </div>
 
     <!-- Toggle Panel Button -->
-    <button id="toggle-panel">Εμφάνιση Πληροφοριών</button>
+    <button id="toggle-panel" onclick="togglePanel()">Εμφάνιση Πληροφοριών</button>
 
     <!-- Info Panel -->
     <div id="info-panel">
@@ -807,9 +807,23 @@
                             }
                         });
 
-                        // Fit map to data
+                        // Fit map to data with responsive padding
                         if (bounds.length > 0) {
-                            map.fitBounds(bounds, { padding: [50, 50] });
+                            const isMobile = window.innerWidth <= 768;
+                            // On mobile, hide panel first and fit bounds to full screen
+                            if (isMobile) {
+                                const panel = document.getElementById('info-panel');
+                                const toggleBtn = document.getElementById('toggle-panel');
+                                panel.classList.add('hidden');
+                                toggleBtn.style.display = 'block';
+                                // Wait for panel to hide, then fit bounds
+                                setTimeout(() => {
+                                    map.invalidateSize();
+                                    map.fitBounds(bounds, { padding: [30, 30] });
+                                }, 100);
+                            } else {
+                                map.fitBounds(bounds, { padding: [50, 50] });
+                            }
                         }
 
                         // Add legend
