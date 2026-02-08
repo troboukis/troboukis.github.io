@@ -348,14 +348,16 @@
     <p class="footnote" style="font-size:0.8rem;color:#999;margin-top:6px;">Σημείωση: Κάθε κελί <span style="display:inline-block;width:11px;height:18px;background:#e08214;border-radius:1px;vertical-align:middle;margin:0 2px;"></span> αναπαριστά μία εβδομάδα. Η ένταση των χρωμάτων προσαρμόζεται δυναμικά σε κάθε εβδομάδα ώστε η πιο ακραία τιμή μεταξύ των εμφανιζόμενων κατηγοριών να αντιστοιχεί πάντα στο πιο έντονο χρώμα. Αυτό σημαίνει ότι μια κατηγορία με +5% ποσοστιαία αύξηση, μπορεί να έχει βαθύ κόκκινο χρώμα αν εμφανίζεται μόνη της, αλλά σχεδόν λευκό χρώμα αν εμφανίζεται μαζί με κατηγορία τροφίμου που σημειώνει ποσοστιαία αύξηση +40%. Η πραγματική ποσοστιαία τιμή παραμένει σταθερή στο tooltip.</p>
 
     <h2>Ανάλυση</h2>
-    <p class="subtitle" style="margin-bottom:16px;">Πώς να διαβάσετε τα στοιχεία: Μία κατηγορία με Slope 0,15 €/μήνα σημαίνει ότι η τιμή αυξάνεται κατά 0,15 € κάθε μήνα με σταθερό ρυθμό. Όσο πιο κοντά είναι το R² στο 1.0, τόσο υψηλότερη είναι η αξιοπιστία της γραμμικής τάσης. Το CAGR (Compound Annual Growth Rate) δείχνει τον μέσο ετήσιο ρυθμό αύξησης, λαμβάνοντας υπόψη τη σύνθετη (ανατοκισμένη) μεταβολή στον χρόνο. Επιλέξτε μία γραμμή για να δείτε το γράφημα τιμών.</p>
+    <p class="subtitle" id="analysis-subtitle" style="margin-bottom:16px;"></p>
     <div class="stats-table-wrapper">
       <table id="stats-table">
         <thead>
           <tr>
             <th data-key="name">Κατηγορία</th>
-            <th data-key="pct_change_total">Μεταβολή %</th>
-            <th data-key="cagr">CAGR %</th>
+            <th data-key="pct_from_baseline">Από baseline (%)</th>
+            <th data-key="wow_latest">Μεταβολή εβδομάδας (%)</th>
+            <th data-key="pct_typical">Τυπική μεταβολή (%)</th>
+            <th data-key="cagr">CAGR % (ετήσιο)</th>
             <th data-key="slope_per_month">Slope €/μήνα</th>
             <th data-key="r_squared">R²</th>
             <th data-key="direction">Κατεύθυνση</th>
@@ -396,16 +398,40 @@
     $\Delta_{i,t} = \dfrac{P_{i,t} - B_i}{B_i} \times 100\%$
   </p>
 
-  <p style="margin-top:16px;"><strong style="color:#333;">CAGR — Σύνθετος Ετήσιος Ρυθμός Μεταβολής</strong></p>
+  <p style="margin-top:16px;"><strong style="color:#333;">Από baseline (%)</strong></p>
+  <p>
+    Η ποσοστιαία μεταβολή της τελευταίας εβδομάδας σε σχέση με το baseline:
+  </p>
   <p style="text-align:center;margin:8px 0;">
-    $\text{CAGR}_i = \left(\frac{V_i(t_n)}{V_i(t_0)}\right)^{\frac{1}{n}} - 1$
+    $\text{Από baseline}_i = \dfrac{P_{i,\text{last}} - B_i}{B_i} \times 100\%$
   </p>
   <p>
-    όπου $V_i(t_0)$ η διάμεση τιμή της κατηγορίας $i$ στην πρώτη εβδομάδα δεδομένων,
-    $V_i(t_n)$ η διάμεση τιμή στην τελευταία εβδομάδα, και
-    $n$ η χρονική απόσταση μεταξύ τους σε έτη.
-    Ο χρόνος $n$ υπολογίζεται με βάση τις πραγματικές ημέρες που μεσολαβούν μεταξύ πρώτης και τελευταίας εβδομάδας διαιρεμένες με 365,
-    ώστε να αντικατοπτρίζει το πραγματικό χρονικό διάστημα των δεδομένων.
+    Αντιστοιχεί στην τελευταία τιμή του heatmap για κάθε κατηγορία.
+    Η <em>Κατεύθυνση</em> (Αύξηση / Μείωση / Αμετάβλητη) προκύπτει από το πρόσημο αυτής της μεταβολής.
+    Τα κουμπιά "Top 20 Αυξήσεις / Μειώσεις" ταξινομούν με βάση αυτή τη μετρική.
+  </p>
+
+  <p style="margin-top:16px;"><strong style="color:#333;">Τυπική μεταβολή (%)</strong></p>
+  <p>
+    Η διάμεση τιμή (median) όλων των εβδομαδιαίων ποσοστιαίων μεταβολών από το baseline, εξαιρουμένης της baseline περιόδου:
+  </p>
+  <p style="text-align:center;margin:8px 0;">
+    $\text{Τυπική}_i = \text{median}\left(\Delta_{i,9},\, \Delta_{i,10},\, \ldots,\, \Delta_{i,T}\right)$
+  </p>
+  <p>
+    όπου $\Delta_{i,t}$ η ποσοστιαία μεταβολή της κατηγορίας $i$ την εβδομάδα $t$ από το baseline.
+    Δείχνει την «τυπική» απόκλιση κάθε κατηγορίας σε σχέση με την περίοδο αναφοράς, χωρίς να επηρεάζεται από ακραίες εβδομάδες.
+  </p>
+
+  <p style="margin-top:16px;"><strong style="color:#333;">CAGR — Σύνθετος Ετήσιος Ρυθμός Μεταβολής</strong></p>
+  <p style="text-align:center;margin:8px 0;">
+    $\text{CAGR}_i = \left(\frac{P_{i,\text{last}}}{B_i}\right)^{\frac{1}{n}} - 1$
+  </p>
+  <p>
+    όπου $B_i$ το baseline, $P_{i,\text{last}}$ η διάμεση τιμή της τελευταίας εβδομάδας, και
+    $n$ η χρονική απόσταση σε έτη μεταξύ τέλους baseline περιόδου και τελευταίας εβδομάδας.
+    Ο χρόνος $n$ υπολογίζεται ως πραγματικές ημέρες / 365.
+    Το CAGR εκφράζει τη μεταβολή ως ετήσιο ρυθμό, λαμβάνοντας υπόψη τη σύνθετη (ανατοκισμένη) αύξηση.
   </p>
 
   <p style="margin-top:16px;"><strong style="color:#333;">Κλίση (slope) ανά μήνα</strong></p>
@@ -431,6 +457,26 @@
   <p>
     όπου $P_{i,t-52}$ η διάμεση τιμή της ίδιας εβδομάδας του προηγούμενου έτους.
   </p>
+
+  <p style="margin-top:16px;"><strong style="color:#333;">Robust Z-score εβδομαδιαίας μεταβολής</strong></p>
+  <p>
+    Μετρά πόσο ασυνήθιστη είναι η εβδομαδιαία μεταβολή μιας κατηγορίας σε σχέση με το ιστορικό της. Χρησιμοποιεί MAD (Median Absolute Deviation) αντί τυπικής απόκλισης, ώστε να είναι ανθεκτικό σε ακραίες τιμές:
+  </p>
+  <p style="text-align:center;margin:8px 0;">
+    $z_{i,t} = \dfrac{\Delta_{i,t} - \tilde{\Delta}_i}{\text{MAD}_i}$
+  </p>
+  <p>
+    όπου $\Delta_{i,t}$ η εβδομαδιαία ποσοστιαία μεταβολή (WoW) της κατηγορίας $i$ την εβδομάδα $t$,
+    $\tilde{\Delta}_i$ η διάμεση τιμή όλων των ιστορικών εβδομαδιαίων μεταβολών, και
+  </p>
+  <p style="text-align:center;margin:8px 0;">
+    $\text{MAD}_i = 1.4826 \times \text{median}\left(|\Delta_{i,t} - \tilde{\Delta}_i|\right)$
+  </p>
+  <p>
+    Ο συντελεστής 1.4826 κανονικοποιεί το MAD ώστε να είναι συγκρίσιμο με την τυπική απόκλιση σε κανονική κατανομή.
+    Εφαρμόζεται ελάχιστο όριο MAD = 0.5% ώστε κατηγορίες με σχεδόν σταθερή τιμή να μην παράγουν πλασματικά υψηλά z-scores.
+    Τιμές |z| &ge; 2 θεωρούνται στατιστικά ασυνήθιστες.
+  </p>
 </footer>
 
 <div class="heatmap-tooltip" id="tooltip"></div>
@@ -439,7 +485,7 @@
 // ── Globals ──
 let DATA = null;
 let selectedCats = new Set();
-let sortKey = 'pct_change_total';
+let sortKey = 'r_squared';
 let sortAsc = false;
 let activeLineChartCat = null;
 
@@ -462,6 +508,33 @@ function init() {
   renderHighlights();
   document.getElementById('heatmap-subtitle').textContent =
     `Ποσοστιαία μεταβολή σε σχέση με τη διάμεση τιμή των πρώτων ${DATA.baseline_weeks_count} εβδομάδων ${DATA.baseline_period} (baseline). Επιλέξτε τις κατηγορίες που θέλετε να εμφανιστούν στο γράφημα.`;
+  document.getElementById('analysis-subtitle').innerHTML = `
+    <b>Πώς να διαβάσετε τα στοιχεία:</b>
+    <ul>
+      <li>
+        <b>Αύξηση 5% από baseline</b>: σημαίνει ότι το προϊόν την τελευταία εβδομάδα είναι 5% πιο ακριβό από τη διάμεση τιμή που είχε το διάστημα ${DATA.baseline_period}, το οποίο χρησιμοποιούμε ως σημείο αναφοράς σε όλη την ανάλυση.
+      </li>
+      <li>
+        <b>Αύξηση 5% μεταβολή εβδομάδας</b>: σημαίνει ότι το προϊόν την τελευταία εβδομάδα είναι 5% πιο ακριβό από την προηγούμενη.
+      </li>
+      <li>
+        <b>Αύξηση 5% στη στήλη Τυπική Μεταβολή</b>: σημαίνει ότι το προϊόν ήταν τις περισσότερες εβδομάδες περίπου 5% ακριβότερο από το baseline.
+      </li>
+      <li>
+        <b>Αύξηση 5% στη στήλη CAGR</b>: σημαίνει ότι η τιμή του προϊόντος αυξάνεται με μέσο ετήσιο ρυθμό 5%, λαμβάνοντας υπόψη όλες τις ενδιάμεσες αυξήσεις και μειώσεις στο εξεταζόμενο διάστημα.
+      </li>
+      <li>
+        <b>Slope 0,15 €/μήνα</b>: σημαίνει ότι η τιμή του προϊόντος αυξάνεται κατά 0,15 € κάθε μήνα με σταθερό ρυθμό.
+      </li>
+      <li>
+        <b>R² κοντά στο 1,0</b>: σημαίνει υψηλότερη αξιοπιστία της γραμμικής τάσης.
+      </li>
+      <li>
+        <b>Επιλογή γραμμής</b>: κάντε κλικ σε μία γραμμή για να δείτε το γράφημα τιμών.
+      </li>
+    </ul>
+    `;
+
   buildCategorySelector();
   selectTop(20, false);
 }
@@ -471,10 +544,20 @@ function renderHighlights() {
   const hl = DATA.weekly_highlights;
   const s = hl.wow_summary;
 
-  // Summary subtitle
+  // Summary subtitle with unusual increases
+  const unusualNames = (hl.top5_zscore || [])
+    .filter(item => item.zscore >= 2)
+    .slice(0, 5)
+    .map(item => item.name);
+  const unusualText = unusualNames.length > 0
+    ? ` Παρατηρούμε πως οι αυξήσεις στα: <strong>${unusualNames.join(', ')}</strong> είναι ασυνήθιστες.`
+    : '';
+
   document.getElementById('highlights-summary').innerHTML =
     `Εκτιμάται πως <strong>${s.increase}</strong> κατηγορίες προϊόντων παρουσιάζουν αύξηση σε σχέση με την περασμένη εβδομάδα, ` +
-    `<strong>${s.decrease}</strong> παρουσιάζουν μείωση και <strong>${s.unchanged}</strong> παραμένουν αμετάβλητες. Οι τιμές αντιστοιχούν είτε σε συσκευασία προϊόντος, είτε ανά κιλό προϊόντος.`;
+    `<strong>${s.decrease}</strong> παρουσιάζουν μείωση και <strong>${s.unchanged}</strong> παραμένουν αμετάβλητες.` +
+    unusualText +
+    ` Οι τιμές αντιστοιχούν είτε σε συσκευασία προϊόντος, είτε ανά κιλό προϊόντος.`;
 
   // Cards
   const container = document.getElementById('highlights');
@@ -541,10 +624,10 @@ function buildCategorySelector() {
 
 function selectTop(n, ascending) {
   const sorted = [...DATA.categories]
-    .filter(c => c.stats.pct_change_total != null)
+    .filter(c => c.stats.pct_from_baseline != null)
     .sort((a, b) => ascending
-      ? a.stats.pct_change_total - b.stats.pct_change_total
-      : b.stats.pct_change_total - a.stats.pct_change_total);
+      ? a.stats.pct_from_baseline - b.stats.pct_from_baseline
+      : b.stats.pct_from_baseline - a.stats.pct_from_baseline);
   selectedCats = new Set(sorted.slice(0, n).map(c => c.name));
   syncCheckboxes();
   render();
@@ -579,7 +662,8 @@ function renderHeatmap() {
   const wrapper = document.getElementById('heatmap-wrapper');
   wrapper.innerHTML = '';
 
-  const cats = DATA.categories.filter(c => selectedCats.has(c.name));
+  const cats = DATA.categories.filter(c => selectedCats.has(c.name))
+    .sort((a, b) => Math.abs(b.stats.r_squared ?? 0) - Math.abs(a.stats.r_squared ?? 0));
   if (cats.length === 0) return;
 
   const weeks = DATA.weeks;
@@ -642,8 +726,35 @@ function renderHeatmap() {
       .text(cat.name.length > labelMaxLen ? cat.name.slice(0, labelMaxLen - 2) + '…' : cat.name)
       .on('click', () => showLineChart(cat.name));
 
-    // Cells
+    // Cells — precompute all_weeks index offset for WoW/YoY lookup
+    const allWeeks = DATA.all_weeks;
+    const baselineCount = DATA.baseline_weeks_count;
+    const wm = cat.weekly_median; // aligned with allWeeks
+
     cat.pct_from_baseline.forEach((val, ci) => {
+      // Compute WoW and YoY for tooltip
+      const allIdx = baselineCount + ci; // index in allWeeks/weekly_median
+      const curPrice = wm[allIdx];
+      const prevPrice = allIdx > 0 ? wm[allIdx - 1] : null;
+      const wow = (curPrice != null && prevPrice != null && prevPrice !== 0)
+        ? ((curPrice - prevPrice) / prevPrice * 100) : null;
+
+      // YoY: same ISO week last year (52 weeks back)
+      const yoyIdx = allIdx - 52;
+      const yoyPrice = yoyIdx >= 0 ? wm[yoyIdx] : null;
+      const yoy = (curPrice != null && yoyPrice != null && yoyPrice !== 0)
+        ? ((curPrice - yoyPrice) / yoyPrice * 100) : null;
+
+      let tooltipText = `<strong>${cat.name}</strong><br>${dates[ci]}`;
+      if (val != null) {
+        tooltipText += `<br>${(val >= 0 ? '+' : '') + val.toFixed(1)}% από baseline`;
+        if (wow != null) tooltipText += `<br>${(wow >= 0 ? '+' : '') + wow.toFixed(1)}% από προηγ. εβδομάδα`;
+        if (yoy != null) tooltipText += `<br>${(yoy >= 0 ? '+' : '') + yoy.toFixed(1)}% από πέρσι`;
+        if (curPrice != null) tooltipText += `<br>διάμεση τιμή ${curPrice.toFixed(2)}€`;
+      } else {
+        tooltipText += `<br>Δεν υπάρχουν δεδομένα`;
+      }
+
       svg.append('rect')
         .attr('x', marginLeft + ci * cellW)
         .attr('y', y)
@@ -654,7 +765,7 @@ function renderHeatmap() {
         .style('cursor', 'pointer')
         .on('mouseover', function(event) {
           tooltip.style.opacity = 1;
-          tooltip.innerHTML = `<strong>${cat.name}</strong><br>${dates[ci]}<br>${val != null ? (val >= 0 ? '+' : '') + val.toFixed(1) + '% από baseline' : 'Δεν υπάρχουν δεδομένα'}`;
+          tooltip.innerHTML = tooltipText;
         })
         .on('mousemove', function(event) {
           tooltip.style.left = (event.pageX + 12) + 'px';
@@ -673,6 +784,8 @@ function renderStatsTable() {
     let va = a.stats[sortKey] ?? (sortKey === 'name' ? a.name : -Infinity);
     let vb = b.stats[sortKey] ?? (sortKey === 'name' ? b.name : -Infinity);
     if (sortKey === 'name') { va = a.name; vb = b.name; }
+    // Z-score sorts by absolute value (most extreme first)
+    if (sortKey === 'zscore') { va = Math.abs(va); vb = Math.abs(vb); }
     if (typeof va === 'string') return sortAsc ? va.localeCompare(vb, 'el') : vb.localeCompare(va, 'el');
     return sortAsc ? va - vb : vb - va;
   });
@@ -681,9 +794,13 @@ function renderStatsTable() {
   body.innerHTML = sorted.map(c => {
     const s = c.stats;
     const dirClass = s.direction === 'Αύξηση' ? 'dir-up' : s.direction === 'Μείωση' ? 'dir-down' : 'dir-flat';
+    const wowColor = s.wow_latest != null ? (s.wow_latest > 0 ? '#d63d28' : s.wow_latest < 0 ? '#1b7837' : '#333') : '#999';
     return `<tr data-cat="${c.name}">
       <td>${c.name}</td>
-      <td>${s.pct_change_total != null ? s.pct_change_total.toFixed(1) : 'N/A'}</td>
+      
+      <td>${s.pct_from_baseline != null ? s.pct_from_baseline.toFixed(1) : 'N/A'}</td>
+      <td style="color:${wowColor};font-weight:${s.wow_latest != null && Math.abs(s.wow_latest) >= 5 ? '700' : '400'}">${s.wow_latest != null ? (s.wow_latest >= 0 ? '+' : '') + s.wow_latest.toFixed(1) : 'N/A'}</td>
+      <td>${s.pct_typical != null ? s.pct_typical.toFixed(1) : 'N/A'}</td>
       <td>${s.cagr != null ? s.cagr.toFixed(2) : 'N/A'}</td>
       <td>${s.slope_per_month != null ? s.slope_per_month.toFixed(4) : 'N/A'}</td>
       <td>${s.r_squared != null ? s.r_squared.toFixed(3) : 'N/A'}</td>
@@ -722,7 +839,9 @@ function showLineChart(catName, doScroll = true) {
   document.getElementById('line-chart-title').textContent = cat.name;
   const s = cat.stats;
   document.getElementById('line-chart-meta').textContent =
-    `Μεταβολή: ${s.pct_change_total != null ? s.pct_change_total.toFixed(1) + '%' : 'N/A'} · ` +
+    `Εβδομάδα: ${s.wow_latest != null ? (s.wow_latest >= 0 ? '+' : '') + s.wow_latest.toFixed(1) + '%' : 'N/A'} · ` +
+    `Από baseline: ${s.pct_from_baseline != null ? s.pct_from_baseline.toFixed(1) + '%' : 'N/A'} · ` +
+    `Τυπική: ${s.pct_typical != null ? s.pct_typical.toFixed(1) + '%' : 'N/A'} · ` +
     `CAGR: ${s.cagr != null ? s.cagr.toFixed(2) + '%' : 'N/A'} · ` +
     `Slope: ${s.slope_per_month != null ? s.slope_per_month.toFixed(4) + ' €/μήνα' : 'N/A'} · ` +
     `R²: ${s.r_squared != null ? s.r_squared.toFixed(3) : 'N/A'}`;
