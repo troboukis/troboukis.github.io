@@ -1,0 +1,326 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7481, 38.0734],
+          [23.7465, 38.0680],
+          [23.7450, 38.0620],
+          [23.7435, 38.0555],
+          [23.7420, 38.0490],
+          [23.7405, 38.0420],
+          [23.7390, 38.0350],
+          [23.7370, 38.0280],
+          [23.7350, 38.0210],
+          [23.7325, 38.0140],
+          [23.7300, 38.0070],
+          [23.7275, 38.0000]
+        ]
+      },
+      "properties": {
+        "id": "way_kifissos_north_1",
+        "name": "Λεωφόρος Κηφισού",
+        "ref": "A1",
+        "roadType": "motorway",
+        "lanes": 4,
+        "maxSpeed": 120,
+        "oneway": true,
+        "isRamp": false,
+        "length": 8200,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 2,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7275, 38.0000],
+          [23.7255, 37.9930],
+          [23.7235, 37.9860],
+          [23.7215, 37.9790],
+          [23.7195, 37.9720],
+          [23.7175, 37.9650],
+          [23.7155, 37.9580],
+          [23.7135, 37.9510],
+          [23.7115, 37.9440],
+          [23.7095, 37.9370],
+          [23.7075, 37.9300]
+        ]
+      },
+      "properties": {
+        "id": "way_kifissos_central_1",
+        "name": "Λεωφόρος Κηφισού",
+        "ref": "A1",
+        "roadType": "motorway",
+        "lanes": 4,
+        "maxSpeed": 120,
+        "oneway": true,
+        "isRamp": false,
+        "length": 7800,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7075, 37.9300],
+          [23.7060, 37.9230],
+          [23.7045, 37.9160],
+          [23.7030, 37.9090],
+          [23.7015, 37.9020],
+          [23.7000, 37.8950],
+          [23.6985, 37.8880]
+        ]
+      },
+      "properties": {
+        "id": "way_kifissos_south_1",
+        "name": "Λεωφόρος Κηφισού",
+        "ref": "A6",
+        "roadType": "motorway",
+        "lanes": 4,
+        "maxSpeed": 120,
+        "oneway": true,
+        "isRamp": false,
+        "length": 4700,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7520, 38.0500],
+          [23.7500, 38.0480],
+          [23.7460, 38.0470],
+          [23.7420, 38.0490]
+        ]
+      },
+      "properties": {
+        "id": "way_ramp_metamorfosi_on",
+        "name": "Ε/Κ Μεταμόρφωσης",
+        "roadType": "motorway_link",
+        "lanes": 1,
+        "maxSpeed": 60,
+        "oneway": true,
+        "isRamp": true,
+        "rampType": "on",
+        "length": 850,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7370, 38.0280],
+          [23.7340, 38.0270],
+          [23.7310, 38.0250],
+          [23.7290, 38.0220]
+        ]
+      },
+      "properties": {
+        "id": "way_ramp_nea_ionia_off",
+        "name": "Έξοδος Νέα Ιωνία",
+        "roadType": "motorway_link",
+        "lanes": 1,
+        "maxSpeed": 60,
+        "oneway": true,
+        "isRamp": true,
+        "rampType": "off",
+        "length": 720,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 6,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7400, 38.0100],
+          [23.7380, 38.0090],
+          [23.7350, 38.0080],
+          [23.7325, 38.0070]
+        ]
+      },
+      "properties": {
+        "id": "way_ramp_attiki_odos_on",
+        "name": "Ε/Κ Αττικής Οδού",
+        "roadType": "motorway_link",
+        "lanes": 2,
+        "maxSpeed": 60,
+        "oneway": true,
+        "isRamp": true,
+        "rampType": "on",
+        "length": 680,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7275, 38.0000],
+          [23.7245, 37.9990],
+          [23.7220, 37.9970],
+          [23.7200, 37.9940]
+        ]
+      },
+      "properties": {
+        "id": "way_ramp_peristeri_off",
+        "name": "Έξοδος Περιστέρι",
+        "roadType": "motorway_link",
+        "lanes": 1,
+        "maxSpeed": 60,
+        "oneway": true,
+        "isRamp": true,
+        "rampType": "off",
+        "length": 750,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 8,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7290, 37.9700],
+          [23.7260, 37.9690],
+          [23.7230, 37.9680],
+          [23.7195, 37.9720]
+        ]
+      },
+      "properties": {
+        "id": "way_ramp_rentis_on",
+        "name": "Ε/Κ Ρέντη",
+        "roadType": "motorway_link",
+        "lanes": 1,
+        "maxSpeed": 60,
+        "oneway": true,
+        "isRamp": true,
+        "rampType": "on",
+        "length": 820,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 9,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7155, 37.9580],
+          [23.7120, 37.9570],
+          [23.7090, 37.9550],
+          [23.7070, 37.9520]
+        ]
+      },
+      "properties": {
+        "id": "way_ramp_pireos_off",
+        "name": "Έξοδος Πειραιώς",
+        "roadType": "motorway_link",
+        "lanes": 1,
+        "maxSpeed": 60,
+        "oneway": true,
+        "isRamp": true,
+        "rampType": "off",
+        "length": 780,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7210, 37.9400],
+          [23.7180, 37.9390],
+          [23.7150, 37.9380],
+          [23.7115, 37.9440]
+        ]
+      },
+      "properties": {
+        "id": "way_ramp_hamosternas_on",
+        "name": "Ε/Κ Χαμοστέρνας",
+        "roadType": "motorway_link",
+        "lanes": 1,
+        "maxSpeed": 60,
+        "oneway": true,
+        "isRamp": true,
+        "rampType": "on",
+        "length": 700,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7075, 37.9300],
+          [23.7040, 37.9290],
+          [23.7010, 37.9270],
+          [23.6990, 37.9240]
+        ]
+      },
+      "properties": {
+        "id": "way_ramp_faliro_off",
+        "name": "Έξοδος Φάληρο",
+        "roadType": "motorway_link",
+        "lanes": 1,
+        "maxSpeed": 60,
+        "oneway": true,
+        "isRamp": true,
+        "rampType": "off",
+        "length": 820,
+        "direction": "south"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 12,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [23.7320, 38.0210],
+          [23.7290, 38.0220],
+          [23.7260, 38.0200],
+          [23.7235, 38.0170],
+          [23.7230, 38.0140],
+          [23.7255, 38.0100],
+          [23.7280, 38.0070],
+          [23.7255, 38.0000]
+        ]
+      },
+      "properties": {
+        "id": "way_periferiaki_trunk",
+        "name": "Περιφερειακή Αιγάλεω",
+        "roadType": "trunk",
+        "lanes": 2,
+        "maxSpeed": 80,
+        "oneway": true,
+        "isRamp": false,
+        "length": 2400,
+        "direction": "south"
+      }
+    }
+  ]
+}

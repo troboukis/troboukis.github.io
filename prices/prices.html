@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>e-katanalotis — Ανάλυση Τιμών</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    background: #fff;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  /* NYT Typography */
+  h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #121212;
+    margin-bottom: 4px;
+  }
+
+  h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #121212;
+    margin-bottom: 8px;
+    padding-top: 32px;
+    border-top: 1px solid #e2e2e2;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .updated {
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 32px;
+  }
+
+  /* Highlights */
+  .highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+
+  .highlight-card {
+    background: #fafafa;
+    border: 1px solid #e2e2e2;
+    padding: 20px;
+  }
+
+  .highlight-card h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+    margin-bottom: 12px;
+  }
+
+  .highlight-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .highlight-item:last-child { border-bottom: none; }
+
+  .highlight-name {
+    font-size: 0.95rem;
+    color: #333;
+  }
+
+  .highlight-pct {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #d63d28;
+  }
+
+  .highlight-prices {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .highlight-prices .from-price {
+    color: #999;
+    text-decoration: line-through;
+  }
+
+  .highlight-detail {
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 8px;
+  }
+
+  .highlights-summary {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .highlights-summary strong { color: #333; }
+
+  .footnote {
+    font-size: 0.8rem;
+    color: #999;
+    border-top: 1px solid #e8e8e8;
+    padding-top: 10px;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* Category Selector */
+  .controls {
+    margin-bottom: 24px;
+  }
+
+  .search-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  #cat-search {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    width: 280px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  #cat-search:focus { outline: none; border-color: #999; }
+
+  .btn {
+    font-size: 0.8rem;
+    padding: 7px 14px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+  }
+
+  .btn:hover { background: #f5f5f5; }
+  .btn.active { background: #333; color: #fff; border-color: #333; }
+
+  .cat-list {
+    max-height: 180px;
+    overflow-y: auto;
+    border: 1px solid #e2e2e2;
+    padding: 8px 12px;
+    columns: 3;
+    column-gap: 16px;
+  }
+
+  .cat-list label {
+    display: block;
+    font-size: 0.85rem;
+    padding: 2px 0;
+    cursor: pointer;
+    break-inside: avoid;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cat-list label:hover { color: #000; }
+  .cat-list label input { margin-right: 4px; }
+
+  .cat-count {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 4px;
+  }
+
+  /* Heatmap */
+  .heatmap-wrapper {
+    overflow-x: auto;
+    margin-bottom: 16px;
+  }
+
+  .heatmap-tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 100;
+    line-height: 1.4;
+  }
+
+  /* Stats Table */
+  .stats-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 16px;
+  }
+
+  #stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  #stats-table th {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid #333;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #666;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  #stats-table th:hover { color: #000; }
+  #stats-table th .sort-arrow { font-size: 0.7rem; margin-left: 3px; }
+
+  #stats-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  #stats-table tbody tr { cursor: pointer; }
+  #stats-table tbody tr:hover { background: #f7f7f7; }
+  #stats-table tbody tr.active { background: #fff8e1; }
+
+  .dir-up { color: #d63d28; font-weight: 600; }
+  .dir-down { color: #1a7f37; font-weight: 600; }
+  .dir-flat { color: #999; }
+
+  /* Line Chart */
+  #line-chart-section {
+    display: none;
+    margin-bottom: 16px;
+  }
+
+  #line-chart-section h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #121212;
+  }
+
+  .line-chart-meta {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 12px;
+  }
+
+  .axis text { font-size: 11px; fill: #666; }
+  .axis line, .axis path { stroke: #e2e2e2; }
+  .grid line { stroke: #f0f0f0; }
+
+  /* Loading */
+  .loading {
+    text-align: center;
+    padding: 60px 0;
+    color: #999;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 20px 12px; }
+    .highlights { grid-template-columns: 1fr; }
+    .cat-list { columns: 1; max-height: 150px; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; }
+    .subtitle { font-size: 0.9rem; }
+    .highlight-item { flex-wrap: wrap; gap: 2px; }
+    .highlight-name { font-size: 0.85rem; width: 100%; }
+    .search-row { flex-direction: column; align-items: stretch; }
+    #cat-search { width: 100%; }
+    #stats-table { font-size: 0.8rem; }
+    #stats-table th, #stats-table td { padding: 5px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Πώς αλλάζουν οι τιμές στα σούπερ μάρκετ</h1>
+  <p class="subtitle">Εβδομαδιαία παρακολούθηση τιμών ανά κατηγορία προϊόντος</p>
+  <p class="updated" id="updated-date"></p>
+
+  <div id="loading" class="loading">Φόρτωση δεδομένων...</div>
+
+  <div id="content" style="display:none;">
+
+    <h2>Αυξήσεις της εβδομάδας</h2>
+    <p class="highlights-summary" id="highlights-summary"></p>
+    <div class="highlights" id="highlights"></div>
+    <p class="footnote" id="highlights-footnote"></p>
+
+    <h2>Μεταβολή τιμών</h2>
+    <p class="subtitle" id="heatmap-subtitle" style="margin-bottom:16px;"></p>
+    <div class="controls">
+      <div class="search-row">
+        <input type="text" id="cat-search" placeholder="Αναζήτηση κατηγορίας...">
+        <button class="btn" id="btn-top-up">Top 20 Αυξήσεις</button>
+        <button class="btn" id="btn-top-down">Top 20 Μειώσεις</button>
+        <button class="btn" id="btn-clear">Καθαρισμός</button>
+      </div>
+      <div class="cat-list" id="cat-list"></div>
+      <div class="cat-count" id="cat-count"></div>
+    </div>
+    <div class="heatmap-wrapper" id="heatmap-wrapper"></div>
+
+    <h2>Ανάλυση</h2>
+    <p class="subtitle" style="margin-bottom:16px;">Πώς να διαβάσετε τα στοιχεία: Μία κατηγορία με Slope 0,15 €/μήνα σημαίνει ότι η τιμή αυξάνεται κατά 0,15 € κάθε μήνα με σταθερό ρυθμό. Όσο πιο κοντά είναι το R² στο 1,0, τόσο υψηλότερη είναι η αξιοπιστία της γραμμικής τάσης. Το CAGR (Compound Annual Growth Rate) δείχνει τον μέσο ετήσιο ρυθμό αύξησης, λαμβάνοντας υπόψη τη σύνθετη (ανατοκισμένη) μεταβολή στον χρόνο. Κάντε κλικ σε μια γραμμή για να δείτε το γράφημα τιμών.</p>
+    <div class="stats-table-wrapper">
+      <table id="stats-table">
+        <thead>
+          <tr>
+            <th data-key="name">Κατηγορία</th>
+            <th data-key="pct_change_total">Μεταβολή %</th>
+            <th data-key="cagr">CAGR %</th>
+            <th data-key="slope_per_month">Slope €/μήνα</th>
+            <th data-key="r_squared">R²</th>
+            <th data-key="direction">Κατεύθυνση</th>
+          </tr>
+        </thead>
+        <tbody id="stats-body"></tbody>
+      </table>
+    </div>
+
+    <div id="line-chart-section">
+      <h3 id="line-chart-title"></h3>
+      <div class="line-chart-meta" id="line-chart-meta"></div>
+      <div id="line-chart"></div>
+    </div>
+  </div>
+</div>
+
+<div class="heatmap-tooltip" id="tooltip"></div>
+
+<script>
+// ── Globals ──
+let DATA = null;
+let selectedCats = new Set();
+let sortKey = 'pct_change_total';
+let sortAsc = false;
+let activeLineChartCat = null;
+
+// ── Load Data ──
+fetch('dashboard_data.json')
+  .then(r => r.json())
+  .then(data => {
+    DATA = data;
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    document.getElementById('updated-date').textContent =
+      `Τελευταία ενημέρωση: ${data.last_updated} · ${data.categories.length} κατηγορίες · ${data.weeks.length} εβδομάδες`;
+    init();
+  })
+  .catch(err => {
+    document.getElementById('loading').textContent = 'Σφάλμα φόρτωσης: ' + err.message;
+  });
+
+function init() {
+  renderHighlights();
+  document.getElementById('heatmap-subtitle').textContent =
+    `Ποσοστιαία μεταβολή σε σχέση με τη διάμεση τιμή των πρώτων ${DATA.baseline_weeks_count} εβδομάδων (${DATA.baseline_period}). Επιλέξτε τις κατηγορίες που θέλετε να εμφανιστούν στο γράφημα.`;
+  buildCategorySelector();
+  selectTop(20, false);
+}
+
+// ── Highlights ──
+function renderHighlights() {
+  const hl = DATA.weekly_highlights;
+  const s = hl.wow_summary;
+
+  // Summary subtitle
+  document.getElementById('highlights-summary').innerHTML =
+    `Εκτιμάται πως <strong>${s.increase}</strong> κατηγορίες προϊόντων παρουσιάζουν αύξηση σε σχέση με την περασμένη εβδομάδα, ` +
+    `<strong>${s.decrease}</strong> παρουσιάζουν μείωση και <strong>${s.unchanged}</strong> παραμένουν αμετάβλητες.`;
+
+  // Cards
+  const container = document.getElementById('highlights');
+
+  const cards = [
+    { title: `Σε σχέση με την προηγούμενη εβδομάδα`, items: hl.top5_wow, prevKey: 'prev_median' },
+    { title: `Σε σχέση με την ίδια εβδομάδα πέρυσι`, items: hl.top5_yoy, prevKey: 'last_year_median' },
+  ];
+
+  container.innerHTML = cards.map(card => `
+    <div class="highlight-card">
+      <h3>${card.title}</h3>
+      ${card.items.map(item => `
+        <div class="highlight-item">
+          <span class="highlight-name">${item.name}</span>
+          <span>
+            <span class="highlight-pct">+${item.pct_change}%</span>
+            <span class="highlight-prices">${item.current_median.toFixed(2)}€ από <span class="from-price">${item[card.prevKey].toFixed(2)}€</span></span>
+          </span>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+
+  // Footnote
+  document.getElementById('highlights-footnote').textContent =
+    `Σημείωση: Τα ποσοστά υπολογίζονται βάσει της διάμεσης (median) τιμής κάθε κατηγορίας προϊόντος σε όλα τα σούπερ μάρκετ. ` +
+    `Η σύγκριση γίνεται μεταξύ της τρέχουσας εβδομάδας (${DATA.last_week}) και της προηγούμενης (${DATA.prev_week}) ή της αντίστοιχης εβδομάδας του περασμένου έτους (${DATA.last_year_week || 'μη διαθέσιμο'}).`;
+}
+
+// ── Category Selector ──
+function buildCategorySelector() {
+  const list = document.getElementById('cat-list');
+  const sorted = [...DATA.categories].sort((a, b) => a.name.localeCompare(b.name, 'el'));
+
+  list.innerHTML = sorted.map(c => `
+    <label title="${c.name}">
+      <input type="checkbox" value="${c.name}">
+      ${c.name}
+    </label>
+  `).join('');
+
+  list.addEventListener('change', () => {
+    syncSelectionFromCheckboxes();
+    render();
+  });
+
+  document.getElementById('cat-search').addEventListener('input', function() {
+    const q = this.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    list.querySelectorAll('label').forEach(label => {
+      const name = label.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      label.style.display = name.includes(q) ? '' : 'none';
+    });
+  });
+
+  document.getElementById('btn-top-up').addEventListener('click', () => selectTop(20, false));
+  document.getElementById('btn-top-down').addEventListener('click', () => selectTop(20, true));
+  document.getElementById('btn-clear').addEventListener('click', () => {
+    selectedCats.clear();
+    syncCheckboxes();
+    render();
+  });
+}
+
+function selectTop(n, ascending) {
+  const sorted = [...DATA.categories]
+    .filter(c => c.stats.pct_change_total != null)
+    .sort((a, b) => ascending
+      ? a.stats.pct_change_total - b.stats.pct_change_total
+      : b.stats.pct_change_total - a.stats.pct_change_total);
+  selectedCats = new Set(sorted.slice(0, n).map(c => c.name));
+  syncCheckboxes();
+  render();
+}
+
+function syncCheckboxes() {
+  document.querySelectorAll('#cat-list input[type=checkbox]').forEach(cb => {
+    cb.checked = selectedCats.has(cb.value);
+  });
+}
+
+function syncSelectionFromCheckboxes() {
+  selectedCats.clear();
+  document.querySelectorAll('#cat-list input[type=checkbox]:checked').forEach(cb => {
+    selectedCats.add(cb.value);
+  });
+}
+
+function render() {
+  document.getElementById('cat-count').textContent = `${selectedCats.size} κατηγορίες επιλεγμένες`;
+  renderHeatmap();
+  renderStatsTable();
+  if (activeLineChartCat) showLineChart(activeLineChartCat, false);
+}
+
+// ── Heatmap ──
+function renderHeatmap() {
+  const wrapper = document.getElementById('heatmap-wrapper');
+  wrapper.innerHTML = '';
+
+  const cats = DATA.categories.filter(c => selectedCats.has(c.name));
+  if (cats.length === 0) return;
+
+  const weeks = DATA.weeks;
+  const dates = DATA.week_start_dates;
+
+  // Responsive sizing
+  const isMobile = window.innerWidth < 768;
+  const cellW = isMobile ? 10 : 14;
+  const cellH = isMobile ? 18 : 22;
+  const marginLeft = isMobile ? 130 : 220;
+  const labelMaxLen = isMobile ? 16 : 28;
+  const marginTop = 40, marginRight = 20, marginBottom = 10;
+  const w = marginLeft + weeks.length * cellW + marginRight;
+  const h = marginTop + cats.length * cellH + marginBottom;
+
+  // Color scale — NYT diverging: teal ← white → orange/red
+  const allVals = cats.flatMap(c => c.pct_from_baseline.filter(v => v != null));
+  const maxAbs = d3.max(allVals.map(Math.abs)) || 10;
+
+  const color = d3.scaleDiverging()
+    .domain([-maxAbs, 0, maxAbs])
+    .interpolator(d3.interpolateRgbBasis(['#1b7837', '#a6dba0', '#f7f7f7', '#e08214', '#d63d28']));
+
+  const svg = d3.select(wrapper).append('svg')
+    .attr('width', w)
+    .attr('height', h);
+
+  const tooltip = document.getElementById('tooltip');
+
+  // X axis — show every ~4th week label
+  const parseDate = d3.timeParse('%Y-%m-%d');
+  const formatDate = d3.timeFormat('%d %b');
+  const tickStep = Math.max(1, Math.floor(weeks.length / 14));
+
+  svg.selectAll('.x-label')
+    .data(weeks.filter((_, i) => i % tickStep === 0))
+    .join('text')
+    .attr('class', 'axis')
+    .attr('x', d => marginLeft + weeks.indexOf(d) * cellW + cellW / 2)
+    .attr('y', marginTop - 6)
+    .attr('text-anchor', 'middle')
+    .style('font-size', '9px')
+    .text(d => {
+      const idx = weeks.indexOf(d);
+      return formatDate(parseDate(dates[idx]));
+    });
+
+  // Rows
+  cats.forEach((cat, ri) => {
+    const y = marginTop + ri * cellH;
+
+    // Category label
+    svg.append('text')
+      .attr('x', marginLeft - 6)
+      .attr('y', y + cellH / 2 + 4)
+      .attr('text-anchor', 'end')
+      .style('font-size', '11px')
+      .style('fill', '#333')
+      .style('cursor', 'pointer')
+      .text(cat.name.length > labelMaxLen ? cat.name.slice(0, labelMaxLen - 2) + '…' : cat.name)
+      .on('click', () => showLineChart(cat.name));
+
+    // Cells
+    cat.pct_from_baseline.forEach((val, ci) => {
+      svg.append('rect')
+        .attr('x', marginLeft + ci * cellW)
+        .attr('y', y)
+        .attr('width', cellW - 1)
+        .attr('height', cellH - 1)
+        .attr('rx', 1)
+        .attr('fill', val != null ? color(val) : '#e0e0e0')
+        .style('cursor', 'pointer')
+        .on('mouseover', function(event) {
+          tooltip.style.opacity = 1;
+          tooltip.innerHTML = `<strong>${cat.name}</strong><br>${dates[ci]}<br>${val != null ? (val >= 0 ? '+' : '') + val.toFixed(1) + '%' : 'Δεν υπάρχουν δεδομένα'}`;
+        })
+        .on('mousemove', function(event) {
+          tooltip.style.left = (event.pageX + 12) + 'px';
+          tooltip.style.top = (event.pageY - 30) + 'px';
+        })
+        .on('mouseout', () => { tooltip.style.opacity = 0; })
+        .on('click', () => showLineChart(cat.name));
+    });
+  });
+}
+
+// ── Stats Table ──
+function renderStatsTable() {
+  const cats = DATA.categories.filter(c => selectedCats.has(c.name));
+  const sorted = [...cats].sort((a, b) => {
+    let va = a.stats[sortKey] ?? (sortKey === 'name' ? a.name : -Infinity);
+    let vb = b.stats[sortKey] ?? (sortKey === 'name' ? b.name : -Infinity);
+    if (sortKey === 'name') { va = a.name; vb = b.name; }
+    if (typeof va === 'string') return sortAsc ? va.localeCompare(vb, 'el') : vb.localeCompare(va, 'el');
+    return sortAsc ? va - vb : vb - va;
+  });
+
+  const body = document.getElementById('stats-body');
+  body.innerHTML = sorted.map(c => {
+    const s = c.stats;
+    const dirClass = s.direction === 'Αύξηση' ? 'dir-up' : s.direction === 'Μείωση' ? 'dir-down' : 'dir-flat';
+    return `<tr data-cat="${c.name}">
+      <td>${c.name}</td>
+      <td>${s.pct_change_total != null ? s.pct_change_total.toFixed(1) : 'N/A'}</td>
+      <td>${s.cagr != null ? s.cagr.toFixed(2) : 'N/A'}</td>
+      <td>${s.slope_per_month != null ? s.slope_per_month.toFixed(4) : 'N/A'}</td>
+      <td>${s.r_squared != null ? s.r_squared.toFixed(3) : 'N/A'}</td>
+      <td class="${dirClass}">${s.direction}</td>
+    </tr>`;
+  }).join('');
+
+  body.querySelectorAll('tr').forEach(tr => {
+    tr.addEventListener('click', () => showLineChart(tr.dataset.cat));
+  });
+
+  // Sort headers
+  document.querySelectorAll('#stats-table th').forEach(th => {
+    const key = th.dataset.key;
+    th.querySelector('.sort-arrow')?.remove();
+    if (key === sortKey) {
+      const arrow = document.createElement('span');
+      arrow.className = 'sort-arrow';
+      arrow.textContent = sortAsc ? ' ▲' : ' ▼';
+      th.appendChild(arrow);
+    }
+    th.onclick = () => {
+      if (sortKey === key) { sortAsc = !sortAsc; } else { sortKey = key; sortAsc = key === 'name'; }
+      renderStatsTable();
+    };
+  });
+}
+
+// ── Line Chart ──
+function showLineChart(catName, doScroll = true) {
+  activeLineChartCat = catName;
+  const section = document.getElementById('line-chart-section');
+  section.style.display = 'block';
+
+  const cat = DATA.categories.find(c => c.name === catName);
+  if (!cat) return;
+
+  document.getElementById('line-chart-title').textContent = cat.name;
+  const s = cat.stats;
+  document.getElementById('line-chart-meta').textContent =
+    `Μεταβολή: ${s.pct_change_total != null ? s.pct_change_total.toFixed(1) + '%' : 'N/A'} · ` +
+    `CAGR: ${s.cagr != null ? s.cagr.toFixed(2) + '%' : 'N/A'} · ` +
+    `Slope: ${s.slope_per_month != null ? s.slope_per_month.toFixed(4) + ' €/μήνα' : 'N/A'} · ` +
+    `R²: ${s.r_squared != null ? s.r_squared.toFixed(3) : 'N/A'}`;
+
+  // Highlight active row
+  document.querySelectorAll('#stats-table tbody tr').forEach(tr => {
+    tr.classList.toggle('active', tr.dataset.cat === catName);
+  });
+
+  // Build line chart
+  const container = document.getElementById('line-chart');
+  container.innerHTML = '';
+
+  const parseDate = d3.timeParse('%Y-%m-%d');
+  const allDates = DATA.all_week_start_dates || DATA.week_start_dates;
+  const points = allDates.map((d, i) => ({
+    date: parseDate(d),
+    value: cat.weekly_median[i],
+  })).filter(p => p.value != null);
+
+  const containerWidth = container.parentElement.getBoundingClientRect().width;
+  const isMobileChart = window.innerWidth < 768;
+  const margin = { top: 20, right: 15, bottom: 40, left: isMobileChart ? 45 : 55 };
+  const totalW = Math.min(containerWidth, 1200);
+  const width = totalW - margin.left - margin.right;
+  const height = (isMobileChart ? 250 : 320) - margin.top - margin.bottom;
+
+  const svg = d3.select(container).append('svg')
+    .attr('width', totalW)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
+
+  const x = d3.scaleTime()
+    .domain(d3.extent(points, d => d.date))
+    .range([0, width]);
+
+  const yExtent = d3.extent(points, d => d.value);
+  const yPad = (yExtent[1] - yExtent[0]) * 0.1 || 1;
+  const y = d3.scaleLinear()
+    .domain([yExtent[0] - yPad, yExtent[1] + yPad])
+    .range([height, 0]);
+
+  // Grid
+  svg.append('g')
+    .attr('class', 'grid')
+    .call(d3.axisLeft(y).ticks(5).tickSize(-width).tickFormat(''))
+    .select('.domain').remove();
+
+  // Axes
+  svg.append('g')
+    .attr('class', 'axis')
+    .attr('transform', `translate(0,${height})`)
+    .call(d3.axisBottom(x).ticks(d3.timeMonth.every(2)).tickFormat(d3.timeFormat('%b %Y')));
+
+  svg.append('g')
+    .attr('class', 'axis')
+    .call(d3.axisLeft(y).ticks(5).tickFormat(d => d.toFixed(2) + '€'));
+
+  // Line
+  const line = d3.line()
+    .x(d => x(d.date))
+    .y(d => y(d.value))
+    .curve(d3.curveMonotoneX);
+
+  svg.append('path')
+    .datum(points)
+    .attr('fill', 'none')
+    .attr('stroke', '#d63d28')
+    .attr('stroke-width', 2)
+    .attr('d', line);
+
+  // Dots
+  svg.selectAll('.dot')
+    .data(points)
+    .join('circle')
+    .attr('cx', d => x(d.date))
+    .attr('cy', d => y(d.value))
+    .attr('r', 3)
+    .attr('fill', '#d63d28')
+    .attr('stroke', '#fff')
+    .attr('stroke-width', 1.5);
+
+  // Hover crosshair
+  const focus = svg.append('g').style('display', 'none');
+  focus.append('line').attr('class', 'focus-line').attr('stroke', '#999').attr('stroke-dasharray', '3,3');
+  focus.append('circle').attr('r', 5).attr('fill', 'none').attr('stroke', '#333').attr('stroke-width', 1.5);
+  focus.append('text').attr('font-size', '12px').attr('fill', '#333');
+
+  const bisect = d3.bisector(d => d.date).left;
+
+  svg.append('rect')
+    .attr('width', width)
+    .attr('height', height)
+    .attr('fill', 'none')
+    .attr('pointer-events', 'all')
+    .on('mouseover', () => focus.style('display', null))
+    .on('mouseout', () => focus.style('display', 'none'))
+    .on('mousemove', function(event) {
+      const x0 = x.invert(d3.pointer(event)[0]);
+      const i = Math.min(bisect(points, x0, 1), points.length - 1);
+      const d0 = points[i - 1], d1 = points[i];
+      const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+      focus.attr('transform', `translate(${x(d.date)},${y(d.value)})`);
+      focus.select('line').attr('y1', 0).attr('y2', height - y(d.value));
+      focus.select('text')
+        .attr('y', -12)
+        .attr('text-anchor', 'middle')
+        .text(`${d.value.toFixed(2)}€`);
+    });
+
+  if (doScroll) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Resize handler ──
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (DATA && selectedCats.size > 0) render();
+  }, 250);
+});
+</script>
+</body>
+</html>
