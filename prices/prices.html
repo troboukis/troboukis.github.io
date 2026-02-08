@@ -24,7 +24,6 @@
     padding: 40px 20px;
   }
 
-  /* NYT Typography */
   h1 {
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 2.2rem;
@@ -52,7 +51,7 @@
   .updated {
     font-size: 0.85rem;
     color: #999;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
   /* Highlights */
@@ -262,7 +261,6 @@
 
   /* Line Chart */
   #line-chart-section {
-    display: none;
     margin-bottom: 16px;
   }
 
@@ -310,10 +308,10 @@
 </head>
 <body>
 <div class="container">
-  <h1>Πώς αλλάζουν οι τιμές στα σούπερ μάρκετ</h1>
-  <p class="subtitle">Εβδομαδιαία παρακολούθηση τιμών ανά κατηγορία προϊόντος</p>
+  <h1>Παρατηρητήριο τιμών στα σούπερ μάρκετ</h1>
+  <p class="subtitle">Εβδομαδιαία παρακολούθηση τιμών ανά κατηγορία προϊόντος όπως δημοσιεύονται στο <a href="https://e-katanalotis.gov.gr" target="_blank" style="color:#1b7837;">e-katanalotis.gov.gr</a>
   <p class="updated" id="updated-date"></p>
-  <p style="font-size:0.85rem;color:#999;margin-bottom:32px;">Ανάπτυξη: <a href="https://www.linkedin.com/in/thanasis-troboukis-9a33b031/" target="_blank" style="color:#666;">Θανάσης Τρομπούκης</a> με τη χρήση <a href="https://claude.ai" target="_blank" style="color:#666;">Claude</a>. Θεωρείτε πως κάτι δεν πάει καλά με την ανάλυση ή τα δεδομένα; Επικοινωνήστε μαζί μου: troboukis [at] gmail.com</p>
+  <p style="font-size:0.85rem;color:#999;margin-bottom:32px;">Ανάλυση και ανάπτυξη από τον <a href="https://www.linkedin.com/in/thanasis-troboukis-9a33b031/" target="_blank" style="color:#666;">Θανάσης Τρομπούκης</a> με τη χρήση <a href="https://claude.ai" target="_blank" style="color:#666;">Claude</a>. <br><i>Βλέπετε κάποιο λάθος στην ανάλυση ή τα δεδομένα; Επικοινωνήστε μαζί μου: troboukis [at] gmail.com</i></p>
 
   <div id="loading" class="loading">Φόρτωση δεδομένων...</div>
 
@@ -337,9 +335,10 @@
       <div class="cat-count" id="cat-count"></div>
     </div>
     <div class="heatmap-wrapper" id="heatmap-wrapper"></div>
+    <p class="footnote" style="font-size:0.8rem;color:#999;margin-top:6px;">Σημείωση: Κάθε κελί <span style="display:inline-block;width:11px;height:18px;background:#e08214;border-radius:1px;vertical-align:middle;margin:0 2px;"></span> αναπαριστά μία εβδομάδα. Η ένταση των χρωμάτων προσαρμόζεται δυναμικά σε κάθε εβδομάδα ώστε η πιο ακραία τιμή μεταξύ των εμφανιζόμενων κατηγοριών να αντιστοιχεί πάντα στο πιο έντονο χρώμα. Αυτό σημαίνει ότι μια κατηγορία με +5% ποσοστιαία αύξηση, μπορεί να έχει βαθύ κόκκινο χρώμα αν εμφανίζεται μόνη της, αλλά σχεδόν λευκό χρώμα αν εμφανίζεται μαζί με κατηγορία τροφίμου που σημειώνει ποσοστιαία αύξηση +40%. Η πραγματική ποσοστιαία τιμή παραμένει σταθερή στο tooltip.</p>
 
     <h2>Ανάλυση</h2>
-    <p class="subtitle" style="margin-bottom:16px;">Πώς να διαβάσετε τα στοιχεία: Μία κατηγορία με Slope 0,15 €/μήνα σημαίνει ότι η τιμή αυξάνεται κατά 0,15 € κάθε μήνα με σταθερό ρυθμό. Όσο πιο κοντά είναι το R² στο 1,0, τόσο υψηλότερη είναι η αξιοπιστία της γραμμικής τάσης. Το CAGR (Compound Annual Growth Rate) δείχνει τον μέσο ετήσιο ρυθμό αύξησης, λαμβάνοντας υπόψη τη σύνθετη (ανατοκισμένη) μεταβολή στον χρόνο. Κάντε κλικ σε μια γραμμή για να δείτε το γράφημα τιμών.</p>
+    <p class="subtitle" style="margin-bottom:16px;">Πώς να διαβάσετε τα στοιχεία: Μία κατηγορία με Slope 0,15 €/μήνα σημαίνει ότι η τιμή αυξάνεται κατά 0,15 € κάθε μήνα με σταθερό ρυθμό. Όσο πιο κοντά είναι το R² στο 1.0, τόσο υψηλότερη είναι η αξιοπιστία της γραμμικής τάσης. Το CAGR (Compound Annual Growth Rate) δείχνει τον μέσο ετήσιο ρυθμό αύξησης, λαμβάνοντας υπόψη τη σύνθετη (ανατοκισμένη) μεταβολή στον χρόνο. Επιλέξτε μία γραμμή για να δείτε το γράφημα τιμών.</p>
     <div class="stats-table-wrapper">
       <table id="stats-table">
         <thead>
@@ -387,17 +386,21 @@
     $\Delta_{i,t} = \dfrac{P_{i,t} - B_i}{B_i} \times 100\%$
   </p>
 
-  <p style="margin-top:16px;"><strong style="color:#333;">CAGR — Σύνθετος Ετήσιος Ρυθμός Αύξησης</strong></p>
+  <p style="margin-top:16px;"><strong style="color:#333;">CAGR — Σύνθετος Ετήσιος Ρυθμός Μεταβολής</strong></p>
   <p style="text-align:center;margin:8px 0;">
-    $\text{CAGR}_i = \left(\left(\frac{\bar{P}_{i,\text{last\_year}}}{\bar{P}_{i,\text{first\_year}}}\right)^{\frac{1}{n}} - 1\right) \times 100\%$
+    $\text{CAGR}_i = \left(\frac{V_i(t_n)}{V_i(t_0)}\right)^{\frac{1}{n}} - 1$
   </p>
   <p>
-    όπου $\bar{P}_{i,\text{year}}$ ο μέσος όρος τιμών της κατηγορίας $i$ στο έτος year, και $n$ ο αριθμός ετών μεταξύ πρώτου και τελευταίου έτους.
+    όπου $V_i(t_0)$ η διάμεση τιμή της κατηγορίας $i$ στην πρώτη εβδομάδα δεδομένων,
+    $V_i(t_n)$ η διάμεση τιμή στην τελευταία εβδομάδα, και
+    $n$ η χρονική απόσταση μεταξύ τους σε έτη.
+    Ο χρόνος $n$ υπολογίζεται με βάση τις πραγματικές ημέρες που μεσολαβούν μεταξύ πρώτης και τελευταίας εβδομάδας διαιρεμένες με 365,
+    ώστε να αντικατοπτρίζει το πραγματικό χρονικό διάστημα των δεδομένων.
   </p>
 
   <p style="margin-top:16px;"><strong style="color:#333;">Κλίση (slope) ανά μήνα</strong></p>
   <p>
-    Υπολογίζεται μέσω γραμμικής παλινδρόμησης (OLS) της μηνιαίας μέσης τιμής ως προς τον αριθμό μήνα:
+    Υπολογίζεται μέσω γραμμικής παλινδρόμησης (OLS) της μηνιαίας διάμεσης τιμής ως προς τον αριθμό μήνα:
   </p>
   <p style="text-align:center;margin:8px 0;">
     $P_{i,m} = \beta_0 + \beta_1 \cdot m + \varepsilon$
@@ -448,7 +451,7 @@ fetch('dashboard_data.json')
 function init() {
   renderHighlights();
   document.getElementById('heatmap-subtitle').textContent =
-    `Ποσοστιαία μεταβολή σε σχέση με τη διάμεση τιμή των πρώτων ${DATA.baseline_weeks_count} εβδομάδων (${DATA.baseline_period}). Επιλέξτε τις κατηγορίες που θέλετε να εμφανιστούν στο γράφημα.`;
+    `Ποσοστιαία μεταβολή σε σχέση με τη διάμεση τιμή των πρώτων ${DATA.baseline_weeks_count} εβδομάδων ${DATA.baseline_period} (baseline). Επιλέξτε τις κατηγορίες που θέλετε να εμφανιστούν στο γράφημα.`;
   buildCategorySelector();
   selectTop(20, false);
 }
@@ -461,7 +464,7 @@ function renderHighlights() {
   // Summary subtitle
   document.getElementById('highlights-summary').innerHTML =
     `Εκτιμάται πως <strong>${s.increase}</strong> κατηγορίες προϊόντων παρουσιάζουν αύξηση σε σχέση με την περασμένη εβδομάδα, ` +
-    `<strong>${s.decrease}</strong> παρουσιάζουν μείωση και <strong>${s.unchanged}</strong> παραμένουν αμετάβλητες.`;
+    `<strong>${s.decrease}</strong> παρουσιάζουν μείωση και <strong>${s.unchanged}</strong> παραμένουν αμετάβλητες. Οι τιμές αντιστοιχούν είτε σε συσκευασία προϊόντος, είτε ανά κιλό προϊόντος.`;
 
   // Cards
   const container = document.getElementById('highlights');
@@ -479,7 +482,7 @@ function renderHighlights() {
           <span class="highlight-name">${item.name}</span>
           <span>
             <span class="highlight-pct">+${item.pct_change}%</span>
-            <span class="highlight-prices">${item.current_median.toFixed(2)}€ από <span class="from-price">${item[card.prevKey].toFixed(2)}€</span></span>
+            <span class="highlight-prices">διάμεση τιμή ${item.current_median.toFixed(2)}€ από ${item[card.prevKey].toFixed(2)}€</span>
           </span>
         </div>
       `).join('')}
@@ -554,7 +557,11 @@ function render() {
   document.getElementById('cat-count').textContent = `${selectedCats.size} κατηγορίες επιλεγμένες`;
   renderHeatmap();
   renderStatsTable();
-  if (activeLineChartCat) showLineChart(activeLineChartCat, false);
+  // Always show line chart: use active category, or first selected category
+  const chartCat = activeLineChartCat && selectedCats.has(activeLineChartCat)
+    ? activeLineChartCat
+    : [...selectedCats][0] || null;
+  if (chartCat) showLineChart(chartCat, false);
 }
 
 // ── Heatmap ──
@@ -637,7 +644,7 @@ function renderHeatmap() {
         .style('cursor', 'pointer')
         .on('mouseover', function(event) {
           tooltip.style.opacity = 1;
-          tooltip.innerHTML = `<strong>${cat.name}</strong><br>${dates[ci]}<br>${val != null ? (val >= 0 ? '+' : '') + val.toFixed(1) + '%' : 'Δεν υπάρχουν δεδομένα'}`;
+          tooltip.innerHTML = `<strong>${cat.name}</strong><br>${dates[ci]}<br>${val != null ? (val >= 0 ? '+' : '') + val.toFixed(1) + '% από baseline' : 'Δεν υπάρχουν δεδομένα'}`;
         })
         .on('mousemove', function(event) {
           tooltip.style.left = (event.pageX + 12) + 'px';
@@ -698,8 +705,6 @@ function renderStatsTable() {
 // ── Line Chart ──
 function showLineChart(catName, doScroll = true) {
   activeLineChartCat = catName;
-  const section = document.getElementById('line-chart-section');
-  section.style.display = 'block';
 
   const cat = DATA.categories.find(c => c.name === catName);
   if (!cat) return;
@@ -766,6 +771,16 @@ function showLineChart(catName, doScroll = true) {
   svg.append('g')
     .attr('class', 'axis')
     .call(d3.axisLeft(y).ticks(5).tickFormat(d => d.toFixed(2) + '€'));
+
+  // Y-axis label
+  svg.append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('y', -margin.left + 14)
+    .attr('x', -height / 2)
+    .attr('text-anchor', 'middle')
+    .style('font-size', '11px')
+    .style('fill', '#999')
+    .text('Διάμεση τιμή (€)');
 
   // Line
   const line = d3.line()
