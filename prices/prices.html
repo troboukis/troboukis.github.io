@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>e-katanalotis — Ανάλυση Τιμών</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -310,6 +313,7 @@
   <h1>Πώς αλλάζουν οι τιμές στα σούπερ μάρκετ</h1>
   <p class="subtitle">Εβδομαδιαία παρακολούθηση τιμών ανά κατηγορία προϊόντος</p>
   <p class="updated" id="updated-date"></p>
+  <p style="font-size:0.85rem;color:#999;margin-bottom:32px;">Ανάπτυξη: <a href="https://www.linkedin.com/in/thanasis-troboukis-9a33b031/" target="_blank" style="color:#666;">Θανάσης Τρομπούκης</a> με τη χρήση <a href="https://claude.ai" target="_blank" style="color:#666;">Claude</a>. Θεωρείτε πως κάτι δεν πάει καλά με την ανάλυση ή τα δεδομένα; Επικοινωνήστε μαζί μου: troboukis [at] gmail.com</p>
 
   <div id="loading" class="loading">Φόρτωση δεδομένων...</div>
 
@@ -359,6 +363,62 @@
     </div>
   </div>
 </div>
+
+<footer style="max-width:1200px;margin:48px auto 0;padding:24px 20px;border-top:1px solid #e2e2e2;font-size:0.85rem;color:#666;line-height:2;">
+  <strong style="color:#333;font-size:1rem;">Μεθοδολογία</strong>
+
+  <p style="margin-top:12px;">
+    Τα δεδομένα προέρχονται από το <a href="https://e-katanalotis.gov.gr" target="_blank" style="color:#1b7837;">e-katanalotis.gov.gr</a> και συλλέγονται εβδομαδιαία μέσω αυτοματοποιημένης διαδικασίας.
+    Για κάθε κατηγορία προϊόντος υπολογίζεται η <em>διάμεση τιμή</em> (median) ανά εβδομάδα, αντί του μέσου όρου, ώστε να αποφεύγεται η επίδραση ακραίων τιμών.
+    Τα γκρι κελιά στο heatmap αντιστοιχούν σε εβδομάδες χωρίς διαθέσιμα δεδομένα.
+  </p>
+
+  <p style="margin-top:16px;"><strong style="color:#333;">Ποσοστιαία μεταβολή από baseline</strong></p>
+  <p>
+    Ως περίοδος αναφοράς (baseline) χρησιμοποιείται η διάμεση τιμή των πρώτων 8 εβδομάδων ανά κατηγορία:
+  </p>
+  <p style="text-align:center;margin:8px 0;">
+    $B_i = \text{median}(P_{i,1},\, P_{i,2},\, \ldots,\, P_{i,8})$
+  </p>
+  <p>
+    όπου $P_{i,t}$ η διάμεση τιμή της κατηγορίας $i$ την εβδομάδα $t$. Η ποσοστιαία μεταβολή κάθε εβδομάδας:
+  </p>
+  <p style="text-align:center;margin:8px 0;">
+    $\Delta_{i,t} = \dfrac{P_{i,t} - B_i}{B_i} \times 100\%$
+  </p>
+
+  <p style="margin-top:16px;"><strong style="color:#333;">CAGR — Σύνθετος Ετήσιος Ρυθμός Αύξησης</strong></p>
+  <p style="text-align:center;margin:8px 0;">
+    $\text{CAGR}_i = \left(\left(\frac{\bar{P}_{i,\text{last\_year}}}{\bar{P}_{i,\text{first\_year}}}\right)^{\frac{1}{n}} - 1\right) \times 100\%$
+  </p>
+  <p>
+    όπου $\bar{P}_{i,\text{year}}$ ο μέσος όρος τιμών της κατηγορίας $i$ στο έτος year, και $n$ ο αριθμός ετών μεταξύ πρώτου και τελευταίου έτους.
+  </p>
+
+  <p style="margin-top:16px;"><strong style="color:#333;">Κλίση (slope) ανά μήνα</strong></p>
+  <p>
+    Υπολογίζεται μέσω γραμμικής παλινδρόμησης (OLS) της μηνιαίας μέσης τιμής ως προς τον αριθμό μήνα:
+  </p>
+  <p style="text-align:center;margin:8px 0;">
+    $P_{i,m} = \beta_0 + \beta_1 \cdot m + \varepsilon$
+  </p>
+  <p>
+    όπου $m$ ο αύξων αριθμός μήνα, $\beta_1$ η κλίση (slope_per_month, σε €/μήνα), και $R^2$ ο συντελεστής προσδιορισμού που δείχνει πόσο αξιόπιστη είναι η τάση (0 = καμία γραμμική σχέση, 1 = τέλεια γραμμική σχέση).
+  </p>
+
+  <p style="margin-top:16px;"><strong style="color:#333;">Εβδομαδιαία μεταβολή (WoW)</strong></p>
+  <p style="text-align:center;margin:8px 0;">
+    $\text{WoW}_i = \dfrac{P_{i,t} - P_{i,t-1}}{P_{i,t-1}} \times 100\%$
+  </p>
+
+  <p style="margin-top:16px;"><strong style="color:#333;">Ετήσια μεταβολή (YoY)</strong></p>
+  <p style="text-align:center;margin:8px 0;">
+    $\text{YoY}_i = \dfrac{P_{i,t} - P_{i,t-52}}{P_{i,t-52}} \times 100\%$
+  </p>
+  <p>
+    όπου $P_{i,t-52}$ η διάμεση τιμή της ίδιας εβδομάδας του προηγούμενου έτους.
+  </p>
+</footer>
 
 <div class="heatmap-tooltip" id="tooltip"></div>
 
