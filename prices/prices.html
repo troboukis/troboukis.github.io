@@ -497,7 +497,7 @@ fetch('dashboard_data.json')
     document.getElementById('loading').style.display = 'none';
     document.getElementById('content').style.display = 'block';
     document.getElementById('updated-date').textContent =
-      `Τελευταία ενημέρωση: ${data.last_updated} · ${data.categories.length} κατηγορίες · ${data.weeks.length} εβδομάδες`;
+      `Τελευταία εβδομάδα: ${data.week_start_dates[data.week_start_dates.length - 1]} (${data.last_week}) · ${data.categories.length} κατηγορίες · ${data.weeks.length} εβδομάδες`;
     init();
   })
   .catch(err => {
