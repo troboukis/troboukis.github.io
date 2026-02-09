@@ -650,10 +650,13 @@ function render() {
   document.getElementById('cat-count').textContent = `${selectedCats.size} κατηγορίες επιλεγμένες`;
   renderHeatmap();
   renderStatsTable();
-  // Always show line chart: use active category, or first selected category
+  // Always show line chart: use active category, or category with highest R²
   const chartCat = activeLineChartCat && selectedCats.has(activeLineChartCat)
     ? activeLineChartCat
-    : [...selectedCats][0] || null;
+    : (DATA.categories
+        .filter(c => selectedCats.has(c.name) && c.stats.r_squared != null)
+        .sort((a, b) => b.stats.r_squared - a.stats.r_squared)[0]?.name
+      || [...selectedCats][0] || null);
   if (chartCat) showLineChart(chartCat, false);
 }
 
@@ -663,7 +666,7 @@ function renderHeatmap() {
   wrapper.innerHTML = '';
 
   const cats = DATA.categories.filter(c => selectedCats.has(c.name))
-    .sort((a, b) => Math.abs(b.stats.r_squared ?? 0) - Math.abs(a.stats.r_squared ?? 0));
+    .sort((a, b) => (b.stats.r_squared ?? 0) - (a.stats.r_squared ?? 0));
   if (cats.length === 0) return;
 
   const weeks = DATA.weeks;
@@ -784,8 +787,6 @@ function renderStatsTable() {
     let va = a.stats[sortKey] ?? (sortKey === 'name' ? a.name : -Infinity);
     let vb = b.stats[sortKey] ?? (sortKey === 'name' ? b.name : -Infinity);
     if (sortKey === 'name') { va = a.name; vb = b.name; }
-    // Z-score sorts by absolute value (most extreme first)
-    if (sortKey === 'zscore') { va = Math.abs(va); vb = Math.abs(vb); }
     if (typeof va === 'string') return sortAsc ? va.localeCompare(vb, 'el') : vb.localeCompare(va, 'el');
     return sortAsc ? va - vb : vb - va;
   });
@@ -851,16 +852,20 @@ function showLineChart(catName, doScroll = true) {
     tr.classList.toggle('active', tr.dataset.cat === catName);
   });
 
-  // Build line chart
+  // Build line chart — pct change from baseline
   const container = document.getElementById('line-chart');
   container.innerHTML = '';
 
   const parseDate = d3.timeParse('%Y-%m-%d');
-  const allDates = DATA.all_week_start_dates || DATA.week_start_dates;
-  const points = allDates.map((d, i) => ({
-    date: parseDate(d),
-    value: cat.weekly_median[i],
-  })).filter(p => p.value != null);
+  const heatmapDates = DATA.week_start_dates;
+
+  // Baseline point at 0, then pct_from_baseline for each week after baseline
+  const baselineEndDate = DATA.all_week_start_dates[DATA.baseline_weeks_count - 1];
+  const points = [{ date: parseDate(baselineEndDate), value: 0 }];
+  heatmapDates.forEach((d, i) => {
+    const val = cat.pct_from_baseline[i];
+    if (val != null) points.push({ date: parseDate(d), value: val });
+  });
 
   const containerWidth = container.parentElement.getBoundingClientRect().width;
   const isMobileChart = window.innerWidth < 768;
@@ -881,8 +886,10 @@ function showLineChart(catName, doScroll = true) {
 
   const yExtent = d3.extent(points, d => d.value);
   const yPad = (yExtent[1] - yExtent[0]) * 0.1 || 1;
+  const yMin = Math.min(yExtent[0] - yPad, -1);
+  const yMax = Math.max(yExtent[1] + yPad, 1);
   const y = d3.scaleLinear()
-    .domain([yExtent[0] - yPad, yExtent[1] + yPad])
+    .domain([yMin, yMax])
     .range([height, 0]);
 
   // Grid
@@ -890,6 +897,13 @@ function showLineChart(catName, doScroll = true) {
     .attr('class', 'grid')
     .call(d3.axisLeft(y).ticks(5).tickSize(-width).tickFormat(''))
     .select('.domain').remove();
+
+  // Zero line (baseline reference)
+  svg.append('line')
+    .attr('x1', 0).attr('x2', width)
+    .attr('y1', y(0)).attr('y2', y(0))
+    .attr('stroke', '#333').attr('stroke-width', 1)
+    .attr('stroke-dasharray', '4,3');
 
   // Axes
   svg.append('g')
@@ -899,7 +913,7 @@ function showLineChart(catName, doScroll = true) {
 
   svg.append('g')
     .attr('class', 'axis')
-    .call(d3.axisLeft(y).ticks(5).tickFormat(d => d.toFixed(2) + '€'));
+    .call(d3.axisLeft(y).ticks(5).tickFormat(d => (d >= 0 ? '+' : '') + d.toFixed(0) + '%'));
 
   // Y-axis label
   svg.append('text')
@@ -909,7 +923,19 @@ function showLineChart(catName, doScroll = true) {
     .attr('text-anchor', 'middle')
     .style('font-size', '11px')
     .style('fill', '#999')
-    .text('Διάμεση τιμή (€)');
+    .text('Μεταβολή από baseline (%)');
+
+  // Area fill
+  const area = d3.area()
+    .x(d => x(d.date))
+    .y0(y(0))
+    .y1(d => y(d.value))
+    .curve(d3.curveMonotoneX);
+
+  svg.append('path')
+    .datum(points)
+    .attr('fill', s.pct_from_baseline >= 0 ? 'rgba(214,61,40,0.1)' : 'rgba(27,120,55,0.1)')
+    .attr('d', area);
 
   // Line
   const line = d3.line()
@@ -960,7 +986,7 @@ function showLineChart(catName, doScroll = true) {
       focus.select('text')
         .attr('y', -12)
         .attr('text-anchor', 'middle')
-        .text(`${d.value.toFixed(2)}€`);
+        .text(`${(d.value >= 0 ? '+' : '')}${d.value.toFixed(1)}%`);
     });
 
   if (doScroll) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
