@@ -355,7 +355,7 @@
           <tr>
             <th data-key="name">Κατηγορία</th>
             <th data-key="pct_from_baseline">Από baseline (%)</th>
-            <th data-key="wow_latest">Μεταβολή εβδομάδας (%)</th>
+            <th data-key="wow_latest">Μεταβολή εβδομάδας (%) *</th>
             <th data-key="pct_typical">Τυπική μεταβολή (%)</th>
             <th data-key="cagr">CAGR % (ετήσιο)</th>
             <th data-key="slope_per_month">Slope €/μήνα</th>
@@ -365,6 +365,7 @@
         </thead>
         <tbody id="stats-body"></tbody>
       </table>
+      <p id="wow-footnote" style="font-size:0.85rem; color:#666; margin-top:0.5rem; font-style:italic;"></p>
     </div>
 
     <div id="line-chart-section">
@@ -535,6 +536,12 @@ function init() {
     </ul>
     `;
 
+  // Footnote for WoW column
+  const prevIdx = DATA.all_weeks.indexOf(DATA.prev_week);
+  const prevDate = prevIdx >= 0 ? DATA.all_week_start_dates[prevIdx] : DATA.prev_week;
+  document.getElementById('wow-footnote').textContent =
+    `* Σε σχέση με την εβδομάδα ${prevDate} (${DATA.prev_week})`;
+
   buildCategorySelector();
   selectTop(20, false);
 }
@@ -563,7 +570,7 @@ function renderHighlights() {
   const container = document.getElementById('highlights');
 
   const cards = [
-    { title: `Σε σχέση με την προηγούμενη εβδομάδα`, items: hl.top5_wow, prevKey: 'prev_median' },
+    { title: `Σε σχέση με την προηγούμενη εβδομάδα με στοιχεία (${DATA.prev_week})`, items: hl.top5_wow, prevKey: 'prev_median' },
     { title: `Σε σχέση με την ίδια εβδομάδα πέρυσι`, items: hl.top5_yoy, prevKey: 'last_year_median' },
   ];
 
