@@ -104,6 +104,44 @@
             margin-bottom: 20px;
         }
 
+        .permit-list-item {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .permit-list-item:hover {
+            background: #edf2f7;
+        }
+
+        .permit-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .permit-list-header {
+            margin-bottom: 4px;
+        }
+
+        .permit-list-ada {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 2px;
+        }
+
+        .permit-list-meta {
+            font-size: 0.75rem;
+            color: #718096;
+            margin-bottom: 4px;
+        }
+
+        .permit-list-desc {
+            font-size: 0.78rem;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
         .info-section h3 {
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -161,6 +199,11 @@
             color: #c53030;
         }
 
+        .badge-enimerosi {
+            background: #fefcbf;
+            color: #975a16;
+        }
+
         .badge-anatheorisi {
             background: #bee3f8;
             color: #2b6cb0;
@@ -195,6 +238,132 @@
             color: #718096;
             text-transform: uppercase;
             margin-top: 2px;
+        }
+
+        /* Φίλτρα */
+        .filters {
+            padding: 15px 20px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .filters h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #718096;
+            margin-bottom: 10px;
+        }
+
+        .filter-dates {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        #date-search-btn {
+            padding: 5px 14px;
+            background: #2c5282;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        #date-search-btn:hover {
+            background: #1e3a5f;
+        }
+
+        .filter-dates label {
+            font-size: 0.8rem;
+            color: #4a5568;
+            white-space: nowrap;
+        }
+
+        .filter-dates input[type="date"] {
+            flex: 1;
+            padding: 5px 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-family: inherit;
+            color: #2d3748;
+            background: white;
+            min-width: 0;
+        }
+
+        .filter-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .filter-checkbox input[type="checkbox"] {
+            display: none;
+        }
+
+        .filter-checkbox .cb-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 2px solid;
+            transition: opacity 0.2s;
+            user-select: none;
+        }
+
+        .filter-checkbox input:checked + .cb-label {
+            opacity: 1;
+        }
+
+        .filter-checkbox input:not(:checked) + .cb-label {
+            opacity: 0.35;
+        }
+
+        .cb-oikodomiki {
+            background: #fed7d7;
+            color: #c53030;
+            border-color: #e53e3e;
+        }
+
+        .cb-enimerosi {
+            background: #fefcbf;
+            color: #975a16;
+            border-color: #d69e2e;
+        }
+
+        .cb-anatheorisi {
+            background: #bee3f8;
+            color: #2b6cb0;
+            border-color: #3182ce;
+        }
+
+        .cb-mikris-klimakas {
+            background: #c6f6d5;
+            color: #276749;
+            border-color: #38a169;
+        }
+
+        .filter-count {
+            font-size: 0.75rem;
+            color: #718096;
+            margin-top: 10px;
+            text-align: right;
         }
 
         /* Ο χάρτης */
@@ -337,9 +506,17 @@
                 right: 12px;
             }
 
+            .filters {
+                padding: 10px 15px;
+            }
+
+            .filter-dates {
+                flex-wrap: wrap;
+            }
+
             .panel-content {
                 padding: 15px;
-                max-height: calc(60vh - 100px);
+                max-height: calc(60vh - 200px);
                 overflow-y: auto;
             }
 
@@ -459,6 +636,38 @@
             <p>Μητροπολιτικός Πόλος Ελληνικού - Αγ. Κοσμά</p>
             <button class="close-btn" onclick="togglePanel()">&times;</button>
         </div>
+
+        <!-- Φίλτρα -->
+        <div class="filters">
+            <h3>Φίλτρα</h3>
+            <div class="filter-dates">
+                <label for="date-from">Από</label>
+                <input type="date" id="date-from">
+                <label for="date-to">Έως</label>
+                <input type="date" id="date-to">
+                <button id="date-search-btn" onclick="applyFilters()">Αναζήτηση</button>
+            </div>
+            <div class="filter-checkboxes">
+                <label class="filter-checkbox">
+                    <input type="checkbox" id="filter-oikodomiki" checked>
+                    <span class="cb-label cb-oikodomiki">Οικοδομική Άδεια</span>
+                </label>
+                <label class="filter-checkbox">
+                    <input type="checkbox" id="filter-enimerosi" checked>
+                    <span class="cb-label cb-enimerosi">Ενημέρωση</span>
+                </label>
+                <label class="filter-checkbox">
+                    <input type="checkbox" id="filter-anatheorisi" checked>
+                    <span class="cb-label cb-anatheorisi">Αναθεώρηση</span>
+                </label>
+                <label class="filter-checkbox">
+                    <input type="checkbox" id="filter-mikris-klimakas" checked>
+                    <span class="cb-label cb-mikris-klimakas">Μικρής Κλίμακας</span>
+                </label>
+            </div>
+            <div class="filter-count" id="filter-count"></div>
+        </div>
+
         <div class="panel-content" id="panel-content">
             <div class="welcome-message">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -485,6 +694,7 @@
 
         // Το URL με τα δεδομένα από το Google Sheets
         const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vREhAUeuD8EB4HaM3oSEnkbiHx08HSMpFaHyAaYW424djp-WWVgD2HFiqlw6W0H-CLO8Hht25sCtv8K/pub?gid=155647671&single=true&output=csv';
+        
 
         // Φτιάχνουμε τον χάρτη, κεντραρισμένο στο Ελληνικό
         const map = L.map('map').setView([37.85, 23.75], 14);
@@ -494,13 +704,14 @@
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Εδώ κρατάμε όλα τα πολύγωνα και ποιο είναι επιλεγμένο
-        let polygons = [];
+        // Εδώ κρατάμε όλα τα δεδομένα, πολύγωνα και ποιο είναι επιλεγμένο
+        let allData = [];        // { row, coords, polygon, permitClass }
         let selectedPolygon = null;
 
-        // Οι τρεις κύριες κατηγορίες αδειών
+        // Οι κύριες κατηγορίες αδειών
         const PERMIT_CLASSES = {
             OIKODOMIKI: 'Οικοδομική Άδεια',
+            ENIMEROSI: 'Ενημέρωση Οικοδομικής Άδειας',
             ANATHEORISI: 'Αναθεώρηση Οικοδομικής Άδειας',
             MIKRIS_KLIMAKAS: 'Έγκριση Εργασιών Μικρής Κλίμακας'
         };
@@ -508,6 +719,7 @@
         // Χρώματα για κάθε κατηγορία
         const permitColors = {
             [PERMIT_CLASSES.OIKODOMIKI]: '#e53e3e',      // κόκκινο
+            [PERMIT_CLASSES.ENIMEROSI]: '#d69e2e',       // πορτοκαλί/χρυσό
             [PERMIT_CLASSES.ANATHEORISI]: '#3182ce',     // μπλε
             [PERMIT_CLASSES.MIKRIS_KLIMAKAS]: '#38a169'  // πράσινο
         };
@@ -528,6 +740,11 @@
                 return PERMIT_CLASSES.ANATHEORISI;
             }
 
+            // Ενημέρωση Οικοδομικής Άδειας
+            if (type.includes('ενημέρωση')) {
+                return PERMIT_CLASSES.ENIMEROSI;
+            }
+
             // Όλα τα υπόλοιπα είναι Οικοδομική Άδεια
             return PERMIT_CLASSES.OIKODOMIKI;
         }
@@ -536,6 +753,25 @@
         function egsaToWgs84(easting, northing) {
             const result = proj4('EPSG:2100', 'EPSG:4326', [easting, northing]);
             return [result[1], result[0]];
+        }
+
+        // Ελέγχει αν ένα σημείο είναι μέσα σε πολύγωνο (ray-casting)
+        function pointInPolygon(latlng, coords) {
+            const x = latlng.lat, y = latlng.lng;
+            let inside = false;
+            for (let i = 0, j = coords.length - 1; i < coords.length; j = i++) {
+                const xi = coords[i][0], yi = coords[i][1];
+                const xj = coords[j][0], yj = coords[j][1];
+                if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) {
+                    inside = !inside;
+                }
+            }
+            return inside;
+        }
+
+        // Βρίσκει όλες τις visible άδειες που περιέχουν ένα σημείο
+        function findPermitsAtPoint(latlng) {
+            return allData.filter(item => map.hasLayer(item.polygon) && pointInPolygon(latlng, item.coords));
         }
 
         // Διαβάζει το string με τις συντεταγμένες και φτιάχνει πολύγωνο
@@ -562,9 +798,22 @@
             }
         }
 
+        // Μετατροπή DD/MM/YYYY σε YYYY-MM-DD (για σύγκριση και date inputs)
+        function toIsoDate(dateStr) {
+            if (!dateStr) return null;
+            // Αν είναι ήδη YYYY-MM-DD
+            if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) return dateStr.substring(0, 10);
+            // DD/MM/YYYY → YYYY-MM-DD
+            const parts = dateStr.split('/');
+            if (parts.length === 3) return `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+            return null;
+        }
+
         // Μορφοποίηση ημερομηνίας στα ελληνικά
         function formatDate(dateStr) {
             if (!dateStr) return '-';
+            // Αν είναι DD/MM/YYYY, το εμφανίζουμε όπως είναι
+            if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateStr)) return dateStr;
             const date = new Date(dateStr);
             if (isNaN(date.getTime())) return dateStr;
             return date.toLocaleDateString('el-GR');
@@ -582,10 +831,67 @@
         function getBadgeClass(permitClass) {
             switch (permitClass) {
                 case PERMIT_CLASSES.OIKODOMIKI: return 'badge-oikodomiki';
+                case PERMIT_CLASSES.ENIMEROSI: return 'badge-enimerosi';
                 case PERMIT_CLASSES.ANATHEORISI: return 'badge-anatheorisi';
                 case PERMIT_CLASSES.MIKRIS_KLIMAKAS: return 'badge-mikris-klimakas';
                 default: return 'badge-oikodomiki';
             }
+        }
+
+        // Εμφανίζει λίστα αδειών όταν πολλές επικαλύπτονται
+        function showPermitList(items) {
+            const content = document.getElementById('panel-content');
+            const listHtml = items.map((item, idx) => {
+                const permitClass = item.permitClass;
+                const badgeClass = getBadgeClass(permitClass);
+                const desc = (item.row.description || '').substring(0, 80);
+                return `
+                    <div class="permit-list-item" onclick="selectPermitFromList(${idx})">
+                        <div class="permit-list-header">
+                            <span class="badge ${badgeClass}">${permitClass}</span>
+                        </div>
+                        <div class="permit-list-ada">${item.row.ada || '-'}</div>
+                        <div class="permit-list-meta">
+                            ${formatDate(item.row.issue_date)} · ${item.row.owner || '-'}
+                        </div>
+                        <div class="permit-list-desc">${desc}${desc.length >= 80 ? '...' : ''}</div>
+                    </div>
+                `;
+            }).join('');
+
+            content.innerHTML = `
+                <div class="info-section">
+                    <h3>${items.length} άδειες σε αυτό το σημείο</h3>
+                    ${listHtml}
+                </div>
+            `;
+
+            // Αποθηκεύουμε τη λίστα για να μπορούμε να επιλέξουμε μετά
+            window._permitListItems = items;
+
+            const panel = document.getElementById('info-panel');
+            if (panel.classList.contains('hidden')) {
+                togglePanel();
+            }
+        }
+
+        // Όταν κάνεις click σε item της λίστας
+        function selectPermitFromList(idx) {
+            const items = window._permitListItems;
+            if (!items || !items[idx]) return;
+
+            const item = items[idx];
+
+            // Ξεκλειδώνουμε το προηγούμενο
+            if (selectedPolygon) {
+                selectedPolygon.setStyle({ weight: 2, fillOpacity: 0.4 });
+            }
+
+            // Highlight στο επιλεγμένο
+            item.polygon.setStyle({ weight: 4, fillOpacity: 0.7 });
+            selectedPolygon = item.polygon;
+
+            showPermitInfo(item.row);
         }
 
         // Εμφανίζει τις πληροφορίες της άδειας στο πάνελ
@@ -731,10 +1037,140 @@
             return permitColors[permitClass];
         }
 
+        // Φτιάχνει ένα πολύγωνο στον χάρτη με τα events του
+        function createPolygon(row, coords) {
+            const color = getColor(row.permit_type);
+
+            const polygon = L.polygon(coords, {
+                color: color,
+                weight: 2,
+                opacity: 0.8,
+                fillColor: color,
+                fillOpacity: 0.4
+            });
+
+            polygon.permitData = row;
+
+            // Τι γίνεται όταν κάνεις κλικ
+            polygon.on('click', function(e) {
+                // Βρίσκουμε ΟΛΕΣ τις άδειες σε αυτό το σημείο
+                const matches = findPermitsAtPoint(e.latlng);
+
+                // Ξεκλειδώνουμε το προηγούμενο
+                if (selectedPolygon) {
+                    selectedPolygon.setStyle({ weight: 2, fillOpacity: 0.4 });
+                    selectedPolygon = null;
+                }
+
+                if (matches.length > 1) {
+                    // Πολλαπλές άδειες — δείξε λίστα
+                    showPermitList(matches);
+                } else {
+                    // Μία άδεια — highlight και δείξε info
+                    this.setStyle({ weight: 4, fillOpacity: 0.7 });
+                    selectedPolygon = this;
+                    showPermitInfo(this.permitData);
+                }
+            });
+
+            // Εφέ στο hover
+            polygon.on('mouseover', function(e) {
+                if (this !== selectedPolygon) {
+                    this.setStyle({ fillOpacity: 0.6 });
+                }
+            });
+
+            polygon.on('mouseout', function(e) {
+                if (this !== selectedPolygon) {
+                    this.setStyle({ fillOpacity: 0.4 });
+                }
+            });
+
+            // Tooltip με την κατηγορία
+            const permitClass = classifyPermit(row.permit_type);
+            polygon.bindTooltip(permitClass, {
+                permanent: false,
+                direction: 'center'
+            });
+
+            return polygon;
+        }
+
+        // Εφαρμόζει τα φίλτρα και δείχνει/κρύβει πολύγωνα
+        function applyFilters() {
+            const dateFrom = document.getElementById('date-from').value;
+            const dateTo = document.getElementById('date-to').value;
+            const showOikodomiki = document.getElementById('filter-oikodomiki').checked;
+            const showEnimerosi = document.getElementById('filter-enimerosi').checked;
+            const showAnatheorisi = document.getElementById('filter-anatheorisi').checked;
+            const showMikris = document.getElementById('filter-mikris-klimakas').checked;
+
+            let visibleCount = 0;
+
+            allData.forEach(item => {
+                let visible = true;
+
+                // Φίλτρο κατηγορίας
+                if (item.permitClass === PERMIT_CLASSES.OIKODOMIKI && !showOikodomiki) visible = false;
+                if (item.permitClass === PERMIT_CLASSES.ENIMEROSI && !showEnimerosi) visible = false;
+                if (item.permitClass === PERMIT_CLASSES.ANATHEORISI && !showAnatheorisi) visible = false;
+                if (item.permitClass === PERMIT_CLASSES.MIKRIS_KLIMAKAS && !showMikris) visible = false;
+
+                // Φίλτρο ημερομηνίας
+                if (visible && item.row.issue_date) {
+                    const issueDate = toIsoDate(item.row.issue_date);
+                    if (issueDate) {
+                        if (dateFrom && issueDate < dateFrom) visible = false;
+                        if (dateTo && issueDate > dateTo) visible = false;
+                    }
+                }
+
+                // Εμφάνιση/απόκρυψη
+                if (visible) {
+                    if (!map.hasLayer(item.polygon)) {
+                        item.polygon.addTo(map);
+                    }
+                    visibleCount++;
+                } else {
+                    if (map.hasLayer(item.polygon)) {
+                        map.removeLayer(item.polygon);
+                    }
+                    // Αν ήταν επιλεγμένο, το ξεκλειδώνουμε
+                    if (selectedPolygon === item.polygon) {
+                        selectedPolygon = null;
+                    }
+                }
+            });
+
+            // Ενημέρωση μετρητή
+            document.getElementById('filter-count').textContent =
+                `Εμφάνιση ${visibleCount} από ${allData.length} άδειες`;
+        }
+
+        // Σύνδεση φίλτρων με events (μόνο checkboxes - οι ημερομηνίες με το κουμπί)
+        function setupFilters() {
+            ['filter-oikodomiki', 'filter-enimerosi', 'filter-anatheorisi', 'filter-mikris-klimakas'].forEach(id => {
+                document.getElementById(id).addEventListener('change', applyFilters);
+            });
+        }
+
+        // Βάζει τις min/max ημερομηνίες στα inputs
+        function setDateRange() {
+            const dates = allData
+                .map(item => toIsoDate(item.row.issue_date))
+                .filter(d => d);
+
+            if (dates.length > 0) {
+                dates.sort();
+                document.getElementById('date-from').value = dates[0];
+                document.getElementById('date-to').value = dates[dates.length - 1];
+            }
+        }
+
         // Φόρτωση και εμφάνιση δεδομένων
         async function loadData() {
             try {
-                const response = await fetch(CSV_URL);
+                const response = await fetch(CSV_URL + '&_t=' + Date.now());
                 const csvText = await response.text();
 
                 Papa.parse(csvText, {
@@ -742,70 +1178,32 @@
                     skipEmptyLines: true,
                     complete: function(results) {
                         const bounds = [];
+                        let skippedRows = [];
 
                         results.data.forEach((row, index) => {
                             const coords = parseCoordinates(row.coordinates);
 
                             if (coords && coords.length >= 3) {
-                                const color = getColor(row.permit_type);
+                                const polygon = createPolygon(row, coords);
+                                polygon.addTo(map);
 
-                                const polygon = L.polygon(coords, {
-                                    color: color,
-                                    weight: 2,
-                                    opacity: 0.8,
-                                    fillColor: color,
-                                    fillOpacity: 0.4
-                                }).addTo(map);
-
-                                // Κρατάμε τα δεδομένα πάνω στο πολύγωνο
-                                polygon.permitData = row;
-                                polygons.push(polygon);
-
-                                // Τι γίνεται όταν κάνεις κλικ
-                                polygon.on('click', function(e) {
-                                    // Ξεκλειδώνουμε το προηγούμενο
-                                    if (selectedPolygon) {
-                                        const prevColor = getColor(selectedPolygon.permitData.permit_type);
-                                        selectedPolygon.setStyle({
-                                            weight: 2,
-                                            fillOpacity: 0.4
-                                        });
-                                    }
-
-                                    // Highlight στο επιλεγμένο
-                                    this.setStyle({
-                                        weight: 4,
-                                        fillOpacity: 0.7
-                                    });
-                                    selectedPolygon = this;
-
-                                    showPermitInfo(this.permitData);
-                                });
-
-                                // Εφέ στο hover
-                                polygon.on('mouseover', function(e) {
-                                    if (this !== selectedPolygon) {
-                                        this.setStyle({ fillOpacity: 0.6 });
-                                    }
-                                });
-
-                                polygon.on('mouseout', function(e) {
-                                    if (this !== selectedPolygon) {
-                                        this.setStyle({ fillOpacity: 0.4 });
-                                    }
-                                });
-
-                                // Tooltip με την κατηγορία
                                 const permitClass = classifyPermit(row.permit_type);
-                                polygon.bindTooltip(permitClass, {
-                                    permanent: false,
-                                    direction: 'center'
-                                });
+                                allData.push({ row, coords, polygon, permitClass });
 
-                                // Προσθήκη στα όρια του χάρτη
                                 bounds.push(...coords);
+                            } else if (row.ada) {
+                                skippedRows.push({
+                                    ada: row.ada,
+                                    hasCoords: !!(row.coordinates && row.coordinates.trim()),
+                                    coordsRaw: row.coordinates ? row.coordinates.substring(0, 80) : '(κενό)'
+                                });
                             }
                         });
+
+                        // Log για τις εγγραφές που δεν φόρτωσαν
+                        if (skippedRows.length > 0) {
+                            console.warn(`${skippedRows.length} άδειες χωρίς valid συντεταγμένες:`, skippedRows);
+                        }
 
                         // Κεντράρισμα του χάρτη στα δεδομένα
                         if (bounds.length > 0) {
@@ -826,6 +1224,11 @@
                             }
                         }
 
+                        // Ρυθμίζουμε τα φίλτρα ημερομηνίας και δείχνουμε μετρητή
+                        setDateRange();
+                        setupFilters();
+                        applyFilters();
+
                         // Προσθήκη υπομνήματος
                         const legend = L.control({ position: 'bottomright' });
                         legend.onAdd = function(map) {
@@ -835,6 +1238,10 @@
                                 <div class="legend-item">
                                     <div class="legend-color" style="background: ${permitColors[PERMIT_CLASSES.OIKODOMIKI]}"></div>
                                     <span>${PERMIT_CLASSES.OIKODOMIKI}</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: ${permitColors[PERMIT_CLASSES.ENIMEROSI]}"></div>
+                                    <span>${PERMIT_CLASSES.ENIMEROSI}</span>
                                 </div>
                                 <div class="legend-item">
                                     <div class="legend-color" style="background: ${permitColors[PERMIT_CLASSES.ANATHEORISI]}"></div>
@@ -852,7 +1259,7 @@
                         // Κρύβουμε την οθόνη φόρτωσης
                         document.getElementById('loading').style.display = 'none';
 
-                        console.log(`Φορτώθηκαν ${polygons.length} άδειες με συντεταγμένες`);
+                        console.log(`Φορτώθηκαν ${allData.length} άδειες με συντεταγμένες`);
                     },
                     error: function(error) {
                         console.error('Πρόβλημα με το CSV:', error);
