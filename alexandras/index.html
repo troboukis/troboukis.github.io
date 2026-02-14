@@ -144,6 +144,36 @@
     .value li {
       margin: 4px 0;
     }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+      font-size: 13px;
+    }
+    .data-table th,
+    .data-table td {
+      border-bottom: 1px solid var(--line);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    .data-table th {
+      background: #f7f4ed;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .data-table tr:last-child td {
+      border-bottom: 0;
+    }
     .chips {
       display: flex;
       gap: 8px;
@@ -178,7 +208,7 @@
     <h1 class="title">Αποφάσεις για Προσφυγικά Αλεξάνδρας</h1>
     <p id="subtitle" class="subtitle">Πηγή: Διαύγεια | Τελευταία ενημέρωση: - | Ταξινόμηση: πιο πρόσφατες πρώτα</p>
     <div class="toolbar">
-      <input id="search" type="search" placeholder="Αναζήτηση σε subject / ADA / summary">
+      <input id="search" type="search" placeholder="Αναζήτηση σε subject / ADA / description / εταιρείες">
     </div>
     <div id="stats" class="stats">
       <div id="stats-title" class="stats-title">Έχουν βρεθεί 0 εγγραφές στη Διαύγεια.</div>
@@ -259,8 +289,58 @@
         headers.forEach((h, i) => { obj[h] = values[i] || ""; });
         obj._id = idx + 1;
         obj._timestamp = parseGreekDate(obj.issueDate);
+        obj._analysis = parseAnalysisFields(obj);
         return obj;
       });
+    }
+
+    function parseJsonField(raw, fallback) {
+      if (raw === null || raw === undefined) return fallback;
+      if (typeof raw !== "string") return raw;
+      if (!raw.trim()) return fallback;
+      const val = String(raw).trim();
+      try {
+        return JSON.parse(val);
+      } catch (_) {
+        try {
+          return JSON.parse(val.replaceAll("'", '"'));
+        } catch (_) {
+          return fallback;
+        }
+      }
+    }
+
+    function parseAnalysisFields(row) {
+      const summaryJson = parseJsonField(row.summary, {});
+      const table = parseJsonField(row.table, parseJsonField(summaryJson.table, []));
+      let companies = parseJsonField(row.companies, parseJsonField(summaryJson.companies, []));
+      let pages = parseJsonField(row.pages, parseJsonField(summaryJson.pages, []));
+
+      if (!Array.isArray(companies) && row.companies) {
+        companies = String(row.companies).split(",").map(s => s.trim()).filter(Boolean);
+      } else if (!Array.isArray(companies) && summaryJson.companies) {
+        companies = String(summaryJson.companies).split(",").map(s => s.trim()).filter(Boolean);
+      }
+      if (!Array.isArray(pages) && row.pages) {
+        pages = String(row.pages)
+          .split(",")
+          .map(s => Number(s.trim()))
+          .filter(n => Number.isFinite(n));
+      } else if (!Array.isArray(pages) && summaryJson.pages) {
+        pages = String(summaryJson.pages)
+          .split(",")
+          .map(s => Number(s.trim()))
+          .filter(n => Number.isFinite(n));
+      }
+
+      return {
+        relevance: (row.relevance || summaryJson.relevance || "").trim(),
+        description: row.description || summaryJson.description || "",
+        table: Array.isArray(table) ? table : [],
+        companies: Array.isArray(companies) ? companies : [],
+        pages: Array.isArray(pages) ? pages : [],
+        extras: row.extras || summaryJson.extras || ""
+      };
     }
 
     function parseGreekDate(raw) {
@@ -319,44 +399,72 @@
         .replaceAll(">", "&gt;");
     }
 
-    function nl2br(s) {
-      return escapeHtml(s).replace(/\n/g, "<br>");
+    function formatMoney(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return escapeHtml(value ?? "");
+      return new Intl.NumberFormat("el-GR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
     }
 
-    function formatSummaryHtml(raw) {
-      if (!raw) return "";
-      const lines = String(raw).trim().split(/\n+/);
-      let htmlParts = [];
-      let bullets = [];
+    function maybeMultiline(s) {
+      return escapeHtml(s || "").replace(/\n/g, "<br>");
+    }
 
-      function flushBullets() {
-        if (!bullets.length) return;
-        htmlParts.push(`<ul>${bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`);
-        bullets = [];
+    function renderAnalysisTable(tableRows) {
+      if (!Array.isArray(tableRows) || !tableRows.length) return '<div class="value">-</div>';
+      const hasObjectRows = tableRows.some(r => r && typeof r === "object" && !Array.isArray(r));
+
+      if (!hasObjectRows) {
+        const body = tableRows.map(item =>
+          `<tr><td>${maybeMultiline(String(item || "")) || "-"}</td></tr>`
+        ).join("");
+        return `<div class="table-wrap"><table class="data-table"><thead><tr><th>Στοιχείο</th></tr></thead><tbody>${body}</tbody></table></div>`;
       }
 
-      for (const lineRaw of lines) {
-        const line = lineRaw.trim();
-        if (!line) continue;
+      const colDefs = [
+        ["code", "Κωδικός"],
+        ["title_old", "Τίτλος (παλιός)"],
+        ["title_new", "Τίτλος (νέος)"],
+        ["title", "Τίτλος"],
+        ["pre_budget_eur", "Πρ. Προϋπ. (€)"],
+        ["proposed_budget_eur", "Προτ. Προϋπ. (€)"],
+        ["proposed_credits_2021_eur", "Προτ. Πίστωση 2021 (€)"],
+        ["type", "Τύπος"],
+        ["notes", "Σημειώσεις"],
+        ["page", "Σελίδα"]
+      ];
 
-        if (line.startsWith("- ")) {
-          bullets.push(line.slice(2).trim());
-          continue;
-        }
+      const visibleCols = colDefs.filter(([key]) =>
+        tableRows.some(r => r && typeof r === "object" && String(r?.[key] ?? "").trim() !== "")
+      );
+      if (!visibleCols.length) {
+        const dynamicKeys = Array.from(new Set(
+          tableRows
+            .filter(r => r && typeof r === "object" && !Array.isArray(r))
+            .flatMap(r => Object.keys(r))
+        ));
+        if (!dynamicKeys.length) return '<div class="value">-</div>';
 
-        flushBullets();
-
-        if (/^AI generated περιγραφή:\s*$/i.test(line)) {
-          htmlParts.push("<strong>AI generated περιγραφή:</strong>");
-        } else if (/^Βρέθηκαν\s+\d+\s+αποσπάσματα:\s*$/i.test(line)) {
-          htmlParts.push(`<strong>${escapeHtml(line)}</strong>`);
-        } else {
-          htmlParts.push(escapeHtml(line));
-        }
+        const head = dynamicKeys.map(k => `<th>${escapeHtml(k)}</th>`).join("");
+        const body = tableRows.map(row => {
+          const tds = dynamicKeys.map(key => `<td>${maybeMultiline(String(row?.[key] ?? "")) || "-"}</td>`).join("");
+          return `<tr>${tds}</tr>`;
+        }).join("");
+        return `<div class="table-wrap"><table class="data-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
       }
 
-      flushBullets();
-      return htmlParts.join("<br>");
+      const head = visibleCols.map(([, label]) => `<th>${escapeHtml(label)}</th>`).join("");
+      const body = tableRows.map(row => {
+        const tds = visibleCols.map(([key]) => {
+          const raw = row?.[key] ?? "";
+          const value = ["pre_budget_eur", "proposed_budget_eur", "proposed_credits_2021_eur"].includes(key)
+            ? formatMoney(raw)
+            : maybeMultiline(String(raw));
+          return `<td>${value || "-"}</td>`;
+        }).join("");
+        return `<tr>${tds}</tr>`;
+      }).join("");
+
+      return `<div class="table-wrap"><table class="data-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
     }
 
     function renderList(rows) {
@@ -391,6 +499,13 @@
         detail.innerHTML = '<div class="empty">Επίλεξε μια εγγραφή από τη λίστα.</div>';
         return;
       }
+      const analysis = row._analysis || {};
+      const companiesHtml = analysis.companies?.length
+        ? `<div class="chips">${analysis.companies.map(c => `<span class="chip">${escapeHtml(c)}</span>`).join("")}</div>`
+        : '<div class="value">-</div>';
+      const pagesHtml = analysis.pages?.length
+        ? `<div class="chips">${analysis.pages.map(p => `<span class="chip">σελ. ${escapeHtml(p)}</span>`).join("")}</div>`
+        : '<div class="value">-</div>';
 
       detail.innerHTML = `
         <div class="field">
@@ -415,8 +530,28 @@
           <div class="value"><a class="link" href="${encodeURI(row.documentUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.documentUrl)}</a></div>
         </div>
         <div class="field">
-          <div class="label">Summary</div>
-          <div class="value">${formatSummaryHtml(row.summary)}</div>
+          <div class="label">Relevance</div>
+          <div class="value">${escapeHtml(analysis.relevance || "-")}</div>
+        </div>
+        <div class="field">
+          <div class="label">Description</div>
+          <div class="value">${maybeMultiline(analysis.description || "") || "-"}</div>
+        </div>
+        <div class="field">
+          <div class="label">Table</div>
+          ${renderAnalysisTable(analysis.table || [])}
+        </div>
+        <div class="field">
+          <div class="label">Companies</div>
+          ${companiesHtml}
+        </div>
+        <div class="field">
+          <div class="label">Pages</div>
+          ${pagesHtml}
+        </div>
+        <div class="field">
+          <div class="label">Extras</div>
+          <div class="value">${maybeMultiline(analysis.extras || "") || "-"}</div>
         </div>
       `;
     }
@@ -429,7 +564,12 @@
         filteredRows = allRows.filter(r =>
           (r.subject || "").toLowerCase().includes(q) ||
           (r.ada || "").toLowerCase().includes(q) ||
-          (r.summary || "").toLowerCase().includes(q)
+          (r._analysis?.relevance || "").toLowerCase().includes(q) ||
+          (r._analysis?.description || "").toLowerCase().includes(q) ||
+          (r._analysis?.extras || "").toLowerCase().includes(q) ||
+          (r._analysis?.companies || []).join(" ").toLowerCase().includes(q) ||
+          (r._analysis?.pages || []).join(" ").toLowerCase().includes(q) ||
+          JSON.stringify(r._analysis?.table || []).toLowerCase().includes(q)
         );
       }
       if (!filteredRows.some(r => r._id === activeId)) {
