@@ -174,6 +174,81 @@
 
     .callout strong { color: #111; }
 
+    /* ── Chapter banners ── */
+    .chapter-banner {
+      border-top: 3px solid #111;
+      border-bottom: 1px solid #111;
+      margin: 64px 0 0;
+      padding: 28px 0 24px;
+    }
+
+    .chapter-banner .chapter-number {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999;
+      margin: 0 0 8px;
+    }
+
+    .chapter-banner h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      margin: 0 0 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .chapter-banner .chapter-desc {
+      font-style: italic;
+      color: #666;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    /* ── Exercises ── */
+    .exercise {
+      margin: 48px 0 0;
+      padding-top: 40px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .exercise:first-of-type {
+      border-top: none;
+      padding-top: 40px;
+    }
+
+    .exercise-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .exercise-number {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ddd;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .exercise-prompt {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #111;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .exercise-hint {
+      font-size: 0.9rem;
+      color: #888;
+      margin: 0 0 16px;
+      font-style: italic;
+    }
+
     /* ── Code Cells ── */
     .cell {
       margin: 28px 0;
@@ -208,6 +283,11 @@
       color: #111;
       background: #fefefe;
       tab-size: 4;
+    }
+
+    textarea::placeholder {
+      color: #bbb;
+      font-style: italic;
     }
 
     .cell-controls {
@@ -317,6 +397,7 @@
   <nav>
     <div class="toc">
       <p class="toc-title">In this guide</p>
+      <p style="font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#bbb;margin:0 0 4px;">Chapter One — The Basics</p>
       <ol>
         <li><a href="#hello-world">Hello, World — your first program</a></li>
         <li><a href="#variables">Variables — giving names to things</a></li>
@@ -327,10 +408,27 @@
         <li><a href="#if">If statements — making decisions</a></li>
         <li><a href="#while">While loops — repeating until done</a></li>
       </ol>
+      <p style="font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#bbb;margin:16px 0 4px;">Chapter Two — Exercises</p>
+      <ol>
+        <li><a href="#ex-1">Print Hello, World!</a></li>
+        <li><a href="#ex-2">Print your name, age, and origin</a></li>
+        <li><a href="#ex-3">Are you younger than Thanasis?</a></li>
+        <li><a href="#ex-4">How old was Thanasis when you were born?</a></li>
+        <li><a href="#ex-5">A list of your five best friends</a></li>
+        <li><a href="#ex-6">Loop over your friends</a></li>
+        <li><a href="#ex-7">Prime ministers of Greece</a></li>
+      </ol>
     </div>
   </nav>
 
   <main>
+
+    <!-- ── Chapter One banner ── -->
+    <div class="chapter-banner">
+      <p class="chapter-number">Chapter One</p>
+      <h2>The Basics</h2>
+      <p class="chapter-desc">Core concepts explained step by step, with live examples you can run and modify.</p>
+    </div>
 
     <!-- ── Part 1: Hello World ── -->
     <section id="hello-world">
@@ -856,6 +954,174 @@ print(f"Sum of 1 to 100 is {total}")</textarea>
         Use a <strong>for loop</strong> when you have a collection to iterate over (a list, a dictionary, a range). Use a <strong>while loop</strong> when you need to keep going until some condition changes — for example, reading input until the user types "quit", or repeating a calculation until it converges.
       </div>
     </section>
+
+    <!-- ── Chapter Two: Exercises ── -->
+    <div class="chapter-banner" id="exercises">
+      <p class="chapter-number">Chapter Two</p>
+      <h2>Exercises</h2>
+      <p class="chapter-desc">Write the code yourself. Each cell below is empty — type your solution and press Run to check it.</p>
+    </div>
+
+    <div class="exercise" id="ex-1">
+      <div class="exercise-header">
+        <span class="exercise-number">01</span>
+        <p class="exercise-prompt">Print the text <code>Hello, World!</code> to the screen.</p>
+      </div>
+      <p class="exercise-hint">Hint: use the print() function with the text inside quotation marks.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea placeholder="# Type your code here…"></textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-2">
+      <div class="exercise-header">
+        <span class="exercise-number">02</span>
+        <p class="exercise-prompt">Print your name, your age, and where you are from — each on its own line.</p>
+      </div>
+      <p class="exercise-hint">Hint: store each piece of information in a variable, then use f-strings to print them.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea placeholder="# Type your code here…"></textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-3">
+      <div class="exercise-header">
+        <span class="exercise-number">03</span>
+        <p class="exercise-prompt">Your teacher Thanasis was born in 1980. If you are younger than him, print <code>I am younger than Thanasis by X years</code>. If you are older, print <code>I am older than Thanasis by X years</code>.</p>
+      </div>
+      <p class="exercise-hint">Hint: define your own birth year as a variable, then compare it to 1980 using an if/else statement.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>thanasis_birth_year = 1980
+my_birth_year = ___   # replace ___ with your birth year
+</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-4">
+      <div class="exercise-header">
+        <span class="exercise-number">04</span>
+        <p class="exercise-prompt">Print the sentence: <code>When I was born, Thanasis was X years old.</code> Calculate X from the birth years.</p>
+      </div>
+      <p class="exercise-hint">Hint: subtract Thanasis's birth year (1980) from your own birth year to find the age difference.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>thanasis_birth_year = 1980
+my_birth_year = ___   # replace ___ with your birth year
+</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-5">
+      <div class="exercise-header">
+        <span class="exercise-number">05</span>
+        <p class="exercise-prompt">Create a list containing the names of five of your best friends, then print the whole list.</p>
+      </div>
+      <p class="exercise-hint">Hint: use square brackets and separate each name with a comma.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea placeholder="# Type your code here…"></textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-6">
+      <div class="exercise-header">
+        <span class="exercise-number">06</span>
+        <p class="exercise-prompt">Using the list from Exercise 5, loop over it and print each friend's name on its own line, like: <code>My friend: Maria</code>.</p>
+      </div>
+      <p class="exercise-hint">Hint: use a for loop and an f-string inside it.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea placeholder="# Type your code here…"></textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-7">
+      <div class="exercise-header">
+        <span class="exercise-number">07</span>
+        <p class="exercise-prompt">Create a dictionary of Greek Prime Ministers and the year each first took office, using the data below. Then loop through it and print only the ones who took office <em>after</em> the year you were born.</p>
+      </div>
+      <p class="exercise-hint">The data to enter into your dictionary:</p>
+      <table style="font-size:0.88rem;border-collapse:collapse;margin:0 0 20px;width:100%;font-family:'Source Code Pro',monospace;">
+        <thead>
+          <tr style="border-bottom:2px solid #ddd;">
+            <th style="text-align:left;padding:6px 12px 6px 0;color:#555;font-weight:600;">Prime Minister</th>
+            <th style="text-align:left;padding:6px 0;color:#555;font-weight:600;">Year took office</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Konstantinos Karamanlis</td><td>1974</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Georgios Rallis</td><td>1980</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Andreas Papandreou</td><td>1981</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Konstantinos Mitsotakis</td><td>1990</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Kostas Simitis</td><td>1996</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Kostas Karamanlis</td><td>2004</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Giorgos Papandreou</td><td>2009</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Loukas Papadimos</td><td>2011</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Antonis Samaras</td><td>2012</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Alexis Tsipras</td><td>2015</td></tr>
+          <tr><td style="padding:5px 12px 5px 0;">Kyriakos Mitsotakis</td><td>2019</td></tr>
+        </tbody>
+      </table>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>my_birth_year = ___   # replace ___ with your birth year
+
+prime_ministers = {
+    # enter the data here, one line per PM:
+    # "Name": year,
+
+}
+
+for name, year in prime_ministers.items():
+    if year > my_birth_year:
+        print(f"{name} ({year})")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
 
   </main>
 
