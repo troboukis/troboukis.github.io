@@ -34,6 +34,14 @@ const CHAPTERS = {
 const pathFilename = window.location.pathname.split("/").pop();
 const chapterMatch = pathFilename.match(/chapter-(\d+)/);
 const currentChapter = chapterMatch ? `chapter-${chapterMatch[1]}` : null;
+const chapterNum = chapterMatch ? parseInt(chapterMatch[1]) : 0;
+const isGated = chapterNum >= 3;
+
+// Hide main immediately for gated chapters (before auth resolves)
+if (isGated) {
+  const main = document.querySelector("main");
+  if (main) main.style.display = "none";
+}
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -229,6 +237,29 @@ function updateTocProgress(progress) {
   });
 }
 
+// ── Chapter gate ──────────────────────────────────────────────────
+function showGate() {
+  if (document.getElementById("auth-gate")) return;
+  const gate = document.createElement("div");
+  gate.id = "auth-gate";
+  gate.innerHTML = `
+    <div class="auth-gate-box">
+      <p class="auth-gate-label">Members only</p>
+      <h2 class="auth-gate-title">Sign in to continue</h2>
+      <p class="auth-gate-desc">Create a free account to access this chapter and track your progress.</p>
+      <button id="auth-gate-btn" class="auth-submit-btn" style="max-width:260px;">Sign in / Register</button>
+    </div>
+  `;
+  document.querySelector("nav").after(gate);
+  document.getElementById("auth-gate-btn").addEventListener("click", showModal);
+}
+
+function removeGate() {
+  document.getElementById("auth-gate")?.remove();
+  const main = document.querySelector("main");
+  if (main) main.style.display = "";
+}
+
 // ── Event binding ─────────────────────────────────────────────────
 function bindEvents() {
   // Auth button: open modal (logged out) or toggle dropdown (logged in)
@@ -313,6 +344,7 @@ onAuthStateChanged(auth, async user => {
   updateAuthButton(user);
 
   if (user) {
+    removeGate();
     await ensureUserDoc(user);
 
     // Track exercise/index chapter visit
@@ -324,5 +356,6 @@ onAuthStateChanged(auth, async user => {
     updateTocProgress(progress);
   } else {
     document.querySelectorAll(".prog-badge").forEach(b => b.remove());
+    if (isGated) showGate();
   }
 });
