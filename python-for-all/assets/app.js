@@ -207,6 +207,15 @@ else:
       });
     });
 
+    // For gated chapters, <main> is hidden during setup so scrollHeight is 0.
+    // Re-run autoResize for all textareas once the gate is removed and <main> is visible.
+    window.addEventListener("gate-removed", () => {
+      document.querySelectorAll(".cell textarea").forEach(ta => {
+        ta.style.height = "auto";
+        ta.style.height = ta.scrollHeight + "px";
+      });
+    }, { once: true });
+
     // Re-scroll to hash anchor after Pyodide DOM setup (autoResize disturbs scroll position)
     if (location.hash) {
       const target = document.getElementById(location.hash.slice(1));

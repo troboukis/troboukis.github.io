@@ -259,7 +259,10 @@ function showGate() {
 function removeGate() {
   document.getElementById("auth-gate")?.remove();
   const main = document.querySelector("main");
-  if (main) main.style.display = "";
+  if (main) {
+    main.style.display = "";
+    window.dispatchEvent(new CustomEvent("gate-removed"));
+  }
 }
 
 // ── Event binding ─────────────────────────────────────────────────
