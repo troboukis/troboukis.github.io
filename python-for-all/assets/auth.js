@@ -19,15 +19,15 @@ import {
 // ── Chapter metadata ──────────────────────────────────────────────
 const CHAPTERS = {
   "chapter-1":  { parts: 8 },
-  "chapter-2":  { parts: 0 },
+  "chapter-2":  { exercises: 7 },
   "chapter-3":  { parts: 4 },
-  "chapter-4":  { parts: 0 },
+  "chapter-4":  { exercises: 5 },
   "chapter-5":  { parts: 4 },
   "chapter-6":  { parts: 4 },
-  "chapter-7":  { parts: 0 },
+  "chapter-7":  { exercises: 10 },
   "chapter-8":  { parts: 4 },
   "chapter-9":  { parts: 5 },
-  "chapter-10": { parts: 0 },
+  "chapter-10": { exercises: 10 },
 };
 
 // ── Detect current chapter from URL ──────────────────────────────
@@ -196,9 +196,9 @@ async function markPartVisited(uid, chapter, part) {
   });
 }
 
-async function markChapterVisited(uid, chapter) {
+async function markExerciseVisited(uid, chapter, exerciseId) {
   await updateDoc(doc(db, "users", uid), {
-    [`progress.${chapter}.visited`]: true,
+    [`progress.${chapter}.${exerciseId}`]: true,
     lastSeen: serverTimestamp(),
   });
 }
@@ -217,11 +217,13 @@ function updateTocProgress(progress) {
     const chProg = progress[chId] || {};
     let badge = null;
 
-    if (chData.parts === 0) {
-      if (chProg.visited) {
+    if (chData.exercises !== undefined) {
+      const visited = Object.keys(chProg).filter(k => k !== "visited" && chProg[k] === true).length;
+      if (visited > 0) {
         badge = document.createElement("span");
-        badge.className = "prog-badge prog-badge--done";
-        badge.textContent = "✓";
+        const done = visited >= chData.exercises;
+        badge.className = "prog-badge" + (done ? " prog-badge--done" : "");
+        badge.textContent = done ? "✓" : `${visited}/${chData.exercises}`;
       }
     } else {
       const visited = Object.keys(chProg).filter(k => k.startsWith("part") && chProg[k] === true).length;
@@ -327,13 +329,23 @@ function bindEvents() {
     }
   });
 
-  // Section-change event dispatched by app.js scroll-spy
-  if (currentChapter && CHAPTERS[currentChapter]?.parts > 0) {
-    window.addEventListener("section-change", async e => {
-      if (!auth.currentUser) return;
-      markPartVisited(auth.currentUser.uid, currentChapter, e.detail.part).catch(() => {});
-    });
-  }
+  // Track progress when user clicks Run on a code cell
+  window.addEventListener("cell-run", e => {
+    if (!auth.currentUser || !currentChapter) return;
+    const cell = e.detail.cell;
+    const chData = CHAPTERS[currentChapter];
+    if (!chData) return;
+
+    if (chData.exercises !== undefined) {
+      const exercise = cell.closest(".exercise[id]");
+      if (!exercise) return;
+      markExerciseVisited(auth.currentUser.uid, currentChapter, exercise.id).catch(() => {});
+    } else if (chData.parts > 0) {
+      const section = cell.closest("section[id^='part']");
+      if (!section) return;
+      markPartVisited(auth.currentUser.uid, currentChapter, section.id).catch(() => {});
+    }
+  });
 }
 
 // ── Bootstrap ─────────────────────────────────────────────────────
@@ -346,11 +358,6 @@ onAuthStateChanged(auth, async user => {
   if (user) {
     removeGate();
     await ensureUserDoc(user);
-
-    // Track exercise/index chapter visit
-    if (currentChapter && CHAPTERS[currentChapter]?.parts === 0) {
-      markChapterVisited(user.uid, currentChapter).catch(() => {});
-    }
 
     const progress = await loadProgress(user.uid);
     updateTocProgress(progress);
