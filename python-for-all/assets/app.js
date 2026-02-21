@@ -114,6 +114,7 @@
     });
 
     async function runCell(cellEl) {
+      window.dispatchEvent(new CustomEvent("cell-run", { detail: { cell: cellEl } }));
       const ta      = cellEl.querySelector("textarea");
       const out     = cellEl.querySelector(".out");
       const btn     = cellEl.querySelector(".btn-run");
