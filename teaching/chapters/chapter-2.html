@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Two — Exercises · Python for All</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Two — Exercises</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Chapters</p>
+      <ol>
+        <li><a href="chapter-1.html">Chapter 1 — The Basics</a></li>
+        <li><a href="chapter-2.html" class="is-current">Chapter 2 — Exercises</a></li>
+        <li><a href="chapter-3.html">Chapter 3 — Functions &amp; Methods</a></li>
+        <li><a href="chapter-4.html">Chapter 4 — Exercises</a></li>
+        <li><a href="chapter-5.html">Chapter 5 — Data Types Deep Dive</a></li>
+        <li><a href="chapter-6.html">Chapter 6 — Advanced Functions &amp; Methods</a></li>
+        <li><a href="chapter-7.html">Chapter 7 — Exercises</a></li>
+        <li><a href="chapter-8.html">Chapter 8 — Comparison &amp; Boolean Operators</a></li>
+        <li><a href="chapter-9.html">Chapter 9 — Regex Basics</a></li>
+        <li><a href="chapter-10.html">Chapter 10 — Exercises</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ── Chapter Two: Exercises ── -->
+    <div class="chapter-banner" id="exercises">
+      <p class="chapter-number">Chapter Two</p>
+      <h2>Exercises</h2>
+      <p class="chapter-desc">Write the code yourself. Each cell below is empty — type your solution and press Run to check it.</p>
+    </div>
+
+    <div class="exercise" id="ex-1">
+      <div class="exercise-header">
+        <span class="exercise-number">01</span>
+        <p class="exercise-prompt">Print the text <code>Hello, World!</code> to the screen.</p>
+      </div>
+      <p class="exercise-hint">Hint: use the print() function with the text inside quotation marks.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea placeholder="# Type your code here…"></textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-2">
+      <div class="exercise-header">
+        <span class="exercise-number">02</span>
+        <p class="exercise-prompt">Print your name, your age, and where you are from — each on its own line.</p>
+      </div>
+      <p class="exercise-hint">Hint: store each piece of information in a variable, then use f-strings to print them.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea placeholder="# Type your code here…"></textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-3">
+      <div class="exercise-header">
+        <span class="exercise-number">03</span>
+        <p class="exercise-prompt">Your teacher Thanasis was born in 1980. If you are younger than him, print <code>I am younger than Thanasis by X years</code>. If you are older, print <code>I am older than Thanasis by X years</code>.</p>
+      </div>
+      <p class="exercise-hint">Hint: define your own birth year as a variable, then compare it to 1980 using an if/else statement.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>thanasis_birth_year = 1980
+my_birth_year = ___   # replace ___ with your birth year
+</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-4">
+      <div class="exercise-header">
+        <span class="exercise-number">04</span>
+        <p class="exercise-prompt">Print the sentence: <code>When I was born, Thanasis was X years old.</code> Calculate X from the birth years.</p>
+      </div>
+      <p class="exercise-hint">Hint: subtract Thanasis's birth year (1980) from your own birth year to find the age difference.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>thanasis_birth_year = 1980
+my_birth_year = ___   # replace ___ with your birth year
+</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-5">
+      <div class="exercise-header">
+        <span class="exercise-number">05</span>
+        <p class="exercise-prompt">Create a list containing the names of five of your best friends, then print the whole list.</p>
+      </div>
+      <p class="exercise-hint">Hint: use square brackets and separate each name with a comma.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea placeholder="# Type your code here…"></textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-6">
+      <div class="exercise-header">
+        <span class="exercise-number">06</span>
+        <p class="exercise-prompt">Using the list from Exercise 5, loop over it and print each friend's name on its own line, like: <code>My friend: Maria</code>.</p>
+      </div>
+      <p class="exercise-hint">Hint: use a for loop and an f-string inside it.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea placeholder="# Type your code here…"></textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex-7">
+      <div class="exercise-header">
+        <span class="exercise-number">07</span>
+        <p class="exercise-prompt">Create a dictionary of Greek Prime Ministers and the year each first took office, using the data below. Then loop through it and print only the ones who took office <em>after</em> the year you were born.</p>
+      </div>
+      <p class="exercise-hint">The data to enter into your dictionary:</p>
+      <table style="font-size:0.88rem;border-collapse:collapse;margin:0 0 20px;width:100%;font-family:'Source Code Pro',monospace;">
+        <thead>
+          <tr style="border-bottom:2px solid #ddd;">
+            <th style="text-align:left;padding:6px 12px 6px 0;color:#555;font-weight:600;">Prime Minister</th>
+            <th style="text-align:left;padding:6px 0;color:#555;font-weight:600;">Year took office</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Konstantinos Karamanlis</td><td>1974</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Georgios Rallis</td><td>1980</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Andreas Papandreou</td><td>1981</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Konstantinos Mitsotakis</td><td>1990</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Kostas Simitis</td><td>1996</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Kostas Karamanlis</td><td>2004</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Giorgos Papandreou</td><td>2009</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Loukas Papadimos</td><td>2011</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Antonis Samaras</td><td>2012</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 12px 5px 0;">Alexis Tsipras</td><td>2015</td></tr>
+          <tr><td style="padding:5px 12px 5px 0;">Kyriakos Mitsotakis</td><td>2019</td></tr>
+        </tbody>
+      </table>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>my_birth_year = ___   # replace ___ with your birth year
+
+prime_ministers = {
+    # enter the data here, one line per PM:
+    # "Name": year,
+
+}
+
+# Loop through the dictionary with .items(), check each year against my_birth_year,
+# and print only the Prime Ministers whose year is greater than your birth year.
+</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="chapter-1.html#part1">Previous: Chapter 1</a>
+        <a href="chapter-3.html#part1">Next: Chapter 3</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+</body>
+</html>

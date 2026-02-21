@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Nine — Regex Basics · Python for All</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Nine — Regex Basics</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Chapters</p>
+      <ol>
+        <li><a href="chapter-1.html">Chapter 1 — The Basics</a></li>
+        <li><a href="chapter-2.html">Chapter 2 — Exercises</a></li>
+        <li><a href="chapter-3.html">Chapter 3 — Functions &amp; Methods</a></li>
+        <li><a href="chapter-4.html">Chapter 4 — Exercises</a></li>
+        <li><a href="chapter-5.html">Chapter 5 — Data Types Deep Dive</a></li>
+        <li><a href="chapter-6.html">Chapter 6 — Advanced Functions &amp; Methods</a></li>
+        <li><a href="chapter-7.html">Chapter 7 — Exercises</a></li>
+        <li><a href="chapter-8.html">Chapter 8 — Comparison &amp; Boolean Operators</a></li>
+        <li><a href="chapter-9.html" class="is-current">Chapter 9 — Regex Basics</a></li>
+        <li><a href="chapter-10.html">Chapter 10 — Exercises</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ── Chapter Nine: Regex Basics ── -->
+    <div class="chapter-banner" id="ch9">
+      <p class="chapter-number">Chapter Nine</p>
+      <h2>Regex Basics</h2>
+      <p class="chapter-desc">A simple introduction to pattern matching in Python.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>What Is Regex?</h2>
+      <p>Regex (regular expressions) is a way to search text using <em>patterns</em> instead of exact full text.</p>
+      <p>Think of it as a smart filter. Instead of saying "find exactly this one sentence", you say "find anything that looks like a phone number" or "find all 4-digit years".</p>
+      <p>In Python, regex lives in the <code>re</code> module, so we start with <code>import re</code>.</p>
+
+      <h3>Regex syntax, step by step</h3>
+      <ol>
+        <li>Write a pattern as a raw string, for example <code>r"\d{3}-\d{3}-\d{4}"</code>.</li>
+        <li>Break it into pieces:
+          <code>\d{3}</code> = exactly 3 digits,
+          <code>-</code> = a real dash,
+          <code>\d{3}</code> = 3 digits,
+          <code>-</code> = dash,
+          <code>\d{4}</code> = 4 digits.
+        </li>
+        <li>Read the whole pattern in plain English:
+          "three digits, dash, three digits, dash, four digits."
+        </li>
+        <li>Match that pattern against text to find values like <code>210-123-4567</code>.</li>
+      </ol>
+
+      <div class="callout">
+        <strong>Why the <code>r</code> before quotes?</strong> In regex, backslashes are common (like <code>\d</code>). The <code>r""</code> form keeps patterns easier to write and read.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Pattern Pieces (Slow Build)</h2>
+      <p>Start with small pieces and combine them:</p>
+      <p><code>\d</code> a digit, <code>\w</code> a letter/number/underscore, <code>\s</code> a space, <code>.</code> any single character.</p>
+      <p>Quantifiers: <code>+</code> one or more, <code>*</code> zero or more, <code>?</code> optional, <code>{n}</code> exactly n, <code>{n,m}</code> between n and m times.</p>
+      <ul>
+        <li><code>\d</code>: one digit. Example pattern <code>r"\d"</code> matches <code>"7"</code> in <code>"Room 7"</code>.</li>
+        <li><code>\w</code>: letter/number/underscore. Example pattern <code>r"\w+"</code> matches words like <code>"Athens2026"</code>.</li>
+        <li><code>\s</code>: whitespace. Example pattern <code>r"\s"</code> matches the space in <code>"Hello World"</code>.</li>
+        <li><code>.</code>: any single character. Example pattern <code>r"h.t"</code> matches <code>"hat"</code>, <code>"hit"</code>, <code>"hot"</code>.</li>
+        <li><code>+</code>: one or more. Example pattern <code>r"\d+"</code> matches <code>"305"</code> as one block.</li>
+        <li><code>*</code>: zero or more. Example pattern <code>r"ab*"</code> matches <code>"a"</code>, <code>"ab"</code>, <code>"abbb"</code>.</li>
+        <li><code>?</code>: optional (zero or one). Example pattern <code>r"colou?r"</code> matches both <code>"color"</code> and <code>"colour"</code>.</li>
+        <li><code>{n}</code>: exactly n times. Example pattern <code>r"\d{4}"</code> matches years like <code>"2026"</code>.</li>
+        <li><code>{n,m}</code>: from n to m times. Example pattern <code>r"\d{2,4}"</code> matches <code>"12"</code>, <code>"305"</code>, <code>"2026"</code>.</li>
+      </ul>
+
+      <h3>Greek vs English letters (upper/lower)</h3>
+      <p>When you need language-specific matching, use explicit character ranges:</p>
+      <ul>
+        <li>English uppercase: <code>r"[A-Z]+"</code></li>
+        <li>English lowercase: <code>r"[a-z]+"</code></li>
+        <li>English any case: <code>r"[A-Za-z]+"</code></li>
+        <li>Greek uppercase: <code>r"[Α-ΩΆΈΉΊΌΎΏΪΫ]+"</code></li>
+        <li>Greek lowercase: <code>r"[α-ωάέήίόύώϊϋΐΰς]+"</code></li>
+        <li>Greek any case: <code>r"[Α-ΩΆΈΉΊΌΎΏΪΫα-ωάέήίόύώϊϋΐΰς]+"</code></li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+text = "Order numbers: A-12, B-7, C-305"
+
+# find one or more digits
+print(re.findall(r"\d+", text))   # ['12', '7', '305']
+
+# find one uppercase letter, dash, then one or more digits
+print(re.findall(r"[A-Z]-\d+", text))</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+text = "Athens ΑΘΗΝΑ athens αθήνα Patras ΠΑΤΡΑ"
+
+print("English words:", re.findall(r"[A-Za-z]+", text))
+print("Greek words:", re.findall(r"[Α-ΩΆΈΉΊΌΎΏΪΫα-ωάέήίόύώϊϋΐΰς]+", text))
+print("English uppercase:", re.findall(r"[A-Z]+", text))
+print("Greek uppercase:", re.findall(r"[Α-ΩΆΈΉΊΌΎΏΪΫ]+", text))</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+code1 = "AB-1234"
+code2 = "A-1234"
+
+pattern = r"[A-Z]{2}-\d{4}"
+print(bool(re.fullmatch(pattern, code1)))  # True
+print(bool(re.fullmatch(pattern, code2)))  # False</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Regex Methods in <code>re</code></h2>
+      <p>Now that patterns make sense, use them with methods:</p>
+      <p><code>re.search()</code> first match, <code>re.findall()</code> all matches, <code>re.sub()</code> replace matches.</p>
+      <ul>
+        <li><code>re.search(pattern, text)</code> returns a <code>Match</code> object for the first match, or <code>None</code> if nothing matches.</li>
+        <li><code>re.findall(pattern, text)</code> returns a <code>list</code> of all matched strings (or an empty list if no matches).</li>
+        <li><code>re.sub(pattern, replacement, text)</code> returns a <code>new string</code> with replacements applied.</li>
+        <li><code>re.fullmatch(pattern, text)</code> returns a <code>Match</code> object only if the entire text matches, otherwise <code>None</code>.</li>
+      </ul>
+      <p><strong>What is a Match object?</strong> It is a result returned by regex when a match is found. Think of it as a small box with details about the match.</p>
+      <p>If you print the match object directly, Python shows something like: <code>&lt;re.Match object; span=(10, 14), match='2024'&gt;</code>. This is useful for debugging, but usually you want specific values from it.</p>
+      <p>Most common methods: <code>match.group()</code> (matched text), <code>match.start()</code> (start index), <code>match.end()</code> (end index).</p>
+      <p><strong>What are start and end indexes?</strong> They are positions in the text. If the text is <code>"Athens 2024, Patras"</code>, then the match <code>"2024"</code> starts at index <code>7</code> and ends at index <code>11</code>. The end index is exclusive, so <code>text[7:11]</code> gives exactly <code>"2024"</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+text = "Athens 2024, Patras 2025"
+match = re.search(r"\d{4}", text)
+
+print("Printed match object:", match)
+print("Type:", type(match))
+
+if match:
+    print("group() ->", match.group())  # matched value
+    print("start() ->", match.start())  # where it starts
+    print("end()   ->", match.end())    # where it ends
+else:
+    print("No match found")</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+text = "Athens 2024, Patras 2025, Chania 2026"
+pattern = r"\d{4}"
+
+first_year = re.search(pattern, text)
+all_years = re.findall(pattern, text)
+masked = re.sub(pattern, "YEAR", text)
+
+print("search  ->", first_year.group())
+print("findall ->", all_years)
+print("sub     ->", masked)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+text = "Emails: maria21@test.com, info@python.org"
+email_pattern = r"\w+@\w+\.\w+"
+
+print(re.findall(email_pattern, text))</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Capturing Groups</h2>
+      <p>Parentheses <code>()</code> create groups. Groups let you extract specific pieces of a match.</p>
+      <p>Group 1 is the first <code>()</code>, group 2 is the second, and so on.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+text = "Date: 2026-02-21"
+m = re.search(r"(\d{4})-(\d{2})-(\d{2})", text)
+
+print("year:", m.group(1))
+print("month:", m.group(2))
+print("day:", m.group(3))</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Tip:</strong> Regex gets easier when you go in this order: write a small pattern, test it, then add one more piece.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Pattern Pieces (More Advanced)</h2>
+      <p>Now we add a few powerful pieces that you will use often in real text cleaning and validation.</p>
+      <p><code>^</code> start of string, <code>$</code> end of string, <code>|</code> OR, <code>[^abc]</code> one character that is NOT in the set (<code>a</code>, <code>b</code>, <code>c</code>), <code>\b</code> word boundary, <code>*?</code> and <code>+?</code> lazy matching, <code>\.</code> literal dot.</p>
+      <ul>
+        <li><code>^</code>: start of text. Example pattern <code>r"^A"</code> matches names that start with A, like <code>"Alex"</code>.</li>
+        <li><code>$</code>: end of text. Example pattern <code>r"ing$"</code> matches words ending in <code>ing</code>, like <code>"learning"</code>.</li>
+        <li><code>|</code>: OR between options. Example pattern <code>r"cat|dog"</code> matches either <code>"cat"</code> or <code>"dog"</code>.</li>
+        <li><code>[^...]</code>: one character not in a set. Example pattern <code>r"[^0-9]+"</code> matches non-numeric parts in <code>"Room 205B"</code> like <code>"Room "</code> and <code>"B"</code>.</li>
+        <li><code>\b</code>: whole-word boundary. Example pattern <code>r"\\bcat\\b"</code> matches <code>"cat"</code> but not the <code>cat</code> inside <code>"scatter"</code>.</li>
+        <li><code>*?</code> / <code>+?</code>: lazy matching (shortest possible). Example pattern <code>r"&lt;.*?&gt;"</code> matches each tag in <code>"&lt;b&gt;bold&lt;/b&gt;&lt;i&gt;it&lt;/i&gt;"</code> one by one.</li>
+        <li><code>\.</code>: escaped dot for a real period. Example pattern <code>r"python\\.org"</code> matches <code>"python.org"</code> exactly.</li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+print(bool(re.fullmatch(r"^AB-\d{4}$", "AB-1234")))  # True
+print(bool(re.fullmatch(r"^AB-\d{4}$", "XX AB-1234")))  # False
+
+# OR with |
+print(bool(re.fullmatch(r"cat|dog", "dog")))  # True</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+text = "one two, three!"
+
+# words only (letters): [A-Za-z]+
+print(re.findall(r"[A-Za-z]+", text))
+
+# things that are not digits (character-by-character): [^0-9]
+print(re.findall(r"[^0-9]", "Room 205B"))
+
+# one or more non-digits together:
+print(re.findall(r"[^0-9]+", "Room 205B"))</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+text = "cat scatter bobcat cat."
+
+# \bcat\b = whole word "cat" only
+print(re.findall(r"\\bcat\\b", text))  # ['cat', 'cat']
+
+html = "<b>bold</b><i>italic</i>"
+
+# greedy vs lazy
+print(re.findall(r"<.*>", html))    # greedy: one big match
+print(re.findall(r"<.*?>", html))   # lazy: each tag separately
+
+# escaped dot means real dot
+print(bool(re.search(r"python\\.org", "visit python.org")))  # True</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Rule of thumb:</strong> Use anchors (<code>^</code> and <code>$</code>) for full validation, and use <code>\b</code> when you need whole words only.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="chapter-8.html#part1">Previous: Chapter 8</a>
+        <a href="chapter-10.html#part1">Next: Chapter 10</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+</body>
+</html>

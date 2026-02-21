@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Three — Functions & Methods · Python for All</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Three — Functions & Methods</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Chapters</p>
+      <ol>
+        <li><a href="chapter-1.html">Chapter 1 — The Basics</a></li>
+        <li><a href="chapter-2.html">Chapter 2 — Exercises</a></li>
+        <li><a href="chapter-3.html" class="is-current">Chapter 3 — Functions &amp; Methods</a></li>
+        <li><a href="chapter-4.html">Chapter 4 — Exercises</a></li>
+        <li><a href="chapter-5.html">Chapter 5 — Data Types Deep Dive</a></li>
+        <li><a href="chapter-6.html">Chapter 6 — Advanced Functions &amp; Methods</a></li>
+        <li><a href="chapter-7.html">Chapter 7 — Exercises</a></li>
+        <li><a href="chapter-8.html">Chapter 8 — Comparison &amp; Boolean Operators</a></li>
+        <li><a href="chapter-9.html">Chapter 9 — Regex Basics</a></li>
+        <li><a href="chapter-10.html">Chapter 10 — Exercises</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ── Chapter Three: Functions & Methods ── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="chapter-banner" id="ch3">
+      <p class="chapter-number">Chapter Three</p>
+      <h2>Functions &amp; Methods</h2>
+      <p class="chapter-desc">Python comes with a powerful toolkit of ready-made functions and methods. Learn what they are and how to use them.</p>
+    </div>
+
+    <!-- ── Part: Functions vs Methods ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Functions vs. Methods</h2>
+
+      <p>You have already used <code>print()</code> and <code>len()</code>. These are <em>functions</em> — standalone commands that you call by writing their name followed by parentheses, with an input inside: <code>len("hello")</code>.</p>
+
+      <p>A <em>method</em> is different: it belongs to a specific piece of data and is called using dot notation — the data first, then a dot, then the method name: <code>"hello".upper()</code>. Think of a method as something the data knows how to do to itself.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>name = "maria"
+
+# This is a function — len() works on anything
+print(len(name))
+
+# This is a method — .upper() belongs to the string
+print(name.upper())</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Rule of thumb:</strong> If it starts with the data and a dot — <code>something.method()</code> — it's a method. If the data goes <em>inside</em> the parentheses — <code>function(something)</code> — it's a function.
+      </div>
+    </section>
+
+    <!-- ── Part: Built-in Functions ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Built-in Functions</h2>
+
+      <p>Python ships with dozens of functions that are always available. Here are the ones you will reach for most often.</p>
+
+      <h3>len() — the length of things</h3>
+      <p><code>len()</code> returns the number of items in a list, or the number of characters in a string.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>print(len("Athens"))          # 6 characters
+print(len([10, 20, 30, 40]))  # 4 items</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>type() — what kind of thing is this?</h3>
+      <p><code>type()</code> tells you what data type a variable holds. Useful when something isn't behaving as expected.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>print(type(42))
+print(type(3.14))
+print(type("hello"))
+print(type([1, 2, 3]))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>int(), float(), str() — converting between types</h3>
+      <p>These functions convert a value from one type to another. This is essential when, for example, you read a number that is stored as text and need to do arithmetic with it.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>age_as_text = "22"          # this is a string, not a number
+age_as_number = int(age_as_text)
+print(age_as_number + 1)   # now we can do arithmetic
+
+price = 9.99
+print(str(price))           # convert to string for display
+print(int(price))           # drops the decimal — no rounding!</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>round() — rounding numbers</h3>
+      <p><code>round(number, digits)</code> rounds a number to the given number of decimal places. If you omit the second argument it rounds to the nearest whole number.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>print(round(3.7))       # → 4
+print(round(3.14159, 2)) # → 3.14</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>max() and min() — largest and smallest</h3>
+      <p>These work on a list of numbers (or strings) and return the largest or smallest value.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>scores = [88, 45, 72, 31, 95, 60]
+print(max(scores))   # highest score
+print(min(scores))   # lowest score</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>sum() — total of a list</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>scores = [88, 45, 72, 31, 95]
+total = sum(scores)
+average = total / len(scores)
+print(f"Total: {total}")
+print(f"Average: {round(average, 1)}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part: String Methods ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>String Methods</h2>
+
+      <p>Strings in Python come loaded with methods. Because strings are so common in real programs — names, addresses, messages, file contents — these methods save enormous amounts of work.</p>
+
+      <h3>.upper() and .lower() — changing case</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>city = "Athens"
+print(city.upper())   # ATHENS
+print(city.lower())   # athens</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.title() — title case text</h3>
+      <p><code>.title()</code> makes the first letter of each word uppercase and the rest lowercase.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>full_name = "giOrGos pApadOpoulos"
+print(full_name.title())   # Giorgos Papadopoulos</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.strip() — removing extra whitespace</h3>
+      <p>Real-world data often has unwanted spaces at the start or end. <code>.strip()</code> removes them.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>name = "   Maria   "
+print(name)           # with spaces
+print(name.strip())   # cleaned up</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.replace() — substituting text</h3>
+      <p><code>.replace(old, new)</code> returns a new string with every occurrence of <code>old</code> swapped for <code>new</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>sentence = "I love Java"
+print(sentence.replace("Java", "Python"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.split() — breaking a string into a list</h3>
+      <p><code>.split(separator)</code> cuts the string wherever it finds the separator and returns a list of the pieces. If you omit the separator, it splits on any whitespace.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>full_name = "Thanasis Troboukis"
+parts = full_name.split()
+print(parts)           # ['Thanasis', 'Troboukis']
+print(parts[0])        # first name
+print(parts[1])        # last name
+
+csv_line = "Athens,Thessaloniki,Patras"
+cities = csv_line.split(",")
+print(cities)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.startswith() and .endswith() — checking beginnings and endings</h3>
+      <p>These return <code>True</code> or <code>False</code>, making them ideal for use inside <code>if</code> statements.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>name = "Kyriakos Mitsotakis"
+print(name.startswith("K"))    # True
+print(name.endswith("akis"))   # True
+print(name.startswith("A"))    # False
+
+# useful in an if statement:
+if name.startswith("K"):
+    print(f"{name} — name starts with K")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.count() — counting occurrences</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>sentence = "the cat sat on the mat"
+print(sentence.count("the"))   # 2
+print(sentence.count("at"))    # 3</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Slicing strings — taking parts of text</h3>
+      <p>You can extract part of a string with slicing: <code>text[start:end]</code>. It starts at <code>start</code> and stops <em>before</em> <code>end</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>name = "Konstantinos"
+
+print(name[0:4])   # Kons
+print(name[4:8])   # tant
+print(name[:5])    # first 5 characters
+print(name[5:])    # from index 5 to the end
+print(name[-4:])   # last 4 characters</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.camel() — making camelCase (custom helper)</h3>
+      <p>Python does not include a built-in <code>.camel()</code> string method, but you can make the same result with a small helper function.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>def camel(text):
+    words = text.strip().split()
+    if not words:
+        return ""
+    first = words[0].lower()
+    rest = [w.title() for w in words[1:]]
+    return first + "".join(rest)
+
+phrase = "  greek prime minister  "
+print(camel(phrase))   # greekPrimeMinister</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Methods do not change the original.</strong> Strings in Python are <em>immutable</em> — methods always return a new string and leave the original untouched. If you want to keep the result, assign it to a variable: <code>clean = name.strip()</code>.
+      </div>
+    </section>
+
+    <!-- ── Part: List Methods ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>List Methods</h2>
+
+      <p>Lists also have their own set of methods. Unlike string methods, several list methods modify the list <em>in place</em> — they change the original directly, rather than returning a new one.</p>
+
+      <h3>.append() — adding an item</h3>
+      <p>You have seen this before. It adds one item to the end of the list.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>cities = ["Athens", "Thessaloniki"]
+cities.append("Patras")
+print(cities)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.sort() — sorting in place</h3>
+      <p><code>.sort()</code> rearranges the list alphabetically (for strings) or numerically (for numbers). It modifies the list directly.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>names = ["Zoe", "Kostas", "Maria", "Giorgos"]
+names.sort()
+print(names)
+
+scores = [88, 45, 72, 31, 95]
+scores.sort()
+print(scores)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.count() — counting occurrences in a list</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>grades = ["A", "B", "A", "C", "A", "B"]
+print(grades.count("A"))   # how many A's?</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Removing items — .remove(), .pop(), and del</h3>
+      <p>There are different ways to remove from a list. <code>.remove(value)</code> removes by value, <code>.pop(index)</code> removes by position and returns the removed item, and <code>del</code> deletes by index.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>cities = ["Athens", "Patras", "Thessaloniki", "Heraklion"]
+
+cities.remove("Patras")     # remove by value
+removed_city = cities.pop(1) # remove by index, returns item
+del cities[0]               # delete by index
+
+print(f"Removed with pop: {removed_city}")
+print(cities)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Putting it together</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>names = ["  nikos  ", "MARIA", "giorgos", "  ELENI"]
+
+cleaned = []
+for name in names:
+    cleaned.append(name.strip().title())
+
+cleaned.sort()
+print(cleaned)
+print(f"Longest name: {max(cleaned, key=len)}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>In place vs. returning a new value:</strong> <code>.sort()</code> and <code>.append()</code> modify the list directly and return nothing. <code>.upper()</code>, <code>.strip()</code>, <code>.replace()</code> leave the original unchanged and return a new value. When in doubt, print the result to see what you got.
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="chapter-2.html#part1">Previous: Chapter 2</a>
+        <a href="chapter-4.html#part1">Next: Chapter 4</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Six — Advanced Functions & Methods · Python for All</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Six — Advanced Functions & Methods</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Chapters</p>
+      <ol>
+        <li><a href="chapter-1.html">Chapter 1 — The Basics</a></li>
+        <li><a href="chapter-2.html">Chapter 2 — Exercises</a></li>
+        <li><a href="chapter-3.html">Chapter 3 — Functions &amp; Methods</a></li>
+        <li><a href="chapter-4.html">Chapter 4 — Exercises</a></li>
+        <li><a href="chapter-5.html">Chapter 5 — Data Types Deep Dive</a></li>
+        <li><a href="chapter-6.html" class="is-current">Chapter 6 — Advanced Functions &amp; Methods</a></li>
+        <li><a href="chapter-7.html">Chapter 7 — Exercises</a></li>
+        <li><a href="chapter-8.html">Chapter 8 — Comparison &amp; Boolean Operators</a></li>
+        <li><a href="chapter-9.html">Chapter 9 — Regex Basics</a></li>
+        <li><a href="chapter-10.html">Chapter 10 — Exercises</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ── Chapter Six: Advanced Functions & Methods ── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="chapter-banner" id="ch6">
+      <p class="chapter-number">Chapter Six</p>
+      <h2>Advanced Functions &amp; Methods</h2>
+      <p class="chapter-desc">A practical toolkit for converting data, checking types, and preparing values for real programs.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Why These Matter</h2>
+
+      <p>As programs grow, your data often arrives in the wrong format: text instead of numbers, tuples instead of lists, or mixed values in one collection. Advanced functions and methods help you convert, validate, and clean data safely.</p>
+
+      <div class="callout">
+        <strong>Goal:</strong> Learn how to transform data into the type you need before you continue processing it.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Constructors and Casting</h2>
+
+      <p>Python constructors like <code>list()</code>, <code>tuple()</code>, <code>set()</code>, and <code>dict()</code> can create new objects or convert one type to another.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>numbers_tuple = (1, 2, 3, 3)
+numbers_list = list(numbers_tuple)
+numbers_set = set(numbers_tuple)
+back_to_tuple = tuple(numbers_list)
+
+print("list:", numbers_list)
+print("set:", numbers_set)        # duplicates removed
+print("tuple:", back_to_tuple)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>pairs = [("name", "Maria"), ("age", 22)]
+student = dict(pairs)
+print(student)
+print(type(student))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Type Checking with isinstance()</h2>
+
+      <p><code>isinstance(value, type)</code> returns <code>True</code> or <code>False</code>. Use it when your code must handle different input types safely.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>values = [42, "Athens", [1, 2, 3], {"city": "Athens"}]
+
+for v in values:
+    if isinstance(v, int):
+        print(v, "is an integer")
+    elif isinstance(v, str):
+        print(v, "is a string")
+    elif isinstance(v, list):
+        print(v, "is a list")
+    elif isinstance(v, dict):
+        print(v, "is a dictionary")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>def safe_sum(values):
+    total = 0
+    for v in values:
+        if isinstance(v, (int, float)):
+            total += v
+    return total
+
+data = [10, "x", 2.5, "7", 4]
+print("Sum of numeric values:", safe_sum(data))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>The .tolist() Method</h2>
+
+      <p>An <code>array</code> is a sequence type, similar to a list, but usually used for many values of the same kind (for example integers only). In this chapter, think of it as "another container that can hold numbers".</p>
+
+      <p><code>.tolist()</code> means: "convert this object into a normal Python list". Not every type has this method. Some types (like <code>array.array</code>, and also NumPy/Pandas objects) provide it.</p>
+
+      <h3>What does <code>from xx import xx</code> mean?</h3>
+      <p><code>from module import name</code> means: open a module (a Python file/library) and bring one specific thing into your code so you can use it directly.</p>
+      <p>Example: <code>from array import array</code> means "from the <code>array</code> module, import the <code>array</code> class". After that, you can write <code>array(...)</code> directly.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea># from module import name
+# here: module = array, name = array
+from array import array
+
+# create an integer array ("i" means signed integer)
+scores_array = array("i", [88, 92, 75])
+
+# convert array -> normal Python list
+scores_list = scores_array.tolist()
+
+print("Array:", scores_array, type(scores_array))
+print("List :", scores_list, type(scores_list))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Important:</strong> Use <code>list()</code> to convert common iterables to lists. Use <code>.tolist()</code> only when an object specifically provides that method.
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="chapter-5.html#part1">Previous: Chapter 5</a>
+        <a href="chapter-7.html#part1">Next: Chapter 7</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter One — The Basics · Python for All</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter One — The Basics</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Chapters</p>
+      <ol>
+        <li><a href="chapter-1.html" class="is-current">Chapter 1 — The Basics</a></li>
+        <li><a href="chapter-2.html">Chapter 2 — Exercises</a></li>
+        <li><a href="chapter-3.html">Chapter 3 — Functions &amp; Methods</a></li>
+        <li><a href="chapter-4.html">Chapter 4 — Exercises</a></li>
+        <li><a href="chapter-5.html">Chapter 5 — Data Types Deep Dive</a></li>
+        <li><a href="chapter-6.html">Chapter 6 — Advanced Functions &amp; Methods</a></li>
+        <li><a href="chapter-7.html">Chapter 7 — Exercises</a></li>
+        <li><a href="chapter-8.html">Chapter 8 — Comparison &amp; Boolean Operators</a></li>
+        <li><a href="chapter-9.html">Chapter 9 — Regex Basics</a></li>
+        <li><a href="chapter-10.html">Chapter 10 — Exercises</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ── Chapter One banner ── -->
+    <div class="chapter-banner">
+      <p class="chapter-number">Chapter One</p>
+      <h2>The Basics</h2>
+      <p class="chapter-desc">Core concepts explained step by step, with live examples you can run and modify.</p>
+    </div>
+
+    <!-- ── Part 1: Hello World ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Hello, World</h2>
+
+      <p>Every programming language has a tradition: the very first thing you learn to do is make the computer say "Hello, World!" It sounds trivial — and it is — but it teaches you something profound: you can give a computer a precise instruction, and it will follow it immediately.</p>
+
+      <p>In Python, this requires exactly one line. Press <strong>Run</strong> below.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>print("Hello, World!")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The word <code>print</code> is a <em>function</em> — a built-in command that tells Python to display something on screen. The text inside the quotation marks is called a <em>string</em>: any sequence of characters. Try changing the text to your own name and running it again.</p>
+
+      <div class="callout">
+        <strong>Key idea:</strong> In programming, each instruction is called a <em>statement</em>. Python reads your statements from top to bottom, one at a time, and carries them out in order — much like following a recipe.
+      </div>
+    </section>
+
+    <!-- ── Part 2: Variables ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Variables — Giving Names to Things</h2>
+
+      <p>What if you want to save a value and use it again later? That is the purpose of a <em>variable</em>. A variable is a named container that stores a value. You create one by writing a name, an equals sign, and the value you want to store.</p>
+
+      <h3>Variable name rules</h3>
+
+      <p>In Python, variable names can use letters (<code>a-z</code>, <code>A-Z</code>), numbers (<code>0-9</code>), and underscores (<code>_</code>). A name <strong>cannot</strong> start with a number. It must start with a letter or underscore. Variable names are also case-sensitive, so <code>age</code> and <code>Age</code> are different variables.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>student_name = "Nikos"   # valid
+score2 = 95               # valid
+_city = "Athens"          # valid
+
+print(student_name, score2, _city)
+
+# invalid examples (uncomment to test errors):
+# 2score = 95
+# first-name = "Nikos"</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Numbers (integers)</h3>
+
+      <p>Whole numbers in Python are called <em>integers</em>. You can store them in variables and do arithmetic with them using the usual symbols: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>age = 20
+birth_year = 2026 - age
+print(birth_year)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>price = 10
+quantity = 4
+total = price * quantity
+print(total)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Text (strings)</h3>
+
+      <p>Text is stored in what programmers call a <em>string</em> — a sequence of characters wrapped in quotation marks. Strings can hold names, sentences, or anything written in words.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>first_name = "Maria"
+last_name = "Papadopoulou"
+full_name = first_name + " " + last_name
+print(full_name)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>How to check a variable type</h3>
+
+      <p>Use <code>type()</code> to see what kind of value a variable stores (for example <code>int</code>, <code>str</code>, or <code>list</code>).</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>age = 22
+name = "Maria"
+scores = [88, 92, 75]
+
+print(type(age))
+print(type(name))
+print(type(scores))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Note:</strong> The <code>+</code> operator does different things depending on the type. For numbers, it adds. For strings, it <em>concatenates</em> — it joins them end to end. Try combining three or four words.
+      </div>
+    </section>
+
+    <!-- ── Part 3: print() ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>The print() Function — Talking to the Outside World</h2>
+
+      <p>You have already used <code>print()</code>, but there is more to it. You can print multiple values at once by separating them with commas — Python will automatically place a space between them.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>name = "Nikos"
+age = 22
+print("My name is", name, "and I am", age, "years old.")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>A more elegant approach uses <em>f-strings</em>. Place an <code>f</code> before the opening quote, and embed variable names directly inside the text using curly braces <code>{}</code>. Python will substitute each variable with its value.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>city = "Athens"
+population = 643452
+print(f"{city} has a population of {population}.")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>You can even do calculations inside the curly braces:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>width = 8
+height = 5
+print(f"A {width} by {height} rectangle has area {width * height}.")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>f-strings</strong> are one of Python's most readable features. They let you compose output naturally, weaving variables into sentences exactly where they belong. Prefer them over concatenation whenever you are mixing text and values.
+      </div>
+    </section>
+
+    <!-- ── Part 4: Lists ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Lists — Collections in Order</h2>
+
+      <p>So far, every variable has held a single value. But what if you need to store a collection of items — a list of student names, a series of exam scores? Python has a built-in type for this: the <em>list</em>.</p>
+
+      <p>A list is written with square brackets <code>[]</code>, and its items are separated by commas. A list can hold any type of value — numbers, strings, or a mix of both.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>fruits = ["apple", "banana", "cherry"]
+print(fruits)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>You can access individual items by their <em>index</em> — their position in the list. In Python, counting starts at <strong>zero</strong>. The first item is at index <code>0</code>, the second at <code>1</code>, and so on. This surprises many beginners but quickly becomes natural.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>fruits = ["apple", "banana", "cherry"]
+print(fruits[0])    # first item
+print(fruits[1])    # second item
+print(fruits[-1])   # last item (negative index counts from the end)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Lists can grow. The <code>.append()</code> method adds a new item to the end. The built-in <code>len()</code> function tells you how many items are in the list.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>scores = [88, 75, 92]
+scores.append(81)
+print(scores)
+print("Number of scores:", len(scores))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Key idea:</strong> A list preserves the <em>order</em> of its items. The item you append last will always be at the end. Use a list whenever the sequence of items matters.
+      </div>
+    </section>
+
+    <!-- ── Part 5: Dictionaries ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Dictionaries — Labeled Data</h2>
+
+      <p>A list stores items accessed by position. A <em>dictionary</em> stores items accessed by <em>name</em>. Think of a real dictionary: you look up a word (the <em>key</em>) and find its definition (the <em>value</em>). Every entry in a Python dictionary is a key–value pair.</p>
+
+      <p>Dictionaries are written with curly braces <code>{}</code>. Each pair is written as <code>key: value</code>, separated by commas.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>student = {
+    "name": "Elena",
+    "age": 21,
+    "grade": "A"
+}
+print(student["name"])
+print(student["grade"])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>You can add new key–value pairs at any time, or update existing ones:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>student = {"name": "Elena", "age": 21}
+student["university"] = "University of Athens"
+student["age"] = 22        # update an existing value
+print(student)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>List vs. Dictionary:</strong> Use a <em>list</em> when items are similar in nature and their order matters (e.g., a sequence of scores). Use a <em>dictionary</em> when each item has a meaningful label (e.g., the attributes of a person or record).
+      </div>
+    </section>
+
+    <!-- ── Part 6: For Loops ── -->
+    <section id="part6">
+      <p class="section-label">Part Six</p>
+      <h2>For Loops — Doing Things Repeatedly</h2>
+
+      <p>One of programming's most powerful ideas is <em>repetition</em>. Instead of writing the same instruction many times, you write it once and tell Python to repeat it. This is the job of a <em>loop</em>.</p>
+
+      <p>The <code>for</code> loop goes through a collection — a list, a dictionary, or any sequence — one item at a time, and runs the same block of code for each one.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Read the loop out loud: <em>"For each fruit in fruits, print that fruit."</em> Notice the <strong>indentation</strong> — the four spaces before <code>print</code>. In Python, indentation is not decoration; it tells Python which lines belong <em>inside</em> the loop. Every indented line will run once per item.</p>
+
+      <h3>Looping over numbers</h3>
+
+      <p>You can loop over a range of numbers using <code>range()</code>. <code>range(5)</code> produces 0, 1, 2, 3, 4 — it starts at zero and stops <em>before</em> reaching the number you give it.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>for i in range(5):
+    print(f"Step {i}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Looping over a dictionary</h3>
+
+      <p>When you loop over a dictionary, you get its keys. Use each key to look up its value. Or use <code>.items()</code> to get both the key and value at once — this is the most common pattern.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>grades = {"Giorgos": 88, "Maria": 92, "Kostas": 75}
+
+for name, score in grades.items():
+    print(f"{name} scored {score}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>break and continue</h3>
+
+      <p>Inside loops, <code>break</code> and <code>continue</code> give you extra control. <code>break</code> stops the loop immediately. <code>continue</code> skips the current iteration and moves to the next one.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>for n in range(1, 8):
+    if n == 5:
+        break
+print(f"n = {n}")
+
+print(f"Loop stopped at {n}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>for n in range(1, 8):
+    if n % 2 == 0:
+        continue
+    print(f"odd number: {n}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>In this example, <code>n % 2</code> means "the remainder when n is divided by 2". If that remainder is <code>0</code>, then <code>n</code> is an <em>even</em> number, so <code>continue</code> skips it. That is why only <em>odd</em> numbers are printed. Odd numbers are numbers like <code>1, 3, 5, 7</code> that are not divisible by 2.</p>
+
+      <h3>Putting it all together</h3>
+
+      <p>Here is a small program that uses everything you have learned: variables, a list, a dictionary, a loop, and f-strings. Read it carefully before running it.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>students = [
+    {"name": "Giorgos", "score": 88},
+    {"name": "Maria",   "score": 92},
+    {"name": "Kostas",  "score": 75},
+]
+
+for student in students:
+    name  = student["name"]
+    score = student["score"]
+    print(f"{name}: {score}/100")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Key idea:</strong> A <code>for</code> loop is used when you know in advance what collection you want to iterate over. When you need to keep looping until some condition changes, you will want a <em>while</em> loop — covered in Part Eight.
+      </div>
+    </section>
+
+    <!-- ── Part 7: If Statements ── -->
+    <section id="part7">
+      <p class="section-label">Part Seven</p>
+      <h2>If Statements — Making Decisions</h2>
+
+      <p>Programs rarely do the same thing every time. Usually they need to react to data: if a score is high, print "Pass"; if it is low, print "Fail". This is called <em>conditional logic</em>, and in Python it is expressed with the <code>if</code> statement.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>score = 72
+
+if score >= 50:
+    print("Pass")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The line <code>if score >= 50:</code> is a <em>condition</em>. Python evaluates it — either it is <code>True</code> or it is <code>False</code>. If it is <code>True</code>, the indented block runs. If it is <code>False</code>, Python skips over it entirely. Try changing the score to 30 and running again.</p>
+
+      <h3>else — the alternative path</h3>
+
+      <p>You can tell Python what to do when the condition is <em>false</em> using <code>else</code>:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>score = 35
+
+if score >= 50:
+    print("Pass")
+else:
+    print("Fail")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>elif — more than two possibilities</h3>
+
+      <p>When there are more than two outcomes, use <code>elif</code> (short for "else if") to check additional conditions in sequence. Python stops at the first condition that is true.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>score = 82
+
+if score >= 90:
+    print("Grade: A")
+elif score >= 80:
+    print("Grade: B")
+elif score >= 70:
+    print("Grade: C")
+else:
+    print("Grade: F")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Combining conditions</h3>
+
+      <p>You can combine conditions with <code>and</code> and <code>or</code>. Use <code>and</code> when both conditions must be true; use <code>or</code> when at least one must be true.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>age = 20
+has_ticket = True
+
+if age >= 18 and has_ticket:
+    print("Welcome!")
+else:
+    print("Entry denied.")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>If statements inside loops</h3>
+
+      <p>Conditions and loops are often used together. Here, a loop goes through every student and an <code>if</code> decides what to print for each one:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>scores = [88, 45, 72, 31, 95]
+
+for score in scores:
+    if score >= 50:
+        print(f"{score} → Pass")
+    else:
+        print(f"{score} → Fail")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Comparison operators:</strong> <code>==</code> (equal to), <code>!=</code> (not equal), <code>&gt;</code> (greater than), <code>&lt;</code> (less than), <code>&gt;=</code> (greater than or equal), <code>&lt;=</code> (less than or equal). Note that equality uses <em>two</em> equals signs — a single <code>=</code> is for assignment.
+      </div>
+    </section>
+
+    <!-- ── Part 8: While Loops ── -->
+    <section id="part8">
+      <p class="section-label">Part Eight</p>
+      <h2>While Loops — Repeating Until Done</h2>
+
+      <p>A <code>for</code> loop is ideal when you know in advance what collection to iterate over. A <code>while</code> loop is different: it keeps repeating <em>as long as a condition remains true</em>. You use it when you do not know how many repetitions will be needed.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>count = 1
+
+while count <= 5:
+    print(count)
+    count = count + 1</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Read it as: <em>"While count is less than or equal to 5, print count, then add 1 to count."</em> Each pass through the loop is called an <em>iteration</em>. After five iterations, the condition becomes false and the loop stops.</p>
+
+      <div class="callout">
+        <strong>Warning — infinite loops:</strong> If the condition never becomes false, the loop runs forever and your program freezes. Always make sure something inside the loop moves you closer to the stopping condition. In the example above, <code>count = count + 1</code> does this.
+      </div>
+
+      <h3>Counting down</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>countdown = 5
+
+while countdown > 0:
+    print(countdown)
+    countdown = countdown - 1
+
+print("Liftoff!")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Accumulating a result</h3>
+
+      <p>A common pattern is to build up a result across iterations. Here, a while loop sums all the numbers from 1 to 100:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>total = 0
+number = 1
+
+while number <= 100:
+    total = total + number
+    number = number + 1
+
+print(f"Sum of 1 to 100 is {total}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>for vs. while — when to use which</h3>
+
+      <div class="callout">
+        Use a <strong>for loop</strong> when you have a collection to iterate over (a list, a dictionary, a range). Use a <strong>while loop</strong> when you need to keep going until some condition changes — for example, reading input until the user types "quit", or repeating a calculation until it converges.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="../index.html#part1">Previous: Course Home</a>
+        <a href="chapter-2.html#part1">Next: Chapter 2</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+</body>
+</html>
