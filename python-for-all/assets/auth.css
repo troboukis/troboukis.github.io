@@ -231,6 +231,48 @@
 }
 .auth-submit-btn:hover { background: #333; }
 
+/* ── Chapter gate ── */
+#auth-gate {
+  max-width: 700px;
+  margin: 48px auto 80px;
+  padding: 0 24px;
+}
+
+.auth-gate-box {
+  border: 1px solid #e0e0e0;
+  border-top: 4px solid #111;
+  padding: 48px 40px;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.auth-gate-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 16px;
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+.auth-gate-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 900;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+
+.auth-gate-desc {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1rem;
+  color: #555;
+  max-width: 400px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
 /* ── TOC progress badges ── */
 .prog-badge {
   margin-left: 8px;
