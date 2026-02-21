@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Four — Exercises · Python for All</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Four — Exercises</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Chapters</p>
+      <ol>
+        <li><a href="chapter-1.html">Chapter 1 — The Basics</a></li>
+        <li><a href="chapter-2.html">Chapter 2 — Exercises</a></li>
+        <li><a href="chapter-3.html">Chapter 3 — Functions &amp; Methods</a></li>
+        <li><a href="chapter-4.html" class="is-current">Chapter 4 — Exercises</a></li>
+        <li><a href="chapter-5.html">Chapter 5 — Data Types Deep Dive</a></li>
+        <li><a href="chapter-6.html">Chapter 6 — Advanced Functions &amp; Methods</a></li>
+        <li><a href="chapter-7.html">Chapter 7 — Exercises</a></li>
+        <li><a href="chapter-8.html">Chapter 8 — Comparison &amp; Boolean Operators</a></li>
+        <li><a href="chapter-9.html">Chapter 9 — Regex Basics</a></li>
+        <li><a href="chapter-10.html">Chapter 10 — Exercises</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ── Chapter Four: Exercises ── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="chapter-banner" id="ch4">
+      <p class="chapter-number">Chapter Four</p>
+      <h2>Exercises</h2>
+      <p class="chapter-desc">These exercises combine what you learned in Chapter One and Chapter Three. Read each prompt carefully before you start typing.</p>
+    </div>
+
+    <div class="exercise" id="ex2-1">
+      <div class="exercise-header">
+        <span class="exercise-number">01</span>
+        <p class="exercise-prompt">You are given a messy list of names. Clean each one up — remove surrounding spaces and make it title case (first letter uppercase, rest lowercase) — then print the cleaned list.</p>
+      </div>
+      <p class="exercise-hint">Hint: use .strip() to remove spaces and .title() to fix capitalisation. Build a new list with a for loop and .append().</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>messy_names = ["  nikos  ", "MARIA", " giorgos ", "ELENI  ", "  eirini"]
+
+# clean each name and collect the results
+</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex2-2">
+      <div class="exercise-header">
+        <span class="exercise-number">02</span>
+        <p class="exercise-prompt">Given the list of names below, find and print the longest name and how many characters it has.</p>
+      </div>
+      <p class="exercise-hint">Hint: loop over the list, compare len() of each name to a running maximum, and keep track of which name is longest.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>names = ["Giorgos", "Nikos", "Konstantinos", "Maria", "Alexandros", "Eirini"]
+
+# find the longest name
+</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex2-3">
+      <div class="exercise-header">
+        <span class="exercise-number">03</span>
+        <p class="exercise-prompt">Count how many names in the list below start with the letter <code>A</code>, and print the result.</p>
+      </div>
+      <p class="exercise-hint">Hint: use a counter variable, a for loop, and .startswith() inside an if statement.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>names = ["Alexandros", "Nikos", "Andreas", "Maria", "Aris", "Eirini", "Anna"]
+letter = "A"
+
+# count how many names start with letter
+</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex2-4">
+      <div class="exercise-header">
+        <span class="exercise-number">04</span>
+        <p class="exercise-prompt">The list below contains numbers stored as text strings. Convert each one to an integer, then print their total and their average rounded to one decimal place.</p>
+      </div>
+      <p class="exercise-hint">Hint: use int() to convert each string inside a for loop, append the results to a new list, then use sum() and len() to calculate total and average.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>numbers_as_text = ["12", "45", "8", "33", "71", "26"]
+
+# convert to integers, then compute total and average
+</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex2-5">
+      <div class="exercise-header">
+        <span class="exercise-number">05</span>
+        <p class="exercise-prompt">Using the Greek Prime Ministers dictionary from Chapter Two (Exercise 7), loop through it and print only the Prime Ministers whose name starts with the letter <code>K</code>, along with the year they took office.</p>
+      </div>
+      <p class="exercise-hint">Hint: combine .items() to loop the dictionary, .startswith("K") to filter, and an f-string to format the output.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>prime_ministers = {
+    "Konstantinos Karamanlis": 1974,
+    "Georgios Rallis": 1980,
+    "Andreas Papandreou": 1981,
+    "Konstantinos Mitsotakis": 1990,
+    "Kostas Simitis": 1996,
+    "Kostas Karamanlis": 2004,
+    "Giorgos Papandreou": 2009,
+    "Loukas Papadimos": 2011,
+    "Antonis Samaras": 2012,
+    "Alexis Tsipras": 2015,
+    "Kyriakos Mitsotakis": 2019,
+}
+
+# print only PMs whose name starts with K
+</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="chapter-3.html#part1">Previous: Chapter 3</a>
+        <a href="chapter-5.html#part1">Next: Chapter 5</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+</body>
+</html>

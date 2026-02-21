@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Five — Data Types Deep Dive · Python for All</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Five — Data Types Deep Dive</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Chapters</p>
+      <ol>
+        <li><a href="chapter-1.html">Chapter 1 — The Basics</a></li>
+        <li><a href="chapter-2.html">Chapter 2 — Exercises</a></li>
+        <li><a href="chapter-3.html">Chapter 3 — Functions &amp; Methods</a></li>
+        <li><a href="chapter-4.html">Chapter 4 — Exercises</a></li>
+        <li><a href="chapter-5.html" class="is-current">Chapter 5 — Data Types Deep Dive</a></li>
+        <li><a href="chapter-6.html">Chapter 6 — Advanced Functions &amp; Methods</a></li>
+        <li><a href="chapter-7.html">Chapter 7 — Exercises</a></li>
+        <li><a href="chapter-8.html">Chapter 8 — Comparison &amp; Boolean Operators</a></li>
+        <li><a href="chapter-9.html">Chapter 9 — Regex Basics</a></li>
+        <li><a href="chapter-10.html">Chapter 10 — Exercises</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ── Chapter Five: Data Types Deep Dive ── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="chapter-banner" id="ch5">
+      <p class="chapter-number">Chapter Five</p>
+      <h2>Data Types Deep Dive</h2>
+      <p class="chapter-desc">Understand what each Python data type is, when to use it, and how to inspect values confidently.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Data Type Map</h2>
+
+      <p>Every value in Python has a type. A type tells Python what that value is and what you can do with it. The most important groups are:</p>
+
+      <p><strong>Numeric:</strong> <code>int</code>, <code>float</code> (and <code>complex</code>, which we will skip for now)<br>
+      <strong>Boolean:</strong> <code>True</code>, <code>False</code><br>
+      <strong>String:</strong> text values like <code>"hello"</code><br>
+      <strong>Collections:</strong> <code>list</code>, <code>tuple</code>, <code>set</code>, <code>dict</code></p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>values = [
+    2199,                # int
+    3.14159265,          # float
+    True,                # bool
+    "hello",             # str
+    [1, 2, 3],           # list
+    (1, 2, 3),           # tuple
+    {1, 2, 3},           # set
+    {"one": 1, "two": 2} # dict
+]
+
+for v in values:
+    print(v, "->", type(v))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Numeric Types</h2>
+      <p>Python also has complex numbers, but we will not be dealing with complex numbers in this course.</p>
+
+      <h3>int — whole numbers</h3>
+      <p>Integers have no decimal point. Use them for counting and indexing.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>students = 28
+new_students = 3
+print(students + new_students)
+print(type(students))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>float — decimal numbers</h3>
+      <p>Floats store values with decimals.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>price = 12.75
+vat = 0.24
+total = price * (1 + vat)
+print(total)
+print(type(total))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Strings, Booleans, and None</h2>
+
+      <h3>str — text</h3>
+      <p>Strings are text values inside quotes. You can combine and slice them.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>city = "Athens"
+country = "Greece"
+message = city + ", " + country
+print(message)
+print(type(message))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>bool — True or False</h3>
+      <p>Booleans represent logical answers: yes/no, pass/fail, on/off.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>score = 72
+passed = score >= 50
+print(passed)
+print(type(passed))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>NoneType — no value yet</h3>
+      <p><code>None</code> is used when a variable has no meaningful value yet.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>middle_name = None
+print(middle_name)
+print(type(middle_name))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Collection Types</h2>
+
+      <p>Collection types hold multiple values, but each one behaves differently.</p>
+
+      <h3>list — ordered and changeable</h3>
+      <p>A list keeps items in order, allows duplicates, and can be modified after creation. Use a list when order matters and you expect to add, remove, or update items.</p>
+      <p>You access list items by index: <code>0</code> is the first item, <code>1</code> is the second, and so on.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>friends = ["Maria", "Nikos", "Eleni"]
+friends.append("Giorgos")
+friends[1] = "Kostas"
+print(friends)
+print("First friend:", friends[0])
+print(type(friends))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>tuple — ordered and fixed</h3>
+      <p>A tuple is like a list that cannot be changed after creation. It keeps order, allows duplicates, and supports indexing.</p>
+      <p>Use tuples for values that should stay constant, such as coordinates, RGB colors, or fixed settings.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>coordinates = (37.9838, 23.7275)
+print(coordinates)
+print(type(coordinates))
+print("Latitude:", coordinates[0])
+print("Longitude:", coordinates[1])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>set — unique values, no order</h3>
+      <p>A set stores unique values only. If you add the same value more than once, it appears only once.</p>
+      <p>Sets are useful for removing duplicates and for fast membership checks like <code>if "python" in tags</code>.</p>
+      <p>Common methods: <code>.add(value)</code> to insert, <code>.remove(value)</code> to delete (error if missing), <code>.discard(value)</code> to delete safely (no error if missing), and <code>.pop()</code> to remove and return one arbitrary item.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>tags = {"python", "loops", "python", "basics"}
+
+tags.add("conditions")       # add one item
+tags.remove("loops")         # remove existing item
+tags.discard("advanced")     # no error if item not found
+removed_item = tags.pop()    # removes one arbitrary item
+
+print("Removed by pop:", removed_item)
+print(tags)
+print("Has python?", "python" in tags)
+print(type(tags))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>dict — key/value pairs</h3>
+      <p>A dictionary stores data as <code>key: value</code> pairs. You use a key (label) to access its value.</p>
+      <p>Use dictionaries when each value has a meaningful name, such as student attributes, settings, or lookup tables.</p>
+      <p>Common methods: <code>.get(key)</code> for safe reading, <code>.keys()</code> and <code>.values()</code> to inspect data, <code>.items()</code> to loop key/value pairs, <code>.update({...})</code> to add new key/value pairs or change existing ones, and <code>.pop(key)</code> to remove one key and return its value.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>student = {"name": "Maria", "age": 21, "city": "Athens"}
+
+# read values
+print(student.get("name"))
+print(student.get("country", "Not set"))
+
+# update existing values or add new key/value pairs
+student["age"] = 22
+student.update({"university": "University of Athens", "passed": True})
+
+# remove one key
+removed_city = student.pop("city")
+print("Removed city:", removed_city)
+
+# inspect keys and values
+print("Keys:", list(student.keys()))
+print("Values:", list(student.values()))
+
+# loop through key/value pairs
+for key, value in student.items():
+    print(f"{key}: {value}")
+
+print(student)
+print(type(student))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Quick memory tip:</strong> <code>list</code> is ordered and editable, <code>tuple</code> is ordered and fixed, <code>set</code> keeps only unique values, and <code>dict</code> stores labeled data with keys.
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="chapter-4.html#part1">Previous: Chapter 4</a>
+        <a href="chapter-6.html#part1">Next: Chapter 6</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+</body>
+</html>

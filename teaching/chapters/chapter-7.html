@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Seven — Exercises · Python for All</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Seven — Exercises</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Chapters</p>
+      <ol>
+        <li><a href="chapter-1.html">Chapter 1 — The Basics</a></li>
+        <li><a href="chapter-2.html">Chapter 2 — Exercises</a></li>
+        <li><a href="chapter-3.html">Chapter 3 — Functions &amp; Methods</a></li>
+        <li><a href="chapter-4.html">Chapter 4 — Exercises</a></li>
+        <li><a href="chapter-5.html">Chapter 5 — Data Types Deep Dive</a></li>
+        <li><a href="chapter-6.html">Chapter 6 — Advanced Functions &amp; Methods</a></li>
+        <li><a href="chapter-7.html" class="is-current">Chapter 7 — Exercises</a></li>
+        <li><a href="chapter-8.html">Chapter 8 — Comparison &amp; Boolean Operators</a></li>
+        <li><a href="chapter-9.html">Chapter 9 — Regex Basics</a></li>
+        <li><a href="chapter-10.html">Chapter 10 — Exercises</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ── Chapter Seven: Exercises ── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="chapter-banner" id="ch7">
+      <p class="chapter-number">Chapter Seven</p>
+      <h2>Exercises</h2>
+      <p class="chapter-desc">Ten short exercises to strengthen what you learned in Chapter Five and Chapter Six.</p>
+    </div>
+
+    <div class="exercise" id="ex3-1">
+      <div class="exercise-header">
+        <span class="exercise-number">01</span>
+        <p class="exercise-prompt">For each value below, print the value and its type.</p>
+      </div>
+      <p class="exercise-hint">Hint: loop over the list and use <code>type()</code>.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>values = [42, 3.14, "Athens", True, [1, 2], {"name": "Maria"}, (5, 6), {1, 2}]
+
+# print value and type for each item
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex3-2">
+      <div class="exercise-header">
+        <span class="exercise-number">02</span>
+        <p class="exercise-prompt">Convert the tuple below to a list, append one more city, and print both the list and its type.</p>
+      </div>
+      <p class="exercise-hint">Hint: use <code>list()</code> and <code>.append()</code>.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>cities_tuple = ("Athens", "Patras", "Heraklion")
+
+# convert to list, append "Ioannina", print result and type
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex3-3">
+      <div class="exercise-header">
+        <span class="exercise-number">03</span>
+        <p class="exercise-prompt">Remove duplicates from this list of tags and print the unique tags.</p>
+      </div>
+      <p class="exercise-hint">Hint: convert list to <code>set</code>, then back to <code>list</code> if you want.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>tags = ["python", "loops", "python", "lists", "loops", "dict"]
+
+# remove duplicates and print unique tags
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex3-4">
+      <div class="exercise-header">
+        <span class="exercise-number">04</span>
+        <p class="exercise-prompt">Create a dictionary from these key/value pairs and print the dictionary.</p>
+      </div>
+      <p class="exercise-hint">Hint: use <code>dict()</code> on the list of tuples.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>pairs = [("name", "Nikos"), ("age", 23), ("city", "Athens")]
+
+# build dictionary from pairs and print it
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex3-5">
+      <div class="exercise-header">
+        <span class="exercise-number">05</span>
+        <p class="exercise-prompt">Loop through the values and print whether each value is an int, float, string, or other.</p>
+      </div>
+      <p class="exercise-hint">Hint: use <code>isinstance()</code> with <code>if/elif</code>.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>values = [10, "20", 3.5, "Athens", True, [1, 2]]
+
+# classify each value by type
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex3-6">
+      <div class="exercise-header">
+        <span class="exercise-number">06</span>
+        <p class="exercise-prompt">Compute the sum of numeric values only from the list below.</p>
+      </div>
+      <p class="exercise-hint">Hint: keep only values that are <code>int</code> or <code>float</code> using <code>isinstance(v, (int, float))</code>.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>data = [5, "x", 2.5, "10", 7, False, 1.5]
+
+# print total numeric sum only
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex3-7">
+      <div class="exercise-header">
+        <span class="exercise-number">07</span>
+        <p class="exercise-prompt">Update this dictionary by changing age, adding university, then print keys, values, and all key/value pairs.</p>
+      </div>
+      <p class="exercise-hint">Hint: use assignment or <code>.update()</code>, then <code>.keys()</code>, <code>.values()</code>, and <code>.items()</code>.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>student = {"name": "Eleni", "age": 20, "city": "Patras"}
+
+# update and inspect dictionary
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex3-8">
+      <div class="exercise-header">
+        <span class="exercise-number">08</span>
+        <p class="exercise-prompt">Practice set methods: add one item, remove one item, safely discard one missing item, then print the set.</p>
+      </div>
+      <p class="exercise-hint">Hint: use <code>.add()</code>, <code>.remove()</code>, and <code>.discard()</code>.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>skills = {"python", "sql", "git"}
+
+# add "pandas", remove "sql", discard "docker", print final set
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex3-9">
+      <div class="exercise-header">
+        <span class="exercise-number">09</span>
+        <p class="exercise-prompt">Create an integer array from the numbers below, convert it to a list with <code>.tolist()</code>, and print both types.</p>
+      </div>
+      <p class="exercise-hint">Hint: use <code>from array import array</code> and <code>array("i", ...)</code>.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea># import array, create array from [10, 20, 30, 40], convert to list, print types
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <div class="exercise" id="ex3-10">
+      <div class="exercise-header">
+        <span class="exercise-number">10</span>
+        <p class="exercise-prompt">Mini challenge: from the list below, build a dictionary counting how many values belong to each type (<code>int</code>, <code>float</code>, <code>str</code>, <code>other</code>).</p>
+      </div>
+      <p class="exercise-hint">Hint: use a dictionary as counters and <code>isinstance()</code> inside a loop.</p>
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea>values = [1, 2.5, "a", "b", 3, [1, 2], {"x": 1}, 4.0, "Athens"]
+
+# count each type category and print the result dictionary
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="chapter-6.html#part1">Previous: Chapter 6</a>
+        <a href="chapter-8.html#part1">Next: Chapter 8</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+</body>
+</html>

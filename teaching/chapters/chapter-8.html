@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Eight — Comparison & Boolean Operators · Python for All</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Eight — Comparison & Boolean Operators</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Chapters</p>
+      <ol>
+        <li><a href="chapter-1.html">Chapter 1 — The Basics</a></li>
+        <li><a href="chapter-2.html">Chapter 2 — Exercises</a></li>
+        <li><a href="chapter-3.html">Chapter 3 — Functions &amp; Methods</a></li>
+        <li><a href="chapter-4.html">Chapter 4 — Exercises</a></li>
+        <li><a href="chapter-5.html">Chapter 5 — Data Types Deep Dive</a></li>
+        <li><a href="chapter-6.html">Chapter 6 — Advanced Functions &amp; Methods</a></li>
+        <li><a href="chapter-7.html">Chapter 7 — Exercises</a></li>
+        <li><a href="chapter-8.html" class="is-current">Chapter 8 — Comparison &amp; Boolean Operators</a></li>
+        <li><a href="chapter-9.html">Chapter 9 — Regex Basics</a></li>
+        <li><a href="chapter-10.html">Chapter 10 — Exercises</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ── Chapter Eight: Comparison & Boolean Operators ── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="chapter-banner" id="ch8">
+      <p class="chapter-number">Chapter Eight</p>
+      <h2>Comparison &amp; Boolean Operators</h2>
+      <p class="chapter-desc">Simple rules for asking questions in Python and combining True/False conditions.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Comparison Operators</h2>
+
+      <p>Comparison operators compare two values and return <code>True</code> or <code>False</code>.</p>
+      <p><code>==</code> equal, <code>!=</code> not equal, <code>&gt;</code> greater than, <code>&lt;</code> less than, <code>&gt;=</code> greater or equal, <code>&lt;=</code> less or equal.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>age = 20
+score = 72
+
+print(age == 20)   # True
+print(age != 18)   # True
+print(score > 50)  # True
+print(score < 50)  # False
+print(score >= 72) # True
+print(score <= 70) # False</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Important:</strong> <code>=</code> means assignment, while <code>==</code> means comparison.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Boolean Operators</h2>
+
+      <p>Boolean operators combine conditions.</p>
+      <p><code>and</code>: both conditions must be True. <code>or</code>: at least one condition must be True. <code>not</code>: flips True to False (and False to True).</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>age = 20
+has_ticket = True
+is_weekend = False
+
+print(age >= 18 and has_ticket)   # True
+print(age < 18 or has_ticket)     # True
+print(not is_weekend)             # True</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Combining Conditions in Real Examples</h2>
+
+      <p>In real programs, we usually combine comparison operators with boolean operators inside <code>if</code> statements.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>grade = 78
+attendance = 92
+
+if grade >= 50 and attendance >= 75:
+    print("Pass")
+else:
+    print("Fail")</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>username = "maria"
+password = "1234"
+
+if username == "maria" and password == "1234":
+    print("Login successful")
+else:
+    print("Login failed")</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Simple way to read conditions:</strong> Evaluate each small comparison first, then combine them with <code>and</code>, <code>or</code>, or <code>not</code>.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Identity and Membership Operators</h2>
+
+      <p><code>is</code> and <code>is not</code> check identity (whether two names refer to the same object). <code>in</code> and <code>not in</code> check membership (whether a value exists inside a sequence or set).</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>a = [1, 2, 3]
+b = a
+c = [1, 2, 3]
+
+print("b is a:", b is a)          # True (same object)
+print("c is a:", c is a)          # False (different object)
+print("c is not a:", c is not a)  # True
+
+name = "maria"
+tags = {"python", "loops", "lists"}
+
+print("'m' in name:", "m" in name)             # True
+print("'z' not in name:", "z" not in name)     # True
+print("'python' in tags:", "python" in tags)   # True
+print("'java' not in tags:", "java" not in tags) # True</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="chapter-7.html#part1">Previous: Chapter 7</a>
+        <a href="chapter-9.html#part1">Next: Chapter 9</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+</body>
+</html>

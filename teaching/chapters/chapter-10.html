@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Ten — Exercises · Python for All</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Ten — Exercises</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Chapters</p>
+      <ol>
+        <li><a href="chapter-1.html">Chapter 1 — The Basics</a></li>
+        <li><a href="chapter-2.html">Chapter 2 — Exercises</a></li>
+        <li><a href="chapter-3.html">Chapter 3 — Functions &amp; Methods</a></li>
+        <li><a href="chapter-4.html">Chapter 4 — Exercises</a></li>
+        <li><a href="chapter-5.html">Chapter 5 — Data Types Deep Dive</a></li>
+        <li><a href="chapter-6.html">Chapter 6 — Advanced Functions &amp; Methods</a></li>
+        <li><a href="chapter-7.html">Chapter 7 — Exercises</a></li>
+        <li><a href="chapter-8.html">Chapter 8 — Comparison &amp; Boolean Operators</a></li>
+        <li><a href="chapter-9.html">Chapter 9 — Regex Basics</a></li>
+        <li><a href="chapter-10.html" class="is-current">Chapter 10 — Exercises</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner" id="ch10">
+      <p class="chapter-number">Chapter Ten</p>
+      <h2>Exercises</h2>
+      <p class="chapter-desc">Ten practical exercises to build confidence with regular expressions.</p>
+    </div>
+
+    <div class="exercise" id="ex10-1">
+      <div class="exercise-header"><span class="exercise-number">01</span><p class="exercise-prompt">Find the first 4-digit year in the text.</p></div>
+      <p class="exercise-hint">Hint: use <code>re.search()</code> with a pattern like <code>\d{4}</code>.</p>
+      <div class="cell"><div class="cell-label">Python · Your solution</div><textarea>import re
+text = "Athens 2024, Patras 2025"
+
+# find and print the first year
+</textarea><div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div><pre class="out"></pre></div>
+    </div>
+
+    <div class="exercise" id="ex10-2">
+      <div class="exercise-header"><span class="exercise-number">02</span><p class="exercise-prompt">Extract all numbers from the text as a list.</p></div>
+      <p class="exercise-hint">Hint: use <code>re.findall()</code> with <code>\d+</code>.</p>
+      <div class="cell"><div class="cell-label">Python · Your solution</div><textarea>import re
+text = "Order A-12, B-7, C-305"
+
+# print all numbers
+</textarea><div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div><pre class="out"></pre></div>
+    </div>
+
+    <div class="exercise" id="ex10-3">
+      <div class="exercise-header"><span class="exercise-number">03</span><p class="exercise-prompt">Replace all years with the word <code>YEAR</code>.</p></div>
+      <p class="exercise-hint">Hint: use <code>re.sub()</code>.</p>
+      <div class="cell"><div class="cell-label">Python · Your solution</div><textarea>import re
+text = "Events: 2023, 2024, 2025"
+
+# replace years and print new text
+</textarea><div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div><pre class="out"></pre></div>
+    </div>
+
+    <div class="exercise" id="ex10-4">
+      <div class="exercise-header"><span class="exercise-number">04</span><p class="exercise-prompt">Check if a code matches exactly two uppercase letters, dash, four digits.</p></div>
+      <p class="exercise-hint">Hint: use <code>re.fullmatch()</code> with <code>r"[A-Z]{2}-\d{4}"</code>.</p>
+      <div class="cell"><div class="cell-label">Python · Your solution</div><textarea>import re
+code = "AB-1234"
+
+# print True/False
+</textarea><div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div><pre class="out"></pre></div>
+    </div>
+
+    <div class="exercise" id="ex10-5">
+      <div class="exercise-header"><span class="exercise-number">05</span><p class="exercise-prompt">Find words that start with capital A.</p></div>
+      <p class="exercise-hint">Hint: use an anchor and word characters.</p>
+      <div class="cell"><div class="cell-label">Python · Your solution</div><textarea>import re
+text = "Athens and Alex are in Aigio"
+
+# find words starting with A
+</textarea><div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div><pre class="out"></pre></div>
+    </div>
+
+    <div class="exercise" id="ex10-6">
+      <div class="exercise-header"><span class="exercise-number">06</span><p class="exercise-prompt">Extract whole-word <code>cat</code> matches only (not <code>scatter</code> or <code>bobcat</code>).</p></div>
+      <p class="exercise-hint">Hint: use word boundaries <code>\b</code>.</p>
+      <div class="cell"><div class="cell-label">Python · Your solution</div><textarea>import re
+text = "cat scatter bobcat cat"
+
+# print only whole-word cat matches
+</textarea><div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div><pre class="out"></pre></div>
+    </div>
+
+    <div class="exercise" id="ex10-7">
+      <div class="exercise-header"><span class="exercise-number">07</span><p class="exercise-prompt">Extract all emails from the text.</p></div>
+      <p class="exercise-hint">Hint: start from <code>\w+@\w+\.\w+</code>.</p>
+      <div class="cell"><div class="cell-label">Python · Your solution</div><textarea>import re
+text = "Contacts: maria21@test.com, info@python.org"
+
+# print all emails
+</textarea><div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div><pre class="out"></pre></div>
+    </div>
+
+    <div class="exercise" id="ex10-8">
+      <div class="exercise-header"><span class="exercise-number">08</span><p class="exercise-prompt">Use capturing groups to extract year, month, and day from a date.</p></div>
+      <p class="exercise-hint">Hint: pattern like <code>(\d{4})-(\d{2})-(\d{2})</code>.</p>
+      <div class="cell"><div class="cell-label">Python · Your solution</div><textarea>import re
+text = "Date: 2026-02-21"
+
+# print year, month, day separately
+</textarea><div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div><pre class="out"></pre></div>
+    </div>
+
+    <div class="exercise" id="ex10-9">
+      <div class="exercise-header"><span class="exercise-number">09</span><p class="exercise-prompt">Show the difference between greedy and lazy matching on HTML tags.</p></div>
+      <p class="exercise-hint">Hint: compare <code>&lt;.*&gt;</code> and <code>&lt;.*?&gt;</code>.</p>
+      <div class="cell"><div class="cell-label">Python · Your solution</div><textarea>import re
+html = "<b>bold</b><i>italic</i>"
+
+# print greedy result then lazy result
+</textarea><div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div><pre class="out"></pre></div>
+    </div>
+
+    <div class="exercise" id="ex10-10">
+      <div class="exercise-header"><span class="exercise-number">10</span><p class="exercise-prompt">Mini challenge: validate Greek phone numbers in format <code>210-123-4567</code> from a list and print only valid ones.</p></div>
+      <p class="exercise-hint">Hint: use <code>re.fullmatch()</code> in a loop.</p>
+      <div class="cell"><div class="cell-label">Python · Your solution</div><textarea>import re
+phones = ["210-123-4567", "69-123", "231-555-1111", "A10-123-4567"]
+
+# print only valid numbers
+</textarea><div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div><pre class="out"></pre></div>
+    </div>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="chapter-9.html#part1">Previous: Chapter 9</a>
+        <a href="../index.html#part1">Next: Course Home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+</body>
+</html>
