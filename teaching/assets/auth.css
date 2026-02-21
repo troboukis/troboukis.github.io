@@ -1,0 +1,242 @@
+.hidden { display: none !important; }
+
+/* ── Auth widget (fixed top-right) ── */
+#auth-widget {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.auth-btn {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+  height: 36px;
+}
+.auth-btn:hover { background: #333; }
+
+.auth-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  color: #111;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+/* ── Dropdown ── */
+.auth-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #fff;
+  border: 1px solid #111;
+  padding: 14px 16px;
+  min-width: 190px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  border-radius: 2px;
+}
+.auth-dropdown p {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 12px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.auth-dropdown button {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid #111;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 2px;
+}
+.auth-dropdown button:hover { background: #111; color: #fff; }
+
+/* ── Modal overlay ── */
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-modal-box {
+  background: #fff;
+  border: 1px solid #111;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  border-radius: 2px;
+}
+
+.auth-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #aaa;
+  line-height: 1;
+  padding: 4px;
+}
+.auth-modal-close:hover { color: #111; }
+
+.auth-modal-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+/* ── Tabs ── */
+.auth-tabs {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+.auth-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 8px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #aaa;
+  cursor: pointer;
+}
+.auth-tab.active { color: #111; border-bottom-color: #111; }
+
+/* ── Google button ── */
+.auth-google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.auth-google-btn:hover { background: #f5f5f5; border-color: #bbb; }
+
+/* ── Divider ── */
+.auth-divider {
+  text-align: center;
+  margin: 16px 0;
+  position: relative;
+}
+.auth-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  border-top: 1px solid #e0e0e0;
+}
+.auth-divider span {
+  position: relative;
+  background: #fff;
+  padding: 0 10px;
+  font-size: 12px;
+  color: #aaa;
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+/* ── Form ── */
+.auth-field { margin-bottom: 14px; }
+.auth-field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #777;
+  margin-bottom: 6px;
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+.auth-field input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #ddd;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 15px;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+.auth-field input:focus { outline: none; border-color: #111; }
+
+.auth-error {
+  font-size: 13px;
+  color: #c0392b;
+  margin-bottom: 12px;
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+.auth-submit-btn {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 11px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  margin-top: 4px;
+}
+.auth-submit-btn:hover { background: #333; }
+
+/* ── TOC progress badges ── */
+.prog-badge {
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #999;
+  font-family: 'Source Code Pro', monospace;
+}
+.prog-badge--done { color: #27ae60; }
