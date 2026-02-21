@@ -129,11 +129,13 @@
 
       try {
         const code = ta.value;
+        // Pass code as a Python variable to avoid string-embedding issues
+        // (e.g. triple quotes or backslashes in user code breaking the template).
+        pyodide.globals.set("_cell_src_", code);
         // Mirror Jupyter: if the last statement is a bare expression, display its value.
         const wrapped = `
 import ast as _ast
-_src = """${code.replaceAll("\\", "\\\\").replaceAll('"""', '\\"\\"\\"')}"""
-_mod = _ast.parse(_src)
+_mod = _ast.parse(_cell_src_)
 if _mod.body and isinstance(_mod.body[-1], _ast.Expr):
     _last = _mod.body.pop()
     exec(compile(_mod, "<cell>", "exec"), globals())
@@ -150,6 +152,7 @@ else:
         const msg = String(e).replace(/File "<exec>",.*\n.*\n/g, "");
         out.textContent += msg;
       } finally {
+        pyodide.globals.delete("_cell_src_");
         btn.disabled = false;
         status.textContent = "";
         currentOut = null;
