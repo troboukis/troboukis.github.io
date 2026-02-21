@@ -220,7 +220,10 @@ else:
           if (s.getBoundingClientRect().top <= threshold) current = s;
         }
         const newHash = "#" + current.id;
-        if (location.hash !== newHash) history.replaceState(null, "", newHash);
+        if (location.hash !== newHash) {
+          history.replaceState(null, "", newHash);
+          window.dispatchEvent(new CustomEvent("section-change", { detail: { part: current.id } }));
+        }
       };
       window.addEventListener("scroll", () => {
         if (!ticking) {
