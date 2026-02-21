@@ -338,6 +338,7 @@
     .editor-shell {
       position: relative;
       background: #fefefe;
+      overflow: hidden;
     }
 
     .code-highlight {
