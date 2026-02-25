@@ -240,7 +240,10 @@
   </div>
 
   <script>
-    const CSV_PATH = "data_alexandras.csv";
+    const CSV_PATH = "https://raw.githubusercontent.com/troboukis/alexandras/refs/heads/main/data_alexandras.csv";
+    const GITHUB_OWNER = "troboukis";
+    const GITHUB_REPO = "alexandras";
+    const GITHUB_WORKFLOW_FILE = "daily-update.yml";
     let allRows = [];
     let filteredRows = [];
     let activeId = null;
@@ -377,6 +380,52 @@
         const d = new Date(lastModifiedHeader);
         if (!Number.isNaN(d.getTime())) updated = formatDateOnly(d);
       }
+      el.textContent = `Πηγή: Διαύγεια | Τελευταία ενημέρωση: ${updated} | Ταξινόμηση: πιο πρόσφατες πρώτα`;
+    }
+
+    async function fetchLastCheckDate() {
+      try {
+        const runsUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${GITHUB_WORKFLOW_FILE}/runs?per_page=1`;
+        const runsResp = await fetch(runsUrl, { cache: "no-store" });
+        if (runsResp.ok) {
+          const runsJson = await runsResp.json();
+          const run = runsJson?.workflow_runs?.[0];
+          const rawDate = run?.run_started_at || run?.updated_at || run?.created_at;
+          if (rawDate) {
+            const d = new Date(rawDate);
+            if (!Number.isNaN(d.getTime())) return d;
+          }
+        }
+      } catch (_) {}
+
+      // Fallback: latest commit that touched the CSV file.
+      try {
+        const commitsUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/commits?path=data_alexandras.csv&per_page=1`;
+        const commitsResp = await fetch(commitsUrl, { cache: "no-store" });
+        if (commitsResp.ok) {
+          const commits = await commitsResp.json();
+          const rawDate = commits?.[0]?.commit?.committer?.date || commits?.[0]?.commit?.author?.date;
+          if (rawDate) {
+            const d = new Date(rawDate);
+            if (!Number.isNaN(d.getTime())) return d;
+          }
+        }
+      } catch (_) {}
+
+      return null;
+    }
+
+    function updateSubtitleFromDate(dateValue, lastModifiedHeader = null) {
+      const el = document.getElementById("subtitle");
+      let updated = "-";
+
+      if (dateValue instanceof Date && !Number.isNaN(dateValue.getTime())) {
+        updated = formatDateOnly(dateValue);
+      } else if (lastModifiedHeader) {
+        const d = new Date(lastModifiedHeader);
+        if (!Number.isNaN(d.getTime())) updated = formatDateOnly(d);
+      }
+
       el.textContent = `Πηγή: Διαύγεια | Τελευταία ενημέρωση: ${updated} | Ταξινόμηση: πιο πρόσφατες πρώτα`;
     }
 
@@ -593,6 +642,9 @@
         const resp = await fetch(CSV_PATH, { cache: "no-store" });
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         updateSubtitle(resp.headers.get("last-modified"));
+        fetchLastCheckDate()
+          .then(d => updateSubtitleFromDate(d, resp.headers.get("last-modified")))
+          .catch(() => {});
         const csv = await resp.text();
         allRows = parseCsv(csv).sort((a, b) => b._timestamp - a._timestamp);
         updateStats(allRows);
