@@ -19,12 +19,12 @@
     }
 
     .dropcap{
-  float: left;
-  font-size: 3.6em;
-  line-height: 0.85;
-  padding: 0.08em 0.12em 0 0;
-  font-weight: 700;
-}
+      float: left;
+      font-size: 3.6em;
+      line-height: 0.85;
+      padding: 0.08em 0.12em 0 0;
+      font-weight: 700;
+    }
 
     .kicker {
       font-family: 'Source Serif 4', Georgia, serif;
