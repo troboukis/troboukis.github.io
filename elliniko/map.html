@@ -24,7 +24,7 @@
 
         /* Το πάνελ με τις πληροφορίες στα αριστερά */
         #info-panel {
-            width: 400px;
+            width: 480px;
             height: 100vh;
             background: #fff;
             box-shadow: 2px 0 10px rgba(0,0,0,0.1);
@@ -60,6 +60,30 @@
         .panel-header p {
             font-size: 0.85rem;
             opacity: 0.8;
+        }
+
+        .panel-header-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 10px;
+        }
+
+        .panel-last-update {
+            font-size: 0.72rem;
+            opacity: 0.7;
+        }
+
+        .panel-attribution {
+            font-size: 0.72rem;
+            opacity: 0.7;
+            text-align: right;
+        }
+
+        .panel-attribution a {
+            color: white;
+            text-decoration: underline;
+            text-underline-offset: 2px;
         }
 
         .close-btn {
@@ -113,6 +137,12 @@
 
         .permit-list-item:hover {
             background: #edf2f7;
+        }
+
+        .permit-list-item.selected {
+            background: #ebf4ff;
+            border-left: 3px solid #2c5282;
+            padding-left: 9px;
         }
 
         .permit-list-item:last-child {
@@ -634,6 +664,10 @@
         <div class="panel-header">
             <h1>Οικοδομικές Άδειες</h1>
             <p>Μητροπολιτικός Πόλος Ελληνικού - Αγ. Κοσμά</p>
+            <div class="panel-header-meta">
+                <span class="panel-last-update">Τελευταία ενημέρωση: <span id="last-update-date">—</span></span>
+                <span class="panel-attribution">Ανάπτυξη: <a href="https://troboukis.github.io" target="_blank" rel="noopener">Θανάσης Τρομπούκης</a></span>
+            </div>
             <button class="close-btn" onclick="togglePanel()">&times;</button>
         </div>
 
@@ -689,11 +723,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <script>
+        // Τελευταία ενημέρωση δεδομένων (ενημερώνεται αυτόματα από το update_data.py)
+        const LAST_UPDATE = "2026-03-03";
+        document.getElementById('last-update-date').textContent = LAST_UPDATE;
+
         // Ορισμός του ΕΓΣΑ'87 - το ελληνικό σύστημα συντεταγμένων
         proj4.defs('EPSG:2100', '+proj=tmerc +lat_0=0 +lon_0=24 +k=0.9996 +x_0=500000 +y_0=0 +ellps=GRS80 +towgs84=-199.87,74.79,246.62,0,0,0,0 +units=m +no_defs');
 
         // Το URL με τα δεδομένα από το Google Sheets
-        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vREhAUeuD8EB4HaM3oSEnkbiHx08HSMpFaHyAaYW424djp-WWVgD2HFiqlw6W0H-CLO8Hht25sCtv8K/pub?gid=155647671&single=true&output=csv';
+        const CSV_URL = 'https://raw.githubusercontent.com/troboukis/ellhniko/refs/heads/main/permits_ellhniko.csv';
         
 
         // Φτιάχνουμε τον χάρτη, κεντραρισμένο στο Ελληνικό
@@ -840,8 +878,17 @@
 
         // Εμφανίζει λίστα αδειών όταν πολλές επικαλύπτονται
         function showPermitList(items) {
+            isWelcomeView = false;
             const content = document.getElementById('panel-content');
-            const listHtml = items.map((item, idx) => {
+
+            // Νεότερες πρώτα
+            const sorted = [...items].sort((a, b) => {
+                const da = toIsoDate(a.row.issue_date) || '';
+                const db = toIsoDate(b.row.issue_date) || '';
+                return da > db ? -1 : da < db ? 1 : 0;
+            });
+
+            const listHtml = sorted.map((item, idx) => {
                 const permitClass = item.permitClass;
                 const badgeClass = getBadgeClass(permitClass);
                 const desc = (item.row.description || '').substring(0, 80);
@@ -861,13 +908,13 @@
 
             content.innerHTML = `
                 <div class="info-section">
-                    <h3>${items.length} άδειες σε αυτό το σημείο</h3>
+                    <h3>${sorted.length} άδειες σε αυτό το σημείο</h3>
                     ${listHtml}
                 </div>
             `;
 
-            // Αποθηκεύουμε τη λίστα για να μπορούμε να επιλέξουμε μετά
-            window._permitListItems = items;
+            // Αποθηκεύουμε τη λίστα (ήδη ταξινομημένη) για να μπορούμε να επιλέξουμε μετά
+            window._permitListItems = sorted;
 
             const panel = document.getElementById('info-panel');
             if (panel.classList.contains('hidden')) {
@@ -896,6 +943,7 @@
 
         // Εμφανίζει τις πληροφορίες της άδειας στο πάνελ
         function showPermitInfo(data) {
+            isWelcomeView = false;
             const content = document.getElementById('panel-content');
 
             const permitType = data.permit_type || 'Άδεια';
@@ -1026,6 +1074,96 @@
             setTimeout(() => map.invalidateSize(), 350);
         }
 
+        // Κλικ σε κενό σημείο του χάρτη → επιστροφή στο αρχικό μήνυμα
+        map.on('click', function(e) {
+            const matches = findPermitsAtPoint(e.latlng);
+            if (matches.length === 0) {
+                if (selectedPolygon) {
+                    selectedPolygon.setStyle({ weight: 2, fillOpacity: 0.4 });
+                    selectedPolygon = null;
+                }
+                showWelcome();
+            }
+        });
+
+        let isWelcomeView = false;
+
+        function showWelcome() {
+            isWelcomeView = true;
+            const content = document.getElementById('panel-content');
+
+            if (allData.length === 0) {
+                content.innerHTML = `
+                    <div class="welcome-message">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                        </svg>
+                        <p>Επιλέξτε ένα οικόπεδο στον χάρτη για να δείτε τις πληροφορίες της άδειας.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const sorted = [...allData].sort((a, b) => {
+                const da = toIsoDate(a.row.issue_date) || '';
+                const db = toIsoDate(b.row.issue_date) || '';
+                return da > db ? -1 : da < db ? 1 : 0;
+            });
+
+            const selectedAda = selectedPolygon ? selectedPolygon.permitData.ada : null;
+
+            const listHtml = sorted.map((item, idx) => {
+                const badgeClass = getBadgeClass(item.permitClass);
+                const desc = (item.row.description || '').substring(0, 80);
+                const isSelected = item.row.ada === selectedAda ? ' selected' : '';
+                return `
+                    <div class="permit-list-item${isSelected}" id="witem-${idx}" onclick="selectFromWelcome(${idx})">
+                        <div class="permit-list-header">
+                            <span class="badge ${badgeClass}">${item.permitClass}</span>
+                        </div>
+                        <div class="permit-list-ada">${item.row.ada || '-'}</div>
+                        <div class="permit-list-meta">
+                            ${formatDate(item.row.issue_date)} · ${item.row.owner || '-'}
+                        </div>
+                        <div class="permit-list-desc">${desc}${desc.length >= 80 ? '...' : ''}</div>
+                    </div>
+                `;
+            }).join('');
+
+            content.innerHTML = `
+                <div class="info-section">
+                    <h3>Όλες οι άδειες (${sorted.length})</h3>
+                    ${listHtml}
+                </div>
+            `;
+
+            window._welcomeListItems = sorted;
+        }
+
+        function selectFromWelcome(idx) {
+            const items = window._welcomeListItems;
+            if (!items || !items[idx]) return;
+
+            const item = items[idx];
+
+            // Un-highlight previous polygon
+            if (selectedPolygon) {
+                selectedPolygon.setStyle({ weight: 2, fillOpacity: 0.4 });
+            }
+
+            // Highlight selected polygon
+            item.polygon.setStyle({ weight: 4, fillOpacity: 0.7 });
+            selectedPolygon = item.polygon;
+
+            // Update selected style in list
+            document.querySelectorAll('.permit-list-item.selected').forEach(el => el.classList.remove('selected'));
+            const el = document.getElementById(`witem-${idx}`);
+            if (el) el.classList.add('selected');
+
+            // Pan map to polygon
+            map.fitBounds(item.polygon.getBounds(), { maxZoom: 17, padding: [50, 50] });
+        }
+
         // Όταν αλλάζει το μέγεθος του παραθύρου
         window.addEventListener('resize', () => {
             setTimeout(() => map.invalidateSize(), 100);
@@ -1145,6 +1283,9 @@
             // Ενημέρωση μετρητή
             document.getElementById('filter-count').textContent =
                 `Εμφάνιση ${visibleCount} από ${allData.length} άδειες`;
+
+            // Αν είμαστε στη welcome view, ανανεώνουμε τη λίστα
+            if (isWelcomeView) showWelcome();
         }
 
         // Σύνδεση φίλτρων με events (μόνο checkboxes - οι ημερομηνίες με το κουμπί)
@@ -1170,7 +1311,7 @@
         // Φόρτωση και εμφάνιση δεδομένων
         async function loadData() {
             try {
-                const response = await fetch(CSV_URL + '&_t=' + Date.now());
+                const response = await fetch(CSV_URL + '?_t=' + Date.now());
                 const csvText = await response.text();
 
                 Papa.parse(csvText, {
@@ -1179,6 +1320,13 @@
                     complete: function(results) {
                         const bounds = [];
                         let skippedRows = [];
+
+                        // Ταξινόμηση από παλαιότερη→νεότερη ώστε η νεότερη να σχεδιαστεί τελευταία (και να είναι από πάνω)
+                        results.data.sort((a, b) => {
+                            const da = toIsoDate(a.issue_date) || '';
+                            const db = toIsoDate(b.issue_date) || '';
+                            return da < db ? -1 : da > db ? 1 : 0;
+                        });
 
                         results.data.forEach((row, index) => {
                             const coords = parseCoordinates(row.coordinates);
@@ -1255,6 +1403,9 @@
                             return div;
                         };
                         legend.addTo(map);
+
+                        // Εμφάνιση λίστας αδειών στο αρχικό πάνελ
+                        showWelcome();
 
                         // Κρύβουμε την οθόνη φόρτωσης
                         document.getElementById('loading').style.display = 'none';
