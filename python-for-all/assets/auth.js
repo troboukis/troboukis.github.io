@@ -351,9 +351,25 @@ function bindEvents() {
   });
 }
 
+// ── Lock icons on gated TOC links ─────────────────────────────────
+function markGatedLinks() {
+  document.querySelectorAll("nav a[href]").forEach(link => {
+    const match = link.getAttribute("href").match(/chapter-(\d+)/);
+    if (!match) return;
+    if (parseInt(match[1]) < 3) return;
+    if (link.querySelector(".lock-icon")) return;
+    const icon = document.createElement("span");
+    icon.className = "lock-icon";
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = "🔒";
+    link.appendChild(icon);
+  });
+}
+
 // ── Bootstrap ─────────────────────────────────────────────────────
 injectUI();
 bindEvents();
+markGatedLinks();
 
 onAuthStateChanged(auth, async user => {
   updateAuthButton(user);
