@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 2 · Chapter Two — Navigating Your File System · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 2 · Chapter Two — Navigating Your File System · Python for All" />
+  <meta property="og:description" content="Learn to explore your file system: ls, cd, absolute and relative paths, with interactive labs." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 2 — The Magic World of the Terminal</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Two — Navigating Your File System</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 2 — The Magic World of the Terminal</p>
+      <ol>
+        <li><a href="book2-chapter-1.html">Chapter 1 — Terminal Foundations</a></li>
+        <li><a href="book2-chapter-2.html" class="is-current">Chapter 2 — Navigating Your File System</a></li>
+        <li><a href="book2-chapter-3.html">Chapter 3 — Managing Files and Folders</a></li>
+        <li><a href="book2-chapter-4.html">Chapter 4 — Reading and Searching Files</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner" id="book2-ch2">
+      <p class="chapter-number">Book Two · Chapter Two</p>
+      <h2>Navigating Your File System</h2>
+      <p class="chapter-desc">Your computer is a tree of folders and files. This chapter teaches you to move through it with confidence using <code>ls</code> and <code>cd</code>.</p>
+    </div>
+
+    <!-- ── Part 1: The filesystem tree ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Your File System Is a Tree</h2>
+
+      <p><span class="dropcap">E</span>very file on your computer lives at a specific address — its <strong>path</strong>. To understand paths, you need to understand how the file system is organised. Think of it as an upside-down tree: a single root at the top, with branches (directories) and leaves (files) growing downward.</p>
+
+      <p>On macOS and Linux, the root of the entire tree is written as <code>/</code> (a single forward slash). Everything on your computer lives inside it. Your user folder sits at <code>/Users/yourname</code>, and everything you create goes inside that.</p>
+
+      <p>Here is what a typical student workspace looks like as a tree:</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.85rem;line-height:1.7;background:#1a1a1a;color:#d4d4d4;border:none;padding:20px 24px;border-radius:4px;">
+        /Users/student/<br>
+        ├── Desktop/<br>
+        ├── Downloads/<br>
+        │&nbsp;&nbsp;&nbsp;└── budget_report.pdf<br>
+        └── Files/<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;└── data_journalism/<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── notes.txt<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── cities.csv<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── sources/<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── contacts.txt
+      </div>
+
+      <p>Reading this tree: <code>student</code> is a directory inside <code>Users</code>. Inside <code>student</code> there are three directories: <code>Desktop</code>, <code>Downloads</code>, and <code>Files</code>. Inside <code>Files</code> is <code>data_journalism</code>, which contains two files and one sub-directory called <code>sources</code>.</p>
+
+      <p>The full path to <code>contacts.txt</code> is <code>/Users/student/Files/data_journalism/sources/contacts.txt</code>. Each <code>/</code> in the path is a branch — a step down in the tree.</p>
+
+      <div class="callout">
+        <strong>Home directory:</strong> your home directory is the folder with your username — <code>/Users/student</code> on the Mac, <code>/home/student</code> on Linux. The terminal uses <code>~</code> as a shorthand for it. Whenever you open a new terminal window, you start in your home directory.
+      </div>
+    </section>
+
+    <!-- ── Part 2: ls ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>ls — Listing What Is Around You</h2>
+
+      <p><code>ls</code> stands for <em>list</em>. It is one of the two commands you will use most — the other being <code>cd</code>. Together they let you explore the entire file system without ever touching a mouse.</p>
+
+      <p>On its own, <code>ls</code> prints the names of files and directories in your current location. Add flags for more detail:</p>
+
+      <table style="font-size:0.9rem;border-collapse:collapse;margin:0 0 20px;width:100%;">
+        <thead>
+          <tr style="border-bottom:2px solid #ddd;">
+            <th style="text-align:left;padding:6px 10px 6px 0;">Command</th>
+            <th style="text-align:left;padding:6px 0;">What it shows</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>ls</code></td><td>Names only — fast overview</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>ls -l</code></td><td>Long format: permissions, owner, size in bytes, date, name</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>ls -lah</code></td><td>Long format + all files (including hidden) + human-readable sizes (KB, MB)</td></tr>
+          <tr><td style="padding:5px 10px 5px 0;"><code>ls Downloads</code></td><td>List a specific directory without moving into it</td></tr>
+        </tbody>
+      </table>
+
+      <p>In the long format output (<code>ls -l</code>), the first character of each line tells you the entry type: <code>d</code> means directory, <code>-</code> means file. The number at the far left of the size column is the size in bytes (or kilobytes/megabytes with the <code>-h</code> flag).</p>
+
+      <div class="cell terminal-cell" data-intro="Lab: try ls, ls -l, ls -lah, and ls Downloads">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Desktop": {
+                    "screenshot.png": "image file placeholder"
+                  },
+                  "Downloads": {
+                    "budget_report.pdf": "PDF document placeholder",
+                    "municipalities.csv": "name,region,population\nAthens,Attica,664046\nThessaloniki,Macedonia,325182\nPatras,Achaea,213984\n",
+                    "elections_2024.csv": "party,votes,percentage\nA,1200000,38.5\nB,890000,28.6\nC,540000,17.3\n"
+                  },
+                  "Files": {
+                    "data_journalism": {
+                      "notes.txt": "directory\npath\ncommand\nargument\nflag\n",
+                      "cities.csv": "city,country\nAthens,Greece\nParis,France\nAthens,Greece\n",
+                      "sources": {
+                        "contacts.txt": "Maria Papadaki - Ministry of Environment\nKostas Andreou - City Council, Athens\nEleni Stavrou - Housing Minister\n"
+                      },
+                      "archive": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · ls Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: ls"></textarea>
+          </div>
+          <p class="terminal-note">Try: ls · ls -l · ls -lah · ls Downloads · ls Files/data_journalism</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 3: cd ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>cd — Changing Directory</h2>
+
+      <p><code>cd</code> stands for <em>change directory</em>. It moves you from one location to another in the file system. After running <code>cd</code>, your prompt will reflect the new location — and all subsequent commands will operate relative to it.</p>
+
+      <table style="font-size:0.9rem;border-collapse:collapse;margin:0 0 20px;width:100%;">
+        <thead>
+          <tr style="border-bottom:2px solid #ddd;">
+            <th style="text-align:left;padding:6px 10px 6px 0;">Command</th>
+            <th style="text-align:left;padding:6px 0;">What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>cd Downloads</code></td><td>Go into the <code>Downloads</code> directory</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>cd Files/data_journalism</code></td><td>Go two levels down in one step</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>cd ..</code></td><td>Go up one level (to the parent directory)</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>cd ../..</code></td><td>Go up two levels</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>cd ~</code></td><td>Go directly to your home directory from anywhere</td></tr>
+          <tr><td style="padding:5px 10px 5px 0;"><code>cd</code></td><td>Same as <code>cd ~</code> — go home</td></tr>
+        </tbody>
+      </table>
+
+      <p>The two dots <code>..</code> are a special name that always means "the parent directory" — the directory one level up from where you are. Similarly, a single dot <code>.</code> means "the current directory." These two shorthands appear everywhere in terminal work.</p>
+
+      <div class="cell terminal-cell" data-intro="Lab: navigate the file system. Try going in, going up, going home.">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Desktop": {
+                    "screenshot.png": "image file placeholder"
+                  },
+                  "Downloads": {
+                    "budget_report.pdf": "PDF document placeholder",
+                    "municipalities.csv": "name,region,population\nAthens,Attica,664046\nThessaloniki,Macedonia,325182\nPatras,Achaea,213984\n",
+                    "elections_2024.csv": "party,votes,percentage\nA,1200000,38.5\nB,890000,28.6\nC,540000,17.3\n"
+                  },
+                  "Files": {
+                    "data_journalism": {
+                      "notes.txt": "directory\npath\ncommand\nargument\nflag\n",
+                      "cities.csv": "city,country\nAthens,Greece\nParis,France\nAthens,Greece\n",
+                      "sources": {
+                        "contacts.txt": "Maria Papadaki - Ministry of Environment\nKostas Andreou - City Council, Athens\nEleni Stavrou - Housing Minister\n"
+                      },
+                      "archive": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · cd Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: cd Downloads"></textarea>
+          </div>
+          <p class="terminal-note">Try: cd Downloads → pwd → ls → cd .. → cd Files/data_journalism → pwd → cd ~ → pwd</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Common mistake:</strong> running <code>cd data_journalism</code> when you are not in the parent directory will give you an error. Always check where you are with <code>pwd</code> before navigating. If you get lost, <code>cd ~</code> always takes you home.
+      </div>
+    </section>
+
+    <!-- ── Part 4: Absolute vs relative paths ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Absolute and Relative Paths</h2>
+
+      <p>Any file or directory can be addressed in two ways: by its <strong>absolute path</strong> or by a <strong>relative path</strong>. Understanding the difference is the key to never getting lost.</p>
+
+      <p><strong>An absolute path</strong> starts with <code>/</code> and gives the full address from the root of the drive. It works the same way regardless of where you currently are. Example:</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        cd /Users/student/Files/data_journalism
+      </div>
+
+      <p>This takes you to <code>data_journalism</code> from anywhere in the file system — even if you are currently on the Desktop.</p>
+
+      <p><strong>A relative path</strong> does not start with <code>/</code>. It describes a location relative to where you currently are. If you are already in <code>/Users/student</code>, then:</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        cd Files/data_journalism
+      </div>
+
+      <p>…takes you to the same destination, because the terminal looks for <code>Files</code> inside your current directory.</p>
+
+      <table style="font-size:0.9rem;border-collapse:collapse;margin:0 0 20px;width:100%;">
+        <thead>
+          <tr style="border-bottom:2px solid #ddd;">
+            <th style="text-align:left;padding:6px 10px 6px 0;">Notation</th>
+            <th style="text-align:left;padding:6px 0;">Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>/</code></td><td>Root of the entire drive — start of every absolute path</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>~</code></td><td>Your home directory (<code>/Users/student</code>)</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:5px 10px 5px 0;"><code>.</code></td><td>The current directory</td></tr>
+          <tr><td style="padding:5px 10px 5px 0;"><code>..</code></td><td>The parent directory (one level up)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>When to use each:</strong> use relative paths for short moves within a project folder. Use absolute paths in scripts and when you need to refer to a file from any location — for example, when running a Python script from a different directory.
+      </div>
+    </section>
+
+    <!-- ── Part 5: Navigation lab ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Practice — Navigate a Realistic File System</h2>
+
+      <p>The sandbox below has a more complete file system to explore. Your challenge: reach specific files using a mix of relative and absolute paths, confirm your location with <code>pwd</code>, and list directory contents with <code>ls</code>.</p>
+
+      <p>Suggested sequence to try:</p>
+      <ol>
+        <li>Start at home (<code>pwd</code> to confirm).</li>
+        <li>Navigate to <code>Downloads</code> using a relative path. Run <code>ls</code>.</li>
+        <li>Go back home with <code>cd ~</code>.</li>
+        <li>Navigate to <code>Files/data_journalism/sources</code> in one command.</li>
+        <li>Confirm your location with <code>pwd</code>.</li>
+        <li>Go up two levels with <code>cd ../..</code>. Where are you now?</li>
+        <li>Navigate to <code>/Users/student/Desktop</code> using an absolute path.</li>
+      </ol>
+
+      <div class="cell terminal-cell" data-intro="Navigation challenge: explore the file system using ls, cd, and pwd">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Desktop": {
+                    "screenshot.png": "image file placeholder"
+                  },
+                  "Downloads": {
+                    "budget_report.pdf": "PDF document placeholder",
+                    "municipalities.csv": "name,region,population\nAthens,Attica,664046\nThessaloniki,Macedonia,325182\nPatras,Achaea,213984\n",
+                    "elections_2024.csv": "party,votes,percentage\nA,1200000,38.5\nB,890000,28.6\nC,540000,17.3\n"
+                  },
+                  "Files": {
+                    "data_journalism": {
+                      "notes.txt": "directory\npath\ncommand\nargument\nflag\n",
+                      "cities.csv": "city,country\nAthens,Greece\nParis,France\nAthens,Greece\n",
+                      "sources": {
+                        "contacts.txt": "Maria Papadaki - Ministry of Environment\nKostas Andreou - City Council, Athens\nEleni Stavrou - Housing Minister\n"
+                      },
+                      "archive": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · Navigation Challenge</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: pwd"></textarea>
+          </div>
+          <p class="terminal-note">Use pwd to check location, ls to look around, cd to move</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>What you have learned in Chapter 2:</strong> the file system is a tree rooted at <code>/</code>; <code>ls</code> and <code>ls -lah</code> list what is in a directory; <code>cd</code> moves you between directories; <code>..</code> means parent and <code>~</code> means home; absolute paths start with <code>/</code> and relative paths start from where you are. In Chapter 3 you will learn to create, move, copy, and delete files.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book2-chapter-1.html">Previous: Chapter 1 — Terminal Foundations</a>
+        <a href="book2-chapter-3.html">Next: Chapter 3 — Managing Files and Folders</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    The Magic World of the Terminal.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/terminal-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>

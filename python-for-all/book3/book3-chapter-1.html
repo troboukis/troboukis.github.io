@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 3 · Chapter One — The Skeleton of a Web Page · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 3 · Chapter One — The Skeleton of a Web Page · Python for All" />
+  <meta property="og:description" content="Learn HTML and CSS step by step by building and previewing pages directly in your browser." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 3 — HTML, CSS Basics</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter One — The Skeleton of a Web Page</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 3 — HTML, CSS Basics</p>
+      <ol>
+        <li><a href="book3-chapter-1.html" class="is-current">Chapter 1 — The Skeleton of a Web Page</a></li>
+        <li><a href="book3-chapter-2.html">Chapter 2 — Text, Emphasis &amp; Quotes</a></li>
+        <li><a href="book3-chapter-3.html">Chapter 3 — Links &amp; Images</a></li>
+        <li><a href="book3-chapter-4.html">Chapter 4 — Semantic Structure</a></li>
+        <li><a href="book3-chapter-5.html">Chapter 5 — Introduction to CSS</a></li>
+        <li><a href="book3-chapter-6.html">Chapter 6 — Typography &amp; Layout</a></li>
+        <li><a href="book3-chapter-7.html">Chapter 7 — Embeds &amp; iframes</a></li>
+        <li><a href="book3-chapter-8.html">Chapter 8 — The Article Page</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Three · Chapter One</p>
+      <h2>The Skeleton of a Web Page</h2>
+      <p class="chapter-desc">Every web page you have ever read is built from the same raw material: plain text with angle-bracket tags. In this chapter you meet those tags for the first time.</p>
+    </div>
+
+    <!-- ── Part 1: What is HTML ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>What Is HTML?</h2>
+
+      <p><span class="dropcap">W</span>henever you open a web page — a news article, a social media post, a research paper — your browser is reading a text file written in <strong>HTML</strong>: HyperText Markup Language. HTML is not a programming language; it does not calculate or make decisions. It is a <em>markup</em> language: a way of annotating content to give it meaning and structure.</p>
+
+      <p>Think of a printed newspaper. A designer decides which text is the headline, which is a pull quote, which is a caption. HTML does the same thing, but for the web. You wrap words in special codes called <em>tags</em>, and the browser uses those tags to know how to display them.</p>
+
+      <p>Understanding HTML means you can publish your own stories, control how they look, and embed maps, videos, and data directly into your articles — without relying on a proprietary CMS.</p>
+
+      <div class="callout">
+        <strong>What you will build by the end of Book 3:</strong> a complete, styled article page with a headline, byline, body text, a photo with caption, a pull quote, an embedded map, and hyperlinks to your sources.
+      </div>
+    </section>
+
+    <!-- ── Part 2: Tags ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Tags — The Building Blocks</h2>
+
+      <p>A <em>tag</em> is a label surrounded by angle brackets: <code>&lt;tagname&gt;</code>. Most tags come in pairs: an <strong>opening tag</strong> and a <strong>closing tag</strong>. The closing tag has a forward slash before the name: <code>&lt;/tagname&gt;</code>. Everything between them is the <em>content</em> that tag applies to.</p>
+
+      <p>For example, to mark a paragraph of text, you write:</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><p>This is a paragraph. It could be the opening of a news story.</p>
+
+<p>This is a second paragraph. Notice the blank line above — in HTML, spacing in your code does not affect the output. Only tags control layout.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.7;
+  padding: 20px;
+  max-width: 600px;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <p>Click <strong>Run</strong> to render the HTML in the preview on the right. Then try changing the text inside the <code>&lt;p&gt;</code> tags and running again. The preview updates immediately.</p>
+
+      <div class="callout">
+        <strong>Key rule:</strong> Every tag you open, you must close. <code>&lt;p&gt;...&lt;/p&gt;</code>. Forgetting the closing tag is one of the most common mistakes beginners make — the browser will try to recover, but the results are unpredictable.
+      </div>
+    </section>
+
+    <!-- ── Part 3: Headings ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Headings — Hierarchy on the Page</h2>
+
+      <p>HTML has six levels of headings: <code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>. <code>&lt;h1&gt;</code> is the most important — the main headline of the page. <code>&lt;h2&gt;</code> is a section heading. <code>&lt;h3&gt;</code> is a sub-section. In practice, most articles use <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, and occasionally <code>&lt;h3&gt;</code>.</p>
+
+      <p>In journalism, heading hierarchy matters: search engines use it to understand what your article is about, and screen readers use it to help visually impaired readers navigate the page.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>City Council Approves New Housing Plan</h1>
+
+<h2>Background</h2>
+<p>The plan, debated for three years, will add 4,000 units to the city's housing stock by 2028.</p>
+
+<h2>Reactions</h2>
+<h3>Supporters</h3>
+<p>Affordable housing advocates praised the decision as long overdue.</p>
+
+<h3>Critics</h3>
+<p>Some neighbourhood groups expressed concerns about infrastructure capacity.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding: 20px;
+  max-width: 600px;
+  color: #111;
+}
+
+h1 { font-size: 1.9em; margin: 0 0 10px; }
+h2 { font-size: 1.3em; margin: 28px 0 6px; border-bottom: 1px solid #ccc; }
+h3 { font-size: 1.05em; margin: 18px 0 4px; color: #555; }</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Rule of thumb:</strong> Each page should have exactly <em>one</em> <code>&lt;h1&gt;</code> — your main headline. Use <code>&lt;h2&gt;</code> for sections within the article, and <code>&lt;h3&gt;</code> for subsections within those. Do not skip levels (e.g. jumping from <code>&lt;h1&gt;</code> to <code>&lt;h3&gt;</code>).
+      </div>
+    </section>
+
+    <!-- ── Part 4: Full document structure ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>The Full Document — Head and Body</h2>
+
+      <p>Every real HTML file has a fixed structure. You will recognise it from any page you view-source on the web. It has two main parts:</p>
+
+      <ul>
+        <li><strong><code>&lt;head&gt;</code></strong> — invisible metadata: the page title (shown in the browser tab), character encoding, links to stylesheets. Content here is not displayed on the page.</li>
+        <li><strong><code>&lt;body&gt;</code></strong> — everything the visitor actually sees: headings, paragraphs, images, links.</li>
+      </ul>
+
+      <p>The whole file is wrapped in an <code>&lt;html&gt;</code> tag, and begins with a <em>doctype declaration</em> that tells the browser which version of HTML to expect.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it — a complete minimal page</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>My First Article</title>
+</head>
+<body>
+  <h1>My First HTML Article</h1>
+  <p>Written and published entirely by me, using only a text file.</p>
+  <p>No CMS. No template. Just HTML.</p>
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.7;
+  padding: 32px;
+  max-width: 640px;
+  margin: 0 auto;
+  color: #111;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0 0 16px;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <p>The <code>lang="en"</code> attribute on <code>&lt;html&gt;</code> tells the browser (and screen readers, and search engines) that this page is in English. The <code>charset="utf-8"</code> meta tag ensures that any character — Greek letters, accented characters, emoji — will display correctly.</p>
+
+    </section>
+
+    <!-- ── Part 5: First article exercise ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Write a News Story</h2>
+
+      <p>Apply what you have learned. In the HTML editor below, write the opening of a real or imaginary news story. Use:</p>
+
+      <ul>
+        <li>One <code>&lt;h1&gt;</code> for the headline</li>
+        <li>At least one <code>&lt;h2&gt;</code> for a section heading</li>
+        <li>Two or three <code>&lt;p&gt;</code> tags for the body text</li>
+      </ul>
+
+      <p>Adjust the CSS to change the font, size, or colour to your liking.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Your turn</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>Your Headline Here</h1>
+
+<h2>Section Heading</h2>
+
+<p>Replace this text with the opening paragraph of your story. A strong lead answers the key questions: who, what, when, where, why.</p>
+
+<p>Add a second paragraph with more detail.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 28px;
+  max-width: 620px;
+  margin: 0 auto;
+  color: #111;
+  background: #fffdf8;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.15;
+  margin: 0 0 8px;
+}
+
+h2 {
+  font-size: 1.2em;
+  margin: 24px 0 6px;
+  color: #444;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>What you have learned in this chapter:</strong> what HTML is, how tags work, the six heading levels, and the structure of a full HTML document. In the next chapter you will add emphasis, pull quotes, and formatting to your text.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="../index.html">Previous: Course Home</a>
+        <a href="book3-chapter-2.html">Next: Chapter 2 — Text, Emphasis &amp; Quotes</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Build and preview your web pages directly in the browser.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/web-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 3 · Chapter Eight — The Article Page · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 3 · Chapter Eight — The Article Page · Python for All" />
+  <meta property="og:description" content="Learn HTML and CSS step by step by building and previewing pages directly in your browser." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 3 — HTML, CSS Basics</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Eight — The Article Page</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 3 — HTML, CSS Basics</p>
+      <ol>
+        <li><a href="book3-chapter-1.html">Chapter 1 — The Skeleton of a Web Page</a></li>
+        <li><a href="book3-chapter-2.html">Chapter 2 — Text, Emphasis &amp; Quotes</a></li>
+        <li><a href="book3-chapter-3.html">Chapter 3 — Links &amp; Images</a></li>
+        <li><a href="book3-chapter-4.html">Chapter 4 — Semantic Structure</a></li>
+        <li><a href="book3-chapter-5.html">Chapter 5 — Introduction to CSS</a></li>
+        <li><a href="book3-chapter-6.html">Chapter 6 — Typography &amp; Layout</a></li>
+        <li><a href="book3-chapter-7.html">Chapter 7 — Embeds &amp; iframes</a></li>
+        <li><a href="book3-chapter-8.html" class="is-current">Chapter 8 — The Article Page</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Three · Chapter Eight</p>
+      <h2>The Article Page</h2>
+      <p class="chapter-desc">This is your final project. Everything you have learned — HTML structure, CSS typography, images, links, blockquotes, embeds — comes together into a single, complete, publishable article page. Replace the placeholder content with your own story.</p>
+    </div>
+
+    <!-- ── Part 1: What to build ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>What You Will Build</h2>
+
+      <p><span class="dropcap">B</span>y the end of this chapter, you will have a complete HTML article page — the kind that any news publication could host. It will include every element a professional online article contains:</p>
+
+      <ul>
+        <li>A publication header with logo and section label</li>
+        <li>A headline, deck (standfirst), and byline with date</li>
+        <li>A hero image with caption and photo credit</li>
+        <li>Structured body text with section headings</li>
+        <li>A pull quote from a source</li>
+        <li>An embedded map or video</li>
+        <li>A key facts box (aside)</li>
+        <li>Hyperlinks to sources throughout the text</li>
+        <li>A footer with topic tags</li>
+      </ul>
+
+      <p>The playground below contains a fully working article template. Your job is to replace every piece of placeholder content with your own real or imaginary story. Use any topic you like — local news, environment, politics, culture, technology.</p>
+
+      <div class="callout">
+        <strong>Tip:</strong> Work section by section. Replace the headline first and run it. Then replace the body text. Then swap the image. Build confidence before tackling the embed. There is no time pressure — this editor saves nothing, so keep a copy of your HTML in a text file as you work.
+      </div>
+    </section>
+
+    <!-- ── Part 2: The template ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>The Template — Edit Everything</h2>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Your article — replace all placeholder content</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Your Headline Here</title>
+</head>
+<body>
+
+<!-- ── PUBLICATION HEADER ── -->
+<header class="site-header">
+  <p class="publication-name">Your Publication Name</p>
+  <p class="section-label">Section · e.g. Environment</p>
+</header>
+
+<!-- ── ARTICLE ── -->
+<article>
+
+  <!-- Article header: headline, deck, byline -->
+  <header class="article-header">
+    <h1>Your Main Headline Goes Here</h1>
+    <p class="deck">A one-sentence summary that draws the reader in. It expands on the headline and tells the reader why this story matters.</p>
+    <p class="byline">
+      By <strong>Your Name</strong> &nbsp;·&nbsp;
+      <time datetime="2026-03-04">4 March 2026</time>
+    </p>
+  </header>
+
+  <!-- Hero image -->
+  <figure class="hero">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Acropolis_of_Athens_01361.jpg/800px-Acropolis_of_Athens_01361.jpg"
+      alt="Describe your photo here — who, what, where"
+    />
+    <figcaption>
+      Your photo caption. Include the essential context and a credit.
+      <span class="credit">Photo: Photographer Name / Source</span>
+    </figcaption>
+  </figure>
+
+  <!-- Body text: section one -->
+  <section>
+    <p class="lead">Your opening paragraph — the most important paragraph in the article. It should answer the key questions: who, what, when, where, why. Make it strong enough to stand alone.</p>
+
+    <p>Your second paragraph expands on the opening. Add context, background, and detail. Link to your <a href="https://example.com" target="_blank" rel="noopener noreferrer">primary source</a> here.</p>
+
+    <p>A third paragraph. Continue developing the story. Add a specific fact or statistic: <strong>42% of respondents</strong> said they supported the measure, according to a poll published on <time datetime="2026-03-01">1 March</time>.</p>
+  </section>
+
+  <!-- Pull quote -->
+  <blockquote class="pull-quote">
+    <p>"This is the direct quote from your source. It should be punchy, specific, and newsworthy — not generic."</p>
+    <footer>— Source Name, Title, Organisation</footer>
+  </blockquote>
+
+  <!-- Body text: section two -->
+  <section>
+    <h2>Background</h2>
+    <p>Provide the context your reader needs to understand the story. What led to this moment? What has happened before?</p>
+    <p>Use <em>italics</em> for titles of publications, films, or foreign-language terms. Use <strong>bold</strong> for key terms you are introducing for the first time.</p>
+  </section>
+
+  <!-- Key facts box -->
+  <aside class="fact-box">
+    <p class="fact-box-title">Key facts</p>
+    <ul>
+      <li>Replace this with a key number or statistic</li>
+      <li>Another important fact from the story</li>
+      <li>A third data point or key date</li>
+    </ul>
+  </aside>
+
+  <!-- Map or video embed -->
+  <section>
+    <h2>Where It Happened</h2>
+    <p>Use this section for a map, video, or data visualisation that adds context to your story.</p>
+
+    <figure>
+      <!-- Replace with your embed: Google Maps, YouTube, Datawrapper, etc. -->
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=23.70,37.95,23.75,37.99&layer=mapnik"
+        width="100%"
+        height="280"
+        title="Map of the story location"
+        style="border: 1px solid #ddd;">
+      </iframe>
+      <figcaption>Caption for your map or video. Source: OpenStreetMap contributors.</figcaption>
+    </figure>
+  </section>
+
+  <!-- Body text: section three -->
+  <section>
+    <h2>What Happens Next</h2>
+    <p>Your penultimate section. What are the consequences? What will readers want to follow up on? Who will be affected?</p>
+    <p>Add a second quote or a paraphrase of another source's views. Always attribute: <em>according to [source]</em>, or <em>[source] told [publication]</em>.</p>
+  </section>
+
+  <!-- Article footer: tags, related links -->
+  <footer class="article-footer">
+    <p class="tags">Tags:
+      <a href="#">Tag One</a> &nbsp;·&nbsp;
+      <a href="#">Tag Two</a> &nbsp;·&nbsp;
+      <a href="#">Tag Three</a>
+    </p>
+    <p class="corrections">Corrections: If you spot an error, contact corrections@yourpublication.com</p>
+  </footer>
+
+</article>
+
+<!-- ── PAGE FOOTER ── -->
+<footer class="page-footer">
+  <p>Your Publication Name &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; <time datetime="2026">2026</time></p>
+</footer>
+
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">/* ── Reset and base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #111;
+  background: #fff;
+}
+
+/* ── Publication header ── */
+.site-header {
+  border-top: 4px solid #111;
+  border-bottom: 1px solid #ddd;
+  padding: 14px 24px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.publication-name {
+  font-family: Georgia, serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0;
+}
+
+/* ── Article layout ── */
+article {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+/* ── Article header ── */
+.article-header {
+  padding: 36px 0 0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: 2.4em;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 14px;
+  letter-spacing: -0.025em;
+}
+
+.deck {
+  font-size: 1.1em;
+  line-height: 1.5;
+  color: #444;
+  margin: 0 0 16px;
+  font-style: italic;
+}
+
+.byline {
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.05em;
+  color: #888;
+  margin: 0 0 20px;
+}
+
+/* ── Hero image ── */
+.hero {
+  margin: 0 -24px 28px;
+}
+
+.hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero figcaption {
+  font-size: 0.8em;
+  color: #777;
+  line-height: 1.5;
+  padding: 8px 24px 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.credit {
+  display: block;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+/* ── Body text ── */
+section { margin-bottom: 8px; }
+
+p { margin: 0 0 22px; }
+
+.lead {
+  font-size: 1.05em;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+h2 {
+  font-size: 1.25em;
+  font-weight: 700;
+  margin: 36px 0 10px;
+  padding-top: 28px;
+  border-top: 1px solid #e0e0e0;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: #111;
+  text-underline-offset: 3px;
+}
+
+/* ── Pull quote ── */
+.pull-quote {
+  border-top: 2px solid #111;
+  border-bottom: 2px solid #111;
+  margin: 32px 0;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.pull-quote p {
+  font-size: 1.3em;
+  line-height: 1.4;
+  font-style: italic;
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.pull-quote footer {
+  font-size: 0.82em;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.05em;
+  color: #666;
+}
+
+/* ── Fact box ── */
+.fact-box {
+  background: #f7f5ef;
+  border-left: 3px solid #111;
+  padding: 16px 20px;
+  margin: 28px 0;
+}
+
+.fact-box-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #555;
+  margin: 0 0 10px;
+}
+
+.fact-box ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.92em;
+  line-height: 1.65;
+}
+
+.fact-box li { margin-bottom: 5px; }
+
+/* ── Embeds ── */
+figure {
+  margin: 24px 0;
+}
+
+figure iframe {
+  display: block;
+}
+
+figcaption {
+  font-size: 0.8em;
+  color: #888;
+  margin-top: 6px;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+/* ── Article footer ── */
+.article-footer {
+  border-top: 1px solid #e0e0e0;
+  margin-top: 40px;
+  padding-top: 18px;
+  font-size: 0.83em;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #888;
+}
+
+.tags a {
+  color: #555;
+  text-decoration: none;
+}
+
+.tags a:hover { text-decoration: underline; }
+
+.corrections { margin-top: 8px; color: #bbb; }
+
+/* ── Page footer ── */
+.page-footer {
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+  padding: 28px 24px;
+  font-size: 13px;
+  color: #bbb;
+  font-family: Arial, Helvetica, sans-serif;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview" style="min-height: 600px;"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 3: Checklist ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Final Checklist</h2>
+
+      <p>Before you consider your article page complete, go through this list:</p>
+
+      <ul>
+        <li><strong>Headline</strong> — is it specific, accurate, and does it answer "what happened"?</li>
+        <li><strong>Deck</strong> — does it add information the headline alone does not contain?</li>
+        <li><strong>Byline</strong> — does it include your name, a date, and a <code>&lt;time datetime&gt;</code> attribute?</li>
+        <li><strong>Hero image</strong> — does it have a descriptive <code>alt</code> attribute, a caption, and a photo credit?</li>
+        <li><strong>Body text</strong> — is there at least one hyperlink to an external source? Are all quotes attributed?</li>
+        <li><strong>Pull quote</strong> — is it the most powerful line from a source, not a paraphrase?</li>
+        <li><strong>Fact box</strong> — does it contain specific, verifiable numbers?</li>
+        <li><strong>Embed</strong> — does the map or video have a <code>title</code> attribute and a <code>&lt;figcaption&gt;</code> with a source credit?</li>
+        <li><strong>Tags</strong> — do the tags accurately reflect the content of the story?</li>
+        <li><strong>Semantics</strong> — have you used <code>&lt;article&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, and <code>&lt;footer&gt;</code> appropriately?</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Congratulations.</strong> You have completed Book 3 — HTML, CSS Basics. You now know how to build a complete, structured, styled article page from scratch — the same building blocks used by every major news website in the world. The next step is to save your HTML as a <code>.html</code> file and open it in a browser, or publish it using a free service like GitHub Pages.
+      </div>
+    </section>
+
+    <!-- ── Part 4: Working locally with VS Code ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Working Locally — VS Code &amp; Live Server</h2>
+
+      <p>The playground is great for learning, but your real workflow as a journalist-developer will be to write HTML in a proper code editor on your own computer. The industry standard, free editor is <strong>Visual Studio Code</strong> (VS Code). Pair it with the <strong>Live Server</strong> extension and your browser will refresh automatically every time you save a file — just like this playground, but for files you actually own.</p>
+
+      <h3>Step 1 — Download and install VS Code</h3>
+
+      <p>Go to <a href="https://code.visualstudio.com" target="_blank" rel="noopener noreferrer">code.visualstudio.com</a> and click the download button for your operating system.</p>
+
+      <ul>
+        <li><strong>Mac:</strong> Open the downloaded <code>.dmg</code> file, drag the VS Code icon into your Applications folder, then launch it from there.</li>
+        <li><strong>Windows:</strong> Run the downloaded <code>.exe</code> installer and keep all the default options. Make sure <em>"Add to PATH"</em> is checked — it will save you time later.</li>
+      </ul>
+
+      <h3>Step 2 — Install the Live Server extension</h3>
+
+      <p>Extensions add features to VS Code. You need two minutes to install Live Server:</p>
+
+      <ol>
+        <li>Open VS Code.</li>
+        <li>Press <code>Cmd + Shift + X</code> (Mac) or <code>Ctrl + Shift + X</code> (Windows) to open the Extensions panel.</li>
+        <li>Search for <strong>Live Server</strong>.</li>
+        <li>Find the one by <em>Ritwick Dey</em> — it has several million installs — and click <strong>Install</strong>.</li>
+      </ol>
+
+      <h3>Step 3 — Open your article in VS Code</h3>
+
+      <ol>
+        <li>Click <strong>Download</strong> in the playground above to get your <code>my-article.zip</code>.</li>
+        <li>Unzip it — you will find <code>index.html</code> and <code>style.css</code> inside a folder.</li>
+        <li>In VS Code, go to <strong>File → Open Folder</strong> and open the unzipped folder. Always open the whole folder, not just a single file — this is important for Live Server to work correctly and for the CSS file to link properly.</li>
+      </ol>
+
+      <h3>Step 4 — Preview with Live Server</h3>
+
+      <ol>
+        <li>In the VS Code file explorer (left panel), right-click <code>index.html</code>.</li>
+        <li>Select <strong>"Open with Live Server"</strong>.</li>
+        <li>Your default browser opens the page at <code>http://127.0.0.1:5500</code>.</li>
+        <li>Now edit and save the file — the browser refreshes automatically every time you press <code>Cmd + S</code> (Mac) or <code>Ctrl + S</code> (Windows).</li>
+      </ol>
+
+      <div class="callout">
+        <strong>Two more extensions worth installing while you are there:</strong>
+        <ul style="margin: 10px 0 0; padding-left: 20px;">
+          <li><strong>Prettier</strong> (by Prettier) — automatically formats and indents your HTML and CSS on save, so your code always looks clean.</li>
+          <li><strong>HTML CSS Support</strong> (by ecmel) — autocompletes class names as you type, which speeds up styling significantly.</li>
+        </ul>
+      </div>
+
+      <h3>Publishing online for free</h3>
+
+      <p>Once your article is saved locally, you can share it with anyone. Two free options require no server knowledge:</p>
+
+      <ul>
+        <li><strong><a href="https://app.netlify.com/drop" target="_blank" rel="noopener noreferrer">Netlify Drop</a></strong> — drag your project folder onto the page and get a public URL in seconds. No account required to try it.</li>
+        <li><strong><a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a></strong> — free hosting for any HTML files in a GitHub repository. Gives you a permanent, professional URL and a full history of every change you have ever made.</li>
+      </ul>
+
+      <h3>Setting up GitHub Pages — step by step</h3>
+
+      <p><strong>What is GitHub?</strong> GitHub is a platform where you can store files online — code, HTML, CSS, and anything else. Think of it as Google Drive, but designed specifically for web projects. Each project lives in a <em>repository</em>, which is just a folder on GitHub's servers.</p>
+
+      <p><strong>What is GitHub Pages?</strong> It is a feature built into GitHub that takes the HTML files in a repository and turns them into a live website with a real public URL. You do not need to buy hosting or configure a server — GitHub handles all of that for free.</p>
+
+      <p><strong>Why must the file be called <code>index.html</code>?</strong> When a browser visits a URL like <code>https://yourusername.github.io/my-article</code>, it does not know which file to show unless you tell it. Web servers are configured to look for a file called <code>index.html</code> by default and display it automatically. If your file is called <code>article.html</code> or anything else, the browser will show a blank error page instead. The Download button above already names the file <code>index.html</code> for you — do not rename it.</p>
+
+      <p><strong>How does the repository name affect the URL?</strong> The name you give your repository becomes part of the web address. If your GitHub username is <em>mariap</em> and you create a repository named <em>my-article</em>, your page will be published at <code>https://mariap.github.io/my-article</code>. Choose the name carefully — it will be visible in the URL you share with editors and readers.</p>
+
+      <ol>
+        <li>
+          <strong>Create a free account</strong> at <a href="https://github.com" target="_blank" rel="noopener noreferrer">github.com</a>. Use a professional username — it will appear in the URL of everything you publish.
+        </li>
+        <li>
+          <strong>Create a new repository.</strong> Click the <strong>+</strong> icon in the top-right corner and choose <strong>"New repository"</strong>. Give it a short, descriptive name — for example <code>housing-report</code> or <code>my-articles</code>. Set the visibility to <strong>Public</strong> (required for GitHub Pages on a free account), then click <strong>"Create repository"</strong>.
+        </li>
+        <li>
+          <strong>Upload your files.</strong> On the repository page, click <strong>"Add file" → "Upload files"</strong>. Drag and drop <code>index.html</code> and <code>style.css</code> from your folder onto the upload area. Once they appear in the list, scroll down and click <strong>"Commit changes"</strong>. Your files are now stored on GitHub.
+        </li>
+        <li>
+          <strong>Turn on GitHub Pages.</strong> Go to the <strong>Settings</strong> tab of your repository. In the left sidebar, click <strong>Pages</strong>. Under <em>Source</em>, select <strong>"Deploy from a branch"</strong>. Set the branch to <strong>main</strong> and the folder to <strong>/ (root)</strong>. Click <strong>Save</strong>.
+        </li>
+        <li>
+          <strong>Wait one to two minutes</strong>, then refresh the Settings → Pages page. A banner will appear with your live URL — something like <code>https://yourusername.github.io/housing-report</code>. Click it to see your published article in the browser, exactly as any reader would.
+        </li>
+      </ol>
+
+      <div class="callout">
+        <strong>Updating your article:</strong> go back to your repository on github.com, click <code>index.html</code>, then click the pencil icon (<em>Edit this file</em>) to make changes directly in the browser. Click <strong>"Commit changes"</strong> when done. GitHub Pages will republish automatically within a minute or two. Alternatively, you can upload a new version of the file using "Add file → Upload files" and it will overwrite the old one.
+      </div>
+
+      <div class="callout">
+        <strong>You are ready.</strong> HTML and CSS are not just technical skills — they are editorial tools. The ability to write, preview, and publish your own story without relying on a CMS gives you a form of independence that matters in journalism.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">You have reached the end of Book 3.</p>
+      <div class="chapter-next-links">
+        <a href="book3-chapter-7.html">Previous: Chapter 7</a>
+        <a href="../index.html">Back to All Books</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Build and preview your web pages directly in the browser.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/web-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>

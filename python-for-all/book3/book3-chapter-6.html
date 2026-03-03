@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 3 · Chapter Six — Typography &amp; Layout · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 3 · Chapter Six — Typography &amp; Layout · Python for All" />
+  <meta property="og:description" content="Learn HTML and CSS step by step by building and previewing pages directly in your browser." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 3 — HTML, CSS Basics</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Six — Typography &amp; Layout</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 3 — HTML, CSS Basics</p>
+      <ol>
+        <li><a href="book3-chapter-1.html">Chapter 1 — The Skeleton of a Web Page</a></li>
+        <li><a href="book3-chapter-2.html">Chapter 2 — Text, Emphasis &amp; Quotes</a></li>
+        <li><a href="book3-chapter-3.html">Chapter 3 — Links &amp; Images</a></li>
+        <li><a href="book3-chapter-4.html">Chapter 4 — Semantic Structure</a></li>
+        <li><a href="book3-chapter-5.html">Chapter 5 — Introduction to CSS</a></li>
+        <li><a href="book3-chapter-6.html" class="is-current">Chapter 6 — Typography &amp; Layout</a></li>
+        <li><a href="book3-chapter-7.html">Chapter 7 — Embeds &amp; iframes</a></li>
+        <li><a href="book3-chapter-8.html">Chapter 8 — The Article Page</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Three · Chapter Six</p>
+      <h2>Typography &amp; Layout</h2>
+      <p class="chapter-desc">The difference between a page that is painful to read and one that readers stay with for ten minutes comes down to typography and spacing. This chapter gives you the tools.</p>
+    </div>
+
+    <!-- ── Part 1: Font properties ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Font Properties</h2>
+
+      <p><span class="dropcap">T</span>ypography is not decoration — it is the primary vehicle through which your readers experience your writing. The properties that control it are few, but their effect is enormous.</p>
+
+      <p><code>font-family</code> sets the typeface. You list multiple fonts separated by commas — the browser will use the first one it can find. The last item should always be a generic family like <code>serif</code>, <code>sans-serif</code>, or <code>monospace</code> as a fallback.</p>
+
+      <p><code>font-size</code> sets the size. Use <code>px</code> for fixed sizes, or <code>em</code>/<code>rem</code> for sizes relative to the base font. For body text, 17–19px is a comfortable reading size.</p>
+
+      <p><code>font-weight</code> sets the boldness: <code>400</code> is regular, <code>700</code> is bold. Some fonts have intermediate weights like <code>600</code>.</p>
+
+      <p><code>font-style</code> sets italic: <code>italic</code> or <code>normal</code>.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">CSS · Try it — font properties</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>The Typography of News</h1>
+<p class="byline">By Elena Kostoula</p>
+<p>The choice of typeface is the first editorial decision a designer makes. A serif font like Georgia or Times New Roman carries a sense of tradition and authority. A sans-serif like Helvetica or Arial reads as clean and modern. Monospace fonts are reserved for code and data.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  /* Try changing Georgia to: Arial, or 'Times New Roman' */
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 600px;
+  color: #111;
+}
+
+h1 {
+  font-family: Georgia, serif;
+  font-size: 2.2em;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+
+.byline {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 20px;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 2: Line height and letter spacing ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Line Height and Letter Spacing</h2>
+
+      <p><code>line-height</code> is the vertical space between lines of text. For body text, a line height of 1.6 to 1.8 is standard — it creates breathing room between lines and dramatically improves readability. Values without a unit (like <code>1.75</code>) are relative to the font size.</p>
+
+      <p><code>letter-spacing</code> is the horizontal space between individual characters. Body text rarely needs it. But uppercase labels and kickers often benefit from a small positive value (e.g. <code>0.12em</code>) to improve legibility at small sizes.</p>
+
+      <p><code>text-transform</code> changes capitalisation without touching the HTML: <code>uppercase</code>, <code>lowercase</code>, or <code>capitalize</code> (first letter of each word).</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">CSS · Try it — line height and spacing</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><p class="section-label">Politics</p>
+<h1>Parliament Votes on Budget Amendment</h1>
+<p>The vote, scheduled for Thursday evening, will determine whether the government's austerity measures survive their first major parliamentary test. Analysts are cautiously optimistic but warn that three swing votes remain undecided.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  padding: 24px;
+  max-width: 600px;
+  background: #fff;
+  color: #111;
+}
+
+.section-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;   /* try 0 — notice the difference */
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 10px;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.1;          /* try 1.6 — notice how airy it feels */
+  letter-spacing: -0.025em;
+  margin: 0 0 14px;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.75;         /* try 1.2 — suddenly hard to read */
+  margin: 0;
+  color: #222;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 3: The box model ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>The Box Model — Margin and Padding</h2>
+
+      <p>Every HTML element is a rectangular box. CSS controls the space around and inside it with two properties:</p>
+
+      <ul>
+        <li><strong><code>padding</code></strong> — space <em>inside</em> the element, between the content and the border. Increasing padding makes the element feel roomier.</li>
+        <li><strong><code>margin</code></strong> — space <em>outside</em> the element, pushing neighbouring elements away. Use it to control the vertical rhythm between paragraphs, headings, and sections.</li>
+      </ul>
+
+      <p>Both can be set uniformly (<code>margin: 20px</code>), or individually per side: <code>margin-top</code>, <code>margin-right</code>, <code>margin-bottom</code>, <code>margin-left</code>. A shorthand with four values sets them in that order: <code>margin: top right bottom left</code>.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">CSS · Try it — box model</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><div class="card">
+  <p class="kicker">Exclusive</p>
+  <h2>Leaked Documents Reveal Lobbying Network</h2>
+  <p>Internal communications obtained by this publication show that four major industry groups coordinated their response to the proposed environmental legislation.</p>
+</div></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  padding: 24px;
+  background: #f0ede8;
+}
+
+.card {
+  background: white;
+  border: 1px solid #ccc;
+  /* padding = space inside the box */
+  padding: 24px 28px;
+  /* margin = space outside the box */
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.kicker {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c0392b;
+  margin: 0 0 8px;
+}
+
+h2 {
+  font-size: 1.4em;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+p { line-height: 1.7; margin: 0; color: #333; }</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 4: max-width and centering ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>max-width and Centering — The Reading Column</h2>
+
+      <p>Long lines of text are hard to read. Eye-tracking studies suggest that a comfortable line length is 60–75 characters. This translates to roughly 600–700px for a 17–18px font.</p>
+
+      <p>Use <code>max-width</code> to cap the width of your article body. Then center it horizontally with <code>margin: 0 auto</code> — this automatically distributes the remaining space equally on both sides.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">CSS · Try it — centered reading column</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><article>
+  <h1>How Cities Are Redesigning Public Space After the Pandemic</h1>
+  <p class="byline">By Kostas Mavridis · 4 March 2026</p>
+  <p>In the years since the pandemic reshaped how people inhabit cities, urban planners across Europe have been experimenting with permanent versions of the temporary measures introduced in 2020 and 2021: wider pavements, pedestrianised streets, pop-up parks, and outdoor dining areas that remain year-round.</p>
+  <p>The results have been uneven. In some cities, the changes have been welcomed as long-overdue improvements. In others, they have sparked conflict between competing interest groups — residents, businesses, commuters, and cyclists — with no obvious resolution in sight.</p>
+</article></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  background: #f9f7f2;
+  margin: 0;
+  padding: 40px 24px;
+}
+
+article {
+  /* The reading column */
+  max-width: 660px;
+  margin: 0 auto;     /* centers horizontally */
+  background: white;
+  padding: 40px 48px;
+  border-top: 4px solid #111;
+}
+
+h1 {
+  font-size: 1.9em;
+  line-height: 1.15;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.byline {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #999;
+  margin: 0 0 24px;
+}
+
+p {
+  line-height: 1.8;
+  color: #222;
+  margin: 0 0 20px;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>What you have learned in this chapter:</strong> font properties, line height, letter spacing, the box model (margin and padding), and how to create a centered reading column with <code>max-width</code>. Next chapter: embedding maps, videos, and other media directly in your article.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book3-chapter-5.html">Previous: Chapter 5</a>
+        <a href="book3-chapter-7.html">Next: Chapter 7 — Embeds &amp; iframes</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Build and preview your web pages directly in the browser.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/web-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>
