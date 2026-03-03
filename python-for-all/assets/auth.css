@@ -273,6 +273,17 @@
   line-height: 1.6;
 }
 
+/* ── TOC lock icons ── */
+.lock-icon {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 0.68em;
+  opacity: 0.38;
+  filter: grayscale(1);
+  vertical-align: middle;
+  line-height: 1;
+}
+
 /* ── TOC progress badges ── */
 .prog-badge {
   margin-left: 8px;
