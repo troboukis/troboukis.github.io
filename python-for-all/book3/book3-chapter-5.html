@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 3 · Chapter Five — Introduction to CSS · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 3 · Chapter Five — Introduction to CSS · Python for All" />
+  <meta property="og:description" content="Learn HTML and CSS step by step by building and previewing pages directly in your browser." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 3 — HTML, CSS Basics</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Five — Introduction to CSS</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 3 — HTML, CSS Basics</p>
+      <ol>
+        <li><a href="book3-chapter-1.html">Chapter 1 — The Skeleton of a Web Page</a></li>
+        <li><a href="book3-chapter-2.html">Chapter 2 — Text, Emphasis &amp; Quotes</a></li>
+        <li><a href="book3-chapter-3.html">Chapter 3 — Links &amp; Images</a></li>
+        <li><a href="book3-chapter-4.html">Chapter 4 — Semantic Structure</a></li>
+        <li><a href="book3-chapter-5.html" class="is-current">Chapter 5 — Introduction to CSS</a></li>
+        <li><a href="book3-chapter-6.html">Chapter 6 — Typography &amp; Layout</a></li>
+        <li><a href="book3-chapter-7.html">Chapter 7 — Embeds &amp; iframes</a></li>
+        <li><a href="book3-chapter-8.html">Chapter 8 — The Article Page</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Three · Chapter Five</p>
+      <h2>Introduction to CSS</h2>
+      <p class="chapter-desc">HTML tells the browser <em>what</em> the content is. CSS tells it <em>how it should look</em>. In this chapter you learn the language of visual design.</p>
+    </div>
+
+    <!-- ── Part 1: What CSS is ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>What Is CSS?</h2>
+
+      <p><span class="dropcap">C</span>SS stands for <strong>Cascading Style Sheets</strong>. It is a separate language from HTML, dedicated entirely to describing how elements should look: their colours, sizes, fonts, spacing, and position on the page.</p>
+
+      <p>The word "cascading" refers to how CSS resolves conflicts: when multiple rules apply to the same element, a set of rules determines which one wins. For now, the important idea is that CSS is a layer of visual design that sits on top of your HTML structure.</p>
+
+      <p>A CSS rule has two parts: a <em>selector</em> that targets one or more HTML elements, and a <em>declaration block</em> in curly braces containing one or more <em>property: value</em> pairs.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">CSS · Try it — a first rule</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>Breaking News</h1>
+<p>This is the body text of the article. It tells the story.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">/* Selector: h1
+   Property: color
+   Value: #c0392b (a dark red) */
+
+h1 {
+  color: #c0392b;
+  font-size: 2em;
+}
+
+/* Try changing the color, or adding a new property */
+p {
+  color: #333;
+  font-size: 17px;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>CSS comments</strong> are written between <code>/* ... */</code>. Use them to annotate your stylesheets, exactly as you would with Python comments using <code>#</code>.
+      </div>
+    </section>
+
+    <!-- ── Part 2: Selectors ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Selectors — Targeting Elements</h2>
+
+      <p>A selector determines which elements a rule applies to. There are three essential selector types you will use constantly.</p>
+
+      <p><strong>Element selectors</strong> target every instance of a tag. Writing <code>p { ... }</code> applies the rule to <em>every</em> paragraph on the page.</p>
+
+      <p><strong>Class selectors</strong> target elements with a specific <code>class</code> attribute. A class selector begins with a dot: <code>.byline { ... }</code> applies only to elements with <code>class="byline"</code>. One element can have multiple classes; one class can be applied to many elements.</p>
+
+      <p><strong>ID selectors</strong> target a single element with a specific <code>id</code> attribute. They begin with a hash: <code>#intro { ... }</code>. An ID must be unique on the page — use it for one-off elements like a page header.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">CSS · Try it — element, class, and id selectors</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1 id="main-headline">Government Announces Education Reform</h1>
+<p class="byline">By Elena Kostoula · 4 March 2026</p>
+<p>The government unveiled a sweeping reform of the national curriculum on Wednesday, affecting every school in the country.</p>
+<p class="byline">Photography by Giorgos Petrou</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  padding: 20px;
+  max-width: 600px;
+}
+
+/* Element selector — applies to all <p> tags */
+p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #222;
+}
+
+/* Class selector — applies to elements with class="byline" */
+.byline {
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+  margin: 4px 0;
+}
+
+/* ID selector — applies to the single element with id="main-headline" */
+#main-headline {
+  font-size: 2em;
+  line-height: 1.15;
+  margin: 0 0 10px;
+  color: #111;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 3: Colors ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Colours — Named, Hex, and RGB</h2>
+
+      <p>CSS supports several ways to specify a colour:</p>
+
+      <ul>
+        <li><strong>Named colours:</strong> <code>red</code>, <code>black</code>, <code>white</code>, <code>navy</code>. Easy to remember but limited.</li>
+        <li><strong>Hex codes:</strong> <code>#111</code>, <code>#c0392b</code>, <code>#3498db</code>. A six-digit (or three-digit) hexadecimal code describing the red, green, and blue components. This is the most common format in professional work.</li>
+        <li><strong>RGB:</strong> <code>rgb(17, 17, 17)</code>. Explicit red, green, blue values from 0 to 255.</li>
+        <li><strong>RGBA:</strong> <code>rgba(17, 17, 17, 0.5)</code>. Like RGB but with an alpha (opacity) channel from 0 (transparent) to 1 (solid).</li>
+      </ul>
+
+      <div class="cell web-cell">
+        <div class="cell-label">CSS · Try it — colour formats</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>Colour Experiment</h1>
+<p class="lead">Change the colours in the CSS panel. Try different hex codes.</p>
+<div class="swatch">Named: tomato</div>
+<div class="swatch hex">#2c3e50</div>
+<div class="swatch rgb">rgb(52, 152, 219)</div>
+<div class="swatch rgba">rgba(0, 0, 0, 0.3) on a background</div></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+h1 { color: #111; }
+.lead { color: #555; margin-bottom: 16px; }
+
+.swatch {
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  border-radius: 3px;
+  color: white;
+}
+
+.swatch         { background: tomato; }
+.swatch.hex     { background: #2c3e50; }
+.swatch.rgb     { background: rgb(52, 152, 219); }
+.swatch.rgba    { background: rgba(0, 0, 0, 0.3); color: #111; }</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <p>For colour inspiration, search for "hex colour picker" in your browser, or look at how major news sites define their colour palette by using the browser's developer tools (right-click → Inspect).</p>
+    </section>
+
+    <!-- ── Part 4: Borders and backgrounds ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Borders and Backgrounds</h2>
+
+      <p>Two more essential CSS properties for article design:</p>
+
+      <p><code>border</code> draws a line around an element. You specify width, style, and colour: <code>border: 1px solid #111</code>. You can also target individual sides: <code>border-top</code>, <code>border-left</code>, etc. — very useful for dividers and pull-quote markers.</p>
+
+      <p><code>background-color</code> fills the element's background. Combined with <code>padding</code> (covered in the next chapter), it creates callout boxes, highlighted sections, and fact panels.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">CSS · Try it — borders and backgrounds</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><article>
+  <h1>Senate Approves Emergency Climate Bill</h1>
+  <p>Legislators passed the measure 54–46 after a marathon overnight session.</p>
+
+  <div class="fact-box">
+    <p><strong>The bill includes:</strong></p>
+    <ul>
+      <li>$400 billion in clean energy investment</li>
+      <li>A carbon pricing mechanism starting in 2027</li>
+      <li>Mandatory emissions reporting for major industries</li>
+    </ul>
+  </div>
+
+  <p>The president is expected to sign the bill into law before the end of the week.</p>
+</article></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 600px;
+  color: #111;
+}
+
+article {
+  border-top: 4px solid #111;
+  padding-top: 16px;
+}
+
+h1 {
+  font-size: 1.8em;
+  line-height: 1.15;
+  margin: 0 0 14px;
+}
+
+.fact-box {
+  background-color: #faf9f5;
+  border-left: 3px solid #111;
+  padding: 14px 18px;
+  margin: 20px 0;
+}
+
+.fact-box ul {
+  margin: 6px 0 0;
+  padding-left: 20px;
+}
+
+.fact-box li { margin-bottom: 4px; }</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>What you have learned in this chapter:</strong> the structure of a CSS rule, element/class/ID selectors, colour formats, and border and background properties. Next chapter: typography and the box model — the tools that determine whether your article is a pleasure to read.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book3-chapter-4.html">Previous: Chapter 4</a>
+        <a href="book3-chapter-6.html">Next: Chapter 6 — Typography &amp; Layout</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Build and preview your web pages directly in the browser.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/web-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>

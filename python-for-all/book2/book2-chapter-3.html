@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 2 · Chapter Three — Managing Files and Folders · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 2 · Chapter Three — Managing Files and Folders · Python for All" />
+  <meta property="og:description" content="Create, move, copy, and delete files and folders from the command line — with a journalism workflow practice scenario." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 2 — The Magic World of the Terminal</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Three — Managing Files and Folders</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 2 — The Magic World of the Terminal</p>
+      <ol>
+        <li><a href="book2-chapter-1.html">Chapter 1 — Terminal Foundations</a></li>
+        <li><a href="book2-chapter-2.html">Chapter 2 — Navigating Your File System</a></li>
+        <li><a href="book2-chapter-3.html" class="is-current">Chapter 3 — Managing Files and Folders</a></li>
+        <li><a href="book2-chapter-4.html">Chapter 4 — Reading and Searching Files</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner" id="book2-ch3">
+      <p class="chapter-number">Book Two · Chapter Three</p>
+      <h2>Managing Files and Folders</h2>
+      <p class="chapter-desc">Create, move, copy, and delete — the four operations that let you organise your entire workspace from the command line.</p>
+    </div>
+
+    <!-- ── Part 1: touch and mkdir ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Creating — touch and mkdir</h2>
+
+      <p><span class="dropcap">Y</span>ou already know <code>mkdir</code> from Chapter 1. Let us look at both creation commands together.</p>
+
+      <p><strong><code>mkdir</code></strong> (make directory) creates a new, empty folder. Give it the name you want:</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        mkdir data_journalism<br>
+        mkdir sources<br>
+        mkdir 2026-03-04_city_hall_documents
+      </div>
+
+      <p>If you try to create a directory that already exists, <code>mkdir</code> will give you an error. That is intentional — the terminal never overwrites silently.</p>
+
+      <p><strong><code>touch</code></strong> creates an empty file. If the file already exists, it updates the file's timestamp without changing its content. It is often used to create placeholder files before filling them in a text editor:</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        touch notes.txt<br>
+        touch interview_2026-03-04.txt<br>
+        touch analysis.py
+      </div>
+
+      <p>After <code>touch</code>, the file exists but is empty. You then open it in VS Code (or any editor) and fill in the content.</p>
+
+      <div class="cell terminal-cell" data-intro="Practice creating directories and files">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student/Files",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Desktop": {},
+                  "Downloads": {
+                    "interview_notes.txt": "Interview with city official\nDate: 4 March 2026\n\nMain points:\n- Budget increased by 12%\n- Three new parks planned\n- Timeline: completion by 2028\n",
+                    "data_raw.csv": "city,pm25,date\nAthens,18.3,2026-01-01\nThessaloniki,22.1,2026-01-01\nPatras,14.7,2026-01-01\nAthens,21.4,2026-01-02\nThessaloniki,19.8,2026-01-02\n"
+                  },
+                  "Files": {}
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · Creating Files and Folders</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: ls"></textarea>
+          </div>
+          <p class="terminal-note">Try: mkdir data_journalism → ls → cd data_journalism → touch notes.txt → mkdir sources → ls</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 2: mv ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>mv — Moving and Renaming</h2>
+
+      <p><code>mv</code> stands for <em>move</em>. It has two uses that at first seem different but are actually the same operation:</p>
+
+      <p><strong>Moving a file to another directory:</strong></p>
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        mv Downloads/interview_notes.txt Files/data_journalism/
+      </div>
+
+      <p>This takes <code>interview_notes.txt</code> from <code>Downloads</code> and places it inside <code>Files/data_journalism</code>. The original is gone — <code>mv</code> does not make a copy.</p>
+
+      <p><strong>Renaming a file:</strong></p>
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        mv notes.txt vocabulary.txt
+      </div>
+
+      <p>This renames <code>notes.txt</code> to <code>vocabulary.txt</code> in the same directory. Moving a file within the same folder is renaming it. That is why <code>mv</code> handles both.</p>
+
+      <p><code>mv</code> works on directories too:</p>
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        mv old_folder new_folder_name
+      </div>
+
+      <div class="callout">
+        <strong>Important:</strong> if the destination already exists as a file, <code>mv</code> will overwrite it without warning. Double-check your paths before moving. Use <code>ls</code> to verify source and destination before running <code>mv</code>.
+      </div>
+
+      <div class="cell terminal-cell" data-intro="Practice moving and renaming. Move files from Downloads into your project folder.">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Desktop": {},
+                  "Downloads": {
+                    "interview_notes.txt": "Interview with city official\nDate: 4 March 2026\n\nMain points:\n- Budget increased by 12%\n- Three new parks planned\n- Timeline: completion by 2028\n",
+                    "data_raw.csv": "city,pm25,date\nAthens,18.3,2026-01-01\nThessaloniki,22.1,2026-01-01\nPatras,14.7,2026-01-01\nAthens,21.4,2026-01-02\nThessaloniki,19.8,2026-01-02\n"
+                  },
+                  "Files": {
+                    "data_journalism": {
+                      "sources": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · mv Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: ls Downloads"></textarea>
+          </div>
+          <p class="terminal-note">Try: ls Downloads → mv Downloads/interview_notes.txt Files/data_journalism/ → ls Files/data_journalism</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 3: cp ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>cp — Copying Files</h2>
+
+      <p><code>cp</code> stands for <em>copy</em>. It works just like <code>mv</code>, except the original file stays where it was. After <code>cp</code>, you have two copies: the original and the new one at the destination.</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        cp Downloads/data_raw.csv Files/data_journalism/data_raw.csv
+      </div>
+
+      <p>This copies <code>data_raw.csv</code> from <code>Downloads</code> into <code>data_journalism</code>. The original in <code>Downloads</code> is untouched.</p>
+
+      <p>You can also copy and rename in the same step by giving the destination a different name:</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        cp data_raw.csv data_clean.csv
+      </div>
+
+      <p>This creates a copy called <code>data_clean.csv</code> in the same directory. A common pattern: copy the original before cleaning it, so you always have the raw data to fall back on.</p>
+
+      <div class="callout">
+        <strong>When to use cp vs mv:</strong> use <code>cp</code> when you want to keep the original in place — for example, backing up raw data before processing it. Use <code>mv</code> when you want to reorganise or rename without duplication.
+      </div>
+
+      <div class="cell terminal-cell" data-intro="Practice copying files. Copy the CSV from Downloads into your project folder.">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Desktop": {},
+                  "Downloads": {
+                    "interview_notes.txt": "Interview with city official\nDate: 4 March 2026\n\nMain points:\n- Budget increased by 12%\n- Three new parks planned\n- Timeline: completion by 2028\n",
+                    "data_raw.csv": "city,pm25,date\nAthens,18.3,2026-01-01\nThessaloniki,22.1,2026-01-01\nPatras,14.7,2026-01-01\nAthens,21.4,2026-01-02\nThessaloniki,19.8,2026-01-02\n"
+                  },
+                  "Files": {
+                    "data_journalism": {
+                      "sources": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · cp Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: ls Downloads"></textarea>
+          </div>
+          <p class="terminal-note">Try: cp Downloads/data_raw.csv Files/data_journalism/data_raw.csv → ls Files/data_journalism → ls Downloads (original still there?)</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 4: rm and rmdir ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>rm and rmdir — Deleting</h2>
+
+      <p><code>rm</code> stands for <em>remove</em>. It deletes a file permanently. There is no Trash, no undo. The file is gone.</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        rm old_draft.txt
+      </div>
+
+      <p><code>rmdir</code> removes a directory — but only if it is completely empty. This is a safety feature: the terminal will refuse to silently delete a folder that still has content.</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        rmdir empty_folder
+      </div>
+
+      <p>If the directory is not empty, you will get an error: <em>Directory not empty</em>. You must first remove the files inside before you can remove the folder.</p>
+
+      <div class="callout">
+        <strong>The most dangerous command:</strong> <code>rm -rf</code> (remove, recursive, force) deletes a directory and everything inside it — instantly and permanently. Never run it unless you are absolutely certain. There are countless stories of developers accidentally running <code>rm -rf /</code> and wiping an entire system. In the sandbox it is disabled for safety. In real life, treat it with great caution.
+      </div>
+
+      <div class="cell terminal-cell" data-intro="Practice deleting files and empty directories. Be careful!">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student/Files/data_journalism",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Files": {
+                    "data_journalism": {
+                      "notes.txt": "directory\npath\ncommand\nargument\nflag\n",
+                      "draft_one.txt": "This is an old draft. Safe to delete.\n",
+                      "draft_two.txt": "Another draft. Also safe to delete.\n",
+                      "cities.csv": "city,country\nAthens,Greece\nParis,France\nAthens,Greece\n",
+                      "empty_folder": {},
+                      "sources": {
+                        "contacts.txt": "Maria Papadaki - Ministry\nKostas Andreou - City council\n"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · rm and rmdir Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: ls"></textarea>
+          </div>
+          <p class="terminal-note">Try: ls → rm draft_one.txt → rm draft_two.txt → rmdir empty_folder → ls · Try: rmdir sources (will it work?)</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 5: Journalism workflow lab ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Practice — A Journalism Workflow</h2>
+
+      <p>You have just received two files in your <code>Downloads</code> folder: a raw CSV dataset and a set of interview notes. Your task is to organise them into a proper project structure using only terminal commands.</p>
+
+      <p>The target structure you are building:</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.85rem;line-height:1.7;background:#1a1a1a;color:#d4d4d4;border:none;padding:20px 24px;border-radius:4px;">
+        Files/data_journalism/<br>
+        ├── data/<br>
+        │&nbsp;&nbsp;&nbsp;└── air_quality.csv<br>
+        └── notes/<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;└── interview_2026-03-04.txt
+      </div>
+
+      <p>Steps to complete:</p>
+      <ol>
+        <li>Navigate into <code>Files/data_journalism</code></li>
+        <li>Create two new directories: <code>data</code> and <code>notes</code></li>
+        <li>Copy <code>data_raw.csv</code> from Downloads into <code>data/</code> and rename it <code>air_quality.csv</code></li>
+        <li>Move <code>interview_notes.txt</code> from Downloads into <code>notes/</code> and rename it <code>interview_2026-03-04.txt</code></li>
+        <li>Verify the structure with <code>ls data</code> and <code>ls notes</code></li>
+      </ol>
+
+      <div class="cell terminal-cell" data-intro="Build the project structure from scratch. Follow the steps above.">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Desktop": {},
+                  "Downloads": {
+                    "interview_notes.txt": "Interview with city official\nDate: 4 March 2026\n\nMain points:\n- Budget increased by 12%\n- Three new parks planned\n- Timeline: completion by 2028\n",
+                    "data_raw.csv": "city,pm25,date\nAthens,18.3,2026-01-01\nThessaloniki,22.1,2026-01-01\nPatras,14.7,2026-01-01\nAthens,21.4,2026-01-02\nThessaloniki,19.8,2026-01-02\n"
+                  },
+                  "Files": {
+                    "data_journalism": {}
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · Journalism Workflow Challenge</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: ls Downloads"></textarea>
+          </div>
+          <p class="terminal-note">Goal: build Files/data_journalism/data/ and Files/data_journalism/notes/ with the right files inside</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>What you have learned in Chapter 3:</strong> <code>touch</code> creates empty files; <code>mkdir</code> creates directories; <code>mv</code> moves and renames files and folders; <code>cp</code> copies files while leaving the original intact; <code>rm</code> deletes files permanently and <code>rmdir</code> removes empty directories. In Chapter 4 you will learn to read and search inside files without ever opening a text editor.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book2-chapter-2.html">Previous: Chapter 2 — Navigating Your File System</a>
+        <a href="book2-chapter-4.html">Next: Chapter 4 — Reading and Searching Files</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    The Magic World of the Terminal.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/terminal-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 3 · Chapter Two — Text, Emphasis &amp; Quotes · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 3 · Chapter Two — Text, Emphasis &amp; Quotes · Python for All" />
+  <meta property="og:description" content="Learn HTML and CSS step by step by building and previewing pages directly in your browser." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 3 — HTML, CSS Basics</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Two — Text, Emphasis &amp; Quotes</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 3 — HTML, CSS Basics</p>
+      <ol>
+        <li><a href="book3-chapter-1.html">Chapter 1 — The Skeleton of a Web Page</a></li>
+        <li><a href="book3-chapter-2.html" class="is-current">Chapter 2 — Text, Emphasis &amp; Quotes</a></li>
+        <li><a href="book3-chapter-3.html">Chapter 3 — Links &amp; Images</a></li>
+        <li><a href="book3-chapter-4.html">Chapter 4 — Semantic Structure</a></li>
+        <li><a href="book3-chapter-5.html">Chapter 5 — Introduction to CSS</a></li>
+        <li><a href="book3-chapter-6.html">Chapter 6 — Typography &amp; Layout</a></li>
+        <li><a href="book3-chapter-7.html">Chapter 7 — Embeds &amp; iframes</a></li>
+        <li><a href="book3-chapter-8.html">Chapter 8 — The Article Page</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Three · Chapter Two</p>
+      <h2>Text, Emphasis &amp; Quotes</h2>
+      <p class="chapter-desc">Good journalism relies on clarity and attribution. HTML has specific tags for emphasis, pull quotes, and citing your sources.</p>
+    </div>
+
+    <!-- ── Part 1: Inline emphasis ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Emphasis — Strong and Italic</h2>
+
+      <p><span class="dropcap">N</span>ot all words carry the same weight. In print, editors use bold and italic to signal importance, titles, foreign words, or spoken stress. HTML provides two semantic tags for this purpose — and they carry meaning beyond just visual styling.</p>
+
+      <p><code>&lt;strong&gt;</code> marks text as <strong>strongly important</strong>. By default browsers render it bold, but its real purpose is semantic: this word matters more than the surrounding text. Screen readers may give it a different emphasis in speech.</p>
+
+      <p><code>&lt;em&gt;</code> marks text as <em>emphasised</em> — typically rendered in italics. Use it for titles of works, foreign-language terms, or words that carry spoken stress in the sentence.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><p>The minister said the decision was <strong>final and irreversible</strong>.</p>
+
+<p>The term <em>glasnost</em> — meaning openness — became central to Gorbachev's reforms.</p>
+
+<p>She did <em>not</em> say she would resign; she said she <em>might</em> reconsider.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 600px;
+  color: #111;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Semantic vs. visual:</strong> Avoid using <code>&lt;b&gt;</code> (bold) and <code>&lt;i&gt;</code> (italic) — they are purely visual. Use <code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code> instead. They convey <em>meaning</em>, not just appearance, which makes your HTML accessible and machine-readable.
+      </div>
+    </section>
+
+    <!-- ── Part 2: Blockquote ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Blockquotes — Attributing Sources</h2>
+
+      <p>Attribution is the cornerstone of journalism. When you quote a source directly, HTML gives you the <code>&lt;blockquote&gt;</code> element — a block-level container for extended quotations. It is visually indented by default, signalling to the reader that this is someone else's words.</p>
+
+      <p>Inside the blockquote, use a <code>&lt;p&gt;</code> for the quoted text and a <code>&lt;footer&gt;</code> (or a <code>&lt;cite&gt;</code> element) to attribute the source.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><p>The housing minister defended the plan at a press conference on Tuesday.</p>
+
+<blockquote>
+  <p>"This is the most ambitious housing programme this city has seen in forty years. We are committed to delivering every unit on time."</p>
+  <footer>— Eleni Stavrou, Minister of Housing, 4 March 2026</footer>
+</blockquote>
+
+<p>Opposition parties disputed the timeline, pointing to delays in previous infrastructure projects.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 600px;
+  color: #111;
+}
+
+blockquote {
+  border-left: 3px solid #111;
+  margin: 24px 0;
+  padding: 8px 20px;
+  background: #faf9f5;
+}
+
+blockquote p {
+  font-style: italic;
+  margin: 0 0 8px;
+}
+
+blockquote footer {
+  font-size: 0.85em;
+  color: #666;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <p>Notice how the blockquote styling — the left border, the background tint, the italic text — makes the quote visually distinct from the body text. This pattern appears on almost every major news website.</p>
+    </section>
+
+    <!-- ── Part 3: mark, abbr, time ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Other Useful Inline Tags</h2>
+
+      <p>HTML has several small but powerful inline elements that are especially useful for journalism.</p>
+
+      <p><code>&lt;mark&gt;</code> highlights text, like a yellow marker. Use it to draw attention to key facts in a data-heavy passage.</p>
+
+      <p><code>&lt;abbr title="..."&gt;</code> marks an abbreviation and provides the full expansion as a tooltip. Hover over the abbreviation in the preview to see it.</p>
+
+      <p><code>&lt;time datetime="..."&gt;</code> marks a date or time and gives it a machine-readable format. Search engines and social media platforms use this to understand when your article was published or when an event occurred.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><p>The report, released on <time datetime="2026-03-04">4 March 2026</time>, found that <mark>air quality in the capital had worsened by 18% since 2020</mark>.</p>
+
+<p>The <abbr title="World Health Organization">WHO</abbr> recommends average annual concentrations of fine particulate matter below 5 µg/m³.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 600px;
+  color: #111;
+}
+
+mark {
+  background: #fff3b0;
+  padding: 1px 2px;
+}
+
+abbr {
+  cursor: help;
+  text-decoration: underline dotted;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 4: Exercise ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Your Turn — Build a Quoted Story</h2>
+
+      <p>Write a short news article (real or imagined) that includes:</p>
+
+      <ul>
+        <li>A headline (<code>&lt;h1&gt;</code>) and at least two paragraphs (<code>&lt;p&gt;</code>)</li>
+        <li>At least one use of <code>&lt;strong&gt;</code> or <code>&lt;em&gt;</code></li>
+        <li>A <code>&lt;blockquote&gt;</code> with a source attribution in <code>&lt;footer&gt;</code></li>
+        <li>A <code>&lt;time&gt;</code> element for the publication or event date</li>
+      </ul>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Your turn</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>Your Headline</h1>
+
+<p>Write your opening paragraph here. Introduce the main news and answer the key questions: who, what, when, where.</p>
+
+<blockquote>
+  <p>"Insert a direct quote from a source here."</p>
+  <footer>— Name, Title, Date</footer>
+</blockquote>
+
+<p>Continue the story. Add <strong>key facts</strong> and <em>context</em>. Use <time datetime="2026-01-01">the date</time> of the event.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 28px;
+  max-width: 620px;
+  margin: 0 auto;
+  color: #111;
+  background: #fffdf8;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+
+blockquote {
+  border-left: 3px solid #111;
+  margin: 24px 0;
+  padding: 8px 20px;
+  background: #faf9f5;
+}
+
+blockquote p { font-style: italic; margin: 0 0 6px; }
+blockquote footer { font-size: 0.85em; color: #666; }</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>What you have learned in this chapter:</strong> <code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code> for inline emphasis, <code>&lt;blockquote&gt;</code> for source attribution, and <code>&lt;mark&gt;</code>, <code>&lt;abbr&gt;</code>, and <code>&lt;time&gt;</code> for richer annotation. Next chapter: adding links and photographs.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book3-chapter-1.html">Previous: Chapter 1</a>
+        <a href="book3-chapter-3.html">Next: Chapter 3 — Links &amp; Images</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Build and preview your web pages directly in the browser.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/web-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>

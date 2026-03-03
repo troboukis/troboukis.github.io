@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 2 · Chapter One — Terminal Foundations · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 2 · Chapter One — Terminal Foundations · Python for All" />
+  <meta property="og:description" content="What the terminal is, how to open it on Mac and Windows, key vocabulary, and your first commands." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 2 — The Magic World of the Terminal</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter One — Terminal Foundations</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 2 — The Magic World of the Terminal</p>
+      <ol>
+        <li><a href="book2-chapter-1.html" class="is-current">Chapter 1 — Terminal Foundations</a></li>
+        <li><a href="book2-chapter-2.html">Chapter 2 — Navigating Your File System</a></li>
+        <li><a href="book2-chapter-3.html">Chapter 3 — Managing Files and Folders</a></li>
+        <li><a href="book2-chapter-4.html">Chapter 4 — Reading and Searching Files</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner" id="book2-ch1">
+      <p class="chapter-number">Book Two · Chapter One</p>
+      <h2>Terminal Foundations</h2>
+      <p class="chapter-desc">The terminal is your direct line to the computer. No icons, no menus — just commands and results. This chapter gets you started.</p>
+    </div>
+
+    <!-- ── Part 1: What is the terminal ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>What Is the Terminal?</h2>
+
+      <p><span class="dropcap">B</span>efore graphical interfaces with windows and icons existed, all computers were controlled through text. You typed a command; the machine responded with text. This is still how professionals interact with computers when they need precision, power, and reproducibility — and it is what you will learn in this book.</p>
+
+      <p>The <strong>terminal</strong> (also called the <strong>command line</strong>, <strong>shell</strong>, or <strong>console</strong>) is a text-based window where you type instructions directly to your operating system. Instead of clicking through folders with a mouse, you type <code>cd Files</code> to move into a folder. Instead of right-clicking to rename a file, you type <code>mv old-name.txt new-name.txt</code>. The computer does exactly what you say — nothing more, nothing less.</p>
+
+      <p>Why does this matter for journalists? Three reasons:</p>
+      <ol>
+        <li><strong>Speed and scale.</strong> With one command you can search a million-row dataset for a keyword, rename 500 files at once, or download an entire document archive from a government server.</li>
+        <li><strong>Reproducibility.</strong> Every command you type can be saved as a script. Your entire data-gathering workflow is then documented, shareable, and repeatable — essential for accountable journalism.</li>
+        <li><strong>Access.</strong> Many data tools, remote servers, and scraping libraries only work through the command line. Knowing your way around the terminal opens doors that remain closed to everyone else.</li>
+      </ol>
+
+      <div class="callout">
+        <strong>This book uses a browser sandbox.</strong> Every terminal lab on this page runs a real simulation of a Unix file system inside your browser. You can try every command without installing anything. The skills you build here transfer directly to a real terminal on your computer.
+      </div>
+    </section>
+
+    <!-- ── Part 2: Opening the terminal ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Opening the Terminal on Mac and Windows</h2>
+
+      <p>The first step is finding your terminal. The process differs slightly depending on your operating system.</p>
+
+      <p><strong>On a Mac:</strong> press <kbd>⌘ Command</kbd> + <kbd>Space</kbd> to open Spotlight Search. Type <em>Terminal</em> and press Enter. You can also find it in <em>Finder → Applications → Utilities → Terminal</em>. The app icon looks like a black square with a white <code>&gt;_</code> prompt.</p>
+
+      <p><strong>On Windows:</strong> Windows does not include a Unix-compatible terminal by default. You need to install <strong>Git for Windows</strong>, available at <em>git-scm.com</em>. During installation, when asked about adjusting your PATH, choose <em>"Git from the command line and also from 3rd-party software."</em> This makes Unix commands like <code>ls</code>, <code>grep</code>, and <code>cat</code> available. After installing, search your Start menu for <strong>Git Bash</strong> — this is your terminal.</p>
+
+      <p>When you open the terminal for the first time, you will see something like this:</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;background:#1a1a1a;color:#d4d4d4;border:none;padding:18px 22px;border-radius:4px;">
+        student@MacBook-Pro:~$
+      </div>
+
+      <p>This is the <strong>prompt</strong>. Reading it left to right: your username (<code>student</code>), then the computer name (<code>MacBook-Pro</code>), then your current location in the filesystem (<code>~</code> is shorthand for your home folder), and finally the <code>$</code> which signals the terminal is waiting for your input. In the labs below the prompt is simplified to just <code>$</code>.</p>
+
+      <div class="callout">
+        <strong>A note on the dollar sign:</strong> when you see <code>$</code> at the start of a command in any tutorial or documentation, it represents the prompt — it is not part of the command. Do not type the <code>$</code>; type only what comes after it.
+      </div>
+    </section>
+
+    <!-- ── Part 3: Vocabulary ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Vocabulary — Five Words You Must Know</h2>
+
+      <p>Before we type any commands, let us establish the vocabulary. These five terms appear constantly — in documentation, in error messages, and throughout this entire course. If you understand them now, everything else will fall into place.</p>
+
+      <p><strong>Directory</strong> means folder. In terminal-speak, folders are always called directories. The two words mean exactly the same thing. Your <code>Downloads</code> folder is a directory. Your <code>Desktop</code> is a directory. We say "change directory" instead of "open folder."</p>
+
+      <p><strong>Path</strong> is the address of a file or directory. The path <code>/Users/student/Files/data_journalism/cities.csv</code> describes exactly where that file lives on your disk — starting from the root of the drive (<code>/</code>), through each folder in turn, to the file itself. Think of it like a postal address: country → city → street → building number, but written right to left with slashes.</p>
+
+      <p><strong>Command</strong> is the instruction you type. <code>ls</code> is a command that lists files. <code>cd</code> is a command that changes your current directory. The command is always the first word on the line.</p>
+
+      <p><strong>Argument</strong> is the extra information you give to a command — usually the thing to act on. In <code>cat notes.txt</code>, the command is <code>cat</code> and the argument is <code>notes.txt</code> (which file to display). In <code>cd Downloads</code>, the argument is <code>Downloads</code> (where to go).</p>
+
+      <p><strong>Flag</strong> (also called an option) modifies how a command behaves. Flags always start with a hyphen <code>-</code>. In <code>ls -l</code>, the <code>-l</code> flag switches the output to a long, detailed format. Multiple flags can be combined: <code>ls -lah</code> means long format + all files + human-readable sizes.</p>
+
+      <div class="callout">
+        <strong>The pattern:</strong> <code>command [flags] [argument]</code>. Example: <code>ls -lah Files</code> — list the contents of the <code>Files</code> directory (<em>argument</em>) in long, all-files, human-readable format (<em>flags</em>).
+      </div>
+
+      <p>Try the sandbox below. Type <code>help</code> and press Run to see all available commands. Then try <code>whoami</code> and <code>pwd</code>:</p>
+
+      <div class="cell terminal-cell" data-intro="Type 'help' to see all commands. Then try: whoami and pwd">
+        <div class="cell-label">Terminal · Vocabulary Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Type a command and press Run (or Ctrl/Cmd+Enter)"></textarea>
+          </div>
+          <p class="terminal-note">Try: help · whoami · pwd</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 4: First three commands ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Your First Three Commands</h2>
+
+      <p>Three commands answer the three questions every terminal session starts with. Run them in this order every time you open a new terminal window — they orient you instantly.</p>
+
+      <p><strong><code>whoami</code></strong> answers "Who am I logged in as?" The terminal responds with your username. This matters on shared machines or remote servers, where you may have different accounts with different permissions.</p>
+
+      <p><strong><code>pwd</code></strong> answers "Where am I?" It stands for <em>print working directory</em>. The terminal responds with the full path of your current location. This is one of the most important commands you will ever run — the majority of terminal errors happen because you are not in the directory you think you are.</p>
+
+      <p><strong><code>ls</code></strong> answers "What is in here?" It stands for <em>list</em>. The terminal lists the files and directories inside your current location. On its own, <code>ls</code> gives a simple list of names. Add <code>-lah</code> for a detailed view: <code>ls -lah</code> shows file permissions, owner, size in human-readable form, last-modified date, and name for every entry including hidden files.</p>
+
+      <div class="cell terminal-cell" data-intro="Run each command in order: whoami, pwd, ls, ls -lah">
+        <div class="cell-label">Terminal · Your First Commands</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: whoami"></textarea>
+          </div>
+          <p class="terminal-note">Try each in order: whoami → pwd → ls → ls -lah</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+
+      <p>After running <code>ls</code> you should see three entries: <code>Desktop</code>, <code>Downloads</code>, and <code>Files</code>. These are the directories inside your home folder. In the next chapter you will learn to navigate between them and explore what is inside each one.</p>
+    </section>
+
+    <!-- ── Part 5: Workspace setup ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Setting Up Your Workspace</h2>
+
+      <p>One of the first things the class recommends is creating a single dedicated folder for all your journalism work — and keeping everything there. The folder is called <code>data_journalism</code>.</p>
+
+      <p>Notice the naming: no spaces, no capital letters, words joined by an underscore. This is <strong>terminal-friendly naming</strong>. Spaces in file and folder names create problems because the terminal uses spaces to separate arguments. <code>data journalism</code> looks like two separate arguments; <code>data_journalism</code> is clearly one name.</p>
+
+      <p><strong>File naming rules for terminal work:</strong></p>
+      <ul>
+        <li>Use underscores <code>_</code> or hyphens <code>-</code> instead of spaces</li>
+        <li>Stick to lowercase letters</li>
+        <li>Use descriptive names you will recognise six months from now (<code>athens_air_quality_2025.csv</code>, not <code>file1.csv</code>)</li>
+        <li>Include dates in ISO format when relevant: <code>YYYY-MM-DD</code> (example: <code>interview_2026-03-04.txt</code>)</li>
+      </ul>
+
+      <p>To create a new directory, use the <code>mkdir</code> command (make directory). Let us create the project folder inside <code>Files</code>. Follow the sequence in the lab below:</p>
+
+      <div class="cell terminal-cell" data-intro="Create your project folder. Follow the steps in the terminal note.">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Desktop": {},
+                  "Downloads": {},
+                  "Files": {}
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · Setup Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: ls"></textarea>
+          </div>
+          <p class="terminal-note">Steps: ls → cd Files → mkdir data_journalism → ls → cd data_journalism → pwd</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Also recommended for the class setup:</strong> install Visual Studio Code (for writing Python scripts and editing files), GitHub Desktop (for managing your code and publishing work), and create accounts on GitHub and Datawrapper. On Windows, make sure you installed Git for Windows as described in Part Two — this also gives you the <code>git</code> command for version control.
+      </div>
+
+      <div class="callout">
+        <strong>What you have learned in Chapter 1:</strong> the terminal is a text interface to your computer; you know how to open it on Mac (Terminal) and Windows (Git Bash); you understand the five key terms — directory, path, command, argument, flag; and you can run <code>whoami</code>, <code>pwd</code>, <code>ls</code>, and <code>mkdir</code>. In Chapter 2 you will learn to navigate the full file system.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="../index.html">Previous: Course Home</a>
+        <a href="book2-chapter-2.html">Next: Chapter 2 — Navigating Your File System</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    The Magic World of the Terminal.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/terminal-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>

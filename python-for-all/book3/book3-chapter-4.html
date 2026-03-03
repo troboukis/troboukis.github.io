@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 3 · Chapter Four — Semantic Structure · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 3 · Chapter Four — Semantic Structure · Python for All" />
+  <meta property="og:description" content="Learn HTML and CSS step by step by building and previewing pages directly in your browser." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 3 — HTML, CSS Basics</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Four — Semantic Structure</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 3 — HTML, CSS Basics</p>
+      <ol>
+        <li><a href="book3-chapter-1.html">Chapter 1 — The Skeleton of a Web Page</a></li>
+        <li><a href="book3-chapter-2.html">Chapter 2 — Text, Emphasis &amp; Quotes</a></li>
+        <li><a href="book3-chapter-3.html">Chapter 3 — Links &amp; Images</a></li>
+        <li><a href="book3-chapter-4.html" class="is-current">Chapter 4 — Semantic Structure</a></li>
+        <li><a href="book3-chapter-5.html">Chapter 5 — Introduction to CSS</a></li>
+        <li><a href="book3-chapter-6.html">Chapter 6 — Typography &amp; Layout</a></li>
+        <li><a href="book3-chapter-7.html">Chapter 7 — Embeds &amp; iframes</a></li>
+        <li><a href="book3-chapter-8.html">Chapter 8 — The Article Page</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Three · Chapter Four</p>
+      <h2>Semantic Structure</h2>
+      <p class="chapter-desc">HTML5 gave us tags that describe what content <em>means</em>, not just how it looks. These tags are the backbone of every well-built article page.</p>
+    </div>
+
+    <!-- ── Part 1: Why semantics matter ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Why Semantics Matter</h2>
+
+      <p><span class="dropcap">U</span>ntil this chapter, we have used generic containers. You could wrap everything in <code>&lt;div&gt;</code> tags and the page would look identical. But a browser — and a search engine, and a screen reader — cannot tell a headline from a byline from a footer if they are all just <code>&lt;div&gt;</code> elements.</p>
+
+      <p>HTML5 introduced <em>semantic elements</em>: tags whose names describe the <em>role</em> of the content they contain. When Google sees an <code>&lt;article&gt;</code> tag, it knows that content is a self-contained piece of journalism. When a screen reader encounters a <code>&lt;nav&gt;</code>, it offers to skip directly to navigation. These tags cost nothing to write, and they make your pages more discoverable, more accessible, and more professional.</p>
+
+      <div class="callout">
+        <strong>The rule:</strong> Use the tag that best describes what the content <em>is</em>, not what you want it to look like. Appearance is controlled by CSS — that comes later.
+      </div>
+    </section>
+
+    <!-- ── Part 2: Article structure ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>article, header, and footer</h2>
+
+      <p>The three most important structural tags for a news article are:</p>
+
+      <ul>
+        <li><code>&lt;article&gt;</code> — a self-contained piece of content: a news story, a blog post, a review. It should make sense on its own, extracted from the page.</li>
+        <li><code>&lt;header&gt;</code> — introductory content for its parent element. Inside an <code>&lt;article&gt;</code>, it holds the headline, byline, publication date, and section label.</li>
+        <li><code>&lt;footer&gt;</code> — concluding information: tags, related links, copyright, author bio.</li>
+      </ul>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><article>
+  <header>
+    <p class="kicker">Environment</p>
+    <h1>Record Wildfires Sweep the Mediterranean</h1>
+    <p class="byline">By Maria Papadaki · <time datetime="2026-03-04">4 March 2026</time></p>
+  </header>
+
+  <p>Firefighters across Greece, Italy, and Spain are battling some of the largest wildfires recorded in the region, as prolonged drought and record temperatures create catastrophic conditions.</p>
+
+  <p>More than 50,000 hectares have burned in the past week alone, according to the European Forest Fire Information System.</p>
+
+  <footer>
+    <p>Tags: wildfires, climate, Mediterranean</p>
+  </footer>
+</article></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 620px;
+  color: #111;
+}
+
+article {
+  border-top: 3px solid #111;
+  padding-top: 20px;
+}
+
+.kicker {
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 8px;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.15;
+  margin: 0 0 8px;
+}
+
+.byline {
+  font-size: 0.85em;
+  color: #666;
+  margin: 0 0 20px;
+}
+
+article footer {
+  border-top: 1px solid #ddd;
+  margin-top: 24px;
+  padding-top: 12px;
+  font-size: 0.83em;
+  color: #999;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 3: section and aside ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>section and aside</h2>
+
+      <p><code>&lt;section&gt;</code> groups related content within an article. Each section typically has a heading. If you find yourself writing a long article with named parts — "Background", "Reactions", "What happens next" — each of those is a <code>&lt;section&gt;</code>.</p>
+
+      <p><code>&lt;aside&gt;</code> holds content that is tangentially related to the main text: a sidebar fact box, a glossary of terms, a related-articles list. On screen, it is often displayed next to the main content.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><article>
+  <header>
+    <h1>City Budget Crisis Deepens</h1>
+    <p class="byline">By Nikos Andreou · <time datetime="2026-03-04">4 March 2026</time></p>
+  </header>
+
+  <section>
+    <h2>What happened</h2>
+    <p>The city council voted 14–7 on Tuesday to reject the proposed austerity budget, leaving the municipality without an approved spending plan for 2026.</p>
+  </section>
+
+  <aside>
+    <p><strong>Key numbers</strong></p>
+    <ul>
+      <li>€240 million: projected deficit</li>
+      <li>14–7: council vote against the budget</li>
+      <li>31 March: deadline for a new proposal</li>
+    </ul>
+  </aside>
+
+  <section>
+    <h2>What happens next</h2>
+    <p>The mayor has 30 days to present a revised plan. Failure to do so would trigger state intervention under municipal finance law.</p>
+  </section>
+</article></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  line-height: 1.7;
+  padding: 20px;
+  max-width: 620px;
+  color: #111;
+}
+
+h1 { font-size: 1.8em; line-height: 1.15; margin: 0 0 6px; }
+.byline { font-size: 0.83em; color: #777; margin: 0 0 18px; }
+h2 { font-size: 1.1em; margin: 20px 0 6px; }
+
+aside {
+  background: #f7f5ef;
+  border-left: 3px solid #111;
+  padding: 12px 16px;
+  margin: 20px 0;
+  font-size: 0.9em;
+}
+
+aside ul { margin: 6px 0 0; padding-left: 18px; }
+aside li { margin-bottom: 4px; }</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 4: Lists ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Lists — Ordered and Unordered</h2>
+
+      <p>Lists are among the most useful structures in journalism: bullet-point summaries, numbered timelines, key facts boxes. HTML provides two types:</p>
+
+      <ul>
+        <li><code>&lt;ul&gt;</code> (unordered list) — bullet points, for items where order does not matter.</li>
+        <li><code>&lt;ol&gt;</code> (ordered list) — numbered items, for sequences, rankings, or steps.</li>
+      </ul>
+
+      <p>Both contain <code>&lt;li&gt;</code> (list item) elements.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h2>Key demands of the striking workers</h2>
+<ul>
+  <li>A 12% wage increase to offset inflation</li>
+  <li>Restoration of collective bargaining rights</li>
+  <li>A freeze on redundancies until 2027</li>
+</ul>
+
+<h2>Timeline of events</h2>
+<ol>
+  <li><strong>January 2026:</strong> Management announces restructuring plan.</li>
+  <li><strong>February 14:</strong> Workers vote 87% in favour of strike action.</li>
+  <li><strong>March 1:</strong> Strike begins; production halts at three plants.</li>
+  <li><strong>March 4:</strong> Emergency talks convened by the labour minister.</li>
+</ol></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 600px;
+  color: #111;
+}
+
+h2 { font-size: 1.15em; margin: 24px 0 8px; }
+
+ul, ol {
+  padding-left: 22px;
+  margin: 0 0 20px;
+}
+
+li { margin-bottom: 6px; }</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 5: Exercise ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — A Structured Article</h2>
+
+      <p>Build a properly structured article using the semantic tags you have learned. Your article should include:</p>
+
+      <ul>
+        <li><code>&lt;article&gt;</code> as the outer container</li>
+        <li><code>&lt;header&gt;</code> with a kicker label, <code>&lt;h1&gt;</code>, and byline with <code>&lt;time&gt;</code></li>
+        <li>At least two <code>&lt;section&gt;</code> elements, each with an <code>&lt;h2&gt;</code></li>
+        <li>An <code>&lt;aside&gt;</code> with a key-facts list</li>
+        <li><code>&lt;footer&gt;</code> with topic tags</li>
+      </ul>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Your turn</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><article>
+  <header>
+    <p class="kicker">Your Section Label</p>
+    <h1>Your Headline</h1>
+    <p class="byline">By Your Name · <time datetime="2026-03-04">4 March 2026</time></p>
+  </header>
+
+  <section>
+    <h2>What happened</h2>
+    <p>Write your opening section here.</p>
+  </section>
+
+  <aside>
+    <p><strong>Key facts</strong></p>
+    <ul>
+      <li>Fact one</li>
+      <li>Fact two</li>
+      <li>Fact three</li>
+    </ul>
+  </aside>
+
+  <section>
+    <h2>What happens next</h2>
+    <p>Write the second section here.</p>
+  </section>
+
+  <footer>
+    <p>Tags: tag1, tag2, tag3</p>
+  </footer>
+</article></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 620px;
+  margin: 0 auto;
+  color: #111;
+  background: #fffdf8;
+}
+
+article { border-top: 3px solid #111; padding-top: 20px; }
+.kicker { font-size: 11px; font-weight: bold; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin: 0 0 8px; }
+h1 { font-size: 1.9em; line-height: 1.15; margin: 0 0 8px; }
+.byline { font-size: 0.85em; color: #666; margin: 0 0 20px; }
+h2 { font-size: 1.1em; margin: 24px 0 6px; }
+aside { background: #f7f5ef; border-left: 3px solid #111; padding: 12px 16px; margin: 20px 0; }
+aside ul { margin: 6px 0 0; padding-left: 18px; }
+article footer { border-top: 1px solid #ddd; margin-top: 24px; padding-top: 12px; font-size: 0.83em; color: #999; }</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>What you have learned in this chapter:</strong> <code>&lt;article&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, and <code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code>/<code>&lt;li&gt;</code>. Your HTML is now semantically meaningful. Next: making it look great with CSS.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book3-chapter-3.html">Previous: Chapter 3</a>
+        <a href="book3-chapter-5.html">Next: Chapter 5 — Introduction to CSS</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Build and preview your web pages directly in the browser.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/web-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>

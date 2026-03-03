@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 3 · Chapter Seven — Embeds &amp; iframes · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 3 · Chapter Seven — Embeds &amp; iframes · Python for All" />
+  <meta property="og:description" content="Learn HTML and CSS step by step by building and previewing pages directly in your browser." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 3 — HTML, CSS Basics</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Seven — Embeds &amp; iframes</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 3 — HTML, CSS Basics</p>
+      <ol>
+        <li><a href="book3-chapter-1.html">Chapter 1 — The Skeleton of a Web Page</a></li>
+        <li><a href="book3-chapter-2.html">Chapter 2 — Text, Emphasis &amp; Quotes</a></li>
+        <li><a href="book3-chapter-3.html">Chapter 3 — Links &amp; Images</a></li>
+        <li><a href="book3-chapter-4.html">Chapter 4 — Semantic Structure</a></li>
+        <li><a href="book3-chapter-5.html">Chapter 5 — Introduction to CSS</a></li>
+        <li><a href="book3-chapter-6.html">Chapter 6 — Typography &amp; Layout</a></li>
+        <li><a href="book3-chapter-7.html" class="is-current">Chapter 7 — Embeds &amp; iframes</a></li>
+        <li><a href="book3-chapter-8.html">Chapter 8 — The Article Page</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Three · Chapter Seven</p>
+      <h2>Embeds &amp; iframes</h2>
+      <p class="chapter-desc">Modern journalism is multimedia. Maps, videos, data visualisations, and social posts can all be embedded directly in your HTML article using a single tag: <code style="font-size:0.85em">&lt;iframe&gt;</code>.</p>
+    </div>
+
+    <!-- ── Part 1: What is an iframe ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>What Is an iframe?</h2>
+
+      <p><span class="dropcap">A</span>n <code>&lt;iframe&gt;</code> (inline frame) is a window inside your page that loads another web page — or any other HTML content — from a different source. When you embed a YouTube video or a Google Map in an article, you are inserting an iframe that points to YouTube or Google's servers.</p>
+
+      <p>The essential attribute is <code>src</code>: the URL of the page to embed. You also set <code>width</code> and <code>height</code>. Most embed services (YouTube, Google Maps, Datawrapper) generate ready-to-copy iframe code for you — you just paste it into your HTML.</p>
+
+      <div class="callout">
+        <strong>Note on this playground:</strong> Some external services block embedding in third-party iframes for security reasons. In the exercises below, we will use sources that allow embedding. In your final published article, you can embed any service that provides an embed code.
+      </div>
+    </section>
+
+    <!-- ── Part 2: Embedding a map ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Embedding a Map</h2>
+
+      <p>Location is central to reporting. A map tells readers precisely where an event occurred. Google Maps, OpenStreetMap, and many other services generate embed codes you can paste directly into your article.</p>
+
+      <p>To get an embed code from Google Maps: search for a location → click Share → select "Embed a map" → copy the <code>&lt;iframe&gt;</code> code.</p>
+
+      <p>Below is an example embedding an OpenStreetMap frame, which allows embedding freely.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it — embed a map</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>Fire Breaks Out Near the Acropolis</h1>
+<p class="byline">Athens, Greece · 4 March 2026</p>
+<p>Firefighters responded within minutes to a blaze that broke out on the southern slope of the Acropolis hill late Tuesday afternoon.</p>
+
+<figure>
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=23.71,37.96,23.74,37.98&layer=mapnik&marker=37.9715,23.7267"
+    width="100%"
+    height="300"
+    style="border: 1px solid #ccc;"
+    title="Map showing the Acropolis area of Athens">
+  </iframe>
+  <figcaption>The Acropolis of Athens, where the fire was reported. Map: OpenStreetMap contributors.</figcaption>
+</figure>
+
+<p>No injuries were reported. The cause of the fire is under investigation.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 620px;
+  color: #111;
+}
+
+h1 { font-size: 1.8em; line-height: 1.15; margin: 0 0 8px; }
+.byline { font-size: 13px; color: #888; margin: 0 0 16px; font-style: italic; }
+
+figure {
+  margin: 20px 0;
+}
+
+figure iframe {
+  display: block;
+  width: 100%;
+}
+
+figcaption {
+  font-size: 0.83em;
+  color: #777;
+  margin-top: 6px;
+  font-style: italic;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 3: Embedding a video ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Embedding a Video</h2>
+
+      <p>To embed a YouTube video, open the video on YouTube, click <strong>Share</strong> → <strong>Embed</strong>, and copy the iframe code. The URL will look like <code>https://www.youtube.com/embed/VIDEO_ID</code>.</p>
+
+      <p>A standard YouTube embed has <code>width="560" height="315"</code>. To make it responsive — filling the full width of your article — use CSS rather than fixed pixel values.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it — responsive video embed</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>Understanding Climate Tipping Points</h1>
+<p>Scientists explain why passing certain thresholds could trigger irreversible changes to Earth's systems.</p>
+
+<figure class="video-wrap">
+  <!-- Replace VIDEO_ID with any YouTube video ID -->
+  <iframe
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+    title="YouTube video: Climate tipping points explained"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+  <figcaption>Source: YouTube. Replace this iframe src with any YouTube embed URL.</figcaption>
+</figure>
+
+<p>The concept of tipping points is central to climate science and increasingly to climate journalism.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 620px;
+  color: #111;
+}
+
+h1 { font-size: 1.8em; line-height: 1.15; margin: 0 0 12px; }
+
+/* Responsive video: maintain 16:9 aspect ratio */
+.video-wrap {
+  margin: 20px 0;
+  position: relative;
+  padding-bottom: 56.25%; /* 9 ÷ 16 = 0.5625 */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+figcaption {
+  margin-top: 64px; /* push below the absolute-positioned iframe */
+  font-size: 0.83em;
+  color: #777;
+  font-style: italic;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>The 56.25% trick:</strong> The <code>padding-bottom: 56.25%</code> technique is the standard way to make a 16:9 video fill its container responsively. The iframe is then absolutely positioned to fill the padded area completely. This works because percentage padding is calculated relative to the <em>width</em> of the element.
+      </div>
+    </section>
+
+    <!-- ── Part 4: Datawrapper charts ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Data Visualisations — Datawrapper</h2>
+
+      <p><a href="https://www.datawrapper.de" target="_blank" rel="noopener noreferrer">Datawrapper</a> is a free tool used by major news organisations worldwide — including the New York Times, Der Spiegel, and The Guardian — to create embeddable charts, maps, and tables from data. You upload a spreadsheet or paste data, design the chart, and it gives you an iframe embed code.</p>
+
+      <p>The embed code looks like this:</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it — a Datawrapper-style embed pattern</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>Sixty Years of Earthquakes: The Data Behind the Shaking</h1>
+<p>Global seismic records show significant variation since the 1960s, with 1997 standing out as the most active year — 185 earthquakes of magnitude 4 or greater recorded worldwide.</p>
+
+<!-- This is the pattern for any Datawrapper embed.
+     Replace the src with your own chart's embed URL. -->
+<figure>
+  <iframe
+    title="Number of earthquakes by year greater than magnitude 4"
+    aria-label="Bar chart"
+    src="https://datawrapper.dwcdn.net/1t37L/1/"
+    scrolling="no"
+    frameborder="0"
+    style="width: 100%; border: none;"
+    height="400">
+  </iframe>
+  <figcaption>Source: USGS. Chart: Author name / Publication name</figcaption>
+</figure>
+
+<p>Scientists note that improved global monitoring networks have made it easier to detect seismic events over time, a factor that may partly explain the rise visible in recent decades.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 620px;
+  color: #111;
+}
+
+h1 { font-size: 1.8em; line-height: 1.15; margin: 0 0 12px; }
+
+figure {
+  margin: 24px 0;
+  border: 1px solid #e0e0e0;
+  padding: 0;
+  background: #fafafa;
+}
+
+figcaption {
+  font-size: 0.8em;
+  color: #888;
+  padding: 6px 12px 10px;
+  border-top: 1px solid #e0e0e0;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <p>To use Datawrapper for real: create a free account at <a href="https://app.datawrapper.de" target="_blank" rel="noopener noreferrer">app.datawrapper.de</a>, upload your data, design your chart, click "Publish &amp; Embed", and paste the iframe code into your article.</p>
+
+      <div class="callout">
+        <strong>What you have learned in this chapter:</strong> how to use <code>&lt;iframe&gt;</code> to embed maps, videos, and data visualisations; how to make video iframes responsive; and how to cite embedded content properly with <code>&lt;figcaption&gt;</code>. Next: the final project — your complete article page.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book3-chapter-6.html">Previous: Chapter 6</a>
+        <a href="book3-chapter-8.html">Next: Chapter 8 — The Article Page</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Build and preview your web pages directly in the browser.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/web-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>

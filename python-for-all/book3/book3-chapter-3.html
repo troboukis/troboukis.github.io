@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 3 · Chapter Three — Links &amp; Images · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 3 · Chapter Three — Links &amp; Images · Python for All" />
+  <meta property="og:description" content="Learn HTML and CSS step by step by building and previewing pages directly in your browser." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 3 — HTML, CSS Basics</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Three — Links &amp; Images</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 3 — HTML, CSS Basics</p>
+      <ol>
+        <li><a href="book3-chapter-1.html">Chapter 1 — The Skeleton of a Web Page</a></li>
+        <li><a href="book3-chapter-2.html">Chapter 2 — Text, Emphasis &amp; Quotes</a></li>
+        <li><a href="book3-chapter-3.html" class="is-current">Chapter 3 — Links &amp; Images</a></li>
+        <li><a href="book3-chapter-4.html">Chapter 4 — Semantic Structure</a></li>
+        <li><a href="book3-chapter-5.html">Chapter 5 — Introduction to CSS</a></li>
+        <li><a href="book3-chapter-6.html">Chapter 6 — Typography &amp; Layout</a></li>
+        <li><a href="book3-chapter-7.html">Chapter 7 — Embeds &amp; iframes</a></li>
+        <li><a href="book3-chapter-8.html">Chapter 8 — The Article Page</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Three · Chapter Three</p>
+      <h2>Links &amp; Images</h2>
+      <p class="chapter-desc">Hyperlinks are the foundation of the web. Images bring stories to life. This chapter shows you how to add both — and how to do it properly.</p>
+    </div>
+
+    <!-- ── Part 1: Hyperlinks ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Hyperlinks — Connecting the Web</h2>
+
+      <p><span class="dropcap">T</span>he hyperlink is the defining feature of the web. It is what turns a collection of documents into a network. In journalism, links serve two purposes: they credit your sources, and they give readers a path to verify what you have written.</p>
+
+      <p>A link is created with the <code>&lt;a&gt;</code> tag (anchor). It has one essential <em>attribute</em>: <code>href</code> (HyperText REFerence), which holds the destination URL. The text between the opening and closing tag is what the reader clicks.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><p>The data comes from the <a href="https://www.who.int">World Health Organization</a>.</p>
+
+<p>You can read the full report on <a href="https://europa.eu">the European Union website</a>.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 600px;
+  color: #111;
+}
+
+a {
+  color: #1a0dab;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <h3>Opening links in a new tab</h3>
+
+      <p>When you link to an external source, it is good practice to open it in a new browser tab, so the reader does not leave your article. Add two attributes to the <code>&lt;a&gt;</code> tag: <code>target="_blank"</code> to open a new tab, and <code>rel="noopener noreferrer"</code> as a security measure.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><p>
+  According to a
+  <a href="https://www.who.int/news-room/fact-sheets/detail/ambient-air-quality-and-health"
+     target="_blank"
+     rel="noopener noreferrer">WHO fact sheet</a>,
+  ambient air pollution causes approximately 4.2 million deaths per year.
+</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 600px;
+  color: #111;
+}
+
+a {
+  color: #111;
+  text-underline-offset: 3px;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Link text matters:</strong> Never write "click <a href="#">here</a>". Screen readers and search engines read link text to understand what the destination is about. Write descriptive text: "read the full WHO report", "view the city's housing plan".
+      </div>
+    </section>
+
+    <!-- ── Part 2: Images ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Images — Adding Photographs</h2>
+
+      <p>Images are added with the <code>&lt;img&gt;</code> tag. Unlike most tags, it is <em>self-closing</em> — it has no content between tags and no closing tag. It has two required attributes:</p>
+
+      <ul>
+        <li><code>src</code> — the URL or file path of the image</li>
+        <li><code>alt</code> — a text description of the image, read aloud by screen readers and displayed if the image fails to load. <strong>Never leave alt empty</strong> unless the image is purely decorative.</li>
+      </ul>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>Old English Sheepdog: A Breed Portrait from 1915</h1>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Old_English_Sheepdog_from_1915.JPG"
+     alt="Photograph of an Old English Sheepdog taken in 1915"
+     width="400" />
+
+<p>Long before social media made dogs famous, the Old English Sheepdog was already a celebrated breed — prized for its intelligence, herding instinct, and unmistakable shaggy coat.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 600px;
+  color: #111;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 16px 0;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <p>The CSS rule <code>max-width: 100%</code> ensures the image never overflows its container, no matter how large the original file is. <code>height: auto</code> preserves the aspect ratio. These two lines should appear in every article you publish.</p>
+    </section>
+
+    <!-- ── Part 3: Figure and figcaption ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Captions — figure and figcaption</h2>
+
+      <p>A bare <code>&lt;img&gt;</code> tag has no caption. In journalism, every photo needs one: who is in the frame, where it was taken, when, and by whom. HTML provides a semantic wrapper for exactly this: <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code>.</p>
+
+      <p>Wrap the image in <code>&lt;figure&gt;</code>, then add a <code>&lt;figcaption&gt;</code> directly after the <code>&lt;img&gt;</code>.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Try it</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>The Bobtail: Inside One of Britain's Most Distinctive Breeds</h1>
+
+<figure>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Old_English_Sheepdog_%28side%29.jpg"
+       alt="An Old English Sheepdog photographed in profile, showing its dense double coat" />
+  <figcaption>An Old English Sheepdog in profile. The breed's thick double coat requires regular grooming and is one of its most recognisable features. Photo: Wikimedia Commons</figcaption>
+</figure>
+
+<p>Known informally as the Bobtail for its traditionally docked tail, the Old English Sheepdog has been a fixture of British pastoral life for centuries — and, more recently, of dog shows and advertising campaigns worldwide.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 24px;
+  max-width: 600px;
+  color: #111;
+}
+
+figure {
+  margin: 24px 0;
+}
+
+figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+figcaption {
+  font-size: 0.83em;
+  color: #666;
+  margin-top: 6px;
+  line-height: 1.5;
+  border-left: 2px solid #ddd;
+  padding-left: 10px;
+}</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 4: Exercise ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Your Turn — A Story With Sources and a Photo</h2>
+
+      <p>Build a short article that includes:</p>
+
+      <ul>
+        <li>A headline and two paragraphs</li>
+        <li>At least one hyperlink to an external source (with <code>target="_blank"</code>)</li>
+        <li>A <code>&lt;figure&gt;</code> with an image and a <code>&lt;figcaption&gt;</code></li>
+      </ul>
+
+      <p>You can use any image from Wikimedia Commons by right-clicking it and copying the image URL, or use the example URL below.</p>
+
+      <div class="cell web-cell">
+        <div class="cell-label">HTML · Your turn</div>
+        <div class="web-cell-grid">
+          <div class="web-editor">
+            <p class="web-editor-label">HTML</p>
+            <textarea data-role="html"><h1>Your Headline</h1>
+
+<figure>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Bobtail_ou_old_english_sheepdog.jpg"
+       alt="An Old English Sheepdog, also known as a Bobtail, with its characteristic shaggy coat" />
+  <figcaption>Your caption. Include who, what, where, when, and photo credit.</figcaption>
+</figure>
+
+<p>Your opening paragraph. Link to a <a href="https://example.com" target="_blank" rel="noopener noreferrer">source</a>.</p>
+
+<p>Your second paragraph.</p></textarea>
+          </div>
+          <div class="web-editor">
+            <p class="web-editor-label">CSS</p>
+            <textarea data-role="css">body {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  padding: 28px;
+  max-width: 620px;
+  margin: 0 auto;
+  color: #111;
+  background: #fffdf8;
+}
+
+h1 { font-size: 2em; line-height: 1.15; margin: 0 0 20px; }
+
+figure { margin: 20px 0; }
+figure img { max-width: 100%; height: auto; display: block; }
+figcaption { font-size: 0.83em; color: #666; margin-top: 6px; }
+
+a { color: #111; }</textarea>
+          </div>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <div class="web-preview-wrap">
+          <p class="web-preview-title">Live Preview</p>
+          <iframe class="web-preview" title="Live HTML preview"></iframe>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>What you have learned in this chapter:</strong> <code>&lt;a href&gt;</code> for hyperlinks, <code>target="_blank" rel="noopener noreferrer"</code> for safe external links, <code>&lt;img src alt&gt;</code> for images, and <code>&lt;figure&gt;</code>/<code>&lt;figcaption&gt;</code> for captioned photos. Next: the semantic structure of a full article page.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book3-chapter-2.html">Previous: Chapter 2</a>
+        <a href="book3-chapter-4.html">Next: Chapter 4 — Semantic Structure</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Build and preview your web pages directly in the browser.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/web-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 2 · Chapter Four — Reading and Searching Files · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 2 · Chapter Four — Reading and Searching Files · Python for All" />
+  <meta property="og:description" content="Read, count, search, sort, and deduplicate file contents from the terminal — core skills for data journalism." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 2 — The Magic World of the Terminal</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Four — Reading and Searching Files</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 2 — The Magic World of the Terminal</p>
+      <ol>
+        <li><a href="book2-chapter-1.html">Chapter 1 — Terminal Foundations</a></li>
+        <li><a href="book2-chapter-2.html">Chapter 2 — Navigating Your File System</a></li>
+        <li><a href="book2-chapter-3.html">Chapter 3 — Managing Files and Folders</a></li>
+        <li><a href="book2-chapter-4.html" class="is-current">Chapter 4 — Reading and Searching Files</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner" id="book2-ch4">
+      <p class="chapter-number">Book Two · Chapter Four</p>
+      <h2>Reading and Searching Files</h2>
+      <p class="chapter-desc">The terminal can read, count, search, and sort the contents of any text file — no spreadsheet needed. These tools are the foundation of command-line data journalism.</p>
+    </div>
+
+    <!-- ── Part 1: cat ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>cat — Reading a File</h2>
+
+      <p><span class="dropcap">T</span>he most direct way to see the contents of a file is <code>cat</code>. Short for <em>concatenate</em>, it prints the entire contents of a file to the screen in one go.</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        cat notes.txt<br>
+        cat cities.csv<br>
+        cat press_release.txt
+      </div>
+
+      <p><code>more</code> is an older alternative that pages through a long file screenful by screenful. In this sandbox it behaves the same as <code>cat</code>, but on a real terminal it lets you scroll through large files without the output flooding your screen.</p>
+
+      <p>Use <code>cat</code> when the file is short enough to read in full. For long files — a dataset with thousands of rows, for example — use <code>head</code> or <code>tail</code> instead.</p>
+
+      <div class="cell terminal-cell" data-intro="Read the files in the sandbox with cat">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student/Files/data_journalism",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Files": {
+                    "data_journalism": {
+                      "earthquakes.csv": "year,country,magnitude\n2020,Greece,5.1\n2021,Turkey,6.8\n2021,Greece,4.9\n2022,Italy,4.2\n2022,Greece,5.6\n2023,Turkey,7.8\n2023,Greece,4.1\n2024,Greece,5.3\n2024,Italy,4.7\n2025,Turkey,5.9\n",
+                      "cities.txt": "Athens\nPatras\nAthens\nThessaloniki\nPatras\nAthens\nHeraklion\nThessaloniki\n",
+                      "press_release.txt": "MINISTRY OF ENVIRONMENT\nPRESS RELEASE - 4 March 2026\n\nThe Ministry of Environment today announced new air quality targets for urban centers.\nAthens recorded the highest levels of particulate matter in 2025, followed by Thessaloniki.\nThe ministry pledged to reduce emissions by 30% before 2030.\nEnvironmental groups called the targets insufficient.\nThe announcement follows reports of 47 pollution-related hospital admissions in January.\n",
+                      "sources.txt": "Maria Papadaki - Ministry spokesperson\nKostas Andreou - City council member\nEleni Stavrou - Housing minister\nKostas Andreou - City council member\nDimitris Lemos - Environmental NGO\nMaria Papadaki - Ministry spokesperson\n"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · cat Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: ls"></textarea>
+          </div>
+          <p class="terminal-note">Try: ls · cat cities.txt · cat press_release.txt · cat earthquakes.csv</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 2: head and tail ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>head and tail — Reading Parts of a File</h2>
+
+      <p>When a dataset has thousands of rows, printing the entire file is not useful. <code>head</code> and <code>tail</code> let you peek at just the beginning or end.</p>
+
+      <p><strong><code>head -n 5 filename</code></strong> prints the first 5 lines. Replace 5 with any number. Without a number, <code>head</code> defaults to 10 lines.</p>
+
+      <p><strong><code>tail -n 5 filename</code></strong> prints the last 5 lines. Again, the default is 10.</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        head -n 3 earthquakes.csv<br>
+        tail -n 3 earthquakes.csv<br>
+        head earthquakes.csv
+      </div>
+
+      <p><strong>Why this matters:</strong> before analysing a CSV dataset, always run <code>head</code> to see the column names and check the structure. A common mistake is running analysis without realising the first row is a header, not data.</p>
+
+      <div class="cell terminal-cell" data-intro="Use head and tail to inspect files without reading everything">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student/Files/data_journalism",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Files": {
+                    "data_journalism": {
+                      "earthquakes.csv": "year,country,magnitude\n2020,Greece,5.1\n2021,Turkey,6.8\n2021,Greece,4.9\n2022,Italy,4.2\n2022,Greece,5.6\n2023,Turkey,7.8\n2023,Greece,4.1\n2024,Greece,5.3\n2024,Italy,4.7\n2025,Turkey,5.9\n",
+                      "cities.txt": "Athens\nPatras\nAthens\nThessaloniki\nPatras\nAthens\nHeraklion\nThessaloniki\n",
+                      "press_release.txt": "MINISTRY OF ENVIRONMENT\nPRESS RELEASE - 4 March 2026\n\nThe Ministry of Environment today announced new air quality targets for urban centers.\nAthens recorded the highest levels of particulate matter in 2025, followed by Thessaloniki.\nThe ministry pledged to reduce emissions by 30% before 2030.\nEnvironmental groups called the targets insufficient.\nThe announcement follows reports of 47 pollution-related hospital admissions in January.\n",
+                      "sources.txt": "Maria Papadaki - Ministry spokesperson\nKostas Andreou - City council member\nEleni Stavrou - Housing minister\nKostas Andreou - City council member\nDimitris Lemos - Environmental NGO\nMaria Papadaki - Ministry spokesperson\n"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · head and tail Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: head earthquakes.csv"></textarea>
+          </div>
+          <p class="terminal-note">Try: head earthquakes.csv · head -n 3 earthquakes.csv · tail -n 3 earthquakes.csv · tail -n 2 press_release.txt</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 3: wc ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>wc — Counting Lines, Words, Characters</h2>
+
+      <p><code>wc</code> stands for <em>word count</em>, but it counts much more than words. Run on a file, it returns three numbers: lines, words, and characters.</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        wc press_release.txt<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;58&nbsp;&nbsp;398 press_release.txt
+      </div>
+
+      <p>Reading left to right: 9 lines, 58 words, 398 characters.</p>
+
+      <p>The most useful flag for data journalism is <code>-l</code>, which returns only the line count:</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        wc -l earthquakes.csv<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;11 earthquakes.csv
+      </div>
+
+      <p>A CSV with 11 lines has a header row plus 10 data rows. This quick sanity check tells you how many records are in your dataset — before you open it in Python or a spreadsheet.</p>
+
+      <div class="cell terminal-cell" data-intro="Use wc to count lines, words, and characters">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student/Files/data_journalism",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Files": {
+                    "data_journalism": {
+                      "earthquakes.csv": "year,country,magnitude\n2020,Greece,5.1\n2021,Turkey,6.8\n2021,Greece,4.9\n2022,Italy,4.2\n2022,Greece,5.6\n2023,Turkey,7.8\n2023,Greece,4.1\n2024,Greece,5.3\n2024,Italy,4.7\n2025,Turkey,5.9\n",
+                      "cities.txt": "Athens\nPatras\nAthens\nThessaloniki\nPatras\nAthens\nHeraklion\nThessaloniki\n",
+                      "press_release.txt": "MINISTRY OF ENVIRONMENT\nPRESS RELEASE - 4 March 2026\n\nThe Ministry of Environment today announced new air quality targets for urban centers.\nAthens recorded the highest levels of particulate matter in 2025, followed by Thessaloniki.\nThe ministry pledged to reduce emissions by 30% before 2030.\nEnvironmental groups called the targets insufficient.\nThe announcement follows reports of 47 pollution-related hospital admissions in January.\n",
+                      "sources.txt": "Maria Papadaki - Ministry spokesperson\nKostas Andreou - City council member\nEleni Stavrou - Housing minister\nKostas Andreou - City council member\nDimitris Lemos - Environmental NGO\nMaria Papadaki - Ministry spokesperson\n"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · wc Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: wc earthquakes.csv"></textarea>
+          </div>
+          <p class="terminal-note">Try: wc earthquakes.csv · wc -l earthquakes.csv · wc press_release.txt · wc -l cities.txt</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 4: grep ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>grep — Searching Inside Files</h2>
+
+      <p><code>grep</code> searches a file and returns every line that contains a given word or pattern. It is arguably the single most useful tool in a journalist's terminal toolkit.</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        grep Athens earthquakes.csv<br>
+        grep Turkey earthquakes.csv<br>
+        grep ministry press_release.txt
+      </div>
+
+      <p>The syntax is always: <code>grep [search term] [filename]</code>.</p>
+
+      <p>The search is case-sensitive by default: <code>grep athens</code> and <code>grep Athens</code> return different results. Note that in the sandbox you cannot use the <code>-i</code> flag for case-insensitive search, but on a real terminal this is very useful.</p>
+
+      <p><strong>Journalism use cases for grep:</strong></p>
+      <ul>
+        <li>Find every row in a large CSV that mentions a specific city, politician, or company</li>
+        <li>Search interview notes for every time a source said a specific phrase</li>
+        <li>Find all entries in a financial dataset for a specific institution</li>
+        <li>Quickly verify whether a name appears in a leaked document</li>
+      </ul>
+
+      <div class="cell terminal-cell" data-intro="Use grep to search inside files. Try different search terms.">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student/Files/data_journalism",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Files": {
+                    "data_journalism": {
+                      "earthquakes.csv": "year,country,magnitude\n2020,Greece,5.1\n2021,Turkey,6.8\n2021,Greece,4.9\n2022,Italy,4.2\n2022,Greece,5.6\n2023,Turkey,7.8\n2023,Greece,4.1\n2024,Greece,5.3\n2024,Italy,4.7\n2025,Turkey,5.9\n",
+                      "cities.txt": "Athens\nPatras\nAthens\nThessaloniki\nPatras\nAthens\nHeraklion\nThessaloniki\n",
+                      "press_release.txt": "MINISTRY OF ENVIRONMENT\nPRESS RELEASE - 4 March 2026\n\nThe Ministry of Environment today announced new air quality targets for urban centers.\nAthens recorded the highest levels of particulate matter in 2025, followed by Thessaloniki.\nThe ministry pledged to reduce emissions by 30% before 2030.\nEnvironmental groups called the targets insufficient.\nThe announcement follows reports of 47 pollution-related hospital admissions in January.\n",
+                      "sources.txt": "Maria Papadaki - Ministry spokesperson\nKostas Andreou - City council member\nEleni Stavrou - Housing minister\nKostas Andreou - City council member\nDimitris Lemos - Environmental NGO\nMaria Papadaki - Ministry spokesperson\n"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · grep Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: grep Greece earthquakes.csv"></textarea>
+          </div>
+          <p class="terminal-note">Try: grep Greece earthquakes.csv · grep Turkey earthquakes.csv · grep Athens cities.txt · grep minister sources.txt</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 5: sort and uniq ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>sort and uniq — Order and Deduplicate</h2>
+
+      <p><code>sort</code> sorts the lines of a file alphabetically (or numerically with extra flags). <code>uniq</code> removes consecutive duplicate lines — meaning identical lines that appear one after another.</p>
+
+      <p>On their own, these two commands are simple:</p>
+
+      <div class="callout" style="font-family:'Source Code Pro',monospace;font-size:0.9rem;">
+        sort cities.txt<br>
+        uniq cities.txt
+      </div>
+
+      <p>The key insight is that <code>uniq</code> only removes <em>consecutive</em> duplicates. If duplicates are scattered throughout the file, <code>uniq</code> alone will miss them. The standard workflow is: sort first, then run uniq.</p>
+
+      <p>In the sandbox, try <code>uniq cities.txt</code> — notice it may still show duplicates because they were not adjacent. Then try <code>sort cities.txt</code> — now all the Athens entries are grouped together. If you could save that sorted output to a file, running <code>uniq</code> on it would give you the unique city list. (Piping commands together — <code>sort cities.txt | uniq</code> — is the full real-terminal technique. The sandbox handles each command separately.)</p>
+
+      <p><strong>Journalism use case:</strong> you have a list of cities from a dataset and want to know how many unique cities appear. <code>sort</code> then <code>uniq</code> gives you the deduplicated list. <code>wc -l</code> on that list gives you the count.</p>
+
+      <div class="cell terminal-cell" data-intro="Use sort and uniq to organise and deduplicate file contents">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student/Files/data_journalism",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Files": {
+                    "data_journalism": {
+                      "earthquakes.csv": "year,country,magnitude\n2020,Greece,5.1\n2021,Turkey,6.8\n2021,Greece,4.9\n2022,Italy,4.2\n2022,Greece,5.6\n2023,Turkey,7.8\n2023,Greece,4.1\n2024,Greece,5.3\n2024,Italy,4.7\n2025,Turkey,5.9\n",
+                      "cities.txt": "Athens\nPatras\nAthens\nThessaloniki\nPatras\nAthens\nHeraklion\nThessaloniki\n",
+                      "press_release.txt": "MINISTRY OF ENVIRONMENT\nPRESS RELEASE - 4 March 2026\n\nThe Ministry of Environment today announced new air quality targets for urban centers.\nAthens recorded the highest levels of particulate matter in 2025, followed by Thessaloniki.\nThe ministry pledged to reduce emissions by 30% before 2030.\nEnvironmental groups called the targets insufficient.\nThe announcement follows reports of 47 pollution-related hospital admissions in January.\n",
+                      "sources.txt": "Maria Papadaki - Ministry spokesperson\nKostas Andreou - City council member\nEleni Stavrou - Housing minister\nKostas Andreou - City council member\nDimitris Lemos - Environmental NGO\nMaria Papadaki - Ministry spokesperson\n"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · sort and uniq Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: cat cities.txt"></textarea>
+          </div>
+          <p class="terminal-note">Try: cat cities.txt · sort cities.txt · uniq cities.txt · sort sources.txt · uniq sources.txt</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Part 6: full lab + CSS selectors preview ── -->
+    <section id="part6">
+      <p class="section-label">Part Six</p>
+      <h2>Full Lab and What Comes Next</h2>
+
+      <p>Bring everything from this chapter together. The sandbox below has a realistic set of files. Work through the following tasks:</p>
+
+      <ol>
+        <li>How many rows of data are in <code>earthquakes.csv</code>? (Use <code>wc -l</code>, then subtract 1 for the header.)</li>
+        <li>Which earthquakes were recorded in Greece? (Use <code>grep</code>.)</li>
+        <li>What are the unique countries in the dataset? (Use <code>sort</code>, then <code>uniq</code> on the result — or just look at the sorted list.)</li>
+        <li>What are the first 3 lines of <code>press_release.txt</code>?</li>
+        <li>How many unique source names are in <code>sources.txt</code>?</li>
+      </ol>
+
+      <div class="cell terminal-cell" data-intro="Full data journalism lab. Answer all five questions above.">
+        <script type="application/json" class="terminal-seed">
+          {
+            "cwd": "/Users/student/Files/data_journalism",
+            "tree": {
+              "Users": {
+                "student": {
+                  "Files": {
+                    "data_journalism": {
+                      "earthquakes.csv": "year,country,magnitude\n2020,Greece,5.1\n2021,Turkey,6.8\n2021,Greece,4.9\n2022,Italy,4.2\n2022,Greece,5.6\n2023,Turkey,7.8\n2023,Greece,4.1\n2024,Greece,5.3\n2024,Italy,4.7\n2025,Turkey,5.9\n",
+                      "cities.txt": "Athens\nPatras\nAthens\nThessaloniki\nPatras\nAthens\nHeraklion\nThessaloniki\n",
+                      "press_release.txt": "MINISTRY OF ENVIRONMENT\nPRESS RELEASE - 4 March 2026\n\nThe Ministry of Environment today announced new air quality targets for urban centers.\nAthens recorded the highest levels of particulate matter in 2025, followed by Thessaloniki.\nThe ministry pledged to reduce emissions by 30% before 2030.\nEnvironmental groups called the targets insufficient.\nThe announcement follows reports of 47 pollution-related hospital admissions in January.\n",
+                      "sources.txt": "Maria Papadaki - Ministry spokesperson\nKostas Andreou - City council member\nEleni Stavrou - Housing minister\nKostas Andreou - City council member\nDimitris Lemos - Environmental NGO\nMaria Papadaki - Ministry spokesperson\n"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        </script>
+        <div class="cell-label">Terminal · Full Lab</div>
+        <div class="terminal-wrap">
+          <pre class="terminal-screen"></pre>
+          <div class="terminal-input-wrap">
+            <p class="terminal-prompt">$</p>
+            <textarea class="terminal-input" placeholder="Start with: ls"></textarea>
+          </div>
+          <p class="terminal-note">Use all commands: cat · head · tail · wc · grep · sort · uniq</p>
+        </div>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear Screen</button>
+          <button class="btn-clear btn-reset">Reset Sandbox</button>
+          <span class="run-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>What you have learned in Chapter 4:</strong> <code>cat</code> reads a full file; <code>head -n</code> and <code>tail -n</code> read the first or last N lines; <code>wc -l</code> counts lines; <code>grep</code> finds lines containing a search term; <code>sort</code> orders lines alphabetically; <code>uniq</code> removes consecutive duplicates.
+      </div>
+
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book2-chapter-3.html">Previous: Chapter 3 — Managing Files and Folders</a>
+        <a href="../index.html">Back to Course Home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    The Magic World of the Terminal.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script type="module" src="../assets/terminal-playground.js"></script>
+  <script src="../assets/lang.js"></script>
+</body>
+</html>
