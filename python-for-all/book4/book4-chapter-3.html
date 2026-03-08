@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 4 · Chapter Three — Selecting Data · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 4 · Chapter Three — Selecting Data · Python for All" />
+  <meta property="og:description" content="Learn data analysis with pandas using real food price examples." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 4 — Data Analysis with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Three — Selecting Data</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 4 — Data Analysis with Python</p>
+      <ol>
+        <li><a href="book4-chapter-1.html">Chapter 1 — What is pandas?</a></li>
+        <li><a href="book4-chapter-2.html">Chapter 2 — Exploring Your Dataset</a></li>
+        <li><a href="book4-chapter-3.html" class="is-current">Chapter 3 — Selecting Data</a></li>
+        <li><a href="book4-chapter-4.html">Chapter 4 — Filtering Rows</a></li>
+        <li><a href="book4-chapter-5.html">Chapter 5 — Summary Statistics</a></li>
+        <li><a href="book4-chapter-6.html">Chapter 6 — Groupby and Aggregation</a></li>
+        <li><a href="book4-chapter-7.html">Chapter 7 — Sorting and New Columns</a></li>
+        <li><a href="book4-chapter-8.html">Chapter 8 — Cleaning and Final Analysis</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Four · Chapter Three</p>
+      <h2>Selecting Data</h2>
+      <p class="chapter-desc">Knowing how to pull exactly the rows and columns you need is the most fundamental pandas skill. Here you learn to select by column name, by position, and by label.</p>
+    </div>
+
+    <!-- ── Part 1: Selecting columns ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Selecting One or More Columns</h2>
+
+      <p><span class="dropcap">A</span> real-world grocery dataset might have 30 columns — store name, barcode, product description, brand, weight, price, discount, tax code, and more. You rarely want all of them at once. pandas lets you select just the columns you care about.</p>
+
+      <h3>Single column — returns a Series</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Single column: returns a Series
+print(df["item"])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Multiple columns — returns a DataFrame</h3>
+
+      <p>To select multiple columns, pass a <em>list</em> of column names inside the square brackets — this means two sets of brackets: the outer ones for the selection, and the inner ones for the Python list.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Select two columns — note the double brackets [[ ]]
+print(df[["item", "price"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Single vs double brackets:</strong> <code>df["price"]</code> returns a <em>Series</em> (one column). <code>df[["price"]]</code> returns a <em>DataFrame</em> with one column. The distinction matters when you pass the result to other functions that expect a specific type.
+      </div>
+    </section>
+
+    <!-- ── Part 2: iloc ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>.iloc[] — Select by Position</h2>
+
+      <p><code>.iloc[]</code> (short for <em>integer location</em>) lets you select rows and columns by their numeric position, like indexing a list. The syntax is <code>df.iloc[row, column]</code>. Positions start at 0.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Single cell: row 0, column 0
+print("First item:", df.iloc[0, 0])
+print()
+# First 3 rows, first 3 columns
+print("Top-left corner:")
+print(df.iloc[0:3, 0:3])
+print()
+# Last row
+print("Last row:")
+print(df.iloc[-1])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>.iloc[]</code> uses Python slice notation: <code>0:3</code> means rows 0, 1, and 2 (not 3 — the end of a slice is exclusive). A negative index like <code>-1</code> counts from the end, so <code>df.iloc[-1]</code> is always the last row regardless of how many rows the dataset has.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — every other row</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+# Select every other row (0, 2, 4, ...)
+print(df.iloc[::2])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 3: loc ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>.loc[] — Select by Label</h2>
+
+      <p><code>.loc[]</code> (short for <em>label location</em>) selects by the index label and column name. For our grocery dataset, the index is the default numeric one (0, 1, 2 …), so <code>.loc[0]</code> gives you row 0. But <code>.loc[]</code> really shines when the index is meaningful — for example, when each row is labelled with a date or a product code.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Select row with index label 4 (Butter)
+print("Row 4:")
+print(df.loc[4])
+print()
+# Select rows 0 to 3 (loc is inclusive on both ends!)
+print("Rows 0 to 3:")
+print(df.loc[0:3, ["item", "price"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Key difference — loc vs iloc:</strong><br>
+        <code>df.iloc[0:3]</code> → rows at positions 0, 1, 2 (exclusive end)<br>
+        <code>df.loc[0:3]</code> → rows with labels 0, 1, 2, 3 (inclusive end)<br>
+        With a numeric default index they look similar, but on a date-indexed dataset the difference is critical.
+      </div>
+
+      <h3>Using item names as the index</h3>
+
+      <p>A more natural way to use <code>.loc[]</code> is to set a meaningful column as the index using <code>.set_index()</code>:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+# Set 'item' as the index
+df_indexed = df.set_index("item")
+print(df_indexed.head())
+print()
+# Now look up by name
+print("Price of Salmon:", df_indexed.loc["Salmon", "price"])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 4: value_counts and unique ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>.unique() and .value_counts()</h2>
+
+      <p>Two essential methods for understanding a text column: how many distinct values are there, and how often does each appear?</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+# What categories exist?
+print("Unique categories:", df["category"].unique())
+print("Number of categories:", df["category"].nunique())
+print()
+# How many items per category?
+print("Items per category:")
+print(df["category"].value_counts())</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>.value_counts()</code> returns the counts sorted from most to least frequent. It is one of the most useful tools in exploratory analysis — the equivalent of a quick frequency table. On a real supermarket dataset with thousands of products, it tells you at a glance which categories dominate the catalogue.</p>
+    </section>
+
+    <!-- ── Part 5: Your turn ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Slice and Inspect</h2>
+
+      <p>Work with the grocery DataFrame and answer the following using pandas selection tools:</p>
+      <ul>
+        <li>Select only the <code>item</code>, <code>price</code>, and <code>organic</code> columns.</li>
+        <li>Use <code>.iloc[]</code> to show the first 5 rows of those columns.</li>
+        <li>How many unique units of measurement are there in the dataset?</li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Select three columns
+subset = df[["item", "price", "organic"]]
+print(subset.iloc[0:5])
+print()
+# Unique units
+print("Unique units:", df["unit"].unique())
+print("Number of distinct units:", df["unit"].nunique())</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> how to select one or more columns with <code>[]</code> and <code>[[]]</code>; how to select rows by position with <code>.iloc[]</code> and by label with <code>.loc[]</code>; and how to count distinct values with <code>.unique()</code>, <code>.nunique()</code>, and <code>.value_counts()</code>. Next chapter: filtering rows by condition.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book4-chapter-2.html">Previous: Chapter 2 — Exploring Your Dataset</a>
+        <a href="book4-chapter-4.html">Next: Chapter 4 — Filtering Rows</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and pandas run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book4-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 4 · Chapter Seven — Sorting and New Columns · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 4 · Chapter Seven — Sorting and New Columns · Python for All" />
+  <meta property="og:description" content="Learn data analysis with pandas using real food price examples." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 4 — Data Analysis with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Seven — Sorting and New Columns</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 4 — Data Analysis with Python</p>
+      <ol>
+        <li><a href="book4-chapter-1.html">Chapter 1 — What is pandas?</a></li>
+        <li><a href="book4-chapter-2.html">Chapter 2 — Exploring Your Dataset</a></li>
+        <li><a href="book4-chapter-3.html">Chapter 3 — Selecting Data</a></li>
+        <li><a href="book4-chapter-4.html">Chapter 4 — Filtering Rows</a></li>
+        <li><a href="book4-chapter-5.html">Chapter 5 — Summary Statistics</a></li>
+        <li><a href="book4-chapter-6.html">Chapter 6 — Groupby and Aggregation</a></li>
+        <li><a href="book4-chapter-7.html" class="is-current">Chapter 7 — Sorting and New Columns</a></li>
+        <li><a href="book4-chapter-8.html">Chapter 8 — Cleaning and Final Analysis</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Four · Chapter Seven</p>
+      <h2>Sorting and New Columns</h2>
+      <p class="chapter-desc">Sorting makes patterns visible. Adding computed columns turns raw prices into derived insights — price per gram, affordability scores, percentage change. This chapter covers both.</p>
+    </div>
+
+    <!-- ── Part 1: sort_values ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>.sort_values() — Ordering Your Data</h2>
+
+      <p><span class="dropcap">A</span> table of prices sorted from cheapest to most expensive is far more readable than the same data in arbitrary order. <code>.sort_values()</code> sorts a DataFrame by one or more columns.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — sort ascending (cheapest first)</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Sort by price, cheapest first (ascending is the default)
+df_sorted = df.sort_values("price")
+print(df_sorted[["item", "category", "price"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — sort descending (most expensive first)</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+# Sort descending
+df_desc = df.sort_values("price", ascending=False)
+print(df_desc[["item", "category", "price"]].head(8))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Sort by multiple columns</h3>
+
+      <p>You can sort by more than one column. The first column is the primary sort key; tied rows are then broken by the second column.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — sort by category, then by price</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+df_multi = df.sort_values(["category", "price"])
+print(df_multi[["category", "item", "price"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 2: Adding columns ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Adding New Columns</h2>
+
+      <p>One of the most common data analysis tasks is creating a <em>derived column</em> — a new column calculated from existing ones. You create it simply by assigning to a new column name.</p>
+
+      <h3>A price-per-100g column</h3>
+
+      <p>Our dataset has prices for items sold in different weights. To compare fairly, we need a common unit. The data here uses fixed standard weights for illustration.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — calculated column</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item":      ["Bread", "Pasta", "Rice",  "Cheese", "Chicken", "Salmon"],
+    "price":     [1.29,    1.19,   0.89,    3.79,     4.99,      8.99],
+    "weight_g":  [400,     500,    1000,    200,      1000,      180]
+}
+df = pd.DataFrame(data)
+
+# Calculate price per 100 grams
+df["price_per_100g"] = (df["price"] / df["weight_g"] * 100).round(3)
+
+print(df.sort_values("price_per_100g"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>When you sort by <code>price_per_100g</code>, the true value ranking is different from the raw price ranking. Rice looks cheap at €0.89/kg, but so does pasta once you normalise by weight. Salmon and cheese are significantly more expensive per gram — an insight hidden in the raw prices.</p>
+
+      <h3>A price-above-average flag</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — boolean column</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+mean_price = df["price"].mean()
+df["above_average"] = df["price"] > mean_price
+
+print(f"Mean price: €{mean_price:.2f}")
+print()
+print(df[["item", "price", "above_average"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 3: apply ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>.apply() — Custom Transformations</h2>
+
+      <p>Sometimes you need a transformation that cannot be expressed as simple arithmetic — for example, classifying prices into bands ("budget", "mid-range", "premium"). <code>.apply()</code> lets you run a custom function on each value in a Series.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+# Define a classification function
+def price_band(p):
+    if p < 1.5:
+        return "Budget"
+    elif p < 4.0:
+        return "Mid-range"
+    else:
+        return "Premium"
+
+# Apply it to the price column
+df["band"] = df["price"].apply(price_band)
+
+print(df[["item", "price", "band"]])
+print()
+print("Items per band:")
+print(df["band"].value_counts())</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>When to use .apply():</strong> Use it for logic that cannot be expressed as a vectorised operation (arithmetic, <code>.str</code> methods, comparisons). Avoid it for simple maths — <code>df["price"] * 2</code> is faster and cleaner than <code>df["price"].apply(lambda x: x * 2)</code>.
+      </div>
+    </section>
+
+    <!-- ── Part 4: String methods ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>String Methods with .str</h2>
+
+      <p>pandas exposes Python string methods on text columns through the <code>.str</code> accessor. This lets you clean, search, and transform text without writing loops.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+# Convert item names to uppercase
+print("Uppercase names:")
+print(df["item"].str.upper().head())
+print()
+
+# Find items whose name contains more than one word
+multi_word = df[df["item"].str.contains(" ")]
+print("Items with multi-word names:")
+print(multi_word[["item", "price"]])
+print()
+
+# Length of each item name
+df["name_length"] = df["item"].str.len()
+print("Name lengths:")
+print(df[["item", "name_length"]].sort_values("name_length", ascending=False))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 5: Your turn ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Build a Price Index</h2>
+
+      <p>Create a "value score" column that divides each item's price by the overall mean price. A score below 1.0 means the item is cheaper than average; above 1.0 means it is more expensive. Sort the result from best value to worst.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+mean_price = df["price"].mean()
+df["value_score"] = (df["price"] / mean_price).round(2)
+
+result = df[["item", "category", "price", "value_score"]].sort_values("value_score")
+print(f"(Mean price used as baseline: €{mean_price:.2f})")
+print()
+print(result)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> sorting with <code>.sort_values()</code> by one or multiple columns; creating new columns via arithmetic on existing ones; classifying values into categories using <code>.apply()</code> with a custom function; and using <code>.str</code> methods to work with text columns. In the final chapter, you will learn to handle missing data and put all these skills together in a complete analysis.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book4-chapter-6.html">Previous: Chapter 6 — Groupby and Aggregation</a>
+        <a href="book4-chapter-8.html">Next: Chapter 8 — Cleaning and Final Analysis</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and pandas run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book4-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

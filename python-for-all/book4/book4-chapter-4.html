@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 4 · Chapter Four — Filtering Rows · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 4 · Chapter Four — Filtering Rows · Python for All" />
+  <meta property="og:description" content="Learn data analysis with pandas using real food price examples." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 4 — Data Analysis with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Four — Filtering Rows</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 4 — Data Analysis with Python</p>
+      <ol>
+        <li><a href="book4-chapter-1.html">Chapter 1 — What is pandas?</a></li>
+        <li><a href="book4-chapter-2.html">Chapter 2 — Exploring Your Dataset</a></li>
+        <li><a href="book4-chapter-3.html">Chapter 3 — Selecting Data</a></li>
+        <li><a href="book4-chapter-4.html" class="is-current">Chapter 4 — Filtering Rows</a></li>
+        <li><a href="book4-chapter-5.html">Chapter 5 — Summary Statistics</a></li>
+        <li><a href="book4-chapter-6.html">Chapter 6 — Groupby and Aggregation</a></li>
+        <li><a href="book4-chapter-7.html">Chapter 7 — Sorting and New Columns</a></li>
+        <li><a href="book4-chapter-8.html">Chapter 8 — Cleaning and Final Analysis</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Four · Chapter Four</p>
+      <h2>Filtering Rows</h2>
+      <p class="chapter-desc">The ability to ask precise questions of your data — "show me only items that cost more than €3" or "show me organic dairy products" — is the engine of data journalism. This chapter teaches you boolean filtering in pandas.</p>
+    </div>
+
+    <!-- ── Part 1: Boolean masks ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Boolean Masks — True/False for Every Row</h2>
+
+      <p><span class="dropcap">F</span>iltering in pandas works through a <em>boolean mask</em>: a Series of True/False values, one for each row of the DataFrame. When you apply a comparison to a column, pandas checks every row and returns True if the condition is met and False if not.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Create a boolean mask: which items cost more than €3?
+mask = df["price"] > 3.0
+print(mask)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The result is a Series of True and False values — one per row. Rows 3 (Cheese), 5 (Olive Oil), 11 (Chicken), 12 (Beef), and 13 (Salmon) cost more than €3.00, so they are True. All others are False.</p>
+
+      <p>Now you can use that mask to <em>filter</em> the DataFrame — keep only the rows where the mask is True:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Filter: items that cost more than €3
+expensive = df[df["price"] > 3.0]
+print(expensive)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The pattern is <code>df[condition]</code>. Read it as: "give me the rows of <code>df</code> where the condition is True." Notice that the original row indices are preserved — the row that was number 3 in the original table is still number 3 in the filtered result.</p>
+    </section>
+
+    <!-- ── Part 2: Comparison operators ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Comparison Operators</h2>
+
+      <p>You can use all the standard comparison operators in your conditions:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Items cheaper than €1.00
+cheap = df[df["price"] < 1.0]
+print("Items under €1.00:")
+print(cheap[["item", "price"]])
+print()
+
+# Items in the "Dairy" category (exact string match)
+dairy = df[df["category"] == "Dairy"]
+print("Dairy items:")
+print(dairy[["item", "price"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Operators you can use:</strong><br>
+        <code>==</code> equal to &nbsp;·&nbsp; <code>!=</code> not equal to<br>
+        <code>&gt;</code> greater than &nbsp;·&nbsp; <code>&gt;=</code> greater than or equal<br>
+        <code>&lt;</code> less than &nbsp;·&nbsp; <code>&lt;=</code> less than or equal
+      </div>
+    </section>
+
+    <!-- ── Part 3: Multiple conditions ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Multiple Conditions — &amp; and |</h2>
+
+      <p>Real questions usually involve more than one condition: "show me organic items that cost less than €2" or "show me meat or fish items." pandas uses <code>&amp;</code> for AND and <code>|</code> for OR. Each condition must be wrapped in parentheses.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — AND condition</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Organic items that cost less than €2
+affordable_organic = df[(df["organic"] == True) & (df["price"] < 2.0)]
+print("Affordable organic items:")
+print(affordable_organic[["item", "price", "organic"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — OR condition</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Meat OR Fish items
+protein = df[(df["category"] == "Meat") | (df["category"] == "Fish")]
+print("Protein items (Meat or Fish):")
+print(protein[["item", "category", "price"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Do NOT use Python's <code>and</code> / <code>or</code>:</strong> In pandas filters you must use <code>&amp;</code> and <code>|</code> (bitwise operators), not the words <code>and</code> and <code>or</code>. The word versions operate on single True/False values; the symbol versions work element-by-element across a whole Series. Also, <em>always</em> wrap each condition in parentheses to avoid operator precedence bugs.
+      </div>
+    </section>
+
+    <!-- ── Part 4: isin and negation ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>.isin() and Negation</h2>
+
+      <p>When you want to filter for multiple specific values in one column, writing many OR conditions becomes tedious. <code>.isin()</code> is the clean solution — it checks whether each value belongs to a list you provide.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — .isin()</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Items in Grains or Vegetables category
+staples = df[df["category"].isin(["Grains", "Vegetables"])]
+print("Grains and Vegetables:")
+print(staples[["item", "category", "price"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>To <em>exclude</em> rows that match a condition, put a tilde <code>~</code> before the condition. The tilde means NOT — it flips True to False and vice versa.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — negation with ~</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Everything EXCEPT Dairy
+not_dairy = df[~(df["category"] == "Dairy")]
+print("Non-dairy items:")
+print(not_dairy[["item", "category", "price"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 5: Your turn ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — A Price Analysis</h2>
+
+      <p>Use filtering to answer these questions about the grocery dataset:</p>
+      <ul>
+        <li>Which items are organic <em>and</em> cost more than €2?</li>
+        <li>Which items are from the "Vegetables" or "Grains" category <em>and</em> cost less than €1?</li>
+        <li>How many non-organic items are there? (Hint: filter, then check <code>.shape[0]</code>)</li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Organic items over €2
+print("Organic items over €2:")
+print(df[(df["organic"] == True) & (df["price"] > 2.0)][["item", "price"]])
+print()
+
+# Cheap vegetables or grains (under €1)
+print("Vegetables or Grains under €1:")
+print(df[df["category"].isin(["Vegetables","Grains"]) & (df["price"] < 1.0)][["item","category","price"]])
+print()
+
+# Count non-organic
+non_organic_count = df[df["organic"] == False].shape[0]
+print("Number of non-organic items:", non_organic_count)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> boolean masks and how to apply them to filter rows; comparison operators; combining conditions with <code>&amp;</code> (AND) and <code>|</code> (OR); matching multiple values with <code>.isin()</code>; and inverting conditions with <code>~</code>. In the next chapter you will compute summary statistics on filtered and unfiltered data.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book4-chapter-3.html">Previous: Chapter 3 — Selecting Data</a>
+        <a href="book4-chapter-5.html">Next: Chapter 5 — Summary Statistics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and pandas run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book4-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>
