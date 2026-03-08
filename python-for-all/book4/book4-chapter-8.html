@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 4 · Chapter Eight — Cleaning and Final Analysis · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 4 · Chapter Eight — Cleaning and Final Analysis · Python for All" />
+  <meta property="og:description" content="Learn data analysis with pandas using real food price examples." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 4 — Data Analysis with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Eight — Cleaning and Final Analysis</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 4 — Data Analysis with Python</p>
+      <ol>
+        <li><a href="book4-chapter-1.html">Chapter 1 — What is pandas?</a></li>
+        <li><a href="book4-chapter-2.html">Chapter 2 — Exploring Your Dataset</a></li>
+        <li><a href="book4-chapter-3.html">Chapter 3 — Selecting Data</a></li>
+        <li><a href="book4-chapter-4.html">Chapter 4 — Filtering Rows</a></li>
+        <li><a href="book4-chapter-5.html">Chapter 5 — Summary Statistics</a></li>
+        <li><a href="book4-chapter-6.html">Chapter 6 — Groupby and Aggregation</a></li>
+        <li><a href="book4-chapter-7.html">Chapter 7 — Sorting and New Columns</a></li>
+        <li><a href="book4-chapter-8.html" class="is-current">Chapter 8 — Cleaning and Final Analysis</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Four · Chapter Eight</p>
+      <h2>Cleaning and Final Analysis</h2>
+      <p class="chapter-desc">Real data is messy. Prices go missing. Categories are mislabelled. Entries are duplicated. This chapter teaches you how to detect and handle these problems — and then brings everything together in a complete food price analysis.</p>
+    </div>
+
+    <!-- ── Part 1: Missing values ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Detecting Missing Values</h2>
+
+      <p><span class="dropcap">I</span>n the real world, datasets are never perfect. A price might be missing because a product was out of stock. A category might be blank because it was not recorded. pandas represents missing values as <code>NaN</code> (Not a Number), and it provides methods to find and handle them.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — a messy dataset</div>
+        <textarea>import pandas as pd
+import numpy as np  # for creating NaN values
+
+data = {
+    "item":     ["Bread", "Milk", "Eggs", "Cheese", "Butter", "Olive Oil", "Pasta", "Rice"],
+    "category": ["Bakery", "Dairy", None, "Dairy", "Dairy", None, "Grains", "Grains"],
+    "price":    [1.29, 0.99, np.nan, 3.79, 1.89, 5.49, np.nan, 0.89],
+    "organic":  [False, True, True, False, True, True, False, False]
+}
+df = pd.DataFrame(data)
+
+print("Dataset with missing values:")
+print(df)
+print()
+print("Missing values per column:")
+print(df.isnull().sum())</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>.isnull()</code> returns a boolean DataFrame where <code>True</code> marks every missing value. Calling <code>.sum()</code> on it counts the True values per column — giving you a quick inventory of how much data is missing. This is always one of the first checks in any real-world analysis.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — find rows with any missing value</div>
+        <textarea>import pandas as pd
+import numpy as np
+
+data = {
+    "item":     ["Bread", "Milk", "Eggs", "Cheese", "Butter", "Olive Oil", "Pasta", "Rice"],
+    "category": ["Bakery", "Dairy", None, "Dairy", "Dairy", None, "Grains", "Grains"],
+    "price":    [1.29, 0.99, np.nan, 3.79, 1.89, 5.49, np.nan, 0.89],
+    "organic":  [False, True, True, False, True, True, False, False]
+}
+df = pd.DataFrame(data)
+
+# Rows with at least one missing value
+rows_with_missing = df[df.isnull().any(axis=1)]
+print("Rows with missing values:")
+print(rows_with_missing)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 2: dropna and fillna ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>.dropna() and .fillna() — Handling Missing Data</h2>
+
+      <p>Once you know where the missing values are, you have two main options: drop the affected rows, or fill in the missing values with a substitute.</p>
+
+      <h3>.dropna() — remove rows with missing values</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — drop rows with any NaN</div>
+        <textarea>import pandas as pd
+import numpy as np
+
+data = {
+    "item":     ["Bread", "Milk", "Eggs", "Cheese", "Butter", "Olive Oil", "Pasta", "Rice"],
+    "category": ["Bakery", "Dairy", None, "Dairy", "Dairy", None, "Grains", "Grains"],
+    "price":    [1.29, 0.99, np.nan, 3.79, 1.89, 5.49, np.nan, 0.89],
+    "organic":  [False, True, True, False, True, True, False, False]
+}
+df = pd.DataFrame(data)
+
+print(f"Rows before: {df.shape[0]}")
+df_clean = df.dropna()
+print(f"Rows after dropna: {df_clean.shape[0]}")
+print()
+print(df_clean)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.fillna() — replace missing values</h3>
+
+      <p>Sometimes dropping rows loses too much data. <code>.fillna()</code> replaces <code>NaN</code> with a value you specify — the mean, a fixed default, or a placeholder string.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — fill missing values</div>
+        <textarea>import pandas as pd
+import numpy as np
+
+data = {
+    "item":     ["Bread", "Milk", "Eggs", "Cheese", "Butter", "Olive Oil", "Pasta", "Rice"],
+    "category": ["Bakery", "Dairy", None, "Dairy", "Dairy", None, "Grains", "Grains"],
+    "price":    [1.29, 0.99, np.nan, 3.79, 1.89, 5.49, np.nan, 0.89],
+    "organic":  [False, True, True, False, True, True, False, False]
+}
+df = pd.DataFrame(data)
+
+# Fill missing prices with the mean price
+mean_price = df["price"].mean()
+df["price"] = df["price"].fillna(mean_price)
+
+# Fill missing categories with "Unknown"
+df["category"] = df["category"].fillna("Unknown")
+
+print(f"Mean price used to fill gaps: €{mean_price:.2f}")
+print()
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Choosing a strategy:</strong> Dropping rows is safe when missing data is rare and random. Filling with the mean is common for prices, but it can distort analysis if many values are missing. Always document which strategy you chose and why — it is part of your methodology.
+      </div>
+    </section>
+
+    <!-- ── Part 3: Renaming and deduplication ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Renaming Columns and Removing Duplicates</h2>
+
+      <h3>.rename() — fix column names</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "Item Name": ["Bread", "Milk", "Eggs"],
+    "PRICE €":   [1.29, 0.99, 2.49],
+    "cat":       ["Bakery", "Dairy", "Dairy"]
+}
+df = pd.DataFrame(data)
+
+print("Before rename:")
+print(df.columns.tolist())
+
+df = df.rename(columns={
+    "Item Name": "item",
+    "PRICE €":   "price",
+    "cat":       "category"
+})
+
+print("After rename:")
+print(df.columns.tolist())
+print()
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.drop_duplicates() — remove repeated rows</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item":  ["Bread", "Milk", "Bread", "Eggs", "Milk"],
+    "price": [1.29,    0.99,   1.29,    2.49,   0.99]
+}
+df = pd.DataFrame(data)
+
+print(f"Rows before deduplication: {df.shape[0]}")
+df_unique = df.drop_duplicates()
+print(f"Rows after deduplication:  {df_unique.shape[0]}")
+print()
+print(df_unique)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 4: Complete analysis ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Putting It All Together — A Complete Food Price Analysis</h2>
+
+      <p>You now have all the tools needed to conduct a full data analysis. Below is a complete, commented script that takes a raw (and slightly messy) price survey dataset, cleans it, and produces a set of findings you could publish.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Complete analysis</div>
+        <textarea>import pandas as pd
+import numpy as np
+
+# ── 1. Load the raw data ──────────────────────────────────────────
+raw = {
+    "item": [
+        "Bread", "Milk", "Eggs", "Cheese", "Butter",
+        "Olive Oil", "Pasta", "Rice", "Tomatoes", "Onions",
+        "Potatoes", "Chicken", "Beef", "Salmon", "Tuna",
+        "Bread"  # duplicate entry
+    ],
+    "category": [
+        "Bakery", "Dairy", "Dairy", "Dairy", "Dairy",
+        "Oils", "Grains", "Grains", "Vegetables", "Vegetables",
+        "Vegetables", "Meat", "Meat", "Fish", "Fish",
+        "Bakery"
+    ],
+    "price": [
+        1.29, 0.99, np.nan, 3.79, 1.89,
+        5.49, 1.19, 0.89, 1.49, 0.69,
+        0.79, 4.99, 7.49, 8.99, 1.59,
+        1.29
+    ],
+    "organic": [
+        False, True, True, False, True,
+        True, False, False, True, True,
+        False, True, False, True, False,
+        False
+    ]
+}
+df = pd.DataFrame(raw)
+
+print(f"Raw dataset: {df.shape[0]} rows, {df.shape[1]} columns")
+print(f"Missing values: {df.isnull().sum().sum()}")
+print(f"Duplicate rows: {df.duplicated().sum()}")
+
+# ── 2. Clean ─────────────────────────────────────────────────────
+# Fill missing prices with category median (better than overall mean)
+df["price"] = df.groupby("category")["price"].transform(
+    lambda x: x.fillna(x.median())
+)
+# Remove duplicates
+df = df.drop_duplicates()
+
+print(f"\nClean dataset: {df.shape[0]} rows")
+
+# ── 3. Enrich ────────────────────────────────────────────────────
+# Add a price band column
+def band(p):
+    if p < 1.5:   return "Budget"
+    elif p < 4.0: return "Mid-range"
+    else:         return "Premium"
+
+df["band"] = df["price"].apply(band)
+
+# ── 4. Analyse ───────────────────────────────────────────────────
+print("\n=== FINDINGS ===\n")
+
+# Average price by category (sorted)
+cat_avg = df.groupby("category")["price"].mean().sort_values()
+print("Average price by category:")
+for cat, avg in cat_avg.items():
+    print(f"  {cat:<12} €{avg:.2f}")
+
+print()
+
+# Organic premium
+organic_avg    = df[df["organic"] == True]["price"].mean()
+nonorganic_avg = df[df["organic"] == False]["price"].mean()
+premium = organic_avg - nonorganic_avg
+print(f"Organic average:     €{organic_avg:.2f}")
+print(f"Non-organic average: €{nonorganic_avg:.2f}")
+print(f"Organic premium:     €{premium:.2f} ({premium/nonorganic_avg*100:.0f}%)")
+
+print()
+
+# Budget items
+budget_items = df[df["band"] == "Budget"].sort_values("price")
+print(f"Budget items (under €1.50): {len(budget_items)}")
+print(budget_items[["item", "price"]].to_string(index=False))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Read through the script section by section. Notice how each step builds on the previous one: load → clean → enrich → analyse. This is the standard structure of any data analysis pipeline, whether you are working with 15 rows or 15 million.</p>
+    </section>
+
+    <!-- ── Part 5: Final project ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Final Project — Your Own Price Survey</h2>
+
+      <p>Build a complete analysis of your own food price dataset. Walk to a local supermarket or browse an online grocery store and record the prices of 15–20 items. Then, using the full toolkit from this book, answer:</p>
+      <ul>
+        <li>What are the three most expensive categories?</li>
+        <li>What is the organic premium in your market?</li>
+        <li>Which items represent the best value (lowest price-to-median ratio)?</li>
+        <li>Are there any suspicious outliers in your data?</li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your final project — replace the data with your own</div>
+        <textarea>import pandas as pd
+
+# Replace this with your own survey data
+my_data = {
+    "item":     ["Bread", "Milk", "Eggs", "Cheese", "Tomatoes",
+                 "Chicken", "Pasta", "Rice", "Olive Oil", "Yoghurt"],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy", "Vegetables",
+                 "Meat", "Grains", "Grains", "Oils", "Dairy"],
+    "price":    [1.49, 1.09, 2.79, 4.29, 1.69,
+                 5.49, 1.39, 0.99, 6.29, 0.89],
+    "organic":  [False, True, False, False, True,
+                 False, False, False, True, True]
+}
+df = pd.DataFrame(my_data)
+
+# --- Your analysis below ---
+print("=== MY MARKET PRICE SURVEY ===\n")
+
+print("Dataset overview:")
+print(f"  {df.shape[0]} items across {df['category'].nunique()} categories\n")
+
+print("Price summary:")
+print(f"  Cheapest:  {df.loc[df['price'].idxmin(), 'item']} (€{df['price'].min():.2f})")
+print(f"  Priciest:  {df.loc[df['price'].idxmax(), 'item']} (€{df['price'].max():.2f})")
+print(f"  Mean:      €{df['price'].mean():.2f}")
+print(f"  Median:    €{df['price'].median():.2f}\n")
+
+print("Average price by category:")
+cat_summary = df.groupby("category")["price"].mean().sort_values(ascending=False).round(2)
+print(cat_summary.to_string())
+print()
+
+organic_avg    = df[df["organic"]]["price"].mean()
+nonorganic_avg = df[~df["organic"]]["price"].mean()
+print(f"Organic premium: €{(organic_avg - nonorganic_avg):.2f}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Congratulations — you have completed Book 4.</strong> You can now load, inspect, clean, filter, aggregate, sort, and enrich tabular data using pandas. These are the core skills of data journalism and data science. The next book covers web scraping: how to collect data automatically from websites using Python — the first step in building your own datasets from scratch.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book4-chapter-7.html">Previous: Chapter 7 — Sorting and New Columns</a>
+        <a href="../index.html">Back to Course Home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and pandas run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book4-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

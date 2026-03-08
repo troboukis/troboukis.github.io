@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 4 · Chapter Five — Summary Statistics · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 4 · Chapter Five — Summary Statistics · Python for All" />
+  <meta property="og:description" content="Learn data analysis with pandas using real food price examples." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 4 — Data Analysis with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Five — Summary Statistics</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 4 — Data Analysis with Python</p>
+      <ol>
+        <li><a href="book4-chapter-1.html">Chapter 1 — What is pandas?</a></li>
+        <li><a href="book4-chapter-2.html">Chapter 2 — Exploring Your Dataset</a></li>
+        <li><a href="book4-chapter-3.html">Chapter 3 — Selecting Data</a></li>
+        <li><a href="book4-chapter-4.html">Chapter 4 — Filtering Rows</a></li>
+        <li><a href="book4-chapter-5.html" class="is-current">Chapter 5 — Summary Statistics</a></li>
+        <li><a href="book4-chapter-6.html">Chapter 6 — Groupby and Aggregation</a></li>
+        <li><a href="book4-chapter-7.html">Chapter 7 — Sorting and New Columns</a></li>
+        <li><a href="book4-chapter-8.html">Chapter 8 — Cleaning and Final Analysis</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Four · Chapter Five</p>
+      <h2>Summary Statistics</h2>
+      <p class="chapter-desc">Numbers in a column are raw material. Statistics — mean, median, standard deviation, percentiles — turn that raw material into findings you can report. This chapter covers every essential statistical method in pandas.</p>
+    </div>
+
+    <!-- ── Part 1: Core methods ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>The Core Statistical Methods</h2>
+
+      <p><span class="dropcap">E</span>very numeric Series in pandas has a full set of statistical methods built in. You call them directly on a column. Here are the ones you will reach for most often.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — all the basics</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+prices = df["price"]
+
+print(f"Count:    {prices.count()}")
+print(f"Sum:      €{prices.sum():.2f}")
+print(f"Mean:     €{prices.mean():.2f}")
+print(f"Median:   €{prices.median():.2f}")
+print(f"Std dev:  €{prices.std():.2f}")
+print(f"Min:      €{prices.min():.2f}")
+print(f"Max:      €{prices.max():.2f}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Notice that the <em>mean</em> (€2.94) is noticeably higher than the <em>median</em> (€1.89). This happens because a few very expensive items — Salmon at €8.99, Beef at €7.49 — pull the average up, while the majority of items are inexpensive staples. The median, being the middle value, is more robust to these extremes.</p>
+
+      <div class="callout">
+        <strong>Mean vs median:</strong> When reporting a "typical" price, journalists often prefer the median because it is not skewed by outliers. The mean is useful when you want to calculate totals (e.g., the average spend per item times the number of items). Always think about which measure tells the more honest story.
+      </div>
+    </section>
+
+    <!-- ── Part 2: Percentiles and spread ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Percentiles and the Spread of Prices</h2>
+
+      <p>Percentiles divide your data into hundredths. The 25th percentile (Q1) is the value below which 25% of the data falls. The 50th percentile is the median. The 75th percentile (Q3) is the value below which 75% of the data falls.</p>
+
+      <p>The gap between Q1 and Q3 is called the <em>interquartile range (IQR)</em> — a robust measure of spread that is not influenced by extreme values.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — percentiles</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+prices = df["price"]
+q1 = prices.quantile(0.25)
+q3 = prices.quantile(0.75)
+iqr = q3 - q1
+
+print(f"25th percentile (Q1): €{q1:.2f}")
+print(f"50th percentile (Q2): €{prices.median():.2f}")
+print(f"75th percentile (Q3): €{q3:.2f}")
+print(f"Interquartile range:  €{iqr:.2f}")
+print()
+print("Items above the 75th percentile (expensive):")
+print(df[df["price"] > q3][["item", "price"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Items above the 75th percentile cost more than €4.14. That threshold tells you which items are in the top quarter of prices for this market — a useful data point for a story about food affordability.</p>
+    </section>
+
+    <!-- ── Part 3: Statistics on filtered data ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Statistics on Filtered Data</h2>
+
+      <p>You can chain filtering and statistics together. This is where the power of pandas really begins to show. A question like "what is the average price of organic items?" becomes a single readable line.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Average price: organic vs non-organic
+avg_organic     = df[df["organic"] == True]["price"].mean()
+avg_nonorganic  = df[df["organic"] == False]["price"].mean()
+
+print(f"Average price (organic):     €{avg_organic:.2f}")
+print(f"Average price (non-organic): €{avg_nonorganic:.2f}")
+print(f"Organic premium:             €{(avg_organic - avg_nonorganic):.2f}")
+print()
+
+# Most expensive and cheapest categories (by average)
+for cat in df["category"].unique():
+    avg = df[df["category"] == cat]["price"].mean()
+    print(f"{cat:<12}  avg €{avg:.2f}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>You can see that organic items are on average more expensive — but that the gap is partly explained by which categories are organic. A rigorous comparison would control for category (see Chapter 6).</p>
+    </section>
+
+    <!-- ── Part 4: idxmin and idxmax ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Finding the Extreme Items — .idxmin() and .idxmax()</h2>
+
+      <p>Knowing the minimum or maximum value is useful. Knowing <em>which row</em> has the minimum or maximum is even more useful. <code>.idxmin()</code> and <code>.idxmax()</code> return the index label of the extreme value, which you can then use to look up the full row.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Which row has the cheapest item?
+cheapest_idx = df["price"].idxmin()
+cheapest_row = df.loc[cheapest_idx]
+print("Cheapest item:")
+print(cheapest_row)
+print()
+
+# Which row has the most expensive item?
+priciest_idx = df["price"].idxmax()
+priciest_row = df.loc[priciest_idx]
+print("Most expensive item:")
+print(priciest_row)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 5: Your turn ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — A Cost-of-Living Report</h2>
+
+      <p>Imagine you are writing a short data-driven report on food affordability. Use the statistics tools to answer these questions:</p>
+      <ul>
+        <li>What percentage of items cost more than the mean price? (Hint: filter, count, divide by total rows.)</li>
+        <li>What is the price range (max − min) for vegetables?</li>
+        <li>Is the median price of dairy higher or lower than the overall median?</li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+mean_price = df["price"].mean()
+above_mean = df[df["price"] > mean_price].shape[0]
+pct_above  = above_mean / df.shape[0] * 100
+print(f"Mean price: €{mean_price:.2f}")
+print(f"Items above mean: {above_mean} ({pct_above:.0f}%)")
+print()
+
+veg = df[df["category"] == "Vegetables"]["price"]
+print(f"Vegetable price range: €{veg.min():.2f} – €{veg.max():.2f}")
+print()
+
+dairy_median   = df[df["category"] == "Dairy"]["price"].median()
+overall_median = df["price"].median()
+print(f"Dairy median:   €{dairy_median:.2f}")
+print(f"Overall median: €{overall_median:.2f}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> <code>.count()</code>, <code>.sum()</code>, <code>.mean()</code>, <code>.median()</code>, <code>.std()</code>, <code>.min()</code>, <code>.max()</code>; computing percentiles with <code>.quantile()</code>; combining filtering and statistics to compare subgroups; and finding extreme rows with <code>.idxmin()</code> and <code>.idxmax()</code>. Next chapter: groupby — computing statistics for every category at once.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book4-chapter-4.html">Previous: Chapter 4 — Filtering Rows</a>
+        <a href="book4-chapter-6.html">Next: Chapter 6 — Groupby and Aggregation</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and pandas run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book4-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

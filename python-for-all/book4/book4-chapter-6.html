@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 4 · Chapter Six — Groupby and Aggregation · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 4 · Chapter Six — Groupby and Aggregation · Python for All" />
+  <meta property="og:description" content="Learn data analysis with pandas using real food price examples." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 4 — Data Analysis with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Six — Groupby and Aggregation</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 4 — Data Analysis with Python</p>
+      <ol>
+        <li><a href="book4-chapter-1.html">Chapter 1 — What is pandas?</a></li>
+        <li><a href="book4-chapter-2.html">Chapter 2 — Exploring Your Dataset</a></li>
+        <li><a href="book4-chapter-3.html">Chapter 3 — Selecting Data</a></li>
+        <li><a href="book4-chapter-4.html">Chapter 4 — Filtering Rows</a></li>
+        <li><a href="book4-chapter-5.html">Chapter 5 — Summary Statistics</a></li>
+        <li><a href="book4-chapter-6.html" class="is-current">Chapter 6 — Groupby and Aggregation</a></li>
+        <li><a href="book4-chapter-7.html">Chapter 7 — Sorting and New Columns</a></li>
+        <li><a href="book4-chapter-8.html">Chapter 8 — Cleaning and Final Analysis</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Four · Chapter Six</p>
+      <h2>Groupby and Aggregation</h2>
+      <p class="chapter-desc">The single most powerful pattern in data analysis: split your data into groups, compute a statistic for each group, and compare. pandas makes this a one-liner with .groupby().</p>
+    </div>
+
+    <!-- ── Part 1: The concept ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Split–Apply–Combine</h2>
+
+      <p><span class="dropcap">I</span>n Chapter 5 you computed average prices by filtering for each category individually — one filter call per category. That works for five categories. It does not scale to fifty, or five hundred. <code>.groupby()</code> solves this elegantly.</p>
+
+      <p>The idea behind groupby is called <em>split–apply–combine</em>:</p>
+      <ol>
+        <li><strong>Split</strong> — divide the DataFrame into groups based on the values of one column.</li>
+        <li><strong>Apply</strong> — compute a statistic (mean, sum, count…) for each group independently.</li>
+        <li><strong>Combine</strong> — gather the results into a new table, one row per group.</li>
+      </ol>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — groupby mean</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Average price per category
+avg_by_cat = df.groupby("category")["price"].mean()
+print(avg_by_cat)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>In one line you get the mean price for every category at once. The result is a Series with the category names as the index. From this alone you can already report: meat and fish are by far the most expensive categories; grains and vegetables are the most affordable.</p>
+    </section>
+
+    <!-- ── Part 2: Different aggregations ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Different Aggregations</h2>
+
+      <p>You can call any of the statistical methods from Chapter 5 on a grouped Series: <code>.mean()</code>, <code>.median()</code>, <code>.sum()</code>, <code>.min()</code>, <code>.max()</code>, <code>.count()</code>, <code>.std()</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+grouped = df.groupby("category")["price"]
+
+print("Number of items per category:")
+print(grouped.count())
+print()
+print("Most expensive item in each category:")
+print(grouped.max())
+print()
+print("Total cost if you bought one of each per category:")
+print(grouped.sum().round(2))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 3: .agg() for multiple stats ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>.agg() — Multiple Statistics at Once</h2>
+
+      <p>When you want several statistics per group simultaneously, <code>.agg()</code> (short for <em>aggregate</em>) lets you pass a list of function names. The result is a clean table — perfect for a published data summary.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — .agg() with a list</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+summary = df.groupby("category")["price"].agg(["count", "mean", "median", "min", "max"])
+summary = summary.round(2)
+print(summary)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>This is publication-ready output. You can see at a glance that the Fish category has the widest range (€1.59 to €8.99) and the Meat category has the highest mean price per item. This type of table is the backbone of most data-driven food price stories.</p>
+
+      <div class="callout">
+        <strong>Naming your columns:</strong> You can give the aggregated columns custom names using a dictionary inside <code>.agg()</code>:<br>
+        <code>df.groupby("category")["price"].agg(items="count", avg="mean", max_price="max")</code>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — named aggregations</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+summary = df.groupby("category")["price"].agg(
+    items="count",
+    avg_price="mean",
+    max_price="max"
+).round(2)
+
+print(summary)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <!-- ── Part 4: Groupby multiple columns ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Groupby Multiple Columns</h2>
+
+      <p>You can group by more than one column at a time by passing a list to <code>.groupby()</code>. The result has a <em>multi-level index</em> — one level per grouping column. This lets you cross-tabulate, for example: average price by category <em>and</em> organic status.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — two-column groupby</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Average price by category and organic status
+cross = df.groupby(["category", "organic"])["price"].mean().round(2)
+print(cross)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The output shows a <em>MultiIndex</em> — categories on the outer level, True/False on the inner level. For categories where only organic or only non-organic items exist (like Bakery), only one row appears. This kind of cross-tabulation is extremely useful for investigating whether the organic premium varies by food category.</p>
+    </section>
+
+    <!-- ── Part 5: Your turn ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Category Price Report</h2>
+
+      <p>Use <code>.groupby()</code> and <code>.agg()</code> to build a summary table that a journalist could use in a food price article. Include: number of items per category, average price, and the range (max − min) per category.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+report = df.groupby("category")["price"].agg(
+    items="count",
+    avg="mean",
+    lowest="min",
+    highest="max"
+).round(2)
+
+# Add a "range" column manually
+report["range"] = (report["highest"] - report["lowest"]).round(2)
+
+print("=== Food Price Summary by Category ===")
+print(report)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> the split–apply–combine concept; <code>.groupby()</code> with a single column and with multiple columns; computing statistics per group; using <code>.agg()</code> to get multiple statistics in one table; and naming aggregated columns. Next chapter: sorting results and adding computed columns to your DataFrame.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book4-chapter-5.html">Previous: Chapter 5 — Summary Statistics</a>
+        <a href="book4-chapter-7.html">Next: Chapter 7 — Sorting and New Columns</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and pandas run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book4-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

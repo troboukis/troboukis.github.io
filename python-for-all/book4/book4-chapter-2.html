@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 4 · Chapter Two — Exploring Your Dataset · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 4 · Chapter Two — Exploring Your Dataset · Python for All" />
+  <meta property="og:description" content="Learn data analysis with pandas using real food price examples." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 4 — Data Analysis with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Two — Exploring Your Dataset</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 4 — Data Analysis with Python</p>
+      <ol>
+        <li><a href="book4-chapter-1.html">Chapter 1 — What is pandas?</a></li>
+        <li><a href="book4-chapter-2.html" class="is-current">Chapter 2 — Exploring Your Dataset</a></li>
+        <li><a href="book4-chapter-3.html">Chapter 3 — Selecting Data</a></li>
+        <li><a href="book4-chapter-4.html">Chapter 4 — Filtering Rows</a></li>
+        <li><a href="book4-chapter-5.html">Chapter 5 — Summary Statistics</a></li>
+        <li><a href="book4-chapter-6.html">Chapter 6 — Groupby and Aggregation</a></li>
+        <li><a href="book4-chapter-7.html">Chapter 7 — Sorting and New Columns</a></li>
+        <li><a href="book4-chapter-8.html">Chapter 8 — Cleaning and Final Analysis</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Four · Chapter Two</p>
+      <h2>Exploring Your Dataset</h2>
+      <p class="chapter-desc">When you receive a new dataset, the first thing you do is look around. pandas gives you a set of quick-inspection tools that tell you the size, shape, and contents of your data in seconds.</p>
+    </div>
+
+    <!-- ── Part 1: The dataset ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>The Dataset We Will Work With</h2>
+
+      <p><span class="dropcap">T</span>hroughout this chapter — and the rest of Book 4 — we will work with a grocery price survey. Imagine a market reporter has recorded the price of 15 common food items, their category, unit of measurement, and whether they are organically certified. This kind of data is the raw material of food price journalism and consumer research.</p>
+
+      <p>Run the cell below to create our dataset. You will use this same table for all the exercises in this chapter.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Run this first</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": [
+        "Bread", "Milk", "Eggs", "Cheese", "Butter",
+        "Olive Oil", "Pasta", "Rice", "Tomatoes", "Onions",
+        "Potatoes", "Chicken", "Beef", "Salmon", "Tuna"
+    ],
+    "category": [
+        "Bakery", "Dairy", "Dairy", "Dairy", "Dairy",
+        "Oils", "Grains", "Grains", "Vegetables", "Vegetables",
+        "Vegetables", "Meat", "Meat", "Fish", "Fish"
+    ],
+    "price": [
+        1.29, 0.99, 2.49, 3.79, 1.89,
+        5.49, 1.19, 0.89, 1.49, 0.69,
+        0.79, 4.99, 7.49, 8.99, 1.59
+    ],
+    "unit": [
+        "loaf", "litre", "dozen", "200g", "250g",
+        "500ml", "500g", "kg", "kg", "kg",
+        "kg", "kg", "kg", "fillet", "can"
+    ],
+    "organic": [
+        False, True, True, False, True,
+        True, False, False, True, True,
+        False, True, False, True, False
+    ]
+}
+
+df = pd.DataFrame(data)
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>That is 15 rows and 5 columns — a modest but realistic slice of a supermarket price list. Now let us learn how to interrogate it.</p>
+    </section>
+
+    <!-- ── Part 2: shape, columns, dtypes ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Shape, Columns, and Data Types</h2>
+
+      <p>The first questions you ask about any dataset are: <em>how big is it?</em> and <em>what kind of data does it contain?</em> pandas answers both in one line each.</p>
+
+      <h3>.shape — how many rows and columns?</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+print("Shape:", df.shape)
+print("Rows:", df.shape[0])
+print("Columns:", df.shape[1])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>df.shape</code> returns a tuple: <code>(rows, columns)</code>. On a real dataset with hundreds of thousands of rows, this is the very first thing you check. Real-world data files often contain far more rows than you expect.</p>
+
+      <h3>.columns and .dtypes — what are the fields?</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+print("Column names:")
+print(df.columns.tolist())
+print()
+print("Data types:")
+print(df.dtypes)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The <code>dtypes</code> output tells you how pandas has interpreted each column. <code>object</code> is the pandas term for text (strings). <code>float64</code> means decimal numbers. <code>bool</code> means True/False. Knowing the data type of each column matters because many pandas operations only work on numeric columns.</p>
+
+      <div class="callout">
+        <strong>Common data types:</strong> <code>int64</code> — whole numbers &nbsp;·&nbsp; <code>float64</code> — decimals &nbsp;·&nbsp; <code>object</code> — text &nbsp;·&nbsp; <code>bool</code> — True/False &nbsp;·&nbsp; <code>datetime64</code> — dates and times
+      </div>
+    </section>
+
+    <!-- ── Part 3: head and tail ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>.head() and .tail() — Peeking at the Data</h2>
+
+      <p>When a dataset has thousands of rows, printing the whole thing is unhelpful. pandas provides two methods for a quick look at the top or bottom of the table.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Show first 5 rows (default)
+print("--- First 5 rows ---")
+print(df.head())
+print()
+# Show last 3 rows
+print("--- Last 3 rows ---")
+print(df.tail(3))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>By default, <code>.head()</code> shows the first 5 rows and <code>.tail()</code> shows the last 5. Pass a number to get a different count: <code>.head(10)</code>, <code>.tail(3)</code>. Professional data analysts almost always start an exploration session by calling <code>.head()</code> immediately after loading a file.</p>
+    </section>
+
+    <!-- ── Part 4: describe ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>.describe() — Instant Summary Statistics</h2>
+
+      <p>One of the most powerful quick-look tools in pandas is <code>.describe()</code>. Call it on a DataFrame and you get a full statistical summary of every numeric column in a single table.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+print(df.describe())</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Read the output row by row:</p>
+      <ul>
+        <li><strong>count</strong> — how many non-missing values exist (useful for spotting missing data)</li>
+        <li><strong>mean</strong> — the average value</li>
+        <li><strong>std</strong> — standard deviation, a measure of how spread out the values are</li>
+        <li><strong>min / max</strong> — the smallest and largest values</li>
+        <li><strong>25% / 50% / 75%</strong> — the quartiles; 50% is the median</li>
+      </ul>
+
+      <p>From this one table you can already see that the median food price (50th percentile) is €1.49, but the mean is dragged up to €2.94 by the expensive fish and meat items. That gap between mean and median is a classic sign of a right-skewed distribution.</p>
+
+      <div class="callout">
+        <strong>Include text columns:</strong> By default, <code>.describe()</code> only summarises numeric columns. To include text columns too, use <code>df.describe(include="all")</code>. This adds <code>count</code>, <code>unique</code>, <code>top</code> (most common value), and <code>freq</code> (how often it appears) for text columns.
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — describe all columns</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+print(df.describe(include="all"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The <code>top</code> and <code>freq</code> rows for the <code>category</code> column tell you that <em>Dairy</em> is the most common category, appearing 4 times — something you might not have noticed by eye.</p>
+    </section>
+
+    <!-- ── Part 5: Your turn ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — First Look at a New Dataset</h2>
+
+      <p>Below is a second dataset — weekly prices at a different market. Use the exploration tools you have learned to answer these questions without reading the raw data by eye:</p>
+      <ul>
+        <li>How many rows and columns does the dataset have?</li>
+        <li>What data types are the columns?</li>
+        <li>What is the most expensive item?</li>
+        <li>What is the average price?</li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import pandas as pd
+
+market_b = {
+    "item": [
+        "Sourdough", "Yoghurt", "Feta", "Lentils", "Chickpeas",
+        "Spinach", "Aubergine", "Courgette", "Lamb", "Sardines",
+        "Walnuts", "Honey", "Orange Juice", "Butter", "Cream"
+    ],
+    "price": [
+        2.49, 1.19, 2.99, 0.89, 1.09,
+        1.29, 0.99, 0.79, 9.49, 2.19,
+        3.49, 4.99, 1.89, 2.29, 1.49
+    ],
+    "category": [
+        "Bakery", "Dairy", "Dairy", "Legumes", "Legumes",
+        "Vegetables", "Vegetables", "Vegetables", "Meat", "Fish",
+        "Nuts", "Pantry", "Drinks", "Dairy", "Dairy"
+    ]
+}
+df_b = pd.DataFrame(market_b)
+
+# Explore the dataset — use .shape, .dtypes, .head(), .describe()
+print("Shape:", df_b.shape)
+print()
+print(df_b.describe())</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> how to inspect a new dataset with <code>.shape</code>, <code>.columns</code>, <code>.dtypes</code>, <code>.head()</code>, <code>.tail()</code>, and <code>.describe()</code>. These six tools are the first things every data analyst runs on any new file. In the next chapter you will learn to select specific rows and columns.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book4-chapter-1.html">Previous: Chapter 1 — What is pandas?</a>
+        <a href="book4-chapter-3.html">Next: Chapter 3 — Selecting Data</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and pandas run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book4-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

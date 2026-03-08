@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 4 · Chapter One — What is pandas? · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 4 · Chapter One — What is pandas? · Python for All" />
+  <meta property="og:description" content="Learn data analysis with pandas using real food price examples." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 4 — Data Analysis with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter One — What is pandas?</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <p class="toc-title">Book 4 — Data Analysis with Python</p>
+      <ol>
+        <li><a href="book4-chapter-1.html" class="is-current">Chapter 1 — What is pandas?</a></li>
+        <li><a href="book4-chapter-2.html">Chapter 2 — Exploring Your Dataset</a></li>
+        <li><a href="book4-chapter-3.html">Chapter 3 — Selecting Data</a></li>
+        <li><a href="book4-chapter-4.html">Chapter 4 — Filtering Rows</a></li>
+        <li><a href="book4-chapter-5.html">Chapter 5 — Summary Statistics</a></li>
+        <li><a href="book4-chapter-6.html">Chapter 6 — Groupby and Aggregation</a></li>
+        <li><a href="book4-chapter-7.html">Chapter 7 — Sorting and New Columns</a></li>
+        <li><a href="book4-chapter-8.html">Chapter 8 — Cleaning and Final Analysis</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Four · Chapter One</p>
+      <h2>What is pandas?</h2>
+      <p class="chapter-desc">pandas is the most widely used Python library for working with data. In this chapter you create your first tables of data and learn to read them, column by column and row by row.</p>
+    </div>
+
+    <!-- ── Part 1: What is pandas ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>The Library That Changed Data Analysis</h2>
+
+      <p><span class="dropcap">E</span>very time a data journalist compares prices across supermarkets, or a researcher tracks food inflation over time, or a public health official monitors which regions have the highest cost of living — they are likely working with <strong>pandas</strong>. It is the standard Python library for loading, cleaning, transforming, and analysing tabular data: data arranged in rows and columns, like a spreadsheet.</p>
+
+      <p>The name comes from <em>panel data</em>, an econometrics term for datasets that track multiple subjects over multiple time periods. But you do not need to know econometrics. You just need to know that pandas gives you two powerful tools: the <strong>Series</strong> (a single column of data) and the <strong>DataFrame</strong> (a full table with rows and columns).</p>
+
+      <p>Before you can use pandas, you import it. By convention, every data analyst in the world uses the same abbreviation:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+print("pandas version:", pd.__version__)
+print("pandas is ready!")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The phrase <code>import pandas as pd</code> loads the library and gives it the short name <code>pd</code>. From this point on, every pandas tool is accessed by typing <code>pd.</code> followed by its name. This is the very first line of virtually every data analysis script ever written in Python.</p>
+
+      <div class="callout">
+        <strong>Note on load time:</strong> The first time you press Run in a book4 chapter, the page loads both Python and the pandas library. This can take 5–15 seconds. After that, all cells run instantly.
+      </div>
+    </section>
+
+    <!-- ── Part 2: Series ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Series — A Single Column of Data</h2>
+
+      <p>The simplest pandas object is a <strong>Series</strong>: an ordered list of values, each with a label called an <em>index</em>. Think of it as a single column from a spreadsheet — for example, a list of food prices.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+prices = pd.Series([1.29, 0.99, 2.49, 3.79, 5.49])
+print(prices)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The numbers on the left (0, 1, 2 …) are the default <em>index</em> — automatic labels that pandas assigns when you do not specify your own. The numbers on the right are the values. At the bottom, pandas tells you the data type: <code>float64</code> means decimal numbers stored with 64-bit precision.</p>
+
+      <p>A more useful Series labels each value explicitly. Here, the index is the name of the food item:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+prices = pd.Series(
+    [1.29, 0.99, 2.49, 3.79, 5.49],
+    index=["Bread", "Milk", "Eggs", "Cheese", "Olive Oil"]
+)
+print(prices)
+print()
+print("Olive Oil costs:", prices["Olive Oil"])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>You access a single value by putting its label inside square brackets. This is just like looking up a word in a dictionary — the label is the key, the price is the value.</p>
+
+      <div class="callout">
+        <strong>Series arithmetic:</strong> You can do maths on an entire Series at once. Try adding <code>print(prices * 1.1)</code> to the cell above and running it again. pandas applies the operation to every item automatically — no loop needed.
+      </div>
+    </section>
+
+    <!-- ── Part 3: DataFrame ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>DataFrame — A Full Table of Data</h2>
+
+      <p>A <strong>DataFrame</strong> is a table: rows and columns, like a spreadsheet. Each column is a Series. The columns can hold different types of data — names, prices, categories, booleans — as long as each column is consistent within itself.</p>
+
+      <p>The most common way to create a DataFrame from scratch is to pass a Python dictionary to <code>pd.DataFrame()</code>. Each key becomes a column name; each value is a list that fills that column.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item":     ["Bread", "Milk", "Eggs", "Cheese", "Olive Oil"],
+    "price":    [1.29, 0.99, 2.49, 3.79, 5.49],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy", "Oils"]
+}
+
+df = pd.DataFrame(data)
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Look at what pandas prints. Each row has an index number (0 to 4). Each column has a name taken from the dictionary keys. The data types are inferred automatically: strings for text, floats for decimals. This is already more structured than a plain Python list.</p>
+
+      <p>The variable name <code>df</code> is a universal convention for DataFrames, just like <code>pd</code> is for the library itself. You will see it in every pandas tutorial on the planet.</p>
+
+      <div class="callout">
+        <strong>Key rule:</strong> Every list in the dictionary must have the same length. If one column has 5 values and another has 4, pandas will raise a <code>ValueError</code>. Try it: remove one item from <code>"price"</code> and run the cell again to see the error.
+      </div>
+    </section>
+
+    <!-- ── Part 4: Accessing columns ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Accessing Columns</h2>
+
+      <p>Once you have a DataFrame, the most common operation is to look at one column at a time. You access a column by writing the DataFrame name, then the column name in square brackets and quotation marks:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item":     ["Bread", "Milk", "Eggs", "Cheese", "Olive Oil"],
+    "price":    [1.29, 0.99, 2.49, 3.79, 5.49],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy", "Oils"]
+}
+df = pd.DataFrame(data)
+
+# Access the price column
+print(df["price"])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Notice that <code>df["price"]</code> returns a <em>Series</em> — a single column with the DataFrame's row index on the left and the price values on the right. Every column in a DataFrame is a Series.</p>
+
+      <p>Because a column is a Series, you can immediately call mathematical methods on it:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item":     ["Bread", "Milk", "Eggs", "Cheese", "Olive Oil"],
+    "price":    [1.29, 0.99, 2.49, 3.79, 5.49],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy", "Oils"]
+}
+df = pd.DataFrame(data)
+
+print("Cheapest item: €", df["price"].min())
+print("Most expensive: €", df["price"].max())
+print("Average price:  €", df["price"].mean().round(2))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Dot notation:</strong> You can also access a column as an attribute if the column name has no spaces: <code>df.price</code> is the same as <code>df["price"]</code>. However, the bracket notation always works and is preferred when column names contain spaces or match a DataFrame method name.
+      </div>
+    </section>
+
+    <!-- ── Part 5: Your turn ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Build a Price List</h2>
+
+      <p>Create a DataFrame that tracks prices in a local market. Include at least 6 items across at least 2 categories. Then print the entire table and answer these two questions using pandas methods:</p>
+      <ul>
+        <li>What is the total cost if you buy one of everything?</li>
+        <li>What is the average price per item?</li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import pandas as pd
+
+# Create your own food price dataset
+data = {
+    "item":     ["Bread", "Milk", "Eggs", "Cheese", "Tomatoes", "Pasta"],
+    "price":    [1.29, 0.99, 2.49, 3.79, 1.49, 1.19],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy", "Vegetables", "Grains"]
+}
+df = pd.DataFrame(data)
+
+print(df)
+print()
+print("Total basket cost: €", df["price"].sum().round(2))
+print("Average price:     €", df["price"].mean().round(2))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> what pandas is and why it matters; the difference between a Series (one column) and a DataFrame (a full table); how to create both from Python data; and how to access a column and call basic methods on it. In the next chapter you will load a larger dataset and use pandas tools to explore its shape, types, and summary statistics.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="../index.html">Previous: Course Home</a>
+        <a href="book4-chapter-2.html">Next: Chapter 2 — Exploring Your Dataset</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and pandas run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book4-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>
