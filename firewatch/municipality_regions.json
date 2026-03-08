@@ -1,0 +1,1622 @@
+[
+  {
+    "municipality_id": "9015",
+    "municipality_name": "Αβδήρων",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9006",
+    "municipality_name": "Αλεξανδρούπολης",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9019",
+    "municipality_name": "Αρριανών",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9007",
+    "municipality_name": "Διδυμοτείχου",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9001",
+    "municipality_name": "Δοξάτου",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9002",
+    "municipality_name": "Δράμας",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9011",
+    "municipality_name": "Θάσου",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9020",
+    "municipality_name": "Ιάσμου",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9003",
+    "municipality_name": "Κάτω Νευροκοπίου",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9012",
+    "municipality_name": "Καβάλας",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9021",
+    "municipality_name": "Κομοτηνής",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9022",
+    "municipality_name": "Μαρωνείας - Σαπών",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9016",
+    "municipality_name": "Μύκης",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9013",
+    "municipality_name": "Νέστου",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9017",
+    "municipality_name": "Ξάνθης",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9008",
+    "municipality_name": "Ορεστιάδας",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9014",
+    "municipality_name": "Παγγαίου",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9004",
+    "municipality_name": "Παρανεστίου",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9005",
+    "municipality_name": "Προσοτσάνης",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9009",
+    "municipality_name": "Σαμοθράκης",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9010",
+    "municipality_name": "Σουφλίου",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9018",
+    "municipality_name": "Τοπείρου",
+    "region_id": "ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ ΚΑΙ ΘΡΑΚΗΣ"
+  },
+  {
+    "municipality_id": "9214",
+    "municipality_name": "Ύδρας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9208",
+    "municipality_name": "Αίγινας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9179",
+    "municipality_name": "Αγίας Βαρβάρας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9167",
+    "municipality_name": "Αγίας Παρασκευής",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9194",
+    "municipality_name": "Αγίου Δημητρίου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9180",
+    "municipality_name": "Αγίων Αναργύρων - Καματερού",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9207",
+    "municipality_name": "Αγκιστρίου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9186",
+    "municipality_name": "Αθηναίων",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9181",
+    "municipality_name": "Αιγάλεω",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9195",
+    "municipality_name": "Αλίμου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9168",
+    "municipality_name": "Αμαρουσίου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9228",
+    "municipality_name": "Ασπροπύργου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9215",
+    "municipality_name": "Αχαρνών",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9216",
+    "municipality_name": "Βάρης - Βούλας - Βουλιαγμένης",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9169",
+    "municipality_name": "Βριλησσίων",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9187",
+    "municipality_name": "Βύρωνος",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9188",
+    "municipality_name": "Γαλατσίου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9196",
+    "municipality_name": "Γλυφάδας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9189",
+    "municipality_name": "Δάφνης - Υμηττού",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9217",
+    "municipality_name": "Διονύσου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9229",
+    "municipality_name": "Ελευσίνας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9197",
+    "municipality_name": "Ελληνικού - Αργυρούπολης",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9190",
+    "municipality_name": "Ζωγράφου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9191",
+    "municipality_name": "Ηλιούπολης",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9170",
+    "municipality_name": "Ηρακλείου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9182",
+    "municipality_name": "Ιλίου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9192",
+    "municipality_name": "Καισαριανής",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9198",
+    "municipality_name": "Καλλιθέας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9202",
+    "municipality_name": "Κερατσινίου - Δραπετσώνας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9171",
+    "municipality_name": "Κηφισιάς",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9203",
+    "municipality_name": "Κορυδαλλού",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9218",
+    "municipality_name": "Κρωπίας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9209",
+    "municipality_name": "Κυθήρων",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9219",
+    "municipality_name": "Λαυρεωτικής",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9172",
+    "municipality_name": "Λυκόβρυσης - Πεύκης",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9230",
+    "municipality_name": "Μάνδρας - Ειδυλλίας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9220",
+    "municipality_name": "Μαραθώνος",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9221",
+    "municipality_name": "Μαρκοπούλου Μεσογαίας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9231",
+    "municipality_name": "Μεγαρέων",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9173",
+    "municipality_name": "Μεταμορφώσεως",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9199",
+    "municipality_name": "Μοσχάτου - Ταύρου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9174",
+    "municipality_name": "Νέας Ιωνίας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9200",
+    "municipality_name": "Νέας Σμύρνης",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9204",
+    "municipality_name": "Νίκαιας - Αγίου Ι. Ρέντη",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9222",
+    "municipality_name": "Παιανίας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9201",
+    "municipality_name": "Παλαιού Φαλήρου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9223",
+    "municipality_name": "Παλλήνης",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9175",
+    "municipality_name": "Παπάγου - Χολαργού",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9205",
+    "municipality_name": "Πειραιώς",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9176",
+    "municipality_name": "Πεντέλης",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9206",
+    "municipality_name": "Περάματος",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9183",
+    "municipality_name": "Περιστερίου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9184",
+    "municipality_name": "Πετρούπολης",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9210",
+    "municipality_name": "Πόρου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9224",
+    "municipality_name": "Ραφήνας - Πικερμίου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9211",
+    "municipality_name": "Σαλαμίνας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9225",
+    "municipality_name": "Σαρωνικού",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9226",
+    "municipality_name": "Σπάτων - Αρτέμιδος",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9212",
+    "municipality_name": "Σπετσών",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9213",
+    "municipality_name": "Τροιζηνίας",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9193",
+    "municipality_name": "Φιλαδελφείας - Χαλκηδόνος",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9177",
+    "municipality_name": "Φιλοθέης - Ψυχικού",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9232",
+    "municipality_name": "Φυλής",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9178",
+    "municipality_name": "Χαλανδρίου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9185",
+    "municipality_name": "Χαϊδαρίου",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9227",
+    "municipality_name": "Ωρωπού",
+    "region_id": "ΑΤΤΙΚΗΣ"
+  },
+  {
+    "municipality_id": "9262",
+    "municipality_name": "Αγίου Ευστρατίου",
+    "region_id": "ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9259",
+    "municipality_name": "Ικαρίας",
+    "region_id": "ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9261",
+    "municipality_name": "Λέσβου",
+    "region_id": "ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9263",
+    "municipality_name": "Λήμνου",
+    "region_id": "ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9265",
+    "municipality_name": "Οινουσσών",
+    "region_id": "ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9264",
+    "municipality_name": "Σάμου",
+    "region_id": "ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9260",
+    "municipality_name": "Φούρνων Κορσεών",
+    "region_id": "ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9266",
+    "municipality_name": "Χίου",
+    "region_id": "ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9267",
+    "municipality_name": "Ψαρών",
+    "region_id": "ΒΟΡΕΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9124",
+    "municipality_name": "Άκτιου - Βόνιτσας",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9139",
+    "municipality_name": "Ήλιδας",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9123",
+    "municipality_name": "Αγρινίου",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9130",
+    "municipality_name": "Αιγιαλείας",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9125",
+    "municipality_name": "Αμφιλοχίας",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9136",
+    "municipality_name": "Ανδρίτσαινας - Κρεστένων",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9135",
+    "municipality_name": "Ανδραβίδας - Κυλλήνης",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9137",
+    "municipality_name": "Αρχαίας Ολυμπίας",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9131",
+    "municipality_name": "Δυτικής Αχαΐας",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9132",
+    "municipality_name": "Ερυμάνθου",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9138",
+    "municipality_name": "Ζαχάρως",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9126",
+    "municipality_name": "Θέρμου",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9127",
+    "municipality_name": "Ιεράς Πόλης Μεσολογγίου",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9133",
+    "municipality_name": "Καλαβρύτων",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9128",
+    "municipality_name": "Ναυπακτίας",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9129",
+    "municipality_name": "Ξηρομέρου",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9134",
+    "municipality_name": "Πατρέων",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9140",
+    "municipality_name": "Πηνειού",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9141",
+    "municipality_name": "Πύργου",
+    "region_id": "ΔΥΤΙΚΗΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9070",
+    "municipality_name": "Αμυνταίου",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9066",
+    "municipality_name": "Βοϊου",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9061",
+    "municipality_name": "Γρεβενών",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9062",
+    "municipality_name": "Δεσκάτης",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9067",
+    "municipality_name": "Εορδαίας",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9063",
+    "municipality_name": "Καστοριάς",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9068",
+    "municipality_name": "Κοζάνης",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9064",
+    "municipality_name": "Νεστορίου",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9065",
+    "municipality_name": "Ορεστίδος",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9071",
+    "municipality_name": "Πρεσπών",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9069",
+    "municipality_name": "Σερβίων - Βελβεντού",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9072",
+    "municipality_name": "Φλώρινας",
+    "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9073",
+    "municipality_name": "Αρταίων",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9080",
+    "municipality_name": "Βορείων Τζουμέρκων",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9074",
+    "municipality_name": "Γεωργίου Καραϊσκάκη",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9081",
+    "municipality_name": "Δωδώνης",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9083",
+    "municipality_name": "Ζίτσας",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9082",
+    "municipality_name": "Ζαγορίου",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9088",
+    "municipality_name": "Ζηρού",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9077",
+    "municipality_name": "Ηγουμενίτσας",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9084",
+    "municipality_name": "Ιωαννιτών",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9075",
+    "municipality_name": "Κεντρικών Τζουμέρκων",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9085",
+    "municipality_name": "Κόνιτσας",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9086",
+    "municipality_name": "Μετσόβου",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9076",
+    "municipality_name": "Νικολάου Σκουφά",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9089",
+    "municipality_name": "Πάργας",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9090",
+    "municipality_name": "Πρέβεζας",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9087",
+    "municipality_name": "Πωγωνίου",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9078",
+    "municipality_name": "Σουλίου",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9079",
+    "municipality_name": "Φιλιατών",
+    "region_id": "ΗΠΕΙΡΟΥ"
+  },
+  {
+    "municipality_id": "9097",
+    "municipality_name": "Αγιάς",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9104",
+    "municipality_name": "Αλμυρού",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9109",
+    "municipality_name": "Αλοννήσου",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9091",
+    "municipality_name": "Αργιθέας",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9105",
+    "municipality_name": "Βόλου",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9098",
+    "municipality_name": "Ελασσόνας",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9106",
+    "municipality_name": "Ζαγοράς - Μουρεσίου",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9112",
+    "municipality_name": "Καλαμπάκας",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9092",
+    "municipality_name": "Καρδίτσας",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9099",
+    "municipality_name": "Κιλελέρ",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9093",
+    "municipality_name": "Λίμνης Πλαστήρα",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9100",
+    "municipality_name": "Λαρισαίων",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9094",
+    "municipality_name": "Μουζακίου",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9107",
+    "municipality_name": "Νοτίου Πηλίου",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9095",
+    "municipality_name": "Παλαμά",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9113",
+    "municipality_name": "Πύλης",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9108",
+    "municipality_name": "Ρήγα Φερραίου",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9110",
+    "municipality_name": "Σκιάθου",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9111",
+    "municipality_name": "Σκοπέλου",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9096",
+    "municipality_name": "Σοφάδων",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9101",
+    "municipality_name": "Τεμπών",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9114",
+    "municipality_name": "Τρικκαίων",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9102",
+    "municipality_name": "Τυρνάβου",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9115",
+    "municipality_name": "Φαρκαδόνας",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9103",
+    "municipality_name": "Φαρσάλων",
+    "region_id": "ΘΕΣΣΑΛΙΑΣ"
+  },
+  {
+    "municipality_id": "9116",
+    "municipality_name": "Ζακύνθου",
+    "region_id": "ΙΟΝΙΩΝ ΝΗΣΩΝ"
+  },
+  {
+    "municipality_id": "9117",
+    "municipality_name": "Ιθάκης",
+    "region_id": "ΙΟΝΙΩΝ ΝΗΣΩΝ"
+  },
+  {
+    "municipality_id": "9118",
+    "municipality_name": "Κέρκυρας",
+    "region_id": "ΙΟΝΙΩΝ ΝΗΣΩΝ"
+  },
+  {
+    "municipality_id": "9120",
+    "municipality_name": "Κεφαλονιάς",
+    "region_id": "ΙΟΝΙΩΝ ΝΗΣΩΝ"
+  },
+  {
+    "municipality_id": "9121",
+    "municipality_name": "Λευκάδας",
+    "region_id": "ΙΟΝΙΩΝ ΝΗΣΩΝ"
+  },
+  {
+    "municipality_id": "9122",
+    "municipality_name": "Μεγανησίου",
+    "region_id": "ΙΟΝΙΩΝ ΝΗΣΩΝ"
+  },
+  {
+    "municipality_id": "9119",
+    "municipality_name": "Παξών",
+    "region_id": "ΙΟΝΙΩΝ ΝΗΣΩΝ"
+  },
+  {
+    "municipality_id": "9043",
+    "municipality_name": "Έδεσσας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9023",
+    "municipality_name": "Αλεξάνδρειας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9042",
+    "municipality_name": "Αλμωπίας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9026",
+    "municipality_name": "Αμπελοκήπων - Μενεμένης",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9049",
+    "municipality_name": "Αμφίπολης",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9056",
+    "municipality_name": "Αριστοτέλη",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9024",
+    "municipality_name": "Βέροιας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9050",
+    "municipality_name": "Βισαλτίας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9027",
+    "municipality_name": "Βόλβης",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9028",
+    "municipality_name": "Δέλτα",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9046",
+    "municipality_name": "Δίου - Ολύμπου",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9051",
+    "municipality_name": "Εμμανουήλ Παππά",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9052",
+    "municipality_name": "Ηρακλείας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9030",
+    "municipality_name": "Θέρμης",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9029",
+    "municipality_name": "Θερμαϊκού",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9031",
+    "municipality_name": "Θεσσαλονίκης",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9032",
+    "municipality_name": "Καλαμαριάς",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9057",
+    "municipality_name": "Κασσάνδρας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9047",
+    "municipality_name": "Κατερίνης",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9040",
+    "municipality_name": "Κιλκίς",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9033",
+    "municipality_name": "Κορδελιού - Ευόσμου",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9034",
+    "municipality_name": "Λαγκαδά",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9025",
+    "municipality_name": "Νάουσας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9035",
+    "municipality_name": "Νέαπολης - Συκεών",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9053",
+    "municipality_name": "Νέας Ζίχνης",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9058",
+    "municipality_name": "Νέας Προποντίδας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9044",
+    "municipality_name": "Πέλλας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9041",
+    "municipality_name": "Παιονίας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9036",
+    "municipality_name": "Παύλου Μελά",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9059",
+    "municipality_name": "Πολυγύρου",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9037",
+    "municipality_name": "Πυλαίας - Χορτιάτη",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9048",
+    "municipality_name": "Πύδνας - Κολινδρού",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9054",
+    "municipality_name": "Σερρών",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9060",
+    "municipality_name": "Σιθωνίας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9055",
+    "municipality_name": "Σιντικής",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9045",
+    "municipality_name": "Σκύδρας",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9038",
+    "municipality_name": "Χαλκηδόνος",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9039",
+    "municipality_name": "Ωραιοκάστρου",
+    "region_id": "ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
+  },
+  {
+    "municipality_id": "9314",
+    "municipality_name": "Αγίου Βασιλείου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9310",
+    "municipality_name": "Αγίου Νικολάου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9315",
+    "municipality_name": "Αμάριου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9316",
+    "municipality_name": "Ανωγείων",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9319",
+    "municipality_name": "Αποκορώνου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9302",
+    "municipality_name": "Αρχανών - Αστερουσίων",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9303",
+    "municipality_name": "Βιάννου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9320",
+    "municipality_name": "Γαύδου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9304",
+    "municipality_name": "Γόρτυνας",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9311",
+    "municipality_name": "Ιεράπετρας",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9321",
+    "municipality_name": "Καντάνου - Σέλινου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9322",
+    "municipality_name": "Κισσάμου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9306",
+    "municipality_name": "Μαλεβιζίου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9307",
+    "municipality_name": "Μινώα Πεδιάδας",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9317",
+    "municipality_name": "Μυλοποτάμου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9312",
+    "municipality_name": "Οροπεδίου Λασιθίου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9323",
+    "municipality_name": "Πλατανιά",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9318",
+    "municipality_name": "Ρεθύμνης",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9313",
+    "municipality_name": "Σητείας",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9324",
+    "municipality_name": "Σφακίων",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9308",
+    "municipality_name": "Φαιστού",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9325",
+    "municipality_name": "Χανίων",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9309",
+    "municipality_name": "Χερσονήσου",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9268",
+    "municipality_name": "Άνδρου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9274",
+    "municipality_name": "Αγαθονησίου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9291",
+    "municipality_name": "Αμοργού",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9269",
+    "municipality_name": "Ανάφης",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9293",
+    "municipality_name": "Αντιπάρου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9275",
+    "municipality_name": "Αστυπαλαίας",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9270",
+    "municipality_name": "Θήρας",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9271",
+    "municipality_name": "Ιητών",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9281",
+    "municipality_name": "Κάσου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9282",
+    "municipality_name": "Κέας",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9276",
+    "municipality_name": "Καλυμνίων",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9280",
+    "municipality_name": "Καρπάθου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9286",
+    "municipality_name": "Κιμώλου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9284",
+    "municipality_name": "Κω",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9283",
+    "municipality_name": "Κύθνου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9278",
+    "municipality_name": "Λέρου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9277",
+    "municipality_name": "Λειψών",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9287",
+    "municipality_name": "Μήλου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9295",
+    "municipality_name": "Μεγίστης",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9290",
+    "municipality_name": "Μυκόνου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9292",
+    "municipality_name": "Νάξου & Μικρών Κυκλάδων",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9285",
+    "municipality_name": "Νισύρου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9294",
+    "municipality_name": "Πάρου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9279",
+    "municipality_name": "Πάτμου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9296",
+    "municipality_name": "Ρόδου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9289",
+    "municipality_name": "Σίφνου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9288",
+    "municipality_name": "Σερίφου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9272",
+    "municipality_name": "Σικίνου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9297",
+    "municipality_name": "Σύμης",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9300",
+    "municipality_name": "Σύρου - Ερμούπολης",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9298",
+    "municipality_name": "Τήλου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9301",
+    "municipality_name": "Τήνου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9273",
+    "municipality_name": "Φολεγάνδρου",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9299",
+    "municipality_name": "Χάλκης",
+    "region_id": "ΝΟΤΙΟΥ ΑΙΓΑΙΟΥ"
+  },
+  {
+    "municipality_id": "9233",
+    "municipality_name": "Άργους - Μυκηνών",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9248",
+    "municipality_name": "Ανατολικής Μάνης",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9242",
+    "municipality_name": "Βέλου - Βόχας",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9237",
+    "municipality_name": "Βόρειας Κυνουρίας",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9238",
+    "municipality_name": "Γορτυνίας",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9253",
+    "municipality_name": "Δυτικής Μάνης",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9249",
+    "municipality_name": "Ελαφονήσου",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9234",
+    "municipality_name": "Επιδαύρου",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9235",
+    "municipality_name": "Ερμιονίδας",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9250",
+    "municipality_name": "Ευρώτα",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9254",
+    "municipality_name": "Καλαμάτας",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9243",
+    "municipality_name": "Κορινθίων",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9244",
+    "municipality_name": "Λουτρακίου - Αγ. Θεοδώρων",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9239",
+    "municipality_name": "Μεγαλόπολης",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9255",
+    "municipality_name": "Μεσσήνης",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9251",
+    "municipality_name": "Μονεμβασιάς",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9236",
+    "municipality_name": "Ναυπλιέων",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9245",
+    "municipality_name": "Νεμέας",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9240",
+    "municipality_name": "Νότιας Κυνουρίας",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9246",
+    "municipality_name": "Ξυλοκάστρου - Ευρωστίνης",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9256",
+    "municipality_name": "Οιχαλίας",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9257",
+    "municipality_name": "Πύλου - Νέστορος",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9247",
+    "municipality_name": "Σικυωνίων",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9252",
+    "municipality_name": "Σπάρτης",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9241",
+    "municipality_name": "Τρίπολης",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9258",
+    "municipality_name": "Τριφυλίας",
+    "region_id": "ΠΕΛΟΠΟΝΝΗΣΟΥ"
+  },
+  {
+    "municipality_id": "9156",
+    "municipality_name": "Αγράφων",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9142",
+    "municipality_name": "Αλιάρτου",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9158",
+    "municipality_name": "Αμφίκλειας - Ελάτειας",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9165",
+    "municipality_name": "Δελφών",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9148",
+    "municipality_name": "Διρφύων - Μεσσαπίων",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9143",
+    "municipality_name": "Διστόμου-Αράχοβας - Αντίκυρας",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9159",
+    "municipality_name": "Δομοκού",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9166",
+    "municipality_name": "Δωρίδος",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9149",
+    "municipality_name": "Ερέτριας",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9144",
+    "municipality_name": "Θηβαίων",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9150",
+    "municipality_name": "Ιστιαίας - Αιδηψού",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9157",
+    "municipality_name": "Καρπενησίου",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9151",
+    "municipality_name": "Καρύστου",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9152",
+    "municipality_name": "Κύμης - Αλιβερίου",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9160",
+    "municipality_name": "Λαμιέων",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9145",
+    "municipality_name": "Λεβαδέων",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9161",
+    "municipality_name": "Λοκρών",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9162",
+    "municipality_name": "Μακρακώμης",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9153",
+    "municipality_name": "Μαντουδίου - Λίμνης - Αγίας Άννας",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9163",
+    "municipality_name": "Μώλου - Αγ. Κωνσταντίνου",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9146",
+    "municipality_name": "Ορχομενού",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9154",
+    "municipality_name": "Σκύρου",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9164",
+    "municipality_name": "Στυλίδας",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9147",
+    "municipality_name": "Τανάγρας",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  },
+  {
+    "municipality_id": "9155",
+    "municipality_name": "Χαλκιδέων",
+    "region_id": "ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ"
+  }
+]
