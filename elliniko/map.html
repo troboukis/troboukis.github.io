@@ -730,6 +730,7 @@
         const CSV_URL = 'https://raw.githubusercontent.com/troboukis/ellhniko/refs/heads/main/permits_ellhniko.csv';
         const LAST_SEARCH_URL = 'https://raw.githubusercontent.com/troboukis/ellhniko/refs/heads/main/last_search.json';
         const lastUpdateDateEl = document.getElementById('last-update-date');
+        let lastSearchIsoDate = null;
 
         async function loadLastSearchDate() {
             try {
@@ -737,7 +738,12 @@
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
                 const payload = await response.json();
+                lastSearchIsoDate = toIsoDate(payload.last_search_at);
                 lastUpdateDateEl.textContent = payload.display || '—';
+                if (allData.length > 0) {
+                    setDateRange();
+                    applyFilters();
+                }
             } catch (error) {
                 console.error('Failed to load last_search.json', error);
                 lastUpdateDateEl.textContent = '—';
@@ -849,15 +855,28 @@
             }
         }
 
-        // Μετατροπή DD/MM/YYYY σε YYYY-MM-DD (για σύγκριση και date inputs)
+        // Μετατροπή ημερομηνιών σε YYYY-MM-DD (για σύγκριση και date inputs)
         function toIsoDate(dateStr) {
             if (!dateStr) return null;
-            // Αν είναι ήδη YYYY-MM-DD
-            if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) return dateStr.substring(0, 10);
-            // DD/MM/YYYY → YYYY-MM-DD
-            const parts = dateStr.split('/');
-            if (parts.length === 3) return `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+            const value = String(dateStr).trim();
+
+            // Αν είναι ήδη YYYY-MM-DD ή YYYY-MM-DDTHH:MM:SS
+            const isoMatch = value.match(/^(\d{4})-(\d{2})-(\d{2})/);
+            if (isoMatch) return `${isoMatch[1]}-${isoMatch[2]}-${isoMatch[3]}`;
+
+            // DD/MM/YYYY ή DD/MM/YYYY HH:MM:SS → YYYY-MM-DD
+            const greekMatch = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+            if (greekMatch) {
+                return `${greekMatch[3]}-${greekMatch[2].padStart(2, '0')}-${greekMatch[1].padStart(2, '0')}`;
+            }
+
             return null;
+        }
+
+        function toDateValue(dateStr) {
+            const isoDate = toIsoDate(dateStr);
+            if (!isoDate) return null;
+            return Date.parse(`${isoDate}T00:00:00Z`);
         }
 
         // Μορφοποίηση ημερομηνίας στα ελληνικά
@@ -1251,6 +1270,8 @@
         function applyFilters() {
             const dateFrom = document.getElementById('date-from').value;
             const dateTo = document.getElementById('date-to').value;
+            const dateFromValue = dateFrom ? Date.parse(`${dateFrom}T00:00:00Z`) : null;
+            const dateToValue = dateTo ? Date.parse(`${dateTo}T00:00:00Z`) : null;
             const showOikodomiki = document.getElementById('filter-oikodomiki').checked;
             const showEnimerosi = document.getElementById('filter-enimerosi').checked;
             const showAnatheorisi = document.getElementById('filter-anatheorisi').checked;
@@ -1269,10 +1290,10 @@
 
                 // Φίλτρο ημερομηνίας
                 if (visible && item.row.issue_date) {
-                    const issueDate = toIsoDate(item.row.issue_date);
-                    if (issueDate) {
-                        if (dateFrom && issueDate < dateFrom) visible = false;
-                        if (dateTo && issueDate > dateTo) visible = false;
+                    const issueDateValue = toDateValue(item.row.issue_date);
+                    if (issueDateValue !== null) {
+                        if (dateFromValue !== null && issueDateValue < dateFromValue) visible = false;
+                        if (dateToValue !== null && issueDateValue > dateToValue) visible = false;
                     }
                 }
 
@@ -1306,6 +1327,9 @@
             ['filter-oikodomiki', 'filter-enimerosi', 'filter-anatheorisi', 'filter-mikris-klimakas'].forEach(id => {
                 document.getElementById(id).addEventListener('change', applyFilters);
             });
+            ['date-from', 'date-to'].forEach(id => {
+                document.getElementById(id).addEventListener('change', applyFilters);
+            });
         }
 
         // Βάζει τις min/max ημερομηνίες στα inputs
@@ -1316,8 +1340,18 @@
 
             if (dates.length > 0) {
                 dates.sort();
-                document.getElementById('date-from').value = dates[0];
-                document.getElementById('date-to').value = dates[dates.length - 1];
+                const minDate = dates[0];
+                const maxPermitDate = dates[dates.length - 1];
+                const maxDate = lastSearchIsoDate && lastSearchIsoDate > maxPermitDate
+                    ? lastSearchIsoDate
+                    : maxPermitDate;
+
+                document.getElementById('date-from').value = minDate;
+                document.getElementById('date-to').value = maxDate;
+                document.getElementById('date-from').min = minDate;
+                document.getElementById('date-from').max = maxDate;
+                document.getElementById('date-to').min = minDate;
+                document.getElementById('date-to').max = maxDate;
             }
         }
 
