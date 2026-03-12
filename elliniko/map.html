@@ -172,6 +172,13 @@
             line-height: 1.4;
         }
 
+        .permit-list-warning {
+            margin-top: 6px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            color: #c53030;
+        }
+
         .info-section h3 {
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -214,6 +221,12 @@
             padding: 10px;
             border-radius: 6px;
             margin-top: 5px;
+        }
+
+        .inline-warning {
+            display: inline-block;
+            color: #c53030;
+            font-weight: 600;
         }
 
         .badge {
@@ -854,7 +867,7 @@
 
         // Βρίσκει όλες τις visible άδειες που περιέχουν ένα σημείο
         function findPermitsAtPoint(latlng) {
-            return allData.filter(item => map.hasLayer(item.polygon) && pointInPolygon(latlng, item.coords));
+            return allData.filter(item => item.polygon && map.hasLayer(item.polygon) && pointInPolygon(latlng, item.coords));
         }
 
         // Διαβάζει το string με τις συντεταγμένες και φτιάχνει πολύγωνο
@@ -1000,7 +1013,7 @@
         }
 
         // Εμφανίζει τις πληροφορίες της άδειας στο πάνελ
-        function showPermitInfo(data) {
+        function showPermitInfo(data, hasCoordinates = true) {
             isWelcomeView = false;
             const content = document.getElementById('panel-content');
 
@@ -1034,6 +1047,10 @@
                     <div class="info-row">
                         <span class="info-label">Ισχύει έως</span>
                         <span class="info-value">${formatDate(data.valid_until)}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Συντεταγμένες</span>
+                        <span class="info-value">${hasCoordinates ? 'Διαθέσιμες' : '<span class="inline-warning">χωρίς συντεταγμένες</span>'}</span>
                     </div>
                 </div>
 
@@ -1184,6 +1201,7 @@
                             ${formatDate(item.row.issue_date)} · ${item.row.owner || '-'}
                         </div>
                         <div class="permit-list-desc">${desc}${desc.length >= 80 ? '...' : ''}</div>
+                        ${item.hasCoordinates ? '' : '<div class="permit-list-warning">χωρίς συντεταγμένες</div>'}
                     </div>
                 `;
             }).join('');
@@ -1207,19 +1225,21 @@
             // Un-highlight previous polygon
             if (selectedPolygon) {
                 selectedPolygon.setStyle({ weight: 2, fillOpacity: 0.4 });
+                selectedPolygon = null;
             }
-
-            // Highlight selected polygon
-            item.polygon.setStyle({ weight: 4, fillOpacity: 0.7 });
-            selectedPolygon = item.polygon;
 
             // Update selected style in list
             document.querySelectorAll('.permit-list-item.selected').forEach(el => el.classList.remove('selected'));
             const el = document.getElementById(`witem-${idx}`);
             if (el) el.classList.add('selected');
 
-            // Pan map to polygon
-            map.fitBounds(item.polygon.getBounds(), { maxZoom: 17, padding: [50, 50] });
+            if (item.polygon) {
+                item.polygon.setStyle({ weight: 4, fillOpacity: 0.7 });
+                selectedPolygon = item.polygon;
+                map.fitBounds(item.polygon.getBounds(), { maxZoom: 17, padding: [50, 50] });
+            }
+
+            showPermitInfo(item.row, item.hasCoordinates);
         }
 
         // Όταν αλλάζει το μέγεθος του παραθύρου
@@ -1325,12 +1345,12 @@
 
                 // Εμφάνιση/απόκρυψη
                 if (visible) {
-                    if (!map.hasLayer(item.polygon)) {
+                    if (item.polygon && !map.hasLayer(item.polygon)) {
                         item.polygon.addTo(map);
                     }
                     visibleCount++;
                 } else {
-                    if (map.hasLayer(item.polygon)) {
+                    if (item.polygon && map.hasLayer(item.polygon)) {
                         map.removeLayer(item.polygon);
                     }
                     // Αν ήταν επιλεγμένο, το ξεκλειδώνουμε
@@ -1403,16 +1423,23 @@
 
                         results.data.forEach((row, index) => {
                             const coords = parseCoordinates(row.coordinates);
+                            const permitClass = classifyPermit(row.permit_type);
 
                             if (coords && coords.length >= 3) {
                                 const polygon = createPolygon(row, coords);
                                 polygon.addTo(map);
 
-                                const permitClass = classifyPermit(row.permit_type);
-                                allData.push({ row, coords, polygon, permitClass });
+                                allData.push({ row, coords, polygon, permitClass, hasCoordinates: true });
 
                                 bounds.push(...coords);
                             } else if (row.ada) {
+                                allData.push({
+                                    row,
+                                    coords: null,
+                                    polygon: null,
+                                    permitClass,
+                                    hasCoordinates: false
+                                });
                                 skippedRows.push({
                                     ada: row.ada,
                                     hasCoords: !!(row.coordinates && row.coordinates.trim()),
@@ -1483,7 +1510,7 @@
                         // Κρύβουμε την οθόνη φόρτωσης
                         document.getElementById('loading').style.display = 'none';
 
-                        console.log(`Φορτώθηκαν ${allData.length} άδειες με συντεταγμένες`);
+                        console.log(`Φορτώθηκαν ${allData.length} άδειες συνολικά`);
                     },
                     error: function(error) {
                         console.error('Πρόβλημα με το CSV:', error);
