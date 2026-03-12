@@ -665,7 +665,7 @@
             <h1>Οικοδομικές Άδειες</h1>
             <p>Μητροπολιτικός Πόλος Ελληνικού - Αγ. Κοσμά</p>
             <div class="panel-header-meta">
-                <span class="panel-last-update">Τελευταία ενημέρωση: <span id="last-update-date">—</span></span>
+                <span class="panel-last-update">Τελευταία αναζήτηση δεδομένων: <span id="last-update-date">—</span></span>
                 <span class="panel-attribution">Ανάπτυξη: <a href="https://troboukis.github.io" target="_blank" rel="noopener">Θανάσης Τρομπούκης</a></span>
             </div>
             <button class="close-btn" onclick="togglePanel()">&times;</button>
@@ -723,15 +723,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <script>
-        // Τελευταία ενημέρωση δεδομένων (ενημερώνεται αυτόματα από το update_data.py)
-        const LAST_UPDATE = "2026-03-06 16:59 EET";
-        document.getElementById('last-update-date').textContent = LAST_UPDATE;
-
         // Ορισμός του ΕΓΣΑ'87 - το ελληνικό σύστημα συντεταγμένων
         proj4.defs('EPSG:2100', '+proj=tmerc +lat_0=0 +lon_0=24 +k=0.9996 +x_0=500000 +y_0=0 +ellps=GRS80 +towgs84=-199.87,74.79,246.62,0,0,0,0 +units=m +no_defs');
 
         // Το URL με τα δεδομένα από το Google Sheets
         const CSV_URL = 'https://raw.githubusercontent.com/troboukis/ellhniko/refs/heads/main/permits_ellhniko.csv';
+        const LAST_SEARCH_URL = 'https://raw.githubusercontent.com/troboukis/ellhniko/refs/heads/main/last_search.json';
+        const lastUpdateDateEl = document.getElementById('last-update-date');
+
+        async function loadLastSearchDate() {
+            try {
+                const response = await fetch(`${LAST_SEARCH_URL}?t=${Date.now()}`, { cache: 'no-store' });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const payload = await response.json();
+                lastUpdateDateEl.textContent = payload.display || '—';
+            } catch (error) {
+                console.error('Failed to load last_search.json', error);
+                lastUpdateDateEl.textContent = '—';
+            }
+        }
+
+        loadLastSearchDate();
         
 
         // Φτιάχνουμε τον χάρτη, κεντραρισμένο στο Ελληνικό
