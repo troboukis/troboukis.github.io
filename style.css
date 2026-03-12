@@ -88,6 +88,17 @@
             color: #333;
         }
 
+        #about > p::first-letter {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 3.8em;
+            font-weight: 700;
+            float: left;
+            line-height: 0.75;
+            margin-right: 6px;
+            margin-top: 4px;
+            color: #121212;
+        }
+
         /* Contact links are often simple and centered */
         .contact-list {
             list-style: none;
