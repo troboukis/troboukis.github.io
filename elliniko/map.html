@@ -444,6 +444,11 @@
             font-size: 0.8rem;
         }
 
+        .leaflet-bottom,
+        .leaflet-top {
+            z-index: 800;
+        }
+
         .legend-title {
             font-weight: 600;
             margin-bottom: 8px;
@@ -484,8 +489,8 @@
             background: #f7fafc;
         }
 
-        /* Στυλ για κινητά */
-        @media (max-width: 768px) {
+        /* Στυλ για κινητά / touch συσκευές */
+        @media (max-width: 900px), (pointer: coarse) {
             body {
                 flex-direction: column;
             }
@@ -500,7 +505,7 @@
                 transform: translateY(0);
                 border-radius: 20px 20px 0 0;
                 box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-                z-index: 1000;
+                z-index: 2000;
             }
 
             #info-panel.hidden {
@@ -598,20 +603,41 @@
             }
 
             .legend {
-                font-size: 0.7rem;
-                padding: 8px 12px;
-                max-width: 180px;
+                font-size: 0.56rem;
+                line-height: 1.15;
+                padding: 6px 8px;
+                max-width: min(38vw, 128px);
+                border-radius: 6px;
             }
 
             .legend-title {
-                font-size: 0.75rem;
-                margin-bottom: 5px;
+                font-size: 0.62rem;
+                margin-bottom: 3px;
+            }
+
+            .legend-item {
+                margin: 3px 0;
+                align-items: flex-start;
+                gap: 5px;
             }
 
             .legend-color {
-                width: 16px;
-                height: 12px;
-                margin-right: 6px;
+                width: 11px;
+                height: 9px;
+                margin-right: 0;
+                flex-shrink: 0;
+            }
+
+            #map .leaflet-right {
+                right: 8px;
+            }
+
+            #map .leaflet-bottom {
+                bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+            }
+
+            #info-panel.hidden + #map .leaflet-bottom {
+                bottom: calc(env(safe-area-inset-bottom, 0px) + 74px);
             }
 
             .welcome-message {
