@@ -321,7 +321,7 @@
   <h1>Παρατηρητήριο τιμών στα σούπερ μάρκετ</h1>
   <p class="subtitle">Εβδομαδιαία παρακολούθηση τιμών ανά κατηγορία προϊόντος όπως δημοσιεύονται στο <a href="https://e-katanalotis.gov.gr" target="_blank" style="color:#1b7837;">e-katanalotis.gov.gr</a>
   <p class="updated" id="updated-date"></p>
-  <p style="font-size:0.85rem;color:#999;margin-bottom:32px;">Ανάλυση και ανάπτυξη από τον <a href="https://www.linkedin.com/in/thanasis-troboukis-9a33b031/" target="_blank" style="color:#666;">Θανάση Τρομπούκη</a> με τη χρήση <a href="https://claude.ai" target="_blank" style="color:#666;">Claude</a>. <br><i>Βλέπετε κάποιο λάθος στην ανάλυση ή τα δεδομένα; Επικοινωνήστε μαζί μου: troboukis [at] gmail.com</i></p>
+  <p style="font-size:0.85rem;color:#999;margin-bottom:32px;">Ανάλυση και ανάπτυξη από τον <a href="https://troboukis.github.io/" target="_blank" style="color:#666;">Θανάση Τρομπούκη</a> με τη χρήση <a href="https://claude.ai" target="_blank" style="color:#666;">Claude</a>. <br><i>Βλέπετε κάποιο λάθος στην ανάλυση ή τα δεδομένα; Επικοινωνήστε μαζί μου: troboukis [at] gmail.com</i></p>
 
   <div id="loading" class="loading">Φόρτωση δεδομένων...</div>
 
@@ -491,14 +491,17 @@ let sortAsc = false;
 let activeLineChartCat = null;
 
 // ── Load Data ──
-fetch('dashboard_data.json')
+const dashboardDataUrl = new URL('https://raw.githubusercontent.com/troboukis/ekatanalotis/refs/heads/main/dashboard_data.json');
+dashboardDataUrl.searchParams.set('_', Date.now());
+
+fetch(dashboardDataUrl, { cache: 'no-store' })
   .then(r => r.json())
   .then(data => {
     DATA = data;
     document.getElementById('loading').style.display = 'none';
     document.getElementById('content').style.display = 'block';
     document.getElementById('updated-date').textContent =
-      `Τελευταία εβδομάδα: ${data.week_start_dates[data.week_start_dates.length - 1]} (${data.last_week}) · ${data.categories.length} κατηγορίες · ${data.weeks.length} εβδομάδες`;
+      `Τελευταία εβδομάδα: ${data.week_start_dates[data.week_start_dates.length - 1]} (${data.last_week}) · Τελευταία ημερήσια ενημέρωση: ${data.last_data_date} · ${data.categories.length} κατηγορίες · ${data.weeks.length} εβδομάδες`;
     init();
   })
   .catch(err => {
