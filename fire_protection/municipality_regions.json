@@ -621,7 +621,7 @@
   },
   {
     "municipality_id": "9065",
-    "municipality_name": "Ορεστίδος",
+    "municipality_name": "Άργους - Ορεστικού",
     "region_id": "ΔΥΤΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ"
   },
   {
@@ -1122,6 +1122,11 @@
   {
     "municipality_id": "9304",
     "municipality_name": "Γόρτυνας",
+    "region_id": "ΚΡΗΤΗΣ"
+  },
+  {
+    "municipality_id": "9305",
+    "municipality_name": "Ηρακλείου",
     "region_id": "ΚΡΗΤΗΣ"
   },
   {
