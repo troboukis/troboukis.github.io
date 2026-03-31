@@ -1,0 +1,1 @@
+function c({organizationName:t,authorityScope:i,municipalityLabel:e}){const n=String(e??"").trim();return i==="municipality"&&n?`ΔΗΜΟΣ ${n}`:String(t??"").trim()||"—"}function o(t){return{id:t.id,who:c(t),what:t.what,when:t.when,why:t.why,beneficiary:t.beneficiary,contractType:t.contractType,howMuch:t.howMuch,signedAt:t.signedAt,documentUrl:t.documentUrl??null}}export{o as b};
