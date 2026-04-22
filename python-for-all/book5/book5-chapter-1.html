@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 5 · Chapter One — What is Web Scraping? · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 5 · Chapter One — What is Web Scraping? · Python for All" />
+  <meta property="og:description" content="Discover why the web is a public data source and start reading article data with BeautifulSoup." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 5 — Web Scraping with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter One — What is Web Scraping?</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="book5-chapter-1.html" class="is-current">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 6 — Working with APIs</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Five · Chapter One</p>
+      <h2>What is Web Scraping?</h2>
+      <p class="chapter-desc">Millions of public web pages contain useful data with no download button. In this book you will scrape the latest-news feed at <code>https://www.kathimerini.gr/epikairothta/</code>, collect article titles and links, turn them into dictionaries and DataFrames, and save them to CSV files.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>The Web as a Data Source</h2>
+
+      <p><span class="dropcap">N</span>ews websites, public institutions, and company sites publish data every day, but they publish it as webpages for humans to read. A page of latest news already contains structured information: article titles, links, dates, authors, and categories. The job of a scraper is to read that structure automatically.</p>
+
+      <p>In this book, the live source is the latest-news page of Kathimerini. By the end of Chapter 8, you will have a script that visits the first page, then page 2, page 3, and so on, extracts the article titles and links, and stores everything in CSV format.</p>
+
+      <div class="callout">
+        <strong>What you need:</strong> Two Python libraries — <code>requests</code> to fetch the page and <code>beautifulsoup4</code> to read the HTML. Install them once from the terminal with <code>pip install requests beautifulsoup4 pandas</code>, or run <code>!pip install requests beautifulsoup4 pandas</code> in a Jupyter notebook cell. They are already loaded in this browser environment.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>HTML Is Just Text</h2>
+
+      <p>When your browser opens a webpage, what it receives is a text file full of HTML tags. A title is not a magical object. It is just text inside tags like <code>&lt;a&gt;</code>, <code>&lt;span&gt;</code>, and <code>&lt;time&gt;</code>.</p>
+
+      <p>Here is a small realistic slice of the Kathimerini page as raw HTML:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>html = """
+<div class="design_one article-item is-flex is-flex-direction-column author-article">
+  <span class="posted-on">
+    <time class="entry-date published" datetime="2026-04-22T09:42:43+03:00">
+      22.04.2026 • 09:42
+    </time>
+  </span>
+  <a class="py-4 mainlink" href="/society/dikastiko/564187411/sto-ypoyrgeio-dikaiosynis-i-kovesi-synantisi-me-floridi/">
+    <span class="card-title">Στο υπουργείο Δικαιοσύνης η Κοβέσι – Συνάντηση με Φλωρίδη</span>
+  </a>
+  <span class="mb-2 author-link">Σοφία Σπίγγου</span>
+</div>
+"""
+
+print(html)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The browser turns that text into a nicely formatted news card. Python sees the same thing as a string, which is exactly what makes it machine-readable.</p>
+
+      <div class="callout">
+        <strong>Tags and attributes:</strong> The visible text is inside the tags. Extra information such as the article URL or publication timestamp lives in the attributes: <code>href="..."</code> and <code>datetime="..."</code>.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>BeautifulSoup to the Rescue</h2>
+
+      <p>Reading HTML with raw string slicing is fragile. BeautifulSoup solves this by turning the HTML string into a navigable Python object that you can search.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="design_one article-item is-flex is-flex-direction-column author-article">
+  <a class="py-4 mainlink" href="/economy/business/564187087/epekteinetai-i-cordia-me-exagora-tis-ellinikis-energeiakis-zeb/">
+    <span class="card-title">Επεκτείνεται η CORDIA με εξαγορά της ελληνικής ενεργειακής ZEB</span>
+  </a>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+link_tag = soup.find("a")
+title_tag = soup.find("span")
+
+print("Link tag :", link_tag.name)
+print("Title    :", title_tag.get_text(strip=True))
+print("URL      :", link_tag.get("href"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>That is the core idea of scraping: find the tag, get the text, get the attribute value. Later chapters will repeat this pattern with loops, dictionaries, and functions.</p>
+
+      <p>The line <code>soup = BeautifulSoup(html, "html.parser")</code> takes two arguments. The first is the HTML string you want to parse — in your scraper this will be <code>response.text</code>. The second is the <strong>parser</strong>: the engine that reads the raw text and builds the internal tree structure. BeautifulSoup supports several parsers. The one you pass determines how the HTML is interpreted and how tolerant the parser is of malformed markup.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parser</th>
+            <th>How to use</th>
+            <th>Install</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>html.parser</code></td>
+            <td><code>BeautifulSoup(html, "html.parser")</code></td>
+            <td>Built into Python — no install needed</td>
+            <td>Good default. Handles real-world pages well.</td>
+          </tr>
+          <tr>
+            <td><code>lxml</code></td>
+            <td><code>BeautifulSoup(html, "lxml")</code></td>
+            <td><code>pip install lxml</code></td>
+            <td>Very fast. Best choice for large pages or speed-critical scripts.</td>
+          </tr>
+          <tr>
+            <td><code>lxml-xml</code></td>
+            <td><code>BeautifulSoup(xml, "lxml-xml")</code></td>
+            <td><code>pip install lxml</code></td>
+            <td>For XML documents, not HTML.</td>
+          </tr>
+          <tr>
+            <td><code>html5lib</code></td>
+            <td><code>BeautifulSoup(html, "html5lib")</code></td>
+            <td><code>pip install html5lib</code></td>
+            <td>Parses exactly like a browser. Slowest, but most lenient with broken HTML.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>Note on load time:</strong> The first time you press Run in a Book 5 chapter, the page loads Python, BeautifulSoup, and pandas. This can take a few extra seconds. After that, cells run instantly.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>What You Can and Cannot Scrape</h2>
+
+      <p>Before scraping a site, check whether there is an API or a direct download first. If not, look at the site's <code>robots.txt</code> file and be polite with your request rate.</p>
+
+      <p>A latest-news page is a classic beginner use case: public, regularly updated, and clearly structured. You still have to behave responsibly and avoid making unnecessary requests.</p>
+
+      <p>Every well-maintained site publishes a <code>robots.txt</code> file at its root — for example <code>https://www.kathimerini.gr/robots.txt</code>. It tells crawlers which paths they may and may not visit. Here is a simplified example:</p>
+
+      <pre><code>User-agent: *
+Allow: /epikairothta/
+Allow: /epikairothta/page/
+Disallow: /wp-admin/
+Crawl-delay: 10</code></pre>
+
+      <p><code>User-agent: *</code> means the rules apply to all bots. <code>Allow</code> lines list paths that are explicitly permitted — scraping <code>/epikairothta/</code> and its paginated sub-pages is fine. <code>Disallow: /wp-admin/</code> means the admin backend is off-limits. <code>Crawl-delay: 10</code> asks crawlers to wait at least 10 seconds between requests — a rule you should respect when running a script that fetches many pages in a row.</p>
+
+      <div class="callout">
+        <strong>The short checklist:</strong> Is there an API? Is there a CSV download? Does <code>robots.txt</code> allow the path? Are you using delays and small page counts while learning? If yes, you are on the right track.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Read the Structure</h2>
+
+      <p><code>prettify()</code> re-formats HTML so you can inspect its structure before writing selectors. This is one of the best debugging habits in scraping.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="latest-news">
+  <div class="design_one article-item is-flex is-flex-direction-column author-article">
+    <a class="py-4 mainlink" href="/economy/business/564187087/epekteinetai-i-cordia-me-exagora-tis-ellinikis-energeiakis-zeb/">
+      <span class="card-title">Επεκτείνεται η CORDIA με εξαγορά της ελληνικής ενεργειακής ZEB</span>
+    </a>
+  </div>
+  <div class="design_one article-item is-flex is-flex-direction-column author-article">
+    <a class="py-4 mainlink" href="/society/dikastiko/564187411/sto-ypoyrgeio-dikaiosynis-i-kovesi-synantisi-me-floridi/">
+      <span class="card-title">Στο υπουργείο Δικαιοσύνης η Κοβέσι – Συνάντηση με Φλωρίδη</span>
+    </a>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+links = soup.find_all("a", class_="mainlink")
+print("Article links found:", len(links))
+print()
+print(soup.prettify())</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> that web pages are structured text; that article titles and links live in predictable tags and attributes; that BeautifulSoup turns raw HTML into a searchable object; and that <code>prettify()</code> helps you read the structure before you scrape it. In the next chapter you will fetch the real Kathimerini page with <code>requests</code>.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="../index.html">Previous: Course Home</a>
+        <a href="book5-chapter-2.html">Next: Chapter 2 — Getting HTML with requests</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and BeautifulSoup run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book5-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

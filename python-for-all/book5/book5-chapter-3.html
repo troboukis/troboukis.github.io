@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 5 · Chapter Three — Your First BeautifulSoup Object · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 5 · Chapter Three — Your First BeautifulSoup Object · Python for All" />
+  <meta property="og:description" content="Create a soup object, navigate directly to tags by name, read text content, and explore a page's structure." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 5 — Web Scraping with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Three — Your First BeautifulSoup Object</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="book5-chapter-3.html" class="is-current">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 6 — Working with APIs</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Five · Chapter Three</p>
+      <h2>Your First BeautifulSoup Object</h2>
+      <p class="chapter-desc">BeautifulSoup turns a raw HTML string into a Python object you can navigate like a document. In this chapter you learn to create that object, access any tag directly by name, and use <code>get_text()</code> to read the visible content of any element.</p>
+    </div>
+
+    <!-- ── Part 1 ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Creating a Soup Object</h2>
+
+      <p><span class="dropcap">Y</span>ou create a BeautifulSoup object by passing two things: the HTML string and a <strong>parser name</strong>. The parser is the engine that reads the raw text and builds the internal structure. Use <code>"html.parser"</code> — it is built into Python and works for every real-world page you will encounter in this course.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="tabcontent">
+  <h3>Δασικές Πυρκαγιές</h3>
+  <p>2 active incidents in Attica.</p>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# soup is not a string — it is a special BeautifulSoup object
+print("Type:", type(soup))
+print()
+# prettify() re-formats the HTML with clean indentation
+print(soup.prettify())</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The <code>prettify()</code> output is not the actual data — it is a debugging view. You can see every tag, every attribute, every level of nesting. Whenever you are unsure what a page contains, run <code>print(soup.prettify())</code> first and read the structure before writing any selectors.</p>
+
+      <div class="callout">
+        <strong>Note on load time:</strong> The first time you press Run in a Book 5 chapter, the page loads both Python and the BeautifulSoup library. This can take 5–15 seconds. After that, all cells run instantly.
+      </div>
+    </section>
+
+    <!-- ── Part 2 ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Accessing Tags by Name</h2>
+
+      <p>The simplest way to reach an element is to access it as a <em>property</em> of the soup object — just type <code>soup.</code> followed by the tag name. <code>soup.h3</code> gives you the first <code>&lt;h3&gt;</code> on the page. <code>soup.p</code> gives you the first <code>&lt;p&gt;</code>. <code>soup.table</code> gives you the first <code>&lt;table&gt;</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="tabcontent">
+  <h3>Δασικές Πυρκαγιές</h3>
+  <div class="panel panel-red">
+    <table><tr>
+      <td>Αττική - Δήμος Μαρκόπουλου</td>
+      <td>Έναρξη: 12/07/2024</td>
+    </tr></table>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# Access the h3 tag directly
+heading = soup.h3
+print("h3 tag:", heading)
+print()
+
+# Access the first div
+first_div = soup.div
+print("First div:", first_div.name)
+print("Its class:", first_div.get("class"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Notice that <code>soup.div</code> gives you the <em>outermost</em> <code>&lt;div&gt;</code> — the <code>tabcontent</code> one — not the inner <code>panel</code> div. Tag-name access always returns the first match in document order. To reach specific elements deeper in the page you will use <code>find()</code> and <code>find_all()</code>, which you will learn in the next chapter.</p>
+
+      <div class="callout">
+        <strong>Tags have a .name property:</strong> Every BeautifulSoup tag object knows its own name: <code>soup.h3.name</code> returns the string <code>"h3"</code>. This is useful when you are iterating over mixed elements and need to check what type each one is.
+      </div>
+    </section>
+
+    <!-- ── Part 3 ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Reading Text with get_text()</h2>
+
+      <p>Every BeautifulSoup tag has a <code>get_text()</code> method. It strips away all the HTML tags inside the element and returns only the human-readable text. This is the main method you will use throughout the book to extract actual values from elements.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="panel-heading">
+  <table><tr>
+    <td>Αττική - Δήμος Μαρκόπουλου</td>
+    <td>Τύπος: Δάσος κωνοφόρων</td>
+  </tr></table>
+  <div class="status">Σε Εξέλιξη</div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+heading = soup.find("div", class_="panel-heading")
+
+# get_text() with no arguments — all text joined together
+print("No separator:")
+print(repr(heading.get_text()))
+print()
+
+# get_text(" ", strip=True) — joined with spaces, whitespace trimmed
+print("With separator and strip:")
+print(heading.get_text(" ", strip=True))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The difference matters. Without arguments, <code>get_text()</code> runs all the text together with only the original whitespace — which can produce strings like <code>"\n    Αττική\n    Τύπος: ...\n"</code>. Passing <code>" "</code> as a separator and <code>strip=True</code> gives you a clean, readable string. Always use <code>get_text(" ", strip=True)</code> unless you specifically need the raw form.</p>
+
+      <div class="callout">
+        <strong>get_text() vs .string:</strong> A tag also has a <code>.string</code> attribute that returns the text only if the element contains <em>no child tags</em> — just plain text. If there are child tags, <code>.string</code> returns <code>None</code>. Use <code>get_text()</code> because it always works, regardless of inner structure.
+      </div>
+    </section>
+
+    <!-- ── Part 4 ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Navigating Into Nested Tags</h2>
+
+      <p>You can chain tag-name access to navigate down into the document tree. <code>soup.div.table.tr.td</code> walks down the nesting — outermost div, then the table inside it, then the row inside the table, then the first cell. Each step returns the first matching child.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="panel">
+  <div class="panel-heading">
+    <table>
+      <tr>
+        <td>Αττική - Δήμος Μαρκόπουλου</td>
+        <td>Έναρξη: 12/07/2024</td>
+      </tr>
+    </table>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# Navigate step by step
+outer_div  = soup.div
+inner_div  = outer_div.div
+table      = inner_div.table
+row        = table.tr
+first_cell = row.td
+
+print("Outer div class:", outer_div.get("class"))
+print("Inner div class:", inner_div.get("class"))
+print("First cell text:", first_cell.get_text(strip=True))
+
+# Or chain it all in one line
+print()
+print("Chained:", soup.div.div.table.tr.td.get_text(strip=True))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Chaining is convenient for simple, predictable structures. In practice, real pages have more variation — sometimes a tag is missing, sometimes there are extra wrappers. The <code>find()</code> method you will learn next handles these cases more robustly, so it is what you will use most often.</p>
+
+      <div class="callout">
+        <strong>None propagates:</strong> If any step in the chain finds nothing (because the tag does not exist), it returns <code>None</code>. The next <code>.something</code> on <code>None</code> will raise an <code>AttributeError</code>. The safe version of the chain above is <code>soup.find("td")</code>, which you will learn in the next chapter.
+      </div>
+    </section>
+
+    <!-- ── Part 5 ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Read a Card's Contents</h2>
+
+      <p>The cell below contains a complete incident card. Use <code>soup.</code> tag-name access and <code>get_text()</code> to extract three things: the section heading, the location from the first cell, and the start date from the second cell.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="tabcontent">
+  <h3>Δασικές Πυρκαγιές (1)</h3>
+  <div class="panel panel-red">
+    <div class="panel-heading">
+      <table><tr>
+        <td>Αττική - Δήμος Μαρκόπουλου</td>
+        <td>Έναρξη: 12/07/2024</td>
+      </tr></table>
+    </div>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# 1. Get the section heading text
+heading_text = soup.h3.get_text(strip=True)
+print("Section:", heading_text)
+
+# 2. Get the first table cell (location)
+location = soup.td.get_text(strip=True)
+print("Location:", location)
+
+# 3. Get all table cells and read the second one (start date)
+all_cells = soup.find_all("td")
+start_date = all_cells[1].get_text(strip=True)
+print("Start:", start_date)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> how to create a BeautifulSoup object with <code>BeautifulSoup(html, "html.parser")</code>; how <code>prettify()</code> helps you inspect the structure; how to access tags directly with dot notation; how <code>get_text(" ", strip=True)</code> extracts clean text; and how to chain tag access to navigate nested structures. In the next chapter you will use <code>find()</code> and <code>find_all()</code> to search for elements across the whole document.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book5-chapter-2.html">Previous: Chapter 2 — Getting HTML with requests</a>
+        <a href="book5-chapter-4.html">Next: Chapter 4 — find() and find_all()</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and BeautifulSoup run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book5-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

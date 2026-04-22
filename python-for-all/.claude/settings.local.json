@@ -6,7 +6,11 @@
       "Bash(/Users/troboukis/Code/troboukis.github.io/python-for-all/gr/chapters/chapter-1.html:*)",
       "Bash(/Users/troboukis/Code/troboukis.github.io/python-for-all/gr/chapters/chapter-2.html:*)",
       "Bash(/Users/troboukis/Code/troboukis.github.io/python-for-all/gr/chapters/chapter-7.html:*)",
-      "Bash(/Users/troboukis/Code/troboukis.github.io/python-for-all/gr/chapters/chapter-10.html:*)"
+      "Bash(/Users/troboukis/Code/troboukis.github.io/python-for-all/gr/chapters/chapter-10.html:*)",
+      "Bash(python3)",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "Bash(xargs sed *)"
     ]
   }
 }

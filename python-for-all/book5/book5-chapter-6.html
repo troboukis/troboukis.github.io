@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 5 · Chapter Six — Extracting Text and Attributes · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 5 · Chapter Six — Extracting Text and Attributes · Python for All" />
+  <meta property="og:description" content="Extract article titles, dates, authors, and links from the Kathimerini latest-news cards." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 5 — Web Scraping with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Six — Extracting Text and Attributes</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="book5-chapter-6.html" class="is-current">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 6 — Working with APIs</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Five · Chapter Six</p>
+      <h2>Extracting Text and Attributes</h2>
+      <p class="chapter-desc">The latest-news page already contains the exact fields you want: publication time, article title, author, and link. In this chapter you will extract those values cleanly from the article cards.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>stripped_strings — Line by Line</h2>
+
+      <p><span class="dropcap">W</span>hen a tag contains nested text on separate lines, <code>stripped_strings</code> gives you the clean pieces one by one. This is useful when a card contains the date, title, and author as separate text nodes.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="design_one article-item is-flex is-flex-direction-column author-article">
+  <span class="posted-on">
+    <time class="entry-date published" datetime="2026-04-22T09:42:43+03:00">
+      22.04.2026 • 09:42
+    </time>
+  </span>
+  <a class="py-4 mainlink" href="/society/dikastiko/564187411/sto-ypoyrgeio-dikaiosynis-i-kovesi-synantisi-me-floridi/">
+    <span class="card-title">
+      Στο υπουργείο Δικαιοσύνης η Κοβέσι
+      Συνάντηση με Φλωρίδη
+    </span>
+  </a>
+  <span class="mb-2 author-link">Σοφία Σπίγγου</span>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+article = soup.find("div", class_="article-item")
+
+lines = list(article.stripped_strings)
+
+print("All text lines:")
+for line in lines:
+    print(" ", line)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>This gives you separate text nodes instead of one long messy string. You will often use it together with <code>get_text(" ", strip=True)</code> when a title contains line breaks.</p>
+
+      <div class="callout">
+        <strong>Good default:</strong> First inspect <code>list(tag.stripped_strings)</code>. If the text is already nicely separated, keep it. If you want one clean sentence, use <code>tag.get_text(" ", strip=True)</code>.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Reading Attributes</h2>
+
+      <p>The visible title is text. The article URL and publication timestamp are attributes. Use <code>tag.get("href")</code> and <code>tag.get("datetime")</code> to read them.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="design_one article-item is-flex is-flex-direction-column author-article">
+  <span class="posted-on">
+    <time class="entry-date published" datetime="2026-04-22T09:42:43+03:00">
+      22.04.2026 • 09:42
+    </time>
+  </span>
+  <a class="py-4 mainlink" href="/society/dikastiko/564187411/sto-ypoyrgeio-dikaiosynis-i-kovesi-synantisi-me-floridi/">
+    <span class="card-title">Στο υπουργείο Δικαιοσύνης η Κοβέσι – Συνάντηση με Φλωρίδη</span>
+  </a>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+time_tag = soup.find("time")
+link_tag = soup.find("a", class_="mainlink")
+title_tag = soup.find("span", class_="card-title")
+
+print("Datetime:", time_tag.get("datetime"))
+print("Title   :", title_tag.get_text(" ", strip=True))
+print("Href    :", link_tag.get("href"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Attributes often hold the most useful machine-readable values on a page. The title is for humans. The link and the ISO datetime are perfect for data collection.</p>
+
+      <div class="callout">
+        <strong>Use <code>.get()</code> for safety:</strong> <code>tag["href"]</code> crashes if the attribute is missing. <code>tag.get("href")</code> returns <code>None</code> instead.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Navigating with .parent</h2>
+
+      <p>Sometimes you find the smallest useful tag first, like <code>span.card-title</code>, and then need to move upward to reach the link or the full article card.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="design_one article-item is-flex is-flex-direction-column author-article">
+  <a class="py-4 mainlink" href="/economy/business/564187087/epekteinetai-i-cordia-me-exagora-tis-ellinikis-energeiakis-zeb/">
+    <span class="card-title">Επεκτείνεται η CORDIA με εξαγορά της ελληνικής ενεργειακής ZEB</span>
+  </a>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+title_tag = soup.find("span", class_="card-title")
+link_tag = title_tag.parent
+article_tag = link_tag.parent
+
+print("Current tag :", title_tag.name)
+print("Parent link :", link_tag.name, link_tag.get("class"))
+print("Article card:", article_tag.name, article_tag.get("class"))
+print("Href       :", link_tag.get("href"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>This pattern is common in scraping: locate the most specific tag first, then climb to the surrounding container.</p>
+
+      <div class="callout">
+        <strong>Think in containers:</strong> once you have the full article card, you can search inside it for the time, title, and author without mixing data from nearby cards.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>find_next_sibling()</h2>
+
+      <p>The article card places related fields next to each other: time, then link, then author. <code>find_next_sibling()</code> lets you move across that structure.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="design_one article-item is-flex is-flex-direction-column author-article">
+  <span class="posted-on">
+    <time class="entry-date published" datetime="2026-04-22T09:42:43+03:00">22.04.2026 • 09:42</time>
+  </span>
+  <a class="py-4 mainlink" href="/society/dikastiko/564187411/sto-ypoyrgeio-dikaiosynis-i-kovesi-synantisi-me-floridi/">
+    <span class="card-title">Στο υπουργείο Δικαιοσύνης η Κοβέσι – Συνάντηση με Φλωρίδη</span>
+  </a>
+  <span class="mb-2 author-link">Σοφία Σπίγγου</span>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+posted_on = soup.find("span", class_="posted-on")
+link_tag = posted_on.find_next_sibling("a")
+author_tag = link_tag.find_next_sibling("span")
+
+print("Time  :", posted_on.get_text(" ", strip=True))
+print("Title :", link_tag.get_text(" ", strip=True))
+print("Author:", author_tag.get_text(" ", strip=True))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Use <code>find_next_sibling()</code>, not <code>.next_sibling</code>. The raw sibling is often just a newline or whitespace node.</p>
+
+      <div class="callout">
+        <strong>Good use case:</strong> when a page puts fields side-by-side instead of nesting them inside the same tag, sibling navigation is usually the cleanest solution.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Build One Record</h2>
+
+      <p>Extract the date, title, author, and link from the card below, then store them in a dictionary.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="design_one article-item is-flex is-flex-direction-column author-article">
+  <span class="posted-on">
+    <time class="entry-date published" datetime="2026-04-22T08:53:00+03:00">22.04.2026 • 08:53</time>
+  </span>
+  <a class="py-4 mainlink" href="/culture/music/564187225/pou-vgainoume-simera-tetarti-protaseis-gia-theatro-synaylies-ektheseis-ekdiloseis/">
+    <span class="card-title">Πού βγαίνουμε σήμερα Τετάρτη; Προτάσεις για θέατρο, συναυλίες, εκθέσεις, εκδηλώσεις</span>
+  </a>
+  <span class="mb-2 author-link">Ελένη Σαμπάνη</span>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+article = soup.find("div", class_="article-item")
+
+time_tag = article.find("time")
+link_tag = article.find("a", class_="mainlink")
+title_tag = article.find("span", class_="card-title")
+author_tag = article.find("span", class_="author-link")
+
+record = {
+    "published_at": time_tag.get("datetime"),
+    "title": title_tag.get_text(" ", strip=True),
+    "author": author_tag.get_text(" ", strip=True),
+    "link": link_tag.get("href"),
+}
+
+print(record)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> how to extract text cleanly, how to read attributes like <code>href</code> and <code>datetime</code>, how to move upward with <code>.parent</code>, how to move sideways with <code>find_next_sibling()</code>, and how to turn one article card into one Python dictionary. In the next chapter you will do this for many cards and load the result into a DataFrame.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book5-chapter-5.html">Previous: Chapter 5 — Searching by Class and id</a>
+        <a href="book5-chapter-7.html">Next: Chapter 7 — From Dictionaries to DataFrames</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and BeautifulSoup run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book5-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

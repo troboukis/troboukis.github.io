@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 4 · Chapter Nine — Reading and Writing CSV Files · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 4 · Chapter Nine — Reading and Writing CSV Files · Python for All" />
+  <meta property="og:description" content="Learn data analysis with pandas using real food price examples." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 4 — Data Analysis with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Nine — Reading and Writing CSV Files</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="book4-chapter-9.html" class="is-current">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="../book5/book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="../book5/book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="../book5/book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="../book5/book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="../book5/book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="../book5/book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="../book5/book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="../book5/book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 6 — Working with APIs</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Four · Chapter Nine</p>
+      <h2>Reading and Writing CSV Files</h2>
+      <p class="chapter-desc">CSV files are the standard bridge between spreadsheets and pandas. In this chapter, you will learn how to load a CSV, understand file paths, and save your results back to CSV.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>What Is a CSV File?</h2>
+
+      <p><span class="dropcap">C</span>SV stands for <strong>comma-separated values</strong>. It is one of the simplest ways to store table data in a file. Each line is a row. Each comma separates one column from the next.</p>
+
+      <p>When you work with pandas on real projects, a very common workflow is: <strong>read a CSV → analyse the data → write a new CSV</strong>. That is how you move data between spreadsheets, scripts, and reports.</p>
+
+      <table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:0.95em;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Path</th>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">What It Means</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;"><code>"prices.csv"</code></td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">A file named <code>prices.csv</code> in the same folder as your script or notebook.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;"><code>"data/prices.csv"</code></td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">A file inside a subfolder called <code>data</code>.</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;"><code>"C:/Users/Ana/data/prices.csv"</code> or <code>"/Users/ana/data/prices.csv"</code></td>
+            <td style="padding:8px;">An absolute path: the full location of the file on your computer.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>Keep paths simple:</strong> when you are starting out, it is easiest to save your CSV in the same folder as your script and use a path like <code>"prices.csv"</code>.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Reading a CSV with <code>pd.read_csv()</code></h2>
+
+      <p><code>pd.read_csv("prices.csv")</code> tells pandas: “open the file called <code>prices.csv</code> and turn it into a DataFrame.” In this playground, we create the file first so the example can run. On your own computer, the file would usually already exist.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — read a CSV</div>
+        <textarea>import pandas as pd
+
+sample = pd.DataFrame({
+    "item": ["Bread", "Milk", "Eggs", "Cheese"],
+    "price": [1.29, 0.99, 2.49, 3.79],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy"]
+})
+
+# Save a demo CSV file so we have something to read
+sample.to_csv("prices.csv", index=False)
+
+# Read the CSV back into pandas
+df = pd.read_csv("prices.csv")
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The result is a normal DataFrame. Once the file is loaded, you can use everything you already know: <code>.head()</code>, filtering, sorting, <code>groupby()</code>, new columns, and so on.</p>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Writing a CSV with <code>.to_csv()</code></h2>
+
+      <p>To save a DataFrame to a CSV file, use <code>.to_csv("filename.csv")</code>. The filename is the path where you want the file to be written.</p>
+
+      <p>The option <code>index=False</code> is important. Without it, pandas also writes the row numbers as an extra first column. Most of the time, that is not what you want in a CSV you plan to share or reopen later.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — write a CSV</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread", "Milk", "Eggs", "Cheese", "Butter", "Rice"],
+    "price": [1.29, 0.99, 2.49, 3.79, 1.89, 0.89],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy", "Dairy", "Grains"]
+}
+df = pd.DataFrame(data)
+
+cheap = df[df["price"] < 2.0]
+cheap.to_csv("cheap_items.csv", index=False)
+
+print(pd.read_csv("cheap_items.csv"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Rule of thumb:</strong> use <code>index=False</code> unless you deliberately want the row numbers saved into the CSV.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>A Full CSV Workflow</h2>
+
+      <p>Here is the complete pattern you will use in real work: load a CSV, analyse it, then save the result as a new CSV.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — read, analyse, write</div>
+        <textarea>import pandas as pd
+
+sample = pd.DataFrame({
+    "item": ["Bread", "Milk", "Eggs", "Cheese", "Rice", "Tomatoes"],
+    "price": [1.29, 0.99, 2.49, 3.79, 0.89, 1.49],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy", "Grains", "Vegetables"]
+})
+
+sample.to_csv("prices.csv", index=False)
+
+df = pd.read_csv("prices.csv")
+summary = df.groupby("category")["price"].mean().round(2).reset_index()
+summary.to_csv("category_summary.csv", index=False)
+
+print("Summary table:")
+print(summary)
+print()
+print("Saved CSV read back in:")
+print(pd.read_csv("category_summary.csv"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Notice the flow: <code>prices.csv</code> comes in, pandas creates a summary table, and then that summary is written to <code>category_summary.csv</code>. This is how you build outputs that editors, classmates, or other scripts can reuse.</p>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Save and Reload Your Own Data</h2>
+
+      <p>Create a small price table of your own, save it to a CSV, read it back in, and then save a filtered version. Try to produce two files:</p>
+      <ul>
+        <li><code>my_prices.csv</code> — your full dataset</li>
+        <li><code>budget_items.csv</code> — only items cheaper than your chosen threshold</li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import pandas as pd
+
+my_data = {
+    "item": ["Bread", "Milk", "Eggs", "Cheese", "Rice", "Tomatoes"],
+    "price": [1.29, 0.99, 2.49, 3.79, 0.89, 1.49],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy", "Grains", "Vegetables"]
+}
+
+df = pd.DataFrame(my_data)
+
+# Save your full dataset
+df.to_csv("my_prices.csv", index=False)
+
+# Read it back in
+loaded = pd.read_csv("my_prices.csv")
+
+# Save a filtered version
+budget = loaded[loaded["price"] < 1.50]
+budget.to_csv("budget_items.csv", index=False)
+
+print("Full dataset:")
+print(loaded)
+print()
+print("Budget items:")
+print(pd.read_csv("budget_items.csv"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Congratulations — you have completed Book 4.</strong> You can now load, inspect, clean, filter, aggregate, sort, enrich, save, and reload tabular data using pandas. These are the core skills of practical data analysis. The next book covers web scraping: how to collect data automatically from websites using Python.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book4-chapter-8.html">Previous: Chapter 8 — Cleaning and Analysis</a>
+        <a href="../index.html">Back to Course Home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and pandas run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book4-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

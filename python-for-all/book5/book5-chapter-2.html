@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 5 · Chapter Two — Getting HTML with requests · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 5 · Chapter Two — Getting HTML with requests · Python for All" />
+  <meta property="og:description" content="Fetch the Kathimerini latest-news page with requests and prepare it for scraping with BeautifulSoup." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 5 — Web Scraping with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Two — Getting HTML with requests</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="book5-chapter-2.html" class="is-current">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 6 — Working with APIs</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Five · Chapter Two</p>
+      <h2>Getting HTML with requests</h2>
+      <p class="chapter-desc">The <code>requests</code> library fetches live pages from the internet. In this chapter you will fetch <code>https://www.kathimerini.gr/epikairothta/</code>, inspect the response, turn the HTML into a BeautifulSoup object, and then move from page 1 to page 2.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Two Lines to Fetch a Page</h2>
+
+      <p><span class="dropcap">T</span>he first line makes the HTTP request. The second reads the HTML text that came back from the server.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests
+
+URL = "https://www.kathimerini.gr/epikairothta/"
+
+response = requests.get(URL)
+html = response.text
+
+print("Status code:", response.status_code)
+print("Characters received:", len(html))
+print("First 200 characters:")
+print(html[:200])</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p><code>response.text</code> is the raw HTML string. <code>response.status_code</code> tells you whether the request succeeded: <code>200</code> means success, <code>404</code> means the page was not found, and <code>403</code> means the server refused the request.</p>
+
+      <div class="callout">
+        <strong>Why these cells do not run here.</strong> The browser version of the course cannot make live requests to external sites. Copy these cells into a Jupyter notebook and run them there.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Looking Like a Browser</h2>
+
+      <p>Real sites often expect browser-like headers. The most important one is <code>User-Agent</code>. For Greek content, it also helps to set <code>Accept-Language</code>.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests
+
+URL = "https://www.kathimerini.gr/epikairothta/"
+
+headers = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "el-GR,el;q=0.9,en-US;q=0.8",
+}
+
+response = requests.get(URL, headers=headers, timeout=30)
+print("Status   :", response.status_code)
+print("Encoding :", response.encoding)</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>Always set a timeout. Without <code>timeout=30</code>, your code can wait forever on a slow server.</p>
+
+      <div class="callout">
+        <strong>Basic tools from earlier books are already in play:</strong> variables store the URL and headers, the headers are a dictionary, and function calls like <code>requests.get(...)</code> return values that you save into variables.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>From Response to Soup</h2>
+
+      <p>Once you have the HTML string, the next step is always the same: hand it to BeautifulSoup.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests
+from bs4 import BeautifulSoup
+
+URL = "https://www.kathimerini.gr/epikairothta/"
+
+headers = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "el-GR,el;q=0.9,en-US;q=0.8",
+}
+
+response = requests.get(URL, headers=headers, timeout=30)
+soup = BeautifulSoup(response.text, "html.parser")
+
+print("Page title:", soup.title.get_text(strip=True))
+
+first_card = soup.find("a", class_="mainlink")
+first_title = first_card.find("span", class_="card-title")
+print("First article:", first_title.get_text(" ", strip=True))</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>From this point on, the <code>requests</code> part stays mostly the same. The interesting work is what you do with <code>soup</code>. Here are the main methods you will use throughout this book:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>What you want</th>
+            <th>Method</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>First tag that matches</td>
+            <td><code>find()</code></td>
+            <td><code>soup.find("a")</code></td>
+          </tr>
+          <tr>
+            <td>All tags that match</td>
+            <td><code>find_all()</code></td>
+            <td><code>soup.find_all("a")</code></td>
+          </tr>
+          <tr>
+            <td>Tag by class name</td>
+            <td><code>find(class_=)</code></td>
+            <td><code>soup.find("a", class_="mainlink")</code></td>
+          </tr>
+          <tr>
+            <td>Tag by id</td>
+            <td><code>find(id=)</code></td>
+            <td><code>soup.find(id="main")</code></td>
+          </tr>
+          <tr>
+            <td>Visible text inside a tag</td>
+            <td><code>get_text()</code></td>
+            <td><code>tag.get_text(" ", strip=True)</code></td>
+          </tr>
+          <tr>
+            <td>Value of an attribute</td>
+            <td><code>get()</code></td>
+            <td><code>tag.get("href")</code></td>
+          </tr>
+          <tr>
+            <td>Tags matching a CSS selector</td>
+            <td><code>select()</code></td>
+            <td><code>soup.select("a.mainlink")</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>Current page structure:</strong> As of April 22, 2026, the Kathimerini latest-news page exposes article links with <code>&lt;a class="mainlink"&gt;</code> and titles inside <code>&lt;span class="card-title"&gt;</code>.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Moving from Page 1 to Page 2</h2>
+
+      <p>The first page is <code>https://www.kathimerini.gr/epikairothta/</code>. The second page is <code>https://www.kathimerini.gr/epikairothta/page/2/</code>. This pattern will later let you loop through many pages with <code>range()</code>.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests
+from bs4 import BeautifulSoup
+
+BASE_URL = "https://www.kathimerini.gr/epikairothta/"
+
+headers = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "el-GR,el;q=0.9,en-US;q=0.8",
+}
+
+page_number = 2
+page_url = f"{BASE_URL}page/{page_number}/"
+
+response = requests.get(page_url, headers=headers, timeout=30)
+soup = BeautifulSoup(response.text, "html.parser")
+
+print("Fetched:", page_url)
+print("Status :", response.status_code)
+print("Cards  :", len(soup.find_all("a", class_="mainlink")))</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>This is the first important pagination idea of the book: some pages are not discovered by clicking buttons in Python. You build the next URL as a string.</p>
+
+      <div class="callout">
+        <strong>Special case for page 1:</strong> page 1 uses the base URL, but later pages use <code>page/2/</code>, <code>page/3/</code>, and so on. In the final chapter you will place that <code>if/else</code> logic directly inside a <code>for</code> loop over <code>range()</code>.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Fetch and Explore</h2>
+
+      <p>Copy this block into your notebook. It fetches the live page and prints the first five titles it finds.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests
+from bs4 import BeautifulSoup
+
+URL = "https://www.kathimerini.gr/epikairothta/"
+
+headers = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "el-GR,el;q=0.9,en-US;q=0.8",
+}
+
+response = requests.get(URL, headers=headers, timeout=30)
+soup = BeautifulSoup(response.text, "html.parser")
+
+cards = soup.find_all("a", class_="mainlink")
+
+print("Total article links found:", len(cards))
+print()
+
+for card in cards[:5]:
+    title_tag = card.find("span", class_="card-title")
+    if not title_tag:
+        continue
+    title = title_tag.get_text(" ", strip=True)
+    link = card.get("href")
+    print(title)
+    print(link)
+    print()</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> how <code>requests.get()</code> fetches a live page; what <code>response.text</code> and <code>response.status_code</code> contain; how to send browser-like headers; how to turn the HTML into <code>soup</code>; and how page 2 follows the URL pattern <code>.../page/2/</code>. In the next chapters you will use BeautifulSoup to extract the exact fields you want.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book5-chapter-1.html">Previous: Chapter 1 — What is Web Scraping?</a>
+        <a href="book5-chapter-3.html">Next: Chapter 3 — Your First BeautifulSoup Object</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and BeautifulSoup run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book5-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

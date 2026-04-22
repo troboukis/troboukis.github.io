@@ -168,6 +168,34 @@
       text-decoration-thickness: 1px;
     }
 
+    /* ── Chapter-page nav collapse ── */
+    .toc--chapter-page details.toc-book:not([open]),
+    .toc--chapter-page .toc-book--soon {
+      display: none;
+    }
+    .toc--chapter-page.toc--expanded details.toc-book:not([open]),
+    .toc--chapter-page.toc--expanded .toc-book--soon {
+      display: block;
+    }
+    .toc-browse-btn {
+      display: block;
+      width: 100%;
+      background: none;
+      border: none;
+      border-top: 1px solid #ebebeb;
+      margin-top: 16px;
+      padding: 14px 0 0;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .toc-browse-btn:hover { color: #111; }
+
     /* ── Main content ── */
     main {
       max-width: 700px;
