@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 6 · Chapter Three — Saving PDFs to a Folder · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 6 · Chapter Three — Saving PDFs to a Folder · Python for All" />
+  <meta property="og:description" content="Download Diavgeia decision PDFs and save them to an organised folder, using the ADA code as the filename." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 6 — Working with APIs</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Three — Saving PDFs to a Folder</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="../book5/book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="../book5/book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="../book5/book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="../book5/book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="../book5/book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="../book5/book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="../book5/book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="../book5/book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 6 — Working with APIs</summary>
+        <ol>
+          <li><a href="book6-chapter-1.html">Chapter One — What is an API?</a></li>
+          <li><a href="book6-chapter-2.html">Chapter Two — Your First API Request</a></li>
+          <li><a href="book6-chapter-3.html" class="is-current">Chapter Three — Saving PDFs to a Folder</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Six · Chapter Three</p>
+      <h2>Saving PDFs to a Folder</h2>
+      <p class="chapter-desc">Every Diavgeia decision carries a <code>documentUrl</code> — a direct link to the attached PDF. In this chapter you will download those files, create an organised output folder, and save each PDF with the ADA code as its filename.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>The documentUrl Field</h2>
+
+      <p><span class="dropcap">E</span>very decision in a Diavgeia search response includes a <code>documentUrl</code> field. This is the direct address of the attached document — almost always a PDF. It is exactly what you would click if you were browsing the Diavgeia website manually.</p>
+
+      <p>Run the cell below to see how <code>documentUrl</code> sits inside each decision, and how to extract all the URLs from a page of results in one loop.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import json
+
+raw = """
+{
+  "info": {"total": 89},
+  "decisions": [
+    {
+      "ada": "ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "subject": "Ανάληψη υποχρέωσης για την προμήθεια κλιματιστικών μονάδων",
+      "issueDate": "2025-06-10",
+      "documentUrl": "https://diavgeia.gov.gr/doc/ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "documentType": "pdf",
+      "organization": {"label": "ΔΗΜΟΣ ΑΘΗΝΑΙΩΝ"},
+      "decisionType": {"label": "Ανάληψη Υποχρέωσης"}
+    },
+    {
+      "ada": "6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "subject": "Σύμβαση προμήθειας και εγκατάστασης κλιματιστικών",
+      "issueDate": "2025-06-08",
+      "documentUrl": "https://diavgeia.gov.gr/doc/6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "documentType": "pdf",
+      "organization": {"label": "ΔΗΜΟΣ ΘΕΣΣΑΛΟΝΙΚΗΣ"},
+      "decisionType": {"label": "Σύμβαση"}
+    },
+    {
+      "ada": "ΩΒΚ746ΜΦΩΡ-ΠΔΓ",
+      "subject": "Συντήρηση κλιματισμού δημοτικών κτιρίων",
+      "issueDate": "2025-06-05",
+      "documentUrl": null,
+      "documentType": null,
+      "organization": {"label": "ΔΗΜΟΣ ΠΕΙΡΑΙΩΣ"},
+      "decisionType": {"label": "Ανάληψη Υποχρέωσης"}
+    }
+  ]
+}
+"""
+
+data = json.loads(raw)
+
+for decision in data["decisions"]:
+    ada = decision.get("ada", "")
+    url = decision.get("documentUrl")
+    if url:
+        print(ada, "→", url)
+    else:
+        print(ada, "→ no document attached")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Notice that the third decision has <code>null</code> for both <code>documentUrl</code> and <code>documentType</code>. Not every decision has an attached file. The <code>if url:</code> guard skips those cleanly without crashing.</p>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Text vs Binary — resp.content</h2>
+
+      <p>In Chapter Two you used <code>resp.json()</code> to get a Python dictionary from the response. PDFs are not text — they are binary files. If you try to read a PDF as text you will get garbled output. Python gives you two ways to read a response body:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Returns</th>
+            <th>Use for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>resp.text</code></td>
+            <td>A Python string, decoded as UTF-8</td>
+            <td>HTML, JSON, plain text</td>
+          </tr>
+          <tr>
+            <td><code>resp.json()</code></td>
+            <td>A Python dict or list</td>
+            <td>JSON API responses</td>
+          </tr>
+          <tr>
+            <td><code>resp.content</code></td>
+            <td>Raw bytes — the exact file as received</td>
+            <td>PDFs, images, any binary file</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>To write those bytes to disk you open the file in <strong>binary write</strong> mode — <code>"wb"</code> instead of the usual <code>"w"</code>. The <code>b</code> tells Python not to try to encode the bytes as text:</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests
+
+document_url = "https://diavgeia.gov.gr/doc/ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ"
+
+resp = requests.get(document_url, timeout=60, allow_redirects=True)
+resp.raise_for_status()
+
+with open("ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ.pdf", "wb") as f:
+    f.write(resp.content)
+
+print("Saved:", resp.headers.get("Content-Type"), len(resp.content), "bytes")</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>Two details worth noting. <code>allow_redirects=True</code> is important: Diavgeia's document URLs sometimes redirect to a storage server before delivering the file. Without this argument the request would stop at the redirect and you would save an empty or broken file. And <code>timeout=60</code> is longer than the 30 seconds you use for API searches, because PDFs can be large.</p>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Creating the Output Folder</h2>
+
+      <p>Saving all PDFs into the same directory as your script quickly becomes unmanageable. The standard approach is to create a dedicated output folder. Python's <code>os</code> module handles this in one line:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import os
+
+folder = "diavgeia_pdfs"
+
+os.makedirs(folder, exist_ok=True)
+
+print("Folder created:", os.path.exists(folder))
+print("Contents so far:", os.listdir(folder))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>exist_ok=True</code> is the key argument. Without it, <code>os.makedirs()</code> raises a <code>FileExistsError</code> if the folder is already there — which means your script would crash on the second run. With <code>exist_ok=True</code>, it does nothing if the folder exists and creates it if it doesn't. Safe to call every time.</p>
+
+      <p>To build the full path to a file inside that folder, use <code>os.path.join()</code>. It handles the slash between the folder name and the filename correctly on any operating system:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import os
+
+folder = "diavgeia_pdfs"
+ada = "ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ"
+
+filepath = os.path.join(folder, ada + ".pdf")
+print(filepath)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Why the ADA as filename?</strong> The ADA code is unique across the entire Diavgeia registry — no two decisions share the same ADA. Using it as the filename means you can always trace a file back to its source, and you will never accidentally overwrite one decision's PDF with another's.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>The Complete Pipeline</h2>
+
+      <p>You now have all the pieces. The full script searches Diavgeia, loops over the decisions, skips any that have no document, and saves each PDF into the output folder. Run this in a Jupyter notebook or a local Python script — not in the browser, because live HTTP requests to external servers are not possible here.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import os
+import time
+import requests
+
+# ── Settings ──────────────────────────────────────────────
+SEARCH_URL = "https://diavgeia.gov.gr/luminapi/api/search"
+OUTPUT_FOLDER = "diavgeia_pdfs"
+QUERY = 'subject:"κλιματισμός"'
+PAGE_SIZE = 10
+# ──────────────────────────────────────────────────────────
+
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
+params = {
+    "q": QUERY,
+    "size": PAGE_SIZE,
+    "page": 0,
+    "sort": "recent",
+}
+
+resp = requests.get(SEARCH_URL, params=params, headers={"Accept": "application/json"}, timeout=30)
+resp.raise_for_status()
+data = resp.json()
+
+print(f"Total decisions found: {data['info']['total']}")
+print(f"Downloading up to {PAGE_SIZE} PDFs...\n")
+
+for decision in data.get("decisions", []):
+    ada = decision.get("ada", "")
+    doc_url = decision.get("documentUrl")
+
+    if not doc_url:
+        print(f"  {ada} — no document, skipping")
+        continue
+
+    filepath = os.path.join(OUTPUT_FOLDER, ada + ".pdf")
+
+    pdf_resp = requests.get(doc_url, timeout=60, allow_redirects=True)
+    pdf_resp.raise_for_status()
+
+    with open(filepath, "wb") as f:
+        f.write(pdf_resp.content)
+
+    print(f"  Saved: {filepath}  ({len(pdf_resp.content):,} bytes)")
+
+    time.sleep(1)
+
+print("\nDone.")</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>time.sleep(1)</strong> pauses for one second between each PDF download. APIs and servers have rate limits — if you send dozens of requests in quick succession you may get blocked or slow the server down for other users. One second per file is a respectful pace for a tutorial script.
+      </div>
+
+      <p>The structure of the script is the same pattern you will reuse whenever you download files from an API: create the folder once before the loop, build the path inside the loop, save inside the loop, pause inside the loop.</p>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Build the Paths</h2>
+
+      <p>The cell below gives you a list of decisions. Your task: create a folder called <code>decisions_2025</code>, then build and print the full file path for each decision that has a <code>documentUrl</code>. Skip any that don't.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import os
+import json
+
+raw = """
+{
+  "decisions": [
+    {
+      "ada": "ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "issueDate": "2025-06-10",
+      "documentUrl": "https://diavgeia.gov.gr/doc/ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "organization": {"label": "ΔΗΜΟΣ ΑΘΗΝΑΙΩΝ"}
+    },
+    {
+      "ada": "6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "issueDate": "2025-06-08",
+      "documentUrl": "https://diavgeia.gov.gr/doc/6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "organization": {"label": "ΔΗΜΟΣ ΘΕΣΣΑΛΟΝΙΚΗΣ"}
+    },
+    {
+      "ada": "ΩΒΚ746ΜΦΩΡ-ΠΔΓ",
+      "issueDate": "2025-06-05",
+      "documentUrl": null,
+      "organization": {"label": "ΔΗΜΟΣ ΠΕΙΡΑΙΩΣ"}
+    },
+    {
+      "ada": "ΡΨΞ946ΜΤΛΡ-ΒΩΔ",
+      "issueDate": "2025-06-01",
+      "documentUrl": "https://diavgeia.gov.gr/doc/ΡΨΞ946ΜΤΛΡ-ΒΩΔ",
+      "organization": {"label": "ΔΗΜΟΣ ΠΑΤΡΕΩΝ"}
+    }
+  ]
+}
+"""
+
+data = json.loads(raw)
+
+folder = "decisions_2025"
+os.makedirs(folder, exist_ok=True)
+
+for decision in data["decisions"]:
+    ada = decision.get("ada", "")
+    doc_url = decision.get("documentUrl")
+
+    if not doc_url:
+        print(f"  {ada} — skipped (no document)")
+        continue
+
+    filepath = os.path.join(folder, ada + ".pdf")
+    print(f"  Would save to: {filepath}")
+
+print()
+print("Folder exists:", os.path.exists(folder))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> every Diavgeia decision exposes its PDF through <code>documentUrl</code>; you download binary files with <code>resp.content</code> and save them with <code>"wb"</code> mode; <code>os.makedirs(folder, exist_ok=True)</code> creates the output folder safely; and <code>os.path.join()</code> builds file paths correctly on any operating system.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book6-chapter-2.html">Previous: Chapter 2 — Your First API Request</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book6-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

@@ -682,6 +682,49 @@
       font-style: italic;
     }
 
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+      margin: 28px 0;
+    }
+
+    thead {
+      border-top: 2px solid #111;
+      border-bottom: 1px solid #111;
+    }
+
+    thead th {
+      text-align: left;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: #555;
+      padding: 10px 14px 10px 0;
+    }
+
+    thead th:last-child { padding-right: 0; }
+
+    tbody tr {
+      border-bottom: 1px solid #ebebeb;
+    }
+
+    tbody tr:last-child {
+      border-bottom: 1px solid #111;
+    }
+
+    tbody td {
+      padding: 13px 14px 13px 0;
+      vertical-align: top;
+      line-height: 1.55;
+      color: #333;
+    }
+
+    tbody td:last-child { padding-right: 0; }
+
     /* ── Loading banner ── */
     #loading-banner {
       position: fixed;
