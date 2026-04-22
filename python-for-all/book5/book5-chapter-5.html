@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 5 · Chapter Five — Searching by Class and id · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 5 · Chapter Five — Searching by Class and id · Python for All" />
+  <meta property="og:description" content="Target specific elements using CSS class names, id attributes, and the select() method." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 5 — Web Scraping with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Five — Searching by Class and id</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="book5-chapter-5.html" class="is-current">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 6 — Working with APIs</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Five · Chapter Five</p>
+      <h2>Searching by Class and id</h2>
+      <p class="chapter-desc">HTML elements carry a <code>class</code> attribute that groups them visually and an <code>id</code> attribute that uniquely identifies them. These two attributes are how a scraper distinguishes between "all the red panels" and "all the green panels" — between active fires and contained ones.</p>
+    </div>
+
+    <!-- ── Part 1 ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Searching by Class Name</h2>
+
+      <p><span class="dropcap">T</span>he <code>class_</code> argument (note the underscore — Python's built-in <code>class</code> keyword would conflict without it) lets you filter by CSS class name. Pass it to <code>find()</code> or <code>find_all()</code> alongside a tag name and you get only the elements that have that class:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="tabcontent">
+  <div class="panel panel-red">
+    <td>Αττική - Δήμος Μαρκόπουλου</td>
+  </div>
+  <div class="panel panel-red">
+    <td>Αττική - Δήμος Λαυρεωτικής</td>
+  </div>
+  <div class="panel panel-green">
+    <td>Στερεά Ελλάδα - Δήμος Θήβας</td>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# All panels (any class containing "panel")
+all_panels = soup.find_all("div", class_="panel")
+print("All panels:", len(all_panels))
+
+# Only active (red) panels
+active = soup.find_all("div", class_="panel-red")
+print("Active:", len(active))
+
+# Only contained (green) panels
+contained = soup.find_all("div", class_="panel-green")
+print("Contained:", len(contained))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>An element can have multiple class names at once — <code>class="panel panel-red"</code> means the element belongs to both the <code>panel</code> group and the <code>panel-red</code> group. BeautifulSoup's <code>class_</code> argument matches if the specified name is <em>anywhere</em> in the class list, so <code>class_="panel-red"</code> correctly finds elements whose class attribute is <code>"panel panel-red"</code>.</p>
+
+      <div class="callout">
+        <strong>class_ vs class:</strong> Python uses <code>class</code> as a keyword for defining new classes. BeautifulSoup uses <code>class_</code> (with a trailing underscore) as the argument name to avoid the conflict. Do not forget the underscore — <code>class=</code> will raise a <code>SyntaxError</code>.
+      </div>
+    </section>
+
+    <!-- ── Part 2 ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Reading Status from the Class Name</h2>
+
+      <p>The class name is data, not just a styling hook. When an incident card uses <code>panel-red</code> for active fires and <code>panel-green</code> for contained ones, the class name itself tells you the status. You can read it with the <code>.get("class")</code> method, which returns the class list as a Python list of strings:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="tabcontent">
+  <div class="panel panel-red">
+    <td>Αττική - Δήμος Μαρκόπουλου</td>
+  </div>
+  <div class="panel panel-green">
+    <td>Στερεά Ελλάδα - Δήμος Θήβας</td>
+  </div>
+  <div class="panel panel-yellow">
+    <td>Πελοπόννησος - Δήμος Σπάρτης</td>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+status_labels = {
+    "panel-red":    "Σε Εξέλιξη",
+    "panel-green":  "Πλήρως Ελεγχόμενη",
+    "panel-yellow": "Μερικώς Ελεγχόμενη",
+}
+
+for panel in soup.find_all("div", class_="panel"):
+    class_list = panel.get("class")   # e.g. ["panel", "panel-red"]
+    location = panel.find("td").get_text(strip=True)
+
+    # Find which status class is present
+    status = ""
+    for css_class in class_list:
+        if css_class in status_labels:
+            status = status_labels[css_class]
+
+    print(f"{location}  →  {status}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>.get("class")</code> returns a list like <code>["panel", "panel-red"]</code>. The loop checks each class name in the list against the status dictionary and sets the status when it finds a match. This is cleaner than hardcoding <code>"panel-red"</code> in every comparison.</p>
+
+      <div class="callout">
+        <strong>.get() vs ["class"]:</strong> You can access an attribute with <code>tag["class"]</code> (like a dictionary) or with <code>tag.get("class")</code>. The difference: <code>tag["class"]</code> raises a <code>KeyError</code> if the attribute is missing; <code>tag.get("class")</code> returns <code>None</code> instead. Use <code>.get()</code> for any attribute that might be absent.
+      </div>
+    </section>
+
+    <!-- ── Part 3 ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Searching by id</h2>
+
+      <p>The <code>id</code> attribute uniquely identifies one element on a page. When you know the id, you can jump directly to that element without searching the whole tree. Pass <code>id="the-id"</code> to <code>find()</code>:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div id="incidents-page">
+  <div id="forest-fires" class="tabcontent">
+    <h3>Δασικές Πυρκαγιές (2)</h3>
+    <div class="panel panel-red"><td>Αττική - Δήμος Μαρκόπουλου</td></div>
+    <div class="panel panel-green"><td>Στερεά Ελλάδα</td></div>
+  </div>
+  <div id="urban-fires" class="tabcontent">
+    <h3>Αστικές Πυρκαγιές (1)</h3>
+    <div class="panel panel-red"><td>Αθήνα - Κολωνάκι</td></div>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# Jump directly to the forest fires section by id
+forest_section = soup.find(id="forest-fires")
+heading = forest_section.find("h3")
+panels  = forest_section.find_all("div", class_="panel")
+
+print("Section:", heading.get_text(strip=True))
+print("Panels:", len(panels))
+print()
+for panel in panels:
+    print(" ", panel.find("td").get_text(strip=True))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Once you have the section by id, every subsequent search is scoped to that section. Calling <code>forest_section.find_all("div", class_="panel")</code> returns only the panels inside the forest fires section, not the panel in the urban fires section.</p>
+
+      <div class="callout">
+        <strong>id is unique — class is a group:</strong> Only one element per page should have a given id. Any number of elements can share the same class name. Use <code>id=</code> when you need to pinpoint one specific element; use <code>class_=</code> when you want to collect a category of elements.
+      </div>
+    </section>
+
+    <!-- ── Part 4 ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>CSS Selectors with select()</h2>
+
+      <p>BeautifulSoup also supports <strong>CSS selector syntax</strong> through the <code>select()</code> method. If you have ever written CSS stylesheets, you already know these patterns. <code>select()</code> always returns a list; <code>select_one()</code> returns the first match or <code>None</code>.</p>
+
+      <ul>
+        <li><code>soup.select("div")</code> — all <code>&lt;div&gt;</code> elements</li>
+        <li><code>soup.select(".panel-red")</code> — elements with class <code>panel-red</code></li>
+        <li><code>soup.select("#forest-fires")</code> — the element with id <code>forest-fires</code></li>
+        <li><code>soup.select("div.panel td")</code> — <code>&lt;td&gt;</code> elements inside a <code>div.panel</code></li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="tabcontent">
+  <h3>Δασικές Πυρκαγιές</h3>
+  <div class="panel panel-red">
+    <table><tr>
+      <td class="location">Αττική - Δήμος Μαρκόπουλου</td>
+      <td class="timing">Έναρξη: 12/07/2024</td>
+    </tr></table>
+  </div>
+  <div class="panel panel-green">
+    <table><tr>
+      <td class="location">Στερεά Ελλάδα - Δήμος Θήβας</td>
+      <td class="timing">Έναρξη: 10/07/2024</td>
+    </tr></table>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# All location cells using a CSS selector
+locations = soup.select("td.location")
+print("Locations:")
+for td in locations:
+    print(" ", td.get_text(strip=True))
+
+# Only timing cells inside red panels
+red_timing = soup.select("div.panel-red td.timing")
+print()
+print("Timing of active fires:")
+for td in red_timing:
+    print(" ", td.get_text(strip=True))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>select() or find_all() — which to use?</strong> They produce the same results. Use <code>select()</code> when the CSS selector syntax is more concise — especially when you need to combine tag and class in one expression like <code>"div.panel-red td"</code>. Use <code>find_all()</code> when you prefer explicit keyword arguments. Both are correct.
+      </div>
+    </section>
+
+    <!-- ── Part 5 ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Active Fires Only</h2>
+
+      <p>Use <code>find_all()</code> with <code>class_="panel-red"</code> to extract only the active incidents from the page below. For each active panel, print the location and start date.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="tabcontent">
+  <h3>Δασικές Πυρκαγιές (3)</h3>
+  <div class="panel panel-red">
+    <table><tr>
+      <td>Αττική - Δήμος Μαρκόπουλου</td>
+      <td>Έναρξη: 12/07/2024</td>
+    </tr></table>
+  </div>
+  <div class="panel panel-green">
+    <table><tr>
+      <td>Στερεά Ελλάδα - Δήμος Θήβας</td>
+      <td>Έναρξη: 10/07/2024</td>
+    </tr></table>
+  </div>
+  <div class="panel panel-red">
+    <table><tr>
+      <td>Αττική - Δήμος Λαυρεωτικής</td>
+      <td>Έναρξη: 14/07/2024</td>
+    </tr></table>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# Get only the active (red) panels
+active_panels = soup.find_all("div", class_="panel-red")
+print(f"Active fires: {len(active_panels)}")
+print()
+
+for panel in active_panels:
+    cells = panel.find_all("td")
+    location = cells[0].get_text(strip=True)
+    start    = cells[1].get_text(strip=True)
+    print(f"  Location : {location}")
+    print(f"  Start    : {start}")
+    print()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> how to use <code>class_=</code> to filter elements by CSS class name; how to read the class list from a tag with <code>.get("class")</code>; how to jump to a unique element with <code>find(id="...")</code>; and how <code>select()</code> lets you use CSS selector syntax for concise targeting. In the next chapter you will go deeper into extracting text and attributes — including link URLs and custom data attributes.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book5-chapter-4.html">Previous: Chapter 4 — find() and find_all()</a>
+        <a href="book5-chapter-6.html">Next: Chapter 6 — Extracting Text and Attributes</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and BeautifulSoup run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book5-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

@@ -376,6 +376,7 @@ onAuthStateChanged(auth, async user => {
 
   if (user) {
     removeGate();
+    document.querySelectorAll(".lock-icon").forEach(icon => icon.remove());
     await ensureUserDoc(user);
 
     const progress = await loadProgress(user.uid);

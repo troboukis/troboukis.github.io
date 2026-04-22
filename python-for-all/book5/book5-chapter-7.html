@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 5 · Chapter Seven — From Dictionaries to DataFrames · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 5 · Chapter Seven — From Dictionaries to DataFrames · Python for All" />
+  <meta property="og:description" content="Turn article cards into dictionaries, then into a pandas DataFrame, and save the result to CSV." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 5 — Web Scraping with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Seven — From Dictionaries to DataFrames</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="book5-chapter-7.html" class="is-current">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 6 — Working with APIs</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Five · Chapter Seven</p>
+      <h2>From Dictionaries to DataFrames</h2>
+      <p class="chapter-desc">A scraper does not stop at finding tags. It turns each article into a dictionary, collects those dictionaries in a list, loads the list into pandas, and saves the result to CSV. This chapter builds that full single-page workflow.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>One Card Becomes One Dictionary</h2>
+
+      <p><span class="dropcap">T</span>he natural unit of scraped data is a dictionary. One article card becomes one dictionary with named fields like <code>title</code>, <code>link</code>, <code>author</code>, and <code>published_at</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="design_one article-item is-flex is-flex-direction-column author-article">
+  <span class="posted-on">
+    <time class="entry-date published" datetime="2026-04-22T09:53:00+03:00">22.04.2026 • 09:53</time>
+  </span>
+  <a class="py-4 mainlink" href="/economy/business/564187087/epekteinetai-i-cordia-me-exagora-tis-ellinikis-energeiakis-zeb/">
+    <span class="card-title">Επεκτείνεται η CORDIA με εξαγορά της ελληνικής ενεργειακής ZEB</span>
+  </a>
+  <span class="mb-2 author-link">Ηλίας Μπέλλος</span>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+article = soup.find("div", class_="article-item")
+
+record = {
+    "published_at": article.find("time").get("datetime"),
+    "title": article.find("span", class_="card-title").get_text(" ", strip=True),
+    "author": article.find("span", class_="author-link").get_text(" ", strip=True),
+    "link": article.find("a", class_="mainlink").get("href"),
+}
+
+print(record)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>This uses basic Python you already know:</strong> strings, variables, dictionaries, and function calls. Scraping is not a new language. It is ordinary Python applied to HTML.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Many Cards Become a List of Dicts</h2>
+
+      <p>The next step is a loop: find all article cards, create one dictionary per card, and <code>append()</code> each dictionary to a list.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="latest-news">
+  <div class="design_one article-item is-flex is-flex-direction-column author-article">
+    <a class="py-4 mainlink" href="/economy/business/564187087/epekteinetai-i-cordia-me-exagora-tis-ellinikis-energeiakis-zeb/">
+      <span class="card-title">Επεκτείνεται η CORDIA με εξαγορά της ελληνικής ενεργειακής ZEB</span>
+    </a>
+  </div>
+  <div class="design_one article-item is-flex is-flex-direction-column author-article">
+    <a class="py-4 mainlink" href="/society/dikastiko/564187411/sto-ypoyrgeio-dikaiosynis-i-kovesi-synantisi-me-floridi/">
+      <span class="card-title">Στο υπουργείο Δικαιοσύνης η Κοβέσι – Συνάντηση με Φλωρίδη</span>
+    </a>
+  </div>
+  <div class="design_one article-item is-flex is-flex-direction-column author-article">
+    <a class="py-4 mainlink" href="/culture/music/564187225/pou-vgainoume-simera-tetarti-protaseis-gia-theatro-synaylies-ektheseis-ekdiloseis/">
+      <span class="card-title">Πού βγαίνουμε σήμερα Τετάρτη; Προτάσεις για θέατρο, συναυλίες, εκθέσεις, εκδηλώσεις</span>
+    </a>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+cards = soup.find_all("a", class_="mainlink")
+
+records = []
+
+for card in cards:
+    title_tag = card.find("span", class_="card-title")
+    if not title_tag:
+        continue
+
+    record = {
+        "title": title_tag.get_text(" ", strip=True),
+        "link": card.get("href"),
+    }
+    records.append(record)
+
+print("Records:", len(records))
+for record in records:
+    print(record)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>This is the core data-collection loop of the whole book: find many containers, loop over them, build dictionaries, append them to a list.</p>
+
+      <div class="callout">
+        <strong>Books 1, 2, and 3 all appear here:</strong> variables, list creation, <code>for</code> loops, <code>if</code> guards, dictionaries, and <code>append()</code>. The scraper works because these basic tools combine well.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>List of Dicts to DataFrame</h2>
+
+      <p>Pandas reads a list of dictionaries directly. Each dictionary becomes one row. Each key becomes one column.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+records = [
+    {
+        "title": "Επεκτείνεται η CORDIA με εξαγορά της ελληνικής ενεργειακής ZEB",
+        "link": "/economy/business/564187087/epekteinetai-i-cordia-me-exagora-tis-ellinikis-energeiakis-zeb/",
+    },
+    {
+        "title": "Στο υπουργείο Δικαιοσύνης η Κοβέσι – Συνάντηση με Φλωρίδη",
+        "link": "/society/dikastiko/564187411/sto-ypoyrgeio-dikaiosynis-i-kovesi-synantisi-me-floridi/",
+    },
+]
+
+df = pd.DataFrame(records)
+
+print(df.to_string(index=False))
+print()
+print("Rows   :", len(df))
+print("Columns:", list(df.columns))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Why DataFrames matter:</strong> once the data is in pandas, filtering, sorting, exporting, and later analysis become much easier.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Saving the First CSV</h2>
+
+      <p>A DataFrame can be written to disk with <code>to_csv()</code>. This is the point where scraping becomes useful outside the notebook.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+URL = "https://www.kathimerini.gr/epikairothta/"
+BASE_URL = "https://www.kathimerini.gr"
+
+headers = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "el-GR,el;q=0.9,en-US;q=0.8",
+}
+
+response = requests.get(URL, headers=headers, timeout=30)
+soup = BeautifulSoup(response.text, "html.parser")
+
+records = []
+
+for card in soup.find_all("a", class_="mainlink"):
+    title_tag = card.find("span", class_="card-title")
+    if not title_tag:
+        continue
+
+    href = card.get("href", "")
+    if href.startswith("/"):
+        href = BASE_URL + href
+
+    records.append({
+        "title": title_tag.get_text(" ", strip=True),
+        "link": href,
+    })
+
+df = pd.DataFrame(records)
+df.to_csv("kathimerini_page_1.csv", index=False)
+
+print("Saved:", "kathimerini_page_1.csv")
+print("Rows :", len(df))</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>The CSV file will contain one row per article and two columns: title and link.</p>
+
+      <div class="callout">
+        <strong>Make links absolute:</strong> many sites use relative links like <code>/society/...</code>. Add the base URL before saving so the CSV contains complete links that work everywhere.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Scrape One Page</h2>
+
+      <p>The snapshot below contains four article cards. Extract the titles and links, build a DataFrame, and preview the CSV text.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>from bs4 import BeautifulSoup
+import pandas as pd
+
+html = """
+<div class="latest-news">
+  <a class="py-4 mainlink" href="/economy/business/564187087/epekteinetai-i-cordia-me-exagora-tis-ellinikis-energeiakis-zeb/">
+    <span class="card-title">Επεκτείνεται η CORDIA με εξαγορά της ελληνικής ενεργειακής ZEB</span>
+  </a>
+  <a class="py-4 mainlink" href="/society/dikastiko/564187411/sto-ypoyrgeio-dikaiosynis-i-kovesi-synantisi-me-floridi/">
+    <span class="card-title">Στο υπουργείο Δικαιοσύνης η Κοβέσι – Συνάντηση με Φλωρίδη</span>
+  </a>
+  <a class="py-4 mainlink" href="/athletics/football/564186910/soyper-ligk-1-krisimi-agonistiki-gia-ta-plei-aoyt/">
+    <span class="card-title">Σούπερ Λιγκ 1: Κρίσιμη αγωνιστική για τα πλέι άουτ</span>
+  </a>
+  <a class="py-4 mainlink" href="/culture/music/564187225/pou-vgainoume-simera-tetarti-protaseis-gia-theatro-synaylies-ektheseis-ekdiloseis/">
+    <span class="card-title">Πού βγαίνουμε σήμερα Τετάρτη; Προτάσεις για θέατρο, συναυλίες, εκθέσεις, εκδηλώσεις</span>
+  </a>
+</div>
+"""
+
+BASE_URL = "https://www.kathimerini.gr"
+
+soup = BeautifulSoup(html, "html.parser")
+records = []
+
+for card in soup.find_all("a", class_="mainlink"):
+    title = card.find("span", class_="card-title").get_text(" ", strip=True)
+    link = BASE_URL + card.get("href")
+    records.append({"title": title, "link": link})
+
+df = pd.DataFrame(records)
+print(df.to_string(index=False))
+print()
+print(df.to_csv(index=False))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> how one article becomes one dictionary, how many dictionaries become a list, how pandas turns that list into a DataFrame, and how to save a one-page scraper to CSV. In the final chapter you will repeat the same idea across page 1, page 2, page 3, and beyond.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book5-chapter-6.html">Previous: Chapter 6 — Extracting Text and Attributes</a>
+        <a href="book5-chapter-8.html">Next: Chapter 8 — Pagination and the Full Pipeline</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and BeautifulSoup run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book5-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

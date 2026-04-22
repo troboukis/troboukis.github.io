@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 5 · Chapter Four — find() and find_all() · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 5 · Chapter Four — find() and find_all() · Python for All" />
+  <meta property="og:description" content="Search the entire document for the first match or all matches using find() and find_all()." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 5 — Web Scraping with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Four — find() and find_all()</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="book5-chapter-4.html" class="is-current">Chapter Four — find() and find_all()</a></li>
+          <li><a href="book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 6 — Working with APIs</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Five · Chapter Four</p>
+      <h2>find() and find_all()</h2>
+      <p class="chapter-desc"><code>find()</code> and <code>find_all()</code> are the two most important BeautifulSoup methods. One finds the first match; the other finds every match. Together they let you locate any element on any page — and searching <em>inside</em> a found element is just as simple.</p>
+    </div>
+
+    <!-- ── Part 1 ── -->
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>find() — The First Match</h2>
+
+      <p><span class="dropcap"><code>find()</code></span> searches the document and returns the first element that matches. Pass a tag name and BeautifulSoup returns the first tag with that name. If nothing matches, it returns <code>None</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="tabcontent">
+  <h3>Δασικές Πυρκαγιές</h3>
+  <div class="panel panel-red">
+    <table><tr>
+      <td>Αττική - Δήμος Μαρκόπουλου</td>
+      <td>Έναρξη: 12/07/2024</td>
+    </tr></table>
+  </div>
+  <div class="panel panel-green">
+    <table><tr>
+      <td>Στερεά Ελλάδα - Δήμος Θήβας</td>
+      <td>Έναρξη: 10/07/2024</td>
+    </tr></table>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# find() returns the first match
+heading = soup.find("h3")
+print("Heading:", heading.get_text(strip=True))
+
+first_td = soup.find("td")
+print("First cell:", first_td.get_text(strip=True))
+
+# When nothing matches, find() returns None
+missing = soup.find("h1")
+print("h1 found:", missing)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Always check for <code>None</code> before calling methods on a <code>find()</code> result. If you call <code>.get_text()</code> on <code>None</code>, Python raises an <code>AttributeError</code> that crashes your script. The safe pattern is <code>if heading: print(heading.get_text())</code>.</p>
+
+      <div class="callout">
+        <strong>find() vs dot notation:</strong> <code>soup.h3</code> and <code>soup.find("h3")</code> do the same thing — both return the first <code>&lt;h3&gt;</code>. Use dot notation for quick exploration. Use <code>find()</code> in real scraping code because it is more flexible: you can pass a tag name, a class, an id, or any attribute.
+      </div>
+    </section>
+
+    <!-- ── Part 2 ── -->
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>find_all() — Every Match</h2>
+
+      <p><code>find_all()</code> returns a <em>list</em> of every element that matches. Even if there is only one match you get a list with one item. If there are no matches you get an empty list — never <code>None</code>. This predictability makes it easy to loop over results.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="tabcontent">
+  <div class="panel panel-red">
+    <table><tr>
+      <td>Αττική - Δήμος Μαρκόπουλου</td>
+      <td>Έναρξη: 12/07/2024</td>
+    </tr></table>
+  </div>
+  <div class="panel panel-red">
+    <table><tr>
+      <td>Αττική - Δήμος Λαυρεωτικής</td>
+      <td>Έναρξη: 14/07/2024</td>
+    </tr></table>
+  </div>
+  <div class="panel panel-green">
+    <table><tr>
+      <td>Στερεά Ελλάδα - Δήμος Θήβας</td>
+      <td>Έναρξη: 10/07/2024</td>
+    </tr></table>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# find_all() returns a list
+all_divs = soup.find_all("div")
+print("Total divs:", len(all_divs))
+
+all_cells = soup.find_all("td")
+print("Total cells:", len(all_cells))
+
+# Loop over all cells
+print()
+print("All cell contents:")
+for cell in all_cells:
+    print(" ", cell.get_text(strip=True))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Notice that <code>find_all("div")</code> returns 4 divs — the outer <code>tabcontent</code> plus the three panels. <code>find_all()</code> searches the entire document tree, including nested elements. In the next chapter you will learn how to filter by class name to get only the panels you want.</p>
+
+      <div class="callout">
+        <strong>find vs find_all:</strong> Use <code>find()</code> when you expect exactly one result — the page title, a unique badge. Use <code>find_all()</code> when you are collecting a list of things — all incident cards, all table rows. When <code>find_all()</code> returns an empty list when you expected results, the page layout has changed.
+      </div>
+    </section>
+
+    <!-- ── Part 3 ── -->
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Searching Inside a Tag</h2>
+
+      <p>You can call <code>find()</code> and <code>find_all()</code> on <em>any tag</em>, not just the root soup object. Calling them on a tag limits the search to that tag's contents. This is the key pattern for structured data: first find the container, then search inside it.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="tabcontent">
+  <div class="panel panel-red">
+    <table><tr>
+      <td>Αττική - Δήμος Μαρκόπουλου</td>
+      <td>Έναρξη: 12/07/2024</td>
+    </tr></table>
+  </div>
+  <div class="panel panel-green">
+    <table><tr>
+      <td>Στερεά Ελλάδα - Δήμος Θήβας</td>
+      <td>Έναρξη: 10/07/2024</td>
+    </tr></table>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# Get all panels (we'll learn to filter by class next chapter)
+all_panels = soup.find_all("div")
+# The first div is the tabcontent wrapper, panels start at index 1
+panels = all_panels[1:]  # skip the first outer div
+
+for panel in panels:
+    # Search for cells INSIDE this panel only
+    cells = panel.find_all("td")
+    location = cells[0].get_text(strip=True)
+    start    = cells[1].get_text(strip=True)
+    print(f"Location: {location}")
+    print(f"Start:    {start}")
+    print()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>By calling <code>panel.find_all("td")</code> instead of <code>soup.find_all("td")</code>, you only get the cells inside that specific panel — not cells from other panels. This scoped search is essential whenever you want to keep related data together. In the next chapter you will also learn how to find panels by their class name, which is cleaner than using list indices.</p>
+
+      <div class="callout">
+        <strong>The core scraping pattern:</strong> <code>find_all()</code> to get a list of containers → loop over the list → <code>find()</code> or <code>find_all()</code> inside each container to get its contents. This pattern repeats in almost every scraper ever written.
+      </div>
+    </section>
+
+    <!-- ── Part 4 ── -->
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Searching for Multiple Tag Types</h2>
+
+      <p>Sometimes the element you want might be tagged as <code>&lt;h3&gt;</code> on one page and <code>&lt;h4&gt;</code> on another — sites are not always consistent. You can pass a <em>list</em> of tag names to <code>find()</code> or <code>find_all()</code> and it will match any of them:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+# Two pages with different heading levels for the category name
+html_v1 = """<div class="tabcontent">
+  <h3>Δασικές Πυρκαγιές (2)</h3>
+  <div class="panel panel-red"><p>Incident A</p></div>
+</div>"""
+
+html_v2 = """<div class="tabcontent">
+  <h4>Δασικές Πυρκαγιές (1)</h4>
+  <div class="panel panel-red"><p>Incident B</p></div>
+</div>"""
+
+for html in [html_v1, html_v2]:
+    soup = BeautifulSoup(html, "html.parser")
+
+    # Pass a list — matches h3 OR h4, whichever exists
+    heading = soup.find(["h3", "h4"])
+    print("Heading found:", heading.get_text(strip=True))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>This technique is especially useful for scrapers that need to stay working as a site evolves. If a site changes a heading from <code>&lt;h3&gt;</code> to <code>&lt;h4&gt;</code>, code that uses <code>find(["h3", "h4"])</code> keeps working without any extra changes.</p>
+
+      <div class="callout">
+        <strong>Defensive scraping:</strong> Real pages change. Writing <code>find(["h3", "h4"])</code> instead of <code>find("h3")</code> costs nothing and makes your scraper resilient to minor layout changes. Any time you know two variations exist, handle both.
+      </div>
+    </section>
+
+    <!-- ── Part 5 ── -->
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Count and Loop</h2>
+
+      <p>The page below has multiple sections, each with a heading and several panels. Use <code>find_all()</code> to count all the panels, then loop over them and print each one's text content.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div id="page">
+  <div class="tabcontent">
+    <h3>Δασικές Πυρκαγιές (2)</h3>
+    <div class="panel panel-red">
+      <table><tr>
+        <td>Αττική - Δήμος Μαρκόπουλου</td>
+        <td>Έναρξη: 12/07/2024</td>
+      </tr></table>
+    </div>
+    <div class="panel panel-green">
+      <table><tr>
+        <td>Στερεά Ελλάδα - Δήμος Θήβας</td>
+        <td>Έναρξη: 10/07/2024</td>
+      </tr></table>
+    </div>
+  </div>
+  <div class="tabcontent">
+    <h3>Αγροτοδασικές Πυρκαγιές (1)</h3>
+    <div class="panel panel-yellow">
+      <table><tr>
+        <td>Πελοπόννησος - Δήμος Σπάρτης</td>
+        <td>Έναρξη: 15/07/2024</td>
+      </tr></table>
+    </div>
+  </div>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+
+# How many sections are there?
+sections = soup.find_all("div", {"class": "tabcontent"})
+print("Sections:", len(sections))
+
+# How many panels total?
+all_panels = soup.find_all("div", {"class": "panel"})
+print("Panels total:", len(all_panels))
+print()
+
+# Loop over each section and print its heading + panel count
+for section in sections:
+    heading = section.find(["h3", "h4"])
+    panels = section.find_all("div")
+    print("Section:", heading.get_text(strip=True))
+    print("Panels in section:", len(panels))
+    print()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> <code>find()</code> returns the first match or <code>None</code>; <code>find_all()</code> returns a list of all matches; you can call either on any tag to search only inside it; and passing a list of tag names lets you match multiple alternatives. In the next chapter you will add one more powerful tool: searching by CSS class name, which lets you target exactly the elements you want.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book5-chapter-3.html">Previous: Chapter 3 — Your First BeautifulSoup Object</a>
+        <a href="book5-chapter-5.html">Next: Chapter 5 — Searching by Class and id</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and BeautifulSoup run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book5-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>
