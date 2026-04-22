@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter Eight — Comparison & Boolean Operators · Python for All</title>
+  <title>Chapter Eleven — Reading and Writing Text Files · Python for All</title>
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Chapter Eight — Comparison &amp; Boolean Operators · Python for All" />
+  <meta property="og:title" content="Chapter Eleven — Reading and Writing Text Files · Python for All" />
   <meta property="og:description" content="A beginner-friendly, hands-on Python course where you learn step by step by running real code in your browser." />
   <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -20,7 +20,7 @@
   <header id="page-top">
     <p class="kicker">An Introduction to Programming</p>
     <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
-    <p class="subtitle">Chapter Eight — Comparison & Boolean Operators</p>
+    <p class="subtitle">Chapter Eleven — Reading and Writing Text Files</p>
     <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
   </header>
 
@@ -36,10 +36,10 @@
           <li><a href="chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
           <li><a href="chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
           <li><a href="chapter-7.html">Chapter Seven — Exercises</a></li>
-          <li><a href="chapter-8.html" class="is-current">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
           <li><a href="chapter-9.html">Chapter Nine — Regex Basics</a></li>
           <li><a href="chapter-10.html">Chapter Ten — Exercises</a></li>
-          <li><a href="chapter-11.html">Chapter Eleven — Reading and Writing Text Files</a></li>
+          <li><a href="chapter-11.html" class="is-current">Chapter Eleven — Reading and Writing Text Files</a></li>
         </ol>
       </details>
 
@@ -119,129 +119,179 @@
         <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
         <p class="toc-book-soon">Coming soon</p>
       </div>
-
     </div>
   </nav>
 
   <main>
-    <!-- ── Chapter Eight: Comparison & Boolean Operators ── -->
-    <!-- ══════════════════════════════════════════ -->
-    <div class="chapter-banner" id="ch8">
-      <p class="chapter-number">Chapter Eight</p>
-      <h2>Comparison &amp; Boolean Operators</h2>
-      <p class="chapter-desc">Simple rules for asking questions in Python and combining True/False conditions.</p>
+    <div class="chapter-banner" id="part1">
+      <p class="chapter-number">Chapter Eleven</p>
+      <h2>Reading and Writing Text Files</h2>
+      <p class="chapter-desc">Variables disappear when your program stops. Files let you save text so you can open it again later.</p>
     </div>
 
-    <section id="part1">
+    <section>
       <p class="section-label">Part One</p>
-      <h2>Comparison Operators</h2>
+      <h2>What Is a File Path?</h2>
 
-      <p>Comparison operators compare two values and return <code>True</code> or <code>False</code>.</p>
-      <p><code>==</code> equal, <code>!=</code> not equal, <code>&gt;</code> greater than, <code>&lt;</code> less than, <code>&gt;=</code> greater or equal, <code>&lt;=</code> less or equal.</p>
+      <p><span class="dropcap">A</span> file path is just the location of a file. When you write <code>"notes.txt"</code>, Python looks for a file called <code>notes.txt</code> in the current folder.</p>
 
-      <div class="cell">
-        <div class="cell-label">Python · Try it</div>
-        <textarea>age = 20
-score = 72
-
-print(age == 20)   # True
-print(age != 18)   # True
-print(score > 50)  # True
-print(score < 50)  # False
-print(score >= 72) # True
-print(score <= 70) # False</textarea>
-        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
-        <pre class="out"></pre>
-      </div>
+      <table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:0.95em;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Path</th>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;"><code>"notes.txt"</code></td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">A text file in the same folder as your program.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;"><code>"data/notes.txt"</code></td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">A file inside a folder called <code>data</code>.</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;"><code>"todo.txt"</code></td>
+            <td style="padding:8px;">Another simple file name. The <code>.txt</code> ending means plain text.</td>
+          </tr>
+        </tbody>
+      </table>
 
       <div class="callout">
-        <strong>Important:</strong> <code>=</code> means assignment, while <code>==</code> means comparison.
+        <strong>Keep it simple:</strong> when you are starting out, save the file in the same folder as your script and use a short path like <code>"notes.txt"</code>.
       </div>
     </section>
 
     <section id="part2">
       <p class="section-label">Part Two</p>
-      <h2>Boolean Operators</h2>
+      <h2>Saving Text with <code>open()</code></h2>
 
-      <p>Boolean operators combine conditions.</p>
-      <p><code>and</code>: both conditions must be True. <code>or</code>: at least one condition must be True. <code>not</code>: flips True to False (and False to True).</p>
+      <p>To save text to a file, use <code>open(path, mode)</code>. The path is the file name. The mode tells Python what you want to do with the file.</p>
 
-      <div class="cell">
-        <div class="cell-label">Python · Try it</div>
-        <textarea>age = 20
-has_ticket = True
-is_weekend = False
-
-print(age >= 18 and has_ticket)   # True
-print(age < 18 or has_ticket)     # True
-print(not is_weekend)             # True</textarea>
-        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
-        <pre class="out"></pre>
-      </div>
-    </section>
-
-    <section id="part3">
-      <p class="section-label">Part Three</p>
-      <h2>Combining Conditions in Real Examples</h2>
-
-      <p>In real programs, we usually combine comparison operators with boolean operators inside <code>if</code> statements.</p>
+      <ul>
+        <li><code>"w"</code> means write: create the file or replace its contents</li>
+        <li><code>"r"</code> means read: open an existing file</li>
+        <li><code>"a"</code> means append: add new text at the end</li>
+      </ul>
 
       <div class="cell">
-        <div class="cell-label">Python · Try it</div>
-        <textarea>grade = 78
-attendance = 92
+        <div class="cell-label">Python · Try it — save a text file</div>
+        <textarea>file = open("notes.txt", "w")
+file.write("Bread\nMilk\nEggs")
+file.close()
 
-if grade >= 50 and attendance >= 75:
-    print("Pass")
-else:
-    print("Fail")</textarea>
+print("notes.txt has been saved.")</textarea>
         <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
         <pre class="out"></pre>
       </div>
 
-      <div class="cell">
-        <div class="cell-label">Python · Try it</div>
-        <textarea>username = "maria"
-password = "1234"
+      <p><code>file.write(...)</code> sends text into the file. <code>file.close()</code> closes the file so Python finishes saving it.</p>
 
-if username == "maria" and password == "1234":
-    print("Login successful")
-else:
-    print("Login failed")</textarea>
+      <p>You can also write files with <code>with open(...)</code>. This is a shorter pattern that closes the file automatically when the block ends.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — save with <code>with open()</code></div>
+        <textarea>with open("notes.txt", "w") as file:
+    file.write("Bread\nMilk\nEggs")
+
+print("notes.txt has been saved.")</textarea>
         <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
         <pre class="out"></pre>
       </div>
 
       <div class="callout">
-        <strong>Simple way to read conditions:</strong> Evaluate each small comparison first, then combine them with <code>and</code>, <code>or</code>, or <code>not</code>.
+        <strong>Important:</strong> opening a file in <code>"w"</code> mode will overwrite the old contents. With <code>with open(...)</code>, you do not need to write <code>file.close()</code>.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Opening and Reading a Text File</h2>
+
+      <p>To read a file, open it in <code>"r"</code> mode and then use <code>.read()</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — read a text file</div>
+        <textarea>file = open("notes.txt", "w")
+file.write("Bread\nMilk\nEggs")
+file.close()
+
+file = open("notes.txt", "r")
+content = file.read()
+file.close()
+
+print(content)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>.read()</code> returns the whole file as one string. If the file has line breaks, they come back inside that string too.</p>
+
+      <p>You can read a file with <code>with open(...)</code> too.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — read with <code>with open()</code></div>
+        <textarea>with open("notes.txt", "w") as file:
+    file.write("Bread\nMilk\nEggs")
+
+with open("notes.txt", "r") as file:
+    content = file.read()
+
+print(content)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
       </div>
     </section>
 
     <section id="part4">
       <p class="section-label">Part Four</p>
-      <h2>Identity and Membership Operators</h2>
+      <h2>Appending More Text</h2>
 
-      <p><code>is</code> and <code>is not</code> check identity (whether two names refer to the same object). <code>in</code> and <code>not in</code> check membership (whether a value exists inside a sequence or set).</p>
+      <p>If you want to add text without deleting what is already there, use <code>"a"</code> mode.</p>
 
       <div class="cell">
-        <div class="cell-label">Python · Try it</div>
-        <textarea>a = [1, 2, 3]
-b = a
-c = [1, 2, 3]
+        <div class="cell-label">Python · Try it — append to a file</div>
+        <textarea>file = open("todo.txt", "w")
+file.write("Buy bread")
+file.close()
 
-print("b is a:", b is a)          # True (same object)
-print("c is a:", c is a)          # False (different object)
-print("c is not a:", c is not a)  # True
+file = open("todo.txt", "a")
+file.write("\nBuy milk")
+file.close()
 
-name = "maria"
-tags = {"python", "loops", "lists"}
-
-print("'m' in name:", "m" in name)             # True
-print("'z' not in name:", "z" not in name)     # True
-print("'python' in tags:", "python" in tags)   # True
-print("'java' not in tags:", "java" not in tags) # True</textarea>
+file = open("todo.txt", "r")
+print(file.read())
+file.close()</textarea>
         <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
         <pre class="out"></pre>
+      </div>
+
+      <p>The second line is added at the end because the file was opened in append mode.</p>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn</h2>
+
+      <p>Create a file called <code>journal.txt</code>. Save three lines of text into it, then open it again and print the contents.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your solution</div>
+        <textarea># create journal.txt
+# write three lines
+# close the file
+
+# open it again
+# print the contents
+# close the file
+</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Congratulations — you have completed Book 1.</strong> You now know variables, strings, lists, dictionaries, booleans, functions, regex basics, and simple file handling with <code>open()</code>. That is a strong base for everything that comes next.
       </div>
     </section>
 
@@ -249,11 +299,10 @@ print("'java' not in tags:", "java" not in tags) # True</textarea>
       <p class="chapter-number">Chapter Navigation</p>
       <p class="chapter-desc">Move between chapters.</p>
       <div class="chapter-next-links">
-        <a href="chapter-7.html#part1">Previous: Chapter 7</a>
-        <a href="chapter-9.html#part1">Next: Chapter 9</a>
+        <a href="chapter-10.html#part1">Previous: Chapter 10</a>
+        <a href="../index.html#part1">Back to Course Home</a>
       </div>
     </section>
-
   </main>
 
   <footer>
