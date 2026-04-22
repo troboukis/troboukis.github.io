@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 6 · Chapter One — What is an API? · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 6 · Chapter One — What is an API? · Python for All" />
+  <meta property="og:description" content="Learn what an API is, how an HTTP request works, and how to read the JSON data that comes back." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 6 — Working with APIs</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter One — What is an API?</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="../book5/book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="../book5/book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="../book5/book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="../book5/book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="../book5/book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="../book5/book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="../book5/book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="../book5/book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 6 — Working with APIs</summary>
+        <ol>
+          <li><a href="book6-chapter-1.html" class="is-current">Chapter One — What is an API?</a></li>
+          <li><a href="book6-chapter-2.html">Chapter Two — Your First API Request</a></li>
+          <li><a href="book6-chapter-3.html">Chapter Three — Saving PDFs to a Folder</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Six · Chapter One</p>
+      <h2>What is an API?</h2>
+      <p class="chapter-desc">Websites publish data for humans to read. APIs publish data for programs to read. In this book you will learn how to speak that language — how to send a request to an API, read the structured data it sends back, and turn it into something useful. The running example is Diavgeia, the Greek government's transparency registry.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>The Waiter Analogy</h2>
+
+      <p><span class="dropcap">I</span>magine you are sitting in a restaurant. You don't walk into the kitchen to get your food. Instead, you tell the waiter what you want — the waiter goes to the kitchen, the kitchen prepares the meal, and the waiter brings it back to your table.</p>
+
+      <p>An API works exactly the same way. Your program is the customer. The API is the waiter. The server or database is the kitchen. You ask for something specific, the kitchen prepares the answer, and the waiter delivers it — in a format your program can read.</p>
+
+      <p>API stands for <strong>Application Programming Interface</strong>. The word "interface" is the important one. It is a defined contract: you ask in a specific way, and you always get the answer in a specific, predictable format. You never have to know what is happening inside the kitchen.</p>
+
+      <div class="callout">
+        <strong>API vs web scraping:</strong> When you scraped Kathimerini in Book 5, you fetched an HTML page designed for a human browser, then picked through the markup to find what you needed. An API skips all that. The server sends you structured data directly — no HTML, no parsing tags, no fragile selectors.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Anatomy of an API Request</h2>
+
+      <p>An API request is just a URL. You visit it with your browser — or your Python program — and the server responds with data. Let's look at a real one.</p>
+
+      <p>Diavgeia is the Greek government's online transparency registry. Every official government decision — contracts, appointments, spending — must be published there by law. Diavgeia provides a public API so that anyone can query this data programmatically, without an account and without any special permission.</p>
+
+      <p>A search request to the Diavgeia API looks like this:</p>
+
+      <pre><code>https://diavgeia.gov.gr/luminapi/api/search?q=subject:"κλιματισμός"&size=5</code></pre>
+
+      <p>Let's break it into its parts:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Part</th>
+            <th>Example</th>
+            <th>What it means</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Base URL</strong></td>
+            <td><code>https://diavgeia.gov.gr/luminapi/api/</code></td>
+            <td>The address of the API server</td>
+          </tr>
+          <tr>
+            <td><strong>Endpoint</strong></td>
+            <td><code>search</code></td>
+            <td>The specific action you are requesting — here, a search</td>
+          </tr>
+          <tr>
+            <td><strong>?</strong></td>
+            <td><code>?</code></td>
+            <td>Separates the endpoint from the parameters</td>
+          </tr>
+          <tr>
+            <td><strong>Parameter</strong></td>
+            <td><code>q=subject:"κλιματισμός"</code></td>
+            <td>The search query — Diavgeia expects a field name (<code>subject</code>) followed by the search term in quotes</td>
+          </tr>
+          <tr>
+            <td><strong>&amp;</strong></td>
+            <td><code>&amp;</code></td>
+            <td>Separates multiple parameters</td>
+          </tr>
+          <tr>
+            <td><strong>Parameter</strong></td>
+            <td><code>size=5</code></td>
+            <td>How many results to return</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>You can think of the endpoint as the waiter's notepad category ("I'd like something from the seafood section"), and the parameters as your specific order ("grilled, medium, no lemon").</p>
+
+      <div class="callout">
+        <strong>The q parameter has its own mini-syntax:</strong> Diavgeia's search engine expects you to name the field you are searching inside. <code>subject:"κλιματισμός"</code> searches the decision title. <code>q:"κλιματισμός"</code> does a general full-text search. <code>ada:"6ΛΩΖ7ΛΞ-ΦΨΥ"</code> looks up a specific decision by its unique code. You will see all three patterns used in practice.
+      </div>
+
+      <div class="callout">
+        <strong>Try it in your browser:</strong> APIs that don't require authentication can be called directly from the browser address bar. Paste <code>https://diavgeia.gov.gr/luminapi/api/search?q=subject:"κλιματισμός"&size=3</code> into a new tab. You will see the raw response — a wall of structured text called JSON.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>The Response — JSON</h2>
+
+      <p>When the API server answers, it doesn't send HTML. It sends a structured text format called <strong>JSON</strong> — JavaScript Object Notation. Despite the name, JSON is language-agnostic: Python, JavaScript, R, and most other programming languages can read it natively.</p>
+
+      <p>Here is a small, realistic piece of what the Diavgeia API returns for a search request:</p>
+
+      <pre><code>{
+  "info": {
+    "total": 1842
+  },
+  "decisions": [
+    {
+      "ada": "ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "subject": "Ανάληψη υποχρέωσης για την προμήθεια κλιματιστικών μονάδων",
+      "issueDate": "2025-06-10",
+      "submissionTimestamp": "2025-06-11T09:15:00.000+0300",
+      "documentUrl": "https://diavgeia.gov.gr/doc/ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "documentType": "pdf",
+      "organization": {
+        "label": "ΔΗΜΟΣ ΑΘΗΝΑΙΩΝ"
+      },
+      "decisionType": {
+        "label": "Ανάληψη Υποχρέωσης"
+      }
+    }
+  ]
+}</code></pre>
+
+      <p>This might look unfamiliar at first, but you already know most of the patterns. JSON is built from two structures:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>JSON structure</th>
+            <th>Python equivalent</th>
+            <th>How to recognise it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Object</strong></td>
+            <td><code>dict</code></td>
+            <td>Curly braces <code>{ }</code> with <code>"key": value</code> pairs</td>
+          </tr>
+          <tr>
+            <td><strong>Array</strong></td>
+            <td><code>list</code></td>
+            <td>Square brackets <code>[ ]</code> with comma-separated values</td>
+          </tr>
+          <tr>
+            <td><strong>String</strong></td>
+            <td><code>str</code></td>
+            <td>Always double-quoted: <code>"like this"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Number</strong></td>
+            <td><code>int</code> / <code>float</code></td>
+            <td>No quotes: <code>1842</code>, <code>14500.00</code></td>
+          </tr>
+          <tr>
+            <td><strong>Boolean</strong></td>
+            <td><code>bool</code></td>
+            <td><code>true</code> / <code>false</code> (lowercase in JSON)</td>
+          </tr>
+          <tr>
+            <td><strong>Null</strong></td>
+            <td><code>None</code></td>
+            <td><code>null</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>When Python reads JSON, it converts each of those structures automatically to the Python equivalent. A JSON object becomes a <code>dict</code>. A JSON array becomes a <code>list</code>. A JSON string becomes a <code>str</code>. You don't have to do anything special — Python handles the conversion for you.</p>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Reading JSON with Python</h2>
+
+      <p>Python's built-in <code>json</code> module converts a JSON string into a Python object with a single function call: <code>json.loads()</code>. The <code>s</code> in <code>loads</code> stands for "string" — you are loading from a string.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import json
+
+raw = '{"total": 1842, "size": 5, "page": 0}'
+
+data = json.loads(raw)
+
+print(type(data))
+print(data)
+print(data["total"])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The JSON string becomes a Python dictionary. You access its values exactly as you would any other dict — with square brackets and the key name.</p>
+
+      <p>Now let's try a more realistic response — the kind Diavgeia actually returns, with a nested structure and a list of decisions:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import json
+
+raw = """
+{
+  "info": {
+    "total": 1842
+  },
+  "decisions": [
+    {
+      "ada": "ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "subject": "Ανάληψη υποχρέωσης για την προμήθεια κλιματιστικών μονάδων",
+      "issueDate": "2025-06-10",
+      "organization": {"label": "ΔΗΜΟΣ ΑΘΗΝΑΙΩΝ"},
+      "decisionType": {"label": "Ανάληψη Υποχρέωσης"}
+    },
+    {
+      "ada": "6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "subject": "Σύμβαση προμήθειας και εγκατάστασης κλιματιστικών",
+      "issueDate": "2025-06-08",
+      "organization": {"label": "ΔΗΜΟΣ ΘΕΣΣΑΛΟΝΙΚΗΣ"},
+      "decisionType": {"label": "Σύμβαση"}
+    }
+  ]
+}
+"""
+
+data = json.loads(raw)
+
+print("Total results:", data["info"]["total"])
+print("Decisions in this page:", len(data["decisions"]))
+print()
+
+for decision in data["decisions"]:
+    print(decision["issueDate"], "|", decision["organization"]["label"])
+    print(" ", decision["subject"])
+    print()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Notice two things about that code. First, <code>data["info"]["total"]</code> — you chain square brackets to navigate into nested objects. The same works for <code>decision["organization"]["label"]</code>: <code>organization</code> is itself a dict with a <code>label</code> key inside it. Second, <code>data["decisions"]</code> is a Python list, so you can loop over it with <code>for</code> exactly as you would any other list.</p>
+
+      <div class="callout">
+        <strong>json.loads() vs json.load():</strong> <code>json.loads()</code> parses a string. <code>json.load()</code> (no s) reads from a file object. You will use <code>loads()</code> when you get the response from an API, and <code>load()</code> if you ever open a saved <code>.json</code> file from disk.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn — Navigate the Response</h2>
+
+      <p>The cell below contains a Diavgeia-style response with three decisions. Your task: loop through them and print the ADA code, the organisation name, and the decision type label for each one. The organisation name and decision type label are nested one level deep — use the bracket-chaining technique you just saw.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import json
+
+raw = """
+{
+  "info": {"total": 3},
+  "decisions": [
+    {
+      "ada": "ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "subject": "Προμήθεια κλιματιστικών μονάδων",
+      "issueDate": "2025-06-10",
+      "organization": {"label": "ΔΗΜΟΣ ΑΘΗΝΑΙΩΝ"},
+      "decisionType": {"label": "Ανάληψη Υποχρέωσης"}
+    },
+    {
+      "ada": "6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "subject": "Εγκατάσταση κλιματιστικών συστημάτων",
+      "issueDate": "2025-06-08",
+      "organization": {"label": "ΔΗΜΟΣ ΘΕΣΣΑΛΟΝΙΚΗΣ"},
+      "decisionType": {"label": "Σύμβαση"}
+    },
+    {
+      "ada": "ΩΒΚ746ΜΦΩΡ-ΠΔΓ",
+      "subject": "Συντήρηση κλιματισμού δημοτικών κτιρίων",
+      "issueDate": "2025-06-05",
+      "organization": {"label": "ΔΗΜΟΣ ΠΕΙΡΑΙΩΣ"},
+      "decisionType": {"label": "Ανάληψη Υποχρέωσης"}
+    }
+  ]
+}
+"""
+
+data = json.loads(raw)
+
+# For each decision, print: ADA | organization label | decision type label
+for decision in data["decisions"]:
+    print(decision["ada"], "|", decision["organization"]["label"], "|", decision["decisionType"]["label"])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> an API is a structured, machine-readable interface to data — like a waiter who always answers in a predictable format. An API request is a URL made up of a base URL, an endpoint, and parameters. The response almost always comes back as JSON — which Python reads with <code>json.loads()</code> and turns into familiar dictionaries and lists. In the next chapter you will send a real request to the Diavgeia API using Python's <code>requests</code> library.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="../book5/book5-chapter-8.html">Previous: Book 5 · Chapter 8</a>
+        <a href="../index.html">Course Home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book6-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

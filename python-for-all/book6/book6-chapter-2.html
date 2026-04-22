@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 6 · Chapter Two — Your First API Request · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 6 · Chapter Two — Your First API Request · Python for All" />
+  <meta property="og:description" content="Use the requests library to call the Diavgeia API, parse the JSON response, and extract decisions." />
+  <meta property="og:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.github.io/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 6 — Working with APIs</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Two — Your First API Request</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="../book5/book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="../book5/book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="../book5/book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="../book5/book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="../book5/book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="../book5/book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="../book5/book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="../book5/book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 6 — Working with APIs</summary>
+        <ol>
+          <li><a href="book6-chapter-1.html">Chapter One — What is an API?</a></li>
+          <li><a href="book6-chapter-2.html" class="is-current">Chapter Two — Your First API Request</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Six · Chapter Two</p>
+      <h2>Your First API Request</h2>
+      <p class="chapter-desc">In Chapter One you parsed JSON by hand. Now you will send a real HTTP request to the Diavgeia API and get JSON back. You will learn the requests library, the params dictionary, and how to turn a raw response into a loop over decisions.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>The requests Library</h2>
+
+      <p><span class="dropcap">P</span>ython's standard library can make HTTP requests, but the third-party <code>requests</code> library is simpler and is what almost every Python developer uses in practice. It handles encoding, redirects, headers, and timeouts cleanly, without the verbosity of the built-in alternatives.</p>
+
+      <p>If you are working in a Jupyter notebook or a local Python environment, install it once:</p>
+
+      <pre><code>pip install requests</code></pre>
+
+      <p>Or inside a notebook cell:</p>
+
+      <pre><code>!pip install requests</code></pre>
+
+      <p>Then import it at the top of your script:</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests
+
+url = "https://diavgeia.gov.gr/luminapi/api/search"
+params = {
+    "q": 'subject:"κλιματισμός"',
+    "size": 5,
+    "page": 0,
+    "sort": "recent",
+}
+
+resp = requests.get(url, params=params, headers={"Accept": "application/json"}, timeout=30)
+resp.raise_for_status()
+data = resp.json()
+
+print("Total decisions found:", data["info"]["total"])
+print("Decisions on this page:", len(data["decisions"]))</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Why these cells don't run here.</strong> The browser version of the course cannot make live requests to external servers. Copy any cell with a Copy button into a Jupyter notebook and run it there. The interactive Run cells later in this chapter use hardcoded responses so you can practice in the browser.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>The Request, Line by Line</h2>
+
+      <p>Every call to the Diavgeia API follows the same four-line pattern. Let's go through each line.</p>
+
+      <h3>The URL</h3>
+
+      <p>The search endpoint never changes. You store it in a variable so you don't have to type the full address every time:</p>
+
+      <pre><code>url = "https://diavgeia.gov.gr/luminapi/api/search"</code></pre>
+
+      <h3>The params dictionary</h3>
+
+      <p>Instead of building a long URL string by hand, you pass a dictionary. The <code>requests</code> library URL-encodes the values automatically and appends them after the <code>?</code>:</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>params = {
+    "q": 'subject:"κλιματισμός"',
+    "size": 10,
+    "page": 0,
+    "sort": "recent",
+}</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>The four most common params in a Diavgeia search:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Example value</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>q</code></td>
+            <td><code>subject:"κλιματισμός"</code></td>
+            <td>The search expression. Always includes a field name before the colon.</td>
+          </tr>
+          <tr>
+            <td><code>size</code></td>
+            <td><code>10</code></td>
+            <td>How many results to return per page. Maximum is 100.</td>
+          </tr>
+          <tr>
+            <td><code>page</code></td>
+            <td><code>0</code></td>
+            <td>Which page to return. Zero-based: first page is 0, second is 1.</td>
+          </tr>
+          <tr>
+            <td><code>sort</code></td>
+            <td><code>recent</code></td>
+            <td>Newest first. Use <code>relative</code> when you care about text relevance.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>The q parameter mini-syntax</h3>
+
+      <p>The value of <code>q</code> is not a plain search term — it uses a small query language. You always name the field you want to search, followed by a colon and the term in quotes:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Pattern</th>
+            <th>Searches in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>subject:"κλιματισμός"</code></td>
+            <td>The decision title / subject field</td>
+          </tr>
+          <tr>
+            <td><code>q:"κλιματισμός"</code></td>
+            <td>Full text of the document</td>
+          </tr>
+          <tr>
+            <td><code>ada:"6ΛΩΖ7ΛΞ-ΦΨΥ"</code></td>
+            <td>A specific ADA code</td>
+          </tr>
+          <tr>
+            <td><code>q:["κλιματισμός", "ψύξη"]</code></td>
+            <td>Multiple terms (any match)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>The get call</h3>
+
+      <pre><code>resp = requests.get(url, params=params, headers={"Accept": "application/json"}, timeout=30)</code></pre>
+
+      <p><code>requests.get()</code> sends the HTTP GET request and returns a response object. The two keyword arguments you should always include:</p>
+
+      <ul>
+        <li><code>headers={"Accept": "application/json"}</code> — tells the server you want JSON back, not HTML.</li>
+        <li><code>timeout=30</code> — if the server takes more than 30 seconds to respond, Python raises an error instead of waiting forever.</li>
+      </ul>
+
+      <h3>raise_for_status and .json()</h3>
+
+      <pre><code>resp.raise_for_status()
+data = resp.json()</code></pre>
+
+      <p><code>raise_for_status()</code> checks the HTTP status code. If the server returned an error — 404 Not Found, 500 Server Error — it raises a Python exception immediately, so your code fails loudly rather than silently processing an empty or broken response.</p>
+
+      <p><code>resp.json()</code> parses the response body as JSON and returns a Python dictionary. It is equivalent to writing <code>json.loads(resp.text)</code>, but shorter.</p>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Working with the Response</h2>
+
+      <p>The cell below simulates a realistic Diavgeia response — the same structure your code would receive after the <code>resp.json()</code> call. Run it and examine the output, then try changing the print statements.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import json
+
+# This is what resp.json() returns after a real API call
+raw = """
+{
+  "info": {"total": 312},
+  "decisions": [
+    {
+      "ada": "ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "subject": "Ανάληψη υποχρέωσης για την προμήθεια κλιματιστικών μονάδων",
+      "issueDate": "2025-06-10",
+      "submissionTimestamp": "2025-06-11T09:15:00.000+0300",
+      "documentUrl": "https://diavgeia.gov.gr/doc/ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "documentType": "pdf",
+      "organization": {"label": "ΔΗΜΟΣ ΑΘΗΝΑΙΩΝ"},
+      "decisionType": {"label": "Ανάληψη Υποχρέωσης"}
+    },
+    {
+      "ada": "6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "subject": "Σύμβαση προμήθειας και εγκατάστασης κλιματιστικών",
+      "issueDate": "2025-06-08",
+      "submissionTimestamp": "2025-06-09T11:30:00.000+0300",
+      "documentUrl": "https://diavgeia.gov.gr/doc/6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "documentType": "pdf",
+      "organization": {"label": "ΔΗΜΟΣ ΘΕΣΣΑΛΟΝΙΚΗΣ"},
+      "decisionType": {"label": "Σύμβαση"}
+    },
+    {
+      "ada": "ΩΒΚ746ΜΦΩΡ-ΠΔΓ",
+      "subject": "Συντήρηση κλιματισμού δημοτικών κτιρίων",
+      "issueDate": "2025-06-05",
+      "submissionTimestamp": "2025-06-06T14:20:00.000+0300",
+      "documentUrl": "https://diavgeia.gov.gr/doc/ΩΒΚ746ΜΦΩΡ-ΠΔΓ",
+      "documentType": "pdf",
+      "organization": {"label": "ΔΗΜΟΣ ΠΕΙΡΑΙΩΣ"},
+      "decisionType": {"label": "Ανάληψη Υποχρέωσης"}
+    }
+  ]
+}
+"""
+
+data = json.loads(raw)
+
+print("Total decisions in database:", data["info"]["total"])
+print("Decisions on this page:", len(data["decisions"]))
+print()
+
+for decision in data["decisions"]:
+    print(decision["ada"])
+    print("  Subject  :", decision["subject"])
+    print("  Date     :", decision["issueDate"])
+    print("  Org      :", decision["organization"]["label"])
+    print("  Type     :", decision["decisionType"]["label"])
+    print("  PDF      :", decision["documentUrl"])
+    print()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Notice that <code>data["info"]["total"]</code> is 312 — that is the full count of matching decisions in the database — while <code>len(data["decisions"])</code> is only 3, because that is what one page returns. Pagination is how you collect all 312, and you will do exactly that in a later chapter.</p>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>The Safe Extraction Pattern</h2>
+
+      <p>Real API responses are not always complete. A field that exists for one decision may be <code>null</code> — Python's <code>None</code> — for another. If you access <code>decision["organization"]["label"]</code> and <code>organization</code> is <code>None</code>, Python raises a <code>TypeError</code> and your script stops.</p>
+
+      <p>The standard defence is two steps. First, use <code>.get()</code> with a fallback. Second, guard the nested access with <code>or {}</code>:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import json
+
+# One of these decisions is missing the organization field entirely
+raw = """
+{
+  "info": {"total": 2},
+  "decisions": [
+    {
+      "ada": "ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "subject": "Ανάληψη υποχρέωσης για κλιματιστικά",
+      "issueDate": "2025-06-10",
+      "organization": {"label": "ΔΗΜΟΣ ΑΘΗΝΑΙΩΝ"},
+      "decisionType": {"label": "Ανάληψη Υποχρέωσης"},
+      "documentUrl": "https://diavgeia.gov.gr/doc/ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ"
+    },
+    {
+      "ada": "6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "subject": "Σύμβαση εγκατάστασης κλιματιστικών",
+      "issueDate": "2025-06-08",
+      "organization": null,
+      "decisionType": null,
+      "documentUrl": null
+    }
+  ]
+}
+"""
+
+data = json.loads(raw)
+
+for decision in data["decisions"]:
+    organization = decision.get("organization") or {}
+    decision_type = decision.get("decisionType") or {}
+
+    row = {
+        "ada":          decision.get("ada", ""),
+        "subject":      decision.get("subject", ""),
+        "issueDate":    decision.get("issueDate", ""),
+        "documentUrl":  decision.get("documentUrl", ""),
+        "organization": organization.get("label", ""),
+        "decisionType": decision_type.get("label", ""),
+    }
+    print(row)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The expression <code>decision.get("organization") or {}</code> reads as: "get the value of <code>organization</code>, and if it is <code>None</code> or missing, use an empty dictionary instead." Then <code>{}.get("label", "")</code> safely returns an empty string. Your loop never crashes, and every row in your dataset has consistent keys.</p>
+
+      <div class="callout">
+        <strong>Build a dict for each decision.</strong> Once you have a row dictionary like the one above, you can collect all of them in a list and pass that list directly to <code>pandas.DataFrame()</code>. That step — API → list of dicts → DataFrame — is the full pipeline you will build in the next chapter.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Filtering with fq</h2>
+
+      <p>The <code>q</code> parameter searches across all decisions. The <code>fq</code> parameter <em>filters</em> the results — it narrows the search to a specific organisation, decision type, or date range without affecting the relevance ranking.</p>
+
+      <p>To filter by organisation, you need the organisation's numeric UID. You can find it by searching Diavgeia's web interface and reading the URL, or by looking it up in the discovery endpoints listed in the cheat sheet. Once you have it, add it as a second key in your params dict:</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests
+
+url = "https://diavgeia.gov.gr/luminapi/api/search"
+params = {
+    "q": 'subject:"κλιματισμός"',
+    "fq": 'organizationUid:"6167"',   # limit to one organisation
+    "sort": "recent",
+    "page": 0,
+    "size": 20,
+}
+
+resp = requests.get(url, params=params, headers={"Accept": "application/json"}, timeout=30)
+resp.raise_for_status()
+data = resp.json()
+
+for decision in data.get("decisions", []):
+    org = (decision.get("organization") or {}).get("label", "")
+    print(decision.get("ada"), "|", org)
+    print(" ", decision.get("subject"))
+    print()</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>You can also filter by date range. Diavgeia uses its own timestamp syntax inside the <code>fq</code> value:</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests
+
+url = "https://diavgeia.gov.gr/luminapi/api/search"
+params = {
+    "q": 'subject:"κλιματισμός"',
+    "fq": "issueDate:[DT(2024-01-01T00:00:00) TO DT(2024-12-31T23:59:59)]",
+    "sort": "recent",
+    "page": 0,
+    "size": 20,
+}
+
+resp = requests.get(url, params=params, headers={"Accept": "application/json"}, timeout=30)
+resp.raise_for_status()
+data = resp.json()
+
+print("Decisions in 2024:", data["info"]["total"])</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>fq can be stacked.</strong> If you need to filter by both organisation and date, you can pass a list as the value: <code>"fq": ['organizationUid:"6167"', "issueDate:[DT(2024-01-01T00:00:00) TO DT(2024-12-31T23:59:59)]"]</code>. The <code>requests</code> library will send both as separate <code>fq</code> parameters.
+      </div>
+    </section>
+
+    <section id="part6">
+      <p class="section-label">Part Six</p>
+      <h2>Your Turn — Extract and Organise</h2>
+
+      <p>The cell below contains a response with four decisions. Your task is to build a list of dictionaries using the safe extraction pattern, then print the total number of decisions and each row. Use <code>.get()</code> everywhere and guard nested access with <code>or {}</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import json
+
+raw = """
+{
+  "info": {"total": 4},
+  "decisions": [
+    {
+      "ada": "ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "subject": "Ανάληψη υποχρέωσης για κλιματιστικά",
+      "issueDate": "2025-06-10",
+      "documentUrl": "https://diavgeia.gov.gr/doc/ΨΦΔΔ46ΜΤΛΡ-ΑΩΣ",
+      "documentType": "pdf",
+      "organization": {"label": "ΔΗΜΟΣ ΑΘΗΝΑΙΩΝ"},
+      "decisionType": {"label": "Ανάληψη Υποχρέωσης"}
+    },
+    {
+      "ada": "6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "subject": "Σύμβαση εγκατάστασης κλιματιστικών",
+      "issueDate": "2025-06-08",
+      "documentUrl": "https://diavgeia.gov.gr/doc/6ΛΩΖ7ΛΞ-ΦΨΥ",
+      "documentType": "pdf",
+      "organization": {"label": "ΔΗΜΟΣ ΘΕΣΣΑΛΟΝΙΚΗΣ"},
+      "decisionType": {"label": "Σύμβαση"}
+    },
+    {
+      "ada": "ΩΒΚ746ΜΦΩΡ-ΠΔΓ",
+      "subject": "Συντήρηση κλιματισμού δημοτικών κτιρίων",
+      "issueDate": "2025-06-05",
+      "documentUrl": null,
+      "documentType": null,
+      "organization": {"label": "ΔΗΜΟΣ ΠΕΙΡΑΙΩΣ"},
+      "decisionType": null
+    },
+    {
+      "ada": "ΡΨΞ946ΜΤΛΡ-ΒΩΔ",
+      "subject": "Προμήθεια και τοποθέτηση κλιματιστικών μονάδων",
+      "issueDate": "2025-06-01",
+      "documentUrl": "https://diavgeia.gov.gr/doc/ΡΨΞ946ΜΤΛΡ-ΒΩΔ",
+      "documentType": "pdf",
+      "organization": null,
+      "decisionType": {"label": "Σύμβαση"}
+    }
+  ]
+}
+"""
+
+data = json.loads(raw)
+
+rows = []
+for decision in data["decisions"]:
+    organization = decision.get("organization") or {}
+    decision_type = decision.get("decisionType") or {}
+    rows.append({
+        "ada":          decision.get("ada", ""),
+        "subject":      decision.get("subject", ""),
+        "issueDate":    decision.get("issueDate", ""),
+        "documentUrl":  decision.get("documentUrl", ""),
+        "organization": organization.get("label", ""),
+        "decisionType": decision_type.get("label", ""),
+    })
+
+print("Rows collected:", len(rows))
+print()
+for row in rows:
+    print(row)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> how to call the Diavgeia search endpoint with <code>requests.get()</code>, how to use the params dictionary to build the query, what <code>raise_for_status()</code> and <code>resp.json()</code> do, and how to extract nested fields safely with <code>.get()</code> and <code>or {}</code>. In the next chapter you will pass this list of rows to pandas and turn it into a DataFrame.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book6-chapter-1.html">Previous: Chapter 1 — What is an API?</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book6-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>
