@@ -64,6 +64,29 @@
     margin-bottom: 24px;
   }
 
+  .view-explainer {
+    margin: 0 0 28px;
+    padding: 16px 0;
+  }
+
+  .view-explainer p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .view-explainer p:last-child { margin-bottom: 0; }
+
+  .view-explainer p:first-child::first-letter {
+    float: left;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 4.6rem;
+    line-height: 0.78;
+    padding: 8px 10px 0 0;
+    color: #121212;
+  }
+
   /* Highlights */
   .highlights {
     display: grid;
@@ -178,6 +201,21 @@
 
   .btn:hover { background: #f5f5f5; }
   .btn.active { background: #333; color: #fff; border-color: #333; }
+
+  .view-toggle {
+    display: inline-flex;
+    border: 1px solid #ccc;
+    background: #fff;
+  }
+
+  .view-toggle .btn {
+    border: none;
+    border-right: 1px solid #ccc;
+  }
+
+  .view-toggle .btn:last-child {
+    border-right: none;
+  }
 
   .cat-list {
     max-height: 180px;
@@ -323,11 +361,17 @@
   <p class="updated" id="updated-date"></p>
   <p style="font-size:0.85rem;color:#999;margin-bottom:32px;">Ανάλυση και ανάπτυξη από τον <a href="https://troboukis.github.io/" target="_blank" style="color:#666;">Θανάση Τρομπούκη</a> με τη χρήση <a href="https://claude.ai" target="_blank" style="color:#666;">Claude</a>. <br><i>Βλέπετε κάποιο λάθος στην ανάλυση ή τα δεδομένα; Επικοινωνήστε μαζί μου: troboukis [at] gmail.com</i></p>
 
+  <div class="view-explainer">
+    <p>Στη σελίδα θα δείτε δύο αναλύσεις. Και οι δύο εξετάζουν την πορεία των τιμών στα σούπερ μάρκετ σε σχέση με την περίοδο Οκτωβρίου - Δεκεμβρίου 2024 (baseline).</p>
+    <p>Η πρώτη ανάλυση, <strong>Σταθερό Καλάθι</strong>, εντοπίζει ποια προϊόντα είχαν τιμή κοντά στη διάμεση τιμή της κατηγορίας κατά το baseline και παρακολουθεί την πορεία της τιμής αυτών των συγκεκριμένων προϊόντων. Δηλαδή, αν ένα προϊόν κόστιζε στο baseline 1 ευρώ, εξετάζουμε πώς κινείται η τιμή του μέσα στον χρόνο και πόσο κοστίζει σήμερα.</p>
+    <p>Η δεύτερη ανάλυση, <strong>Κατηγορία</strong>, εξετάζει κάθε εβδομάδα τη διάμεση τιμή όλων των προϊόντων της κατηγορίας και τη συγκρίνει με το baseline. Η διάμεση τιμή δείχνει ουσιαστικά σε ποια τιμή κινείται το 50% των προϊόντων της κατηγορίας. Αύξηση στην κατηγορία μπορεί να σημαίνει είτε ότι ακρίβυναν τα υπάρχοντα προϊόντα είτε ότι προστέθηκαν ακριβότερα προϊόντα στη συγκεκριμένη κατηγορία.</p>
+  </div>
+
   <div id="loading" class="loading">Φόρτωση δεδομένων...</div>
 
   <div id="content" style="display:none;">
 
-    <h2>Αυξήσεις της εβδομάδας</h2>
+    <h2>Εικόνα της εβδομάδας</h2>
     <p class="highlights-summary" id="highlights-summary"></p>
     <div class="highlights" id="highlights"></div>
     <p class="footnote" id="highlights-footnote"></p>
@@ -336,6 +380,10 @@
     <p class="subtitle" id="heatmap-subtitle" style="margin-bottom:16px;"></p>
     <div class="controls">
       <div class="search-row">
+        <div class="view-toggle" aria-label="Επιλογή heatmap view">
+          <button class="btn" id="btn-view-category" type="button">Κατηγορία</button>
+          <button class="btn active" id="btn-view-basket" type="button">Σταθερό καλάθι</button>
+        </div>
         <input type="text" id="cat-search" placeholder="Αναζήτηση κατηγορίας...">
         <button class="btn" id="btn-top-up">Top 20 Αυξήσεις</button>
         <button class="btn" id="btn-top-down">Top 20 Μειώσεις</button>
@@ -372,6 +420,12 @@
       <h3 id="line-chart-title"></h3>
       <div class="line-chart-meta" id="line-chart-meta"></div>
       <div id="line-chart"></div>
+    </div>
+
+    <div id="baseline-product-chart-section">
+      <h3 id="baseline-product-chart-title">Σταθερό καλάθι baseline</h3>
+      <div class="line-chart-meta" id="baseline-product-chart-meta"></div>
+      <div id="baseline-product-chart"></div>
     </div>
   </div>
 </div>
@@ -410,6 +464,13 @@
     Αντιστοιχεί στην τελευταία τιμή του heatmap για κάθε κατηγορία.
     Η <em>Κατεύθυνση</em> (Αύξηση / Μείωση / Αμετάβλητη) προκύπτει από το πρόσημο αυτής της μεταβολής.
     Τα κουμπιά "Top 20 Αυξήσεις / Μειώσεις" ταξινομούν με βάση αυτή τη μετρική.
+  </p>
+
+  <p style="margin-top:16px;"><strong style="color:#333;">Σταθερό καλάθι baseline</strong></p>
+  <p>
+    Για κάθε κατηγορία εντοπίζονται τα προϊόντα των οποίων η διάμεση τιμή στο baseline είναι ίση με τη διάμεση τιμή της κατηγορίας.
+    Όταν δεν υπάρχει ακριβής ισότητα, επιλέγεται το κοντινότερο προϊόν ή προϊόντα.
+    Στη συνέχεια, για κάθε εβδομάδα υπολογίζεται ο μέσος όρος των εβδομαδιαίων median τιμών αυτών των ίδιων προϊόντων.
   </p>
 
   <p style="margin-top:16px;"><strong style="color:#333;">Τυπική μεταβολή (%)</strong></p>
@@ -489,6 +550,7 @@ let selectedCats = new Set();
 let sortKey = 'r_squared';
 let sortAsc = false;
 let activeLineChartCat = null;
+let heatmapView = 'basket';
 
 // ── Load Data ──
 const dashboardDataUrl = new URL('https://raw.githubusercontent.com/troboukis/ekatanalotis/refs/heads/main/dashboard_data.json');
@@ -510,8 +572,7 @@ fetch(dashboardDataUrl, { cache: 'no-store' })
 
 function init() {
   renderHighlights();
-  document.getElementById('heatmap-subtitle').textContent =
-    `Ποσοστιαία μεταβολή σε σχέση με τη διάμεση τιμή των πρώτων ${DATA.baseline_weeks_count} εβδομάδων ${DATA.baseline_period} (baseline). Επιλέξτε τις κατηγορίες που θέλετε να εμφανιστούν στο γράφημα.`;
+  updateHeatmapSubtitle();
   document.getElementById('analysis-subtitle').innerHTML = `
     <b>Πώς να διαβάσετε τα στοιχεία:</b>
     <ul>
@@ -550,31 +611,64 @@ function init() {
 }
 
 // ── Highlights ──
+function getBasketWeekValue(catName, week) {
+  const analysis = DATA.baseline_product_analysis?.categories?.[catName];
+  const weeks = DATA.baseline_product_analysis?.all_weeks || [];
+  const idx = weeks.indexOf(week);
+  return analysis && idx >= 0 ? analysis.weekly_average[idx] : null;
+}
+
+function getTopBasketChanges(compareWeek) {
+  return DATA.categories
+    .map(cat => {
+      const current = getBasketWeekValue(cat.name, DATA.last_week);
+      const previous = getBasketWeekValue(cat.name, compareWeek);
+      if (current == null || previous == null || previous === 0) return null;
+      return {
+        name: cat.name,
+        pct_change: ((current - previous) / previous * 100),
+        current_average: current,
+        previous_average: previous,
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.pct_change - a.pct_change)
+    .slice(0, 5)
+    .map(item => ({
+      ...item,
+      pct_change: Math.round(item.pct_change * 10) / 10,
+    }));
+}
+
 function renderHighlights() {
-  const hl = DATA.weekly_highlights;
-  const s = hl.wow_summary;
+  const basketWow = getTopBasketChanges(DATA.prev_week);
+  const basketYoy = DATA.last_year_week ? getTopBasketChanges(DATA.last_year_week) : [];
+  const basketChanges = DATA.categories
+    .map(cat => {
+      const current = getBasketWeekValue(cat.name, DATA.last_week);
+      const previous = getBasketWeekValue(cat.name, DATA.prev_week);
+      return current != null && previous != null ? current - previous : null;
+    })
+    .filter(v => v != null);
+
+  const s = {
+    increase: basketChanges.filter(v => v > 0).length,
+    decrease: basketChanges.filter(v => v < 0).length,
+    unchanged: basketChanges.filter(v => v === 0).length,
+  };
 
   // Summary subtitle with unusual increases
-  const unusualNames = (hl.top5_zscore || [])
-    .filter(item => item.zscore >= 2)
-    .slice(0, 5)
-    .map(item => item.name);
-  const unusualText = unusualNames.length > 0
-    ? ` Παρατηρούμε πως οι αυξήσεις στα: <strong>${unusualNames.join(', ')}</strong> είναι ασυνήθιστες.`
-    : '';
-
   document.getElementById('highlights-summary').innerHTML =
-    `Εκτιμάται πως <strong>${s.increase}</strong> κατηγορίες προϊόντων παρουσιάζουν αύξηση σε σχέση με την περασμένη εβδομάδα, ` +
+    `Στο σταθερό καλάθι, εκτιμάται πως <strong>${s.increase}</strong> κατηγορίες προϊόντων παρουσιάζουν αύξηση σε σχέση με την περασμένη εβδομάδα, ` +
     `<strong>${s.decrease}</strong> παρουσιάζουν μείωση και <strong>${s.unchanged}</strong> παραμένουν αμετάβλητες.` +
-    unusualText +
     ` Οι τιμές αντιστοιχούν είτε σε συσκευασία προϊόντος, είτε ανά κιλό προϊόντος.`;
 
   // Cards
   const container = document.getElementById('highlights');
 
   const cards = [
-    { title: `Σε σχέση με την προηγούμενη εβδομάδα με στοιχεία (${DATA.prev_week})`, items: hl.top5_wow, prevKey: 'prev_median' },
-    { title: `Σε σχέση με την ίδια εβδομάδα πέρυσι`, items: hl.top5_yoy, prevKey: 'last_year_median' },
+    { title: `Σε σχέση με την προηγούμενη εβδομάδα με στοιχεία (${DATA.prev_week})`, items: basketWow },
+    { title: `Σε σχέση με την ίδια εβδομάδα πέρυσι`, items: basketYoy },
   ];
 
   container.innerHTML = cards.map(card => `
@@ -585,7 +679,7 @@ function renderHighlights() {
           <span class="highlight-name">${item.name}</span>
           <span>
             <span class="highlight-pct">+${item.pct_change}%</span>
-            <span class="highlight-prices">διάμεση τιμή ${item.current_median.toFixed(2)}€ από ${item[card.prevKey].toFixed(2)}€</span>
+            <span class="highlight-prices">μέσος όρος καλαθιού ${item.current_average.toFixed(2)}€ από ${item.previous_average.toFixed(2)}€</span>
           </span>
         </div>
       `).join('')}
@@ -594,7 +688,7 @@ function renderHighlights() {
 
   // Footnote
   document.getElementById('highlights-footnote').textContent =
-    `Σημείωση: Τα ποσοστά υπολογίζονται βάσει της διάμεσης (median) τιμής κάθε κατηγορίας προϊόντος σε όλα τα σούπερ μάρκετ. ` +
+    `Σημείωση: Τα ποσοστά υπολογίζονται βάσει του μέσου όρου των εβδομαδιαίων median τιμών των προϊόντων που ανήκουν στο σταθερό καλάθι κάθε κατηγορίας. ` +
     `Η σύγκριση γίνεται μεταξύ της τρέχουσας εβδομάδας (${DATA.last_week}) και της προηγούμενης (${DATA.prev_week}) ή της αντίστοιχης εβδομάδας του περασμένου έτους (${DATA.last_year_week || 'μη διαθέσιμο'}).`;
 }
 
@@ -625,6 +719,8 @@ function buildCategorySelector() {
 
   document.getElementById('btn-top-up').addEventListener('click', () => selectTop(20, false));
   document.getElementById('btn-top-down').addEventListener('click', () => selectTop(20, true));
+  document.getElementById('btn-view-category').addEventListener('click', () => setHeatmapView('category'));
+  document.getElementById('btn-view-basket').addEventListener('click', () => setHeatmapView('basket'));
   document.getElementById('btn-clear').addEventListener('click', () => {
     selectedCats.clear();
     syncCheckboxes();
@@ -632,13 +728,150 @@ function buildCategorySelector() {
   });
 }
 
+function setHeatmapView(view) {
+  heatmapView = view;
+  document.getElementById('btn-view-category').classList.toggle('active', view === 'category');
+  document.getElementById('btn-view-basket').classList.toggle('active', view === 'basket');
+  updateHeatmapSubtitle();
+  render();
+}
+
+function updateHeatmapSubtitle() {
+  const text = heatmapView === 'basket'
+    ? `Ποσοστιαία εβδομαδιαία μεταβολή του σταθερού καλαθιού κάθε κατηγορίας σε σχέση με τη διάμεση τιμή των πρώτων ${DATA.baseline_weeks_count} εβδομάδων ${DATA.baseline_period} (baseline). Επιλέξτε τις κατηγορίες που θέλετε να εμφανιστούν στο γράφημα.`
+    : `Ποσοστιαία μεταβολή σε σχέση με τη διάμεση τιμή των πρώτων ${DATA.baseline_weeks_count} εβδομάδων ${DATA.baseline_period} (baseline). Επιλέξτε τις κατηγορίες που θέλετε να εμφανιστούν στο γράφημα.`;
+  document.getElementById('heatmap-subtitle').textContent = text;
+}
+
+function getBasketAnalysis(catName) {
+  return DATA.baseline_product_analysis?.categories?.[catName] || null;
+}
+
+function getBasketPctSeries(catName) {
+  const analysis = getBasketAnalysis(catName);
+  if (!analysis || !analysis.baseline_price) return DATA.weeks.map(() => null);
+
+  const analysisWeeks = DATA.baseline_product_analysis.all_weeks;
+  return DATA.weeks.map(week => {
+    const idx = analysisWeeks.indexOf(week);
+    const value = idx >= 0 ? analysis.weekly_average[idx] : null;
+    return value != null ? ((value - analysis.baseline_price) / analysis.baseline_price * 100) : null;
+  });
+}
+
+function getHeatmapSeries(cat) {
+  return heatmapView === 'basket' ? getBasketPctSeries(cat.name) : cat.pct_from_baseline;
+}
+
+function getLatestHeatmapValue(cat) {
+  const values = getHeatmapSeries(cat).filter(v => v != null);
+  return values.length ? values[values.length - 1] : null;
+}
+
+function median(values) {
+  const nums = values.filter(v => v != null && Number.isFinite(v)).sort((a, b) => a - b);
+  if (nums.length === 0) return null;
+  const mid = Math.floor(nums.length / 2);
+  return nums.length % 2 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+}
+
+function formatEuro(value) {
+  return value != null && Number.isFinite(value) ? `${value.toFixed(2)}€` : 'N/A';
+}
+
+function linearRegression(points) {
+  if (points.length < 3) return { slope: null, r2: null };
+  const n = points.length;
+  const meanX = points.reduce((sum, p) => sum + p.x, 0) / n;
+  const meanY = points.reduce((sum, p) => sum + p.y, 0) / n;
+  const ssXX = points.reduce((sum, p) => sum + Math.pow(p.x - meanX, 2), 0);
+  if (ssXX === 0) return { slope: null, r2: null };
+  const ssXY = points.reduce((sum, p) => sum + (p.x - meanX) * (p.y - meanY), 0);
+  const slope = ssXY / ssXX;
+  const intercept = meanY - slope * meanX;
+  const ssTot = points.reduce((sum, p) => sum + Math.pow(p.y - meanY, 2), 0);
+  const ssRes = points.reduce((sum, p) => sum + Math.pow(p.y - (slope * p.x + intercept), 2), 0);
+  const r2 = ssTot === 0 ? 1 : 1 - (ssRes / ssTot);
+  return { slope, r2 };
+}
+
+function monthOrdinal(dateText) {
+  const d = new Date(`${dateText}T00:00:00`);
+  return d.getFullYear() * 12 + d.getMonth();
+}
+
+function getBasketStats(catName) {
+  const analysis = getBasketAnalysis(catName);
+  if (!analysis || !analysis.baseline_price) {
+    return {
+      cagr: null, slope_per_month: null, r_squared: null, direction: 'Αμετάβλητη',
+      pct_from_baseline: null, pct_typical: null, wow_latest: null,
+    };
+  }
+
+  const weeks = DATA.baseline_product_analysis.all_weeks;
+  const dates = DATA.baseline_product_analysis.all_week_start_dates;
+  const values = analysis.weekly_average;
+  const baselinePrice = analysis.baseline_price;
+  const lastIdx = weeks.indexOf(DATA.last_week);
+  const prevIdx = weeks.indexOf(DATA.prev_week);
+  const baselineEndIdx = DATA.baseline_weeks_count - 1;
+  const lastValue = lastIdx >= 0 ? values[lastIdx] : null;
+  const prevValue = prevIdx >= 0 ? values[prevIdx] : null;
+
+  const pctFromBaseline = lastValue != null
+    ? ((lastValue - baselinePrice) / baselinePrice * 100)
+    : null;
+  const wowLatest = lastValue != null && prevValue != null && prevValue !== 0
+    ? ((lastValue - prevValue) / prevValue * 100)
+    : null;
+
+  const pctSeries = values.map(v => v != null ? ((v - baselinePrice) / baselinePrice * 100) : null);
+  const pctTypical = median(pctSeries.slice(DATA.baseline_weeks_count));
+
+  let cagr = null;
+  if (lastValue != null && baselinePrice > 0 && lastIdx > baselineEndIdx) {
+    const baselineEndDate = new Date(`${dates[baselineEndIdx]}T00:00:00`);
+    const lastDate = new Date(`${dates[lastIdx]}T00:00:00`);
+    const nYears = (lastDate - baselineEndDate) / (1000 * 60 * 60 * 24) / 365;
+    if (nYears > 0) cagr = (Math.pow(lastValue / baselinePrice, 1 / nYears) - 1) * 100;
+  }
+
+  const monthValues = new Map();
+  values.forEach((value, i) => {
+    if (value == null) return;
+    const month = monthOrdinal(dates[i]);
+    if (!monthValues.has(month)) monthValues.set(month, []);
+    monthValues.get(month).push(value);
+  });
+  const regressionPoints = [...monthValues.entries()]
+    .map(([month, vals]) => ({ x: month, y: median(vals) }))
+    .filter(p => p.y != null);
+  const reg = linearRegression(regressionPoints);
+
+  return {
+    cagr,
+    slope_per_month: reg.slope,
+    r_squared: reg.r2,
+    direction: pctFromBaseline > 0 ? 'Αύξηση' : pctFromBaseline < 0 ? 'Μείωση' : 'Αμετάβλητη',
+    pct_from_baseline: pctFromBaseline,
+    pct_typical: pctTypical,
+    wow_latest: wowLatest,
+  };
+}
+
+function getActiveStats(cat) {
+  return heatmapView === 'basket' ? getBasketStats(cat.name) : cat.stats;
+}
+
 function selectTop(n, ascending) {
   const sorted = [...DATA.categories]
-    .filter(c => c.stats.pct_from_baseline != null)
+    .map(c => ({ cat: c, value: getLatestHeatmapValue(c) }))
+    .filter(item => item.value != null)
     .sort((a, b) => ascending
-      ? a.stats.pct_from_baseline - b.stats.pct_from_baseline
-      : b.stats.pct_from_baseline - a.stats.pct_from_baseline);
-  selectedCats = new Set(sorted.slice(0, n).map(c => c.name));
+      ? a.value - b.value
+      : b.value - a.value);
+  selectedCats = new Set(sorted.slice(0, n).map(item => item.cat.name));
   syncCheckboxes();
   render();
 }
@@ -693,7 +926,8 @@ function renderHeatmap() {
   const h = marginTop + cats.length * cellH + marginBottom;
 
   // Color scale — NYT diverging: teal ← white → orange/red
-  const allVals = cats.flatMap(c => c.pct_from_baseline.filter(v => v != null));
+  const heatmapRows = cats.map(cat => ({ cat, values: getHeatmapSeries(cat) }));
+  const allVals = heatmapRows.flatMap(row => row.values.filter(v => v != null));
   const maxAbs = d3.max(allVals.map(Math.abs)) || 10;
 
   const color = d3.scaleDiverging()
@@ -725,7 +959,9 @@ function renderHeatmap() {
     });
 
   // Rows
-  cats.forEach((cat, ri) => {
+  heatmapRows.forEach((row, ri) => {
+    const cat = row.cat;
+    const values = row.values;
     const y = marginTop + ri * cellH;
 
     // Category label
@@ -742,11 +978,17 @@ function renderHeatmap() {
     // Cells — precompute all_weeks index offset for WoW/YoY lookup
     const allWeeks = DATA.all_weeks;
     const baselineCount = DATA.baseline_weeks_count;
-    const wm = cat.weekly_median; // aligned with allWeeks
+    const basketAnalysis = getBasketAnalysis(cat.name);
+    const basketWeeks = DATA.baseline_product_analysis?.all_weeks || [];
+    const wm = heatmapView === 'basket'
+      ? basketAnalysis?.weekly_average || []
+      : cat.weekly_median; // aligned with allWeeks
 
-    cat.pct_from_baseline.forEach((val, ci) => {
+    values.forEach((val, ci) => {
       // Compute WoW and YoY for tooltip
-      const allIdx = baselineCount + ci; // index in allWeeks/weekly_median
+      const allIdx = heatmapView === 'basket'
+        ? basketWeeks.indexOf(weeks[ci])
+        : baselineCount + ci; // index in allWeeks/weekly_median
       const curPrice = wm[allIdx];
       const prevPrice = allIdx > 0 ? wm[allIdx - 1] : null;
       const wow = (curPrice != null && prevPrice != null && prevPrice !== 0)
@@ -758,12 +1000,22 @@ function renderHeatmap() {
       const yoy = (curPrice != null && yoyPrice != null && yoyPrice !== 0)
         ? ((curPrice - yoyPrice) / yoyPrice * 100) : null;
 
+      const valueLabel = heatmapView === 'basket'
+        ? 'από baseline καλαθιού'
+        : 'από baseline';
+      const priceLabel = heatmapView === 'basket'
+        ? 'μέσος όρος σταθερού καλαθιού'
+        : 'διάμεση τιμή';
+
       let tooltipText = `<strong>${cat.name}</strong><br>${dates[ci]}`;
       if (val != null) {
-        tooltipText += `<br>${(val >= 0 ? '+' : '') + val.toFixed(1)}% από baseline`;
+        tooltipText += `<br>${(val >= 0 ? '+' : '') + val.toFixed(1)}% ${valueLabel}`;
         if (wow != null) tooltipText += `<br>${(wow >= 0 ? '+' : '') + wow.toFixed(1)}% από προηγ. εβδομάδα`;
         if (yoy != null) tooltipText += `<br>${(yoy >= 0 ? '+' : '') + yoy.toFixed(1)}% από πέρσι`;
-        if (curPrice != null) tooltipText += `<br>διάμεση τιμή ${curPrice.toFixed(2)}€`;
+        if (curPrice != null) tooltipText += `<br>${priceLabel} ${curPrice.toFixed(2)}€`;
+        if (heatmapView === 'basket' && basketAnalysis) {
+          tooltipText += `<br>${basketAnalysis.product_count} ${basketAnalysis.product_count === 1 ? 'προϊόν' : 'προϊόντα'} στο καλάθι`;
+        }
       } else {
         tooltipText += `<br>Δεν υπάρχουν δεδομένα`;
       }
@@ -794,8 +1046,10 @@ function renderHeatmap() {
 function renderStatsTable() {
   const cats = DATA.categories.filter(c => selectedCats.has(c.name));
   const sorted = [...cats].sort((a, b) => {
-    let va = a.stats[sortKey] ?? (sortKey === 'name' ? a.name : -Infinity);
-    let vb = b.stats[sortKey] ?? (sortKey === 'name' ? b.name : -Infinity);
+    const statsA = getActiveStats(a);
+    const statsB = getActiveStats(b);
+    let va = statsA[sortKey] ?? (sortKey === 'name' ? a.name : -Infinity);
+    let vb = statsB[sortKey] ?? (sortKey === 'name' ? b.name : -Infinity);
     if (sortKey === 'name') { va = a.name; vb = b.name; }
     if (typeof va === 'string') return sortAsc ? va.localeCompare(vb, 'el') : vb.localeCompare(va, 'el');
     return sortAsc ? va - vb : vb - va;
@@ -803,7 +1057,7 @@ function renderStatsTable() {
 
   const body = document.getElementById('stats-body');
   body.innerHTML = sorted.map(c => {
-    const s = c.stats;
+    const s = getActiveStats(c);
     const dirClass = s.direction === 'Αύξηση' ? 'dir-up' : s.direction === 'Μείωση' ? 'dir-down' : 'dir-flat';
     const wowColor = s.wow_latest != null ? (s.wow_latest > 0 ? '#d63d28' : s.wow_latest < 0 ? '#1b7837' : '#333') : '#999';
     return `<tr data-cat="${c.name}">
@@ -846,40 +1100,40 @@ function showLineChart(catName, doScroll = true) {
 
   const cat = DATA.categories.find(c => c.name === catName);
   if (!cat) return;
+  const section = document.getElementById('line-chart-section');
 
-  document.getElementById('line-chart-title').textContent = cat.name;
-  const s = cat.stats;
+  document.getElementById('line-chart-title').textContent = `Κατηγορία: ${cat.name}`;
+  const baselineValue = median(cat.weekly_median.slice(0, DATA.baseline_weeks_count));
+  const lastIdx = DATA.all_weeks.indexOf(DATA.last_week);
+  const latestValue = lastIdx >= 0 ? cat.weekly_median[lastIdx] : null;
   document.getElementById('line-chart-meta').textContent =
-    `Εβδομάδα: ${s.wow_latest != null ? (s.wow_latest >= 0 ? '+' : '') + s.wow_latest.toFixed(1) + '%' : 'N/A'} · ` +
-    `Από baseline: ${s.pct_from_baseline != null ? s.pct_from_baseline.toFixed(1) + '%' : 'N/A'} · ` +
-    `Τυπική: ${s.pct_typical != null ? s.pct_typical.toFixed(1) + '%' : 'N/A'} · ` +
-    `CAGR: ${s.cagr != null ? s.cagr.toFixed(2) + '%' : 'N/A'} · ` +
-    `Slope: ${s.slope_per_month != null ? s.slope_per_month.toFixed(4) + ' €/μήνα' : 'N/A'} · ` +
-    `R²: ${s.r_squared != null ? s.r_squared.toFixed(3) : 'N/A'}`;
+    `Την περίοδο ${DATA.baseline_period} το 50% των προϊόντων της κατηγορίας κόστιζε έως ${formatEuro(baselineValue)}, ` +
+    `ενώ την τελευταία εβδομάδα κοστίζει έως ${formatEuro(latestValue)}.`;
 
   // Highlight active row
   document.querySelectorAll('#stats-table tbody tr').forEach(tr => {
     tr.classList.toggle('active', tr.dataset.cat === catName);
   });
 
-  // Build line chart — pct change from baseline
+  // Build line chart — pct change from baseline for the active view
   const container = document.getElementById('line-chart');
   container.innerHTML = '';
 
   const parseDate = d3.timeParse('%Y-%m-%d');
   const heatmapDates = DATA.week_start_dates;
+  const pctSeries = cat.pct_from_baseline;
 
   // Baseline point at 0, then pct_from_baseline for each week after baseline
   const baselineEndDate = DATA.all_week_start_dates[DATA.baseline_weeks_count - 1];
   const points = [{ date: parseDate(baselineEndDate), value: 0 }];
   heatmapDates.forEach((d, i) => {
-    const val = cat.pct_from_baseline[i];
+    const val = pctSeries[i];
     if (val != null) points.push({ date: parseDate(d), value: val });
   });
 
   const containerWidth = container.parentElement.getBoundingClientRect().width;
   const isMobileChart = window.innerWidth < 768;
-  const margin = { top: 20, right: 15, bottom: 40, left: isMobileChart ? 45 : 55 };
+  const margin = { top: 20, right: 15, bottom: 40, left: isMobileChart ? 78 : 90 };
   const totalW = Math.min(containerWidth, 1200);
   const width = totalW - margin.left - margin.right;
   const height = (isMobileChart ? 250 : 320) - margin.top - margin.bottom;
@@ -944,7 +1198,7 @@ function showLineChart(catName, doScroll = true) {
 
   svg.append('path')
     .datum(points)
-    .attr('fill', s.pct_from_baseline >= 0 ? 'rgba(214,61,40,0.1)' : 'rgba(27,120,55,0.1)')
+    .attr('fill', (points[points.length - 1]?.value ?? 0) >= 0 ? 'rgba(214,61,40,0.1)' : 'rgba(27,120,55,0.1)')
     .attr('d', area);
 
   // Line
@@ -999,7 +1253,122 @@ function showLineChart(catName, doScroll = true) {
         .text(`${(d.value >= 0 ? '+' : '')}${d.value.toFixed(1)}%`);
     });
 
+  showBaselineProductChart(catName);
+
   if (doScroll) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function showBaselineProductChart(catName) {
+  const section = document.getElementById('baseline-product-chart-section');
+  const title = document.getElementById('baseline-product-chart-title');
+  const meta = document.getElementById('baseline-product-chart-meta');
+  const container = document.getElementById('baseline-product-chart');
+  const analysis = DATA.baseline_product_analysis?.categories?.[catName];
+
+  section.style.display = 'block';
+  title.textContent = `Σταθερό καλάθι: ${catName}`;
+  container.innerHTML = '';
+  if (!DATA.baseline_product_analysis) {
+    meta.textContent = 'Το dashboard_data.json που φορτώθηκε δεν περιέχει baseline_product_analysis. Τρέξτε ξανά το preprocess ή ελέγξτε ποιο JSON σερβίρει ο local server.';
+    return;
+  }
+  if (!analysis) {
+    meta.textContent = 'Δεν βρέθηκε σταθερό καλάθι baseline για αυτή την κατηγορία.';
+    return;
+  }
+  if (!analysis.weekly_average?.some(v => v != null)) {
+    meta.textContent = 'Το σταθερό καλάθι baseline υπάρχει, αλλά δεν έχει διαθέσιμες εβδομαδιαίες τιμές.';
+    return;
+  }
+
+  const lastIdx = DATA.baseline_product_analysis.all_weeks.indexOf(DATA.last_week);
+  const latestValue = lastIdx >= 0 ? analysis.weekly_average[lastIdx] : null;
+  meta.textContent =
+    `Την περίοδο ${DATA.baseline_period} το σταθερό καλάθι της κατηγορίας κόστιζε ${formatEuro(analysis.baseline_price)}, ` +
+    `ενώ την τελευταία εβδομάδα κοστίζει ${formatEuro(latestValue)}.`;
+
+  const parseDate = d3.timeParse('%Y-%m-%d');
+  const points = DATA.baseline_product_analysis.all_week_start_dates
+    .map((d, i) => ({ date: parseDate(d), value: analysis.weekly_average[i] }))
+    .filter(d => d.value != null);
+  if (points.length === 0) return;
+
+  const containerWidth = container.parentElement.getBoundingClientRect().width;
+  const isMobileChart = window.innerWidth < 768;
+  const margin = { top: 20, right: 15, bottom: 40, left: isMobileChart ? 70 : 82 };
+  const totalW = Math.min(containerWidth, 1200);
+  const width = totalW - margin.left - margin.right;
+  const height = (isMobileChart ? 230 : 280) - margin.top - margin.bottom;
+
+  const svg = d3.select(container).append('svg')
+    .attr('width', totalW)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
+
+  const x = d3.scaleTime()
+    .domain(d3.extent(points, d => d.date))
+    .range([0, width]);
+
+  const yExtent = d3.extent(points, d => d.value);
+  const yPad = (yExtent[1] - yExtent[0]) * 0.1 || 0.2;
+  const y = d3.scaleLinear()
+    .domain([Math.max(0, yExtent[0] - yPad), yExtent[1] + yPad])
+    .range([height, 0]);
+
+  svg.append('g')
+    .attr('class', 'grid')
+    .call(d3.axisLeft(y).ticks(5).tickSize(-width).tickFormat(''))
+    .select('.domain').remove();
+
+  if (analysis.baseline_price != null) {
+    svg.append('line')
+      .attr('x1', 0).attr('x2', width)
+      .attr('y1', y(analysis.baseline_price)).attr('y2', y(analysis.baseline_price))
+      .attr('stroke', '#999').attr('stroke-width', 1)
+      .attr('stroke-dasharray', '4,3');
+  }
+
+  svg.append('g')
+    .attr('class', 'axis')
+    .attr('transform', `translate(0,${height})`)
+    .call(d3.axisBottom(x).ticks(d3.timeMonth.every(2)).tickFormat(d3.timeFormat('%b %Y')));
+
+  svg.append('g')
+    .attr('class', 'axis')
+    .call(d3.axisLeft(y).ticks(5).tickFormat(d => d.toFixed(2) + '€'));
+
+  svg.append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('y', -margin.left + 14)
+    .attr('x', -height / 2)
+    .attr('text-anchor', 'middle')
+    .style('font-size', '11px')
+    .style('fill', '#999')
+    .text('Μέσος όρος προϊόντων (€)');
+
+  const line = d3.line()
+    .x(d => x(d.date))
+    .y(d => y(d.value))
+    .curve(d3.curveMonotoneX);
+
+  svg.append('path')
+    .datum(points)
+    .attr('fill', 'none')
+    .attr('stroke', '#1b7837')
+    .attr('stroke-width', 2)
+    .attr('d', line);
+
+  svg.selectAll('.baseline-dot')
+    .data(points)
+    .join('circle')
+    .attr('class', 'baseline-dot')
+    .attr('cx', d => x(d.date))
+    .attr('cy', d => y(d.value))
+    .attr('r', 3)
+    .attr('fill', '#1b7837')
+    .attr('stroke', '#fff')
+    .attr('stroke-width', 1.5);
 }
 
 // ── Resize handler ──
