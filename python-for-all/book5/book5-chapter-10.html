@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 5 · Chapter Ten — Playwright — Scraping Pages That Need a Real Browser · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 5 · Chapter Ten — Playwright — Scraping Pages That Need a Real Browser · Python for All" />
+  <meta property="og:description" content="Learn why some pages need a real browser to scrape, and how to use Playwright to launch one, navigate to a URL, and extract the fully rendered HTML." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 5 — Web Scraping with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Ten — Playwright — Scraping Pages That Need a Real Browser</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+          <li><a href="../chapters/chapter-11.html">Chapter Eleven — Reading and Writing Text Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+          <li><a href="book5-chapter-9.html">Chapter Nine — Full Data Journalism Project</a></li>
+          <li><a href="book5-chapter-10.html" class="is-current">Chapter Ten — Playwright — Scraping Pages That Need a Real Browser</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 6 — Working with APIs</summary>
+        <ol>
+          <li><a href="../book6/book6-chapter-1.html">Chapter One — What is an API?</a></li>
+          <li><a href="../book6/book6-chapter-2.html">Chapter Two — Your First API Request</a></li>
+          <li><a href="../book6/book6-chapter-3.html">Chapter Three — Saving PDFs to a Folder</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Five · Chapter Ten</p>
+      <h2>Playwright — Scraping Pages That Need a Real Browser</h2>
+      <p class="chapter-desc"><code>requests</code> fetches raw HTML — it never runs JavaScript. Many modern websites build their content with JavaScript after the page loads, so <code>requests</code> sees an empty shell. Playwright solves this by launching a real browser that runs the JavaScript for you, then hands you the fully rendered page.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>The Problem — What requests Cannot See</h2>
+
+      <p><span class="dropcap">W</span>hen you call <code>requests.get(url)</code>, the server sends back the raw HTML file — exactly what was written on the server, before any JavaScript runs. On simple sites like news feeds, that raw HTML already contains all the content. But many modern sites work differently: they send a nearly empty HTML file and then use JavaScript, running in your browser, to fetch the data and build the page on the spot.</p>
+
+      <p><code>requests</code> never runs that JavaScript. It gets the empty shell and stops there. Run the cell below to see what that looks like in practice.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+# imagine this is the raw HTML that requests returns from a JavaScript-heavy page
+# the browser would show a full table of results — but requests sees this empty shell
+raw_html = """
+<html>
+  <body>
+    <div id="results">
+      <!-- content is injected here by JavaScript after the page opens -->
+      <!-- requests never sees it because it never runs the JavaScript -->
+    </div>
+  </body>
+</html>
+"""
+
+soup = BeautifulSoup(raw_html, "html.parser") # parse the HTML
+results = soup.find("div", id="results") # try to find the results container
+
+print("Text inside the div:", repr(results.get_text(strip=True)))
+print()
+print("Empty — because requests got the page before JavaScript ran.")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>This is not a bug in your code. It is simply how those websites work. The fix is to use a tool that actually opens a browser, lets the JavaScript run, and only then reads the HTML.</p>
+
+      <div class="callout">
+        <strong>How to tell if a page needs a browser:</strong> open the page in Chrome, then right-click → View Page Source. If the source looks almost empty while the page looks full, the content is being added by JavaScript and <code>requests</code> will not see it.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>How Playwright Works</h2>
+
+      <p>Playwright is a Python library that controls a real browser — Chromium, Firefox, or WebKit — from your code. You write Python, Playwright opens the browser, navigates to the URL, waits for the JavaScript to finish, and then gives you the full rendered HTML. From that point you use BeautifulSoup exactly as before.</p>
+
+      <p>The key difference from <code>requests</code>:</p>
+
+      <ul>
+        <li><strong>requests:</strong> sends one HTTP request, gets the raw HTML back, done. Fast, but blind to JavaScript.</li>
+        <li><strong>Playwright:</strong> launches a full browser, loads the page, runs all the JavaScript, waits for everything to settle. Slower, but sees exactly what a human user would see.</li>
+      </ul>
+
+      <p>Playwright also handles cookies, sessions, and login flows automatically — because it is a real browser. You never need to set <code>sec-fetch-*</code> headers or worry about bot detection: the browser sends all of that for you.</p>
+
+      <div class="callout">
+        <strong>When to use Playwright instead of requests:</strong> use <code>requests</code> first — it is much faster. Switch to Playwright only when the page content is missing or empty after a successful request.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Installing Playwright</h2>
+
+      <p>Playwright needs two installation steps: first install the Python library, then download the browser it will control. Run these two commands in your terminal or, if you are using Google Colab, in a code cell with a <code>!</code> at the start.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Terminal · or Colab cell</div>
+        <textarea readonly>pip install playwright # install the Playwright Python library
+playwright install chromium # download the Chromium browser that Playwright will control</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>If you are on <strong>Google Colab</strong>, add a <code>!</code> before each line so they run as terminal commands:</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Google Colab · run in a code cell</div>
+        <textarea readonly>!pip install playwright # install the library
+!playwright install chromium # download the browser
+!playwright install-deps chromium # install system dependencies Colab needs</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>You only need to install once.</strong> After the first install, your notebook can import Playwright in every session without re-running these commands — unless you are on Colab, where the environment resets each session.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Your First Playwright Script</h2>
+
+      <p>The pattern is always the same: start Playwright, launch a browser, open a tab, navigate to a URL, wait for the page to load, get the HTML, close the browser. The <code>async with</code> block makes sure the browser closes cleanly even if something goes wrong.</p>
+
+      <p>Colab and Jupyter already run inside an asynchronous event loop, so we must use the <strong>async</strong> version of Playwright. The only visible difference from regular Python is <code>async with</code> instead of <code>with</code>, and the word <code>await</code> before every Playwright call. <code>await</code> simply means: <em>pause here and wait for this to finish before moving on.</em></p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>from playwright.async_api import async_playwright # import the ASYNC version — required in Colab/Jupyter
+from bs4 import BeautifulSoup # import BeautifulSoup to parse the HTML we get back
+
+async with async_playwright() as p: # "async with" starts Playwright; browser closes automatically when the block ends
+    browser = await p.chromium.launch(headless=True) # "await" means: wait for this to finish before continuing
+    page = await browser.new_page() # wait for a new browser tab to open
+
+    await page.goto("https://www.hellenicparliament.gr/Nomothetiko-Ergo/dailyplan?more=true&pageNo=1") # navigate to the URL
+    await page.wait_for_load_state("networkidle") # wait until the page has finished all network activity
+
+    html = await page.content() # get the full HTML of the page after JavaScript has run
+
+    await browser.close() # close the browser
+
+# now use BeautifulSoup on the rendered HTML, exactly as before
+soup = BeautifulSoup(html, "html.parser") # parse the HTML into a searchable object
+container = soup.find("div", class_="pagecontent") # find the main content div
+ul = container.find("ul") if container else None # find the list inside it
+
+if ul:
+    items = ul.find_all("li") # collect all list items
+    print(f"Found {len(items)} items on page 1") # print how many we found
+    for item in items[:3]: # print the first three as a preview
+        a = item.find("a") # find the link inside the item
+        print(a.get_text(strip=True), "→", a.get("href", "")) # print the date and href
+else:
+    print("No list found.")</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>Notice that there are no headers to set. Because Playwright uses a real browser, the browser sends all the correct headers automatically — including the <code>sec-fetch-*</code> values that government sites check for.</p>
+
+      <div class="callout">
+        <strong>headless=False</strong> opens a visible browser window so you can watch the scraper work. Useful for debugging. Change it back to <code>True</code> for your final run.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>The Full Parliament Scraper with Playwright</h2>
+
+      <p>This is the complete version of the Chapter 9 scraper, rewritten to use Playwright instead of <code>requests</code>. The structure is identical — only the part that fetches the HTML changes. BeautifulSoup, regex, pandas, and CSV export are exactly the same.</p>
+
+      <p>One browser session handles all 74 list pages and all their detail pages. You do not need to open and close the browser for each request — just navigate the same tab to each URL in turn.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>from playwright.async_api import async_playwright # import the ASYNC version — required in Colab/Jupyter
+from bs4 import BeautifulSoup # the library that reads and searches HTML
+import re # the library for searching text with patterns
+import asyncio # needed for asyncio.sleep() — the async-safe way to pause
+import pandas as pd # the library that stores data in tables and saves CSV files
+
+BASE_URL = "https://www.hellenicparliament.gr" # the website's root address
+LIST_PATH = "/Nomothetiko-Ergo/dailyplan" # the path to the daily plans section
+TOTAL_PAGES = 74 # how many list pages we want to scrape
+
+all_records = [] # empty list — we will add one dictionary per daily plan here
+
+async with async_playwright() as p: # "async with" starts Playwright — same browser session for everything
+    browser = await p.chromium.launch(headless=True) # wait for Chromium to launch with no visible window
+    tab = await browser.new_page() # wait for a browser tab to open — we reuse this same tab for every URL
+
+    for page_number in range(1, TOTAL_PAGES + 1): # loop through page numbers 1 to 74
+        list_url = f"{BASE_URL}{LIST_PATH}?more=true&pageNo={page_number}" # build the list page URL
+
+        await tab.goto(list_url) # wait for the browser to navigate to this URL
+        await tab.wait_for_load_state("networkidle") # wait until JavaScript has finished loading
+        html = await tab.content() # wait for the HTML, then store it
+
+        soup = BeautifulSoup(html, "html.parser") # parse the HTML into a searchable object
+        container = soup.find("div", class_="pagecontent") # find the main content div
+        ul = container.find("ul") if container else None # find the list inside it
+
+        if not ul: # if there is no list on this page, something is wrong
+            print(f"Page {page_number}: no list found — stopping.")
+            break # stop the loop
+
+        items = ul.find_all("li") # collect every list item
+        page_count = 0 # counter for items on this page
+
+        for item in items: # loop through each list item one by one
+            a = item.find("a") # find the link tag inside this item
+            if not a: # skip if there is no link
+                continue
+
+            date = a.get_text(strip=True) # the link text is the session date, already DD/MM/YYYY
+            href = a.get("href", "") # get the href — the relative URL of the detail page
+            id_match = re.search(r"lpr_id=([\w-]+)", href) # search the href for the unique session ID
+            if not id_match: # skip if no ID was found
+                continue
+            lpr_id = id_match.group(1) # extract the ID — group(1) is what is inside the parentheses
+            detail_url = f"{BASE_URL}{LIST_PATH}?lpr_id={lpr_id}" # build the full URL of the detail page
+
+            await tab.goto(detail_url) # wait for the browser to navigate to the detail page
+            await tab.wait_for_load_state("networkidle") # wait for it to fully load
+            detail_html = await tab.content() # get the rendered HTML of the detail page
+
+            detail_soup = BeautifulSoup(detail_html, "html.parser") # parse the detail page HTML
+            detail_container = detail_soup.find("div", class_="pagecontent") # find the content div
+            # extract all text and replace non-breaking spaces (\xa0) with normal spaces
+            content = detail_container.get_text(" ", strip=True).replace("\xa0", " ") if detail_container else ""
+
+            all_records.append({ # add a new row to our list
+                "page": page_number, # which list page this record came from
+                "date": date, # the session date in DD/MM/YYYY format
+                "lpr_id": lpr_id, # the unique ID of this daily plan document
+                "url": detail_url, # the direct link to the full document
+                "content": content, # the full text of the agenda
+            })
+            page_count += 1 # count this item as successfully scraped
+            await asyncio.sleep(0.5) # async version of time.sleep() — always use this inside async code
+
+        print(f"Page {page_number:>2}/{TOTAL_PAGES}: {page_count} items (total so far: {len(all_records)})")
+        await asyncio.sleep(1) # wait one second before the next list page
+
+    await browser.close() # wait for the browser to close cleanly
+
+df = pd.DataFrame(all_records) # convert the list of dictionaries into a pandas DataFrame (a table)
+df.to_csv("parliament_playwright.csv", index=False, encoding="utf-8-sig") # save to CSV; utf-8-sig makes Greek readable in Excel
+
+print(f"\nDone. {len(df)} rows saved to parliament_playwright.csv") # final confirmation</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Playwright is slower than requests</strong> because it launches a real browser and waits for JavaScript on every page. For 74 list pages with ~10 detail pages each, expect the full run to take 20–40 minutes. That is the trade-off: reliability over speed.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book5-chapter-9.html">Previous: Chapter 9 — Full Data Journalism Project</a>
+        <a href="../index.html">Back to: All Books</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and BeautifulSoup run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book5-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>
