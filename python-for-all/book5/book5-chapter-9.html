@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 5 · Chapter Nine — Full Data Journalism Project · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 5 · Chapter Nine — Full Data Journalism Project · Python for All" />
+  <meta property="og:description" content="Scrape all 74 pages of the Hellenic Parliament's daily legislative plans: two-level navigation, browser headers, regex date extraction, and a production-ready loop." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 5 — Web Scraping with Python</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Nine — Full Data Journalism Project — Complete Code and Strategy</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav>
+    <div class="toc">
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 1 — Python Basics</summary>
+        <ol>
+          <li><a href="../chapters/chapter-1.html">Chapter One — The Basics</a></li>
+          <li><a href="../chapters/chapter-2.html">Chapter Two — Exercises</a></li>
+          <li><a href="../chapters/chapter-3.html">Chapter Three — Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-4.html">Chapter Four — Exercises</a></li>
+          <li><a href="../chapters/chapter-5.html">Chapter Five — Data Types Deep Dive</a></li>
+          <li><a href="../chapters/chapter-6.html">Chapter Six — Advanced Functions &amp; Methods</a></li>
+          <li><a href="../chapters/chapter-7.html">Chapter Seven — Exercises</a></li>
+          <li><a href="../chapters/chapter-8.html">Chapter Eight — Comparison &amp; Boolean Operators</a></li>
+          <li><a href="../chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
+          <li><a href="../chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
+          <li><a href="../chapters/chapter-11.html">Chapter Eleven — Reading and Writing Text Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 2 — The Magic World of the Terminal</summary>
+        <ol>
+          <li><a href="../book2/book2-chapter-1.html">Chapter One — Terminal Foundations</a></li>
+          <li><a href="../book2/book2-chapter-2.html">Chapter Two — Navigating Your File System</a></li>
+          <li><a href="../book2/book2-chapter-3.html">Chapter Three — Managing Files and Folders</a></li>
+          <li><a href="../book2/book2-chapter-4.html">Chapter Four — Reading and Searching Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 3 — HTML, CSS Basics</summary>
+        <ol>
+          <li><a href="../book3/book3-chapter-1.html">Chapter One — The Skeleton of a Web Page</a></li>
+          <li><a href="../book3/book3-chapter-2.html">Chapter Two — Text, Emphasis &amp; Quotes</a></li>
+          <li><a href="../book3/book3-chapter-3.html">Chapter Three — Links &amp; Images</a></li>
+          <li><a href="../book3/book3-chapter-4.html">Chapter Four — Semantic Structure</a></li>
+          <li><a href="../book3/book3-chapter-5.html">Chapter Five — Introduction to CSS</a></li>
+          <li><a href="../book3/book3-chapter-6.html">Chapter Six — Typography &amp; Layout</a></li>
+          <li><a href="../book3/book3-chapter-7.html">Chapter Seven — Embeds &amp; iframes</a></li>
+          <li><a href="../book3/book3-chapter-8.html">Chapter Eight — The Article Page</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 4 — Data Analysis with Python</summary>
+        <ol>
+          <li><a href="../book4/book4-chapter-1.html">Chapter One — What is pandas?</a></li>
+          <li><a href="../book4/book4-chapter-2.html">Chapter Two — Exploring Your Dataset</a></li>
+          <li><a href="../book4/book4-chapter-3.html">Chapter Three — Selecting Data</a></li>
+          <li><a href="../book4/book4-chapter-4.html">Chapter Four — Filtering Rows</a></li>
+          <li><a href="../book4/book4-chapter-5.html">Chapter Five — Summary Statistics</a></li>
+          <li><a href="../book4/book4-chapter-6.html">Chapter Six — Groupby and Aggregation</a></li>
+          <li><a href="../book4/book4-chapter-7.html">Chapter Seven — Sorting and New Columns</a></li>
+          <li><a href="../book4/book4-chapter-8.html">Chapter Eight — Cleaning and Analysis</a></li>
+          <li><a href="../book4/book4-chapter-9.html">Chapter Nine — Reading and Writing CSV Files</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book" open>
+        <summary class="toc-book-label">Book 5 — Web Scraping with Python</summary>
+        <ol>
+          <li><a href="book5-chapter-1.html">Chapter One — What is Web Scraping?</a></li>
+          <li><a href="book5-chapter-2.html">Chapter Two — Getting HTML with requests</a></li>
+          <li><a href="book5-chapter-3.html">Chapter Three — Your First BeautifulSoup Object</a></li>
+          <li><a href="book5-chapter-4.html">Chapter Four — find() and find_all()</a></li>
+          <li><a href="book5-chapter-5.html">Chapter Five — Searching by Class and id</a></li>
+          <li><a href="book5-chapter-6.html">Chapter Six — Extracting Text and Attributes</a></li>
+          <li><a href="book5-chapter-7.html">Chapter Seven — From Dictionaries to DataFrames</a></li>
+          <li><a href="book5-chapter-8.html">Chapter Eight — Pagination and the Full Pipeline</a></li>
+          <li><a href="book5-chapter-9.html" class="is-current">Chapter Nine — Full Data Journalism Project</a></li>
+        </ol>
+      </details>
+
+      <details class="toc-book">
+        <summary class="toc-book-label">Book 6 — Working with APIs</summary>
+        <ol>
+          <li><a href="../book6/book6-chapter-1.html">Chapter One — What is an API?</a></li>
+          <li><a href="../book6/book6-chapter-2.html">Chapter Two — Your First API Request</a></li>
+          <li><a href="../book6/book6-chapter-3.html">Chapter Three — Saving PDFs to a Folder</a></li>
+        </ol>
+      </details>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 7 — Maps and Geospatial Data</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+      <div class="toc-book toc-book--soon">
+        <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
+        <p class="toc-book-soon">Coming soon</p>
+      </div>
+
+    </div>
+  </nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Five · Chapter Nine</p>
+      <h2>Full Data Journalism Project — Complete Code and Strategy</h2>
+      <p class="chapter-desc">Scrape all 74 pages of the Hellenic Parliament's daily legislative archive. This chapter introduces two new patterns: two-level navigation (list page → detail page) and a production-ready loop with error handling, polite delays, and UTF-8 CSV export.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Two-Level Architecture — List Page and Detail Page</h2>
+
+      <p><span class="dropcap">T</span>he Hellenic Parliament publishes a searchable archive of daily legislative agendas. All 74 pages of that archive live under one URL pattern — but unlike a news feed, each item is a link to a separate detail page. You must scrape two layers to get the data.</p>
+
+      <p><strong>Layer 1 — the list page.</strong> Each list page shows a batch of daily plans as links. The URL changes only in <code>pageNo</code>:</p>
+
+      <p><code>https://www.hellenicparliament.gr/Nomothetiko-Ergo/dailyplan?more=true&amp;pageNo=1</code></p>
+      <p><code>https://www.hellenicparliament.gr/Nomothetiko-Ergo/dailyplan?more=true&amp;pageNo=2</code></p>
+      <p><code>…</code></p>
+      <p><code>https://www.hellenicparliament.gr/Nomothetiko-Ergo/dailyplan?more=true&amp;pageNo=74</code></p>
+
+      <p><strong>Layer 2 — the detail page.</strong> Each list item carries a unique ID in its <code>href</code>. You extract that ID and build a second URL:</p>
+
+      <p><code>https://www.hellenicparliament.gr/Nomothetiko-Ergo/dailyplan?lpr_id=04734c57-7b71-4e5e-86e9-b43600adcc72</code></p>
+
+      <p>The detail page contains the full text of the daily plan, including the session date. Run the cell below to see how all 74 list-page URLs are built with a single <code>range()</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>BASE_URL  = "https://www.hellenicparliament.gr"
+LIST_PATH = "/Nomothetiko-Ergo/dailyplan"
+TOTAL_PAGES = 74
+
+for page_number in range(1, 6):
+    url = f"{BASE_URL}{LIST_PATH}?more=true&pageNo={page_number}"
+    print(f"Page {page_number:>2}: {url}")
+
+print("...")
+
+last_url = f"{BASE_URL}{LIST_PATH}?more=true&pageNo={TOTAL_PAGES}"
+print(f"Page {TOTAL_PAGES}: {last_url}")
+print()
+print(f"Total list-page requests needed: {TOTAL_PAGES}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Two-level scraping:</strong> first collect all the IDs from the list pages, then follow each ID to its detail page. This pattern appears on government sites, court databases, and most institutional archives.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Parsing the List Page</h2>
+
+      <p>Each list page has a <code>div</code> with class <code>pagecontent</code> that holds a <code>ul</code> with one <code>li</code> per daily plan. Each <code>li</code> contains one <code>a</code> tag. The link text is already the session date in <code>DD/MM/YYYY</code> format — no further parsing needed. The <code>href</code> carries the ID you need for layer 2.</p>
+
+      <p>The selector path is: <code>.pagecontent → ul → li → a</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>from bs4 import BeautifulSoup
+
+html = """
+<div class="pagecontent">
+  <ul>
+    <li><a href="/Nomothetiko-Ergo/dailyplan?lpr_id=04734c57-7b71-4e5e-86e9-b43600adcc72">24/04/2026</a></li>
+    <li><a href="/Nomothetiko-Ergo/dailyplan?lpr_id=2eb074cb-67d3-448a-b700-b43201244f62">20/04/2026</a></li>
+    <li><a href="/Nomothetiko-Ergo/dailyplan?lpr_id=7a638163-57e3-4c71-b7ed-b4210175fd30">03/04/2026</a></li>
+    <li><a href="/Nomothetiko-Ergo/dailyplan?lpr_id=3260ccbe-bd16-4d4a-88e3-b41d014cf26e">30/03/2026</a></li>
+    <li><a href="/Nomothetiko-Ergo/dailyplan?lpr_id=2f3ad35a-f5cc-4579-9ace-b41301681f35">20/03/2026</a></li>
+  </ul>
+</div>
+"""
+
+soup = BeautifulSoup(html, "html.parser")
+container = soup.find("div", class_="pagecontent")
+ul = container.find("ul")
+items = ul.find_all("li")
+
+print(f"Found {len(items)} items\n")
+
+for item in items:
+    a    = item.find("a")
+    date = a.get_text(strip=True)
+    href = a.get("href", "")
+    print(f"Date: {date}")
+    print(f"Href: {href}")
+    print()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>container.find("ul")</code> narrows the search scope before <code>find_all("li")</code> runs. This keeps the code correct even if the page has other <code>ul</code> elements outside the content area.</p>
+
+      <div class="callout">
+        <strong>Note on <code>response.content</code>:</strong> in the real scraper you pass <code>response.content</code> (raw bytes) to BeautifulSoup instead of <code>response.text</code>. This lets BeautifulSoup read the encoding declaration from the HTML <code>&lt;meta charset&gt;</code> tag and decode Greek text correctly without guessing.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Extracting the ID with Regex</h2>
+
+      <p>The <code>href</code> from each list item looks like this:</p>
+
+      <p><code>/Nomothetiko-Ergo/dailyplan?lpr_id=04734c57-7b71-4e5e-86e9-b43600adcc72</code></p>
+
+      <p>You need only the value after <code>lpr_id=</code>. The pattern <code>lpr_id=([\w-]+)</code> captures it: <code>[\w-]</code> matches letters, digits, underscores, and hyphens; <code>+</code> means one or more. This is tighter than <code>.*</code>, which would consume everything including any parameters that might follow the ID.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+BASE_URL = "https://www.hellenicparliament.gr"
+
+hrefs = [
+    "/Nomothetiko-Ergo/dailyplan?lpr_id=04734c57-7b71-4e5e-86e9-b43600adcc72",
+    "/Nomothetiko-Ergo/dailyplan?lpr_id=1a2b3c4d-5e6f-7890-abcd-ef1234567890",
+    "/Nomothetiko-Ergo/dailyplan?lpr_id=aaaabbbb-cccc-dddd-eeee-ffffaaaabbbb",
+]
+
+for href in hrefs:
+    match = re.search(r"lpr_id=([\w-]+)", href)
+    if match:
+        lpr_id     = match.group(1)
+        detail_url = f"{BASE_URL}/Nomothetiko-Ergo/dailyplan?lpr_id={lpr_id}"
+        print(f"ID        : {lpr_id}")
+        print(f"Detail URL: {detail_url}")
+        print()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>With the detail URL built, a second <code>requests.get()</code> fetches that page. The full text of the daily plan lives in the same <code>div.pagecontent</code> container — so you reuse the same selector on the new page.</p>
+
+      <div class="callout">
+        <strong>match.group(1)</strong> returns the first captured group — the text inside the first pair of parentheses in your pattern. <code>match.group(0)</code> would return the entire matched string, including <code>lpr_id=</code>.
+      </div>
+      <div class="callout">
+        <strong>Why the full header set matters.</strong> The <code>sec-fetch-dest</code>, <code>sec-fetch-mode</code>, <code>sec-fetch-site</code>, and <code>sec-fetch-user</code> headers tell the server this is a real browser navigation, not a script. Government sites often check for these and return an empty page or a redirect when they are missing. Always copy the complete headers from your browser's Network tab — stripping them down is the most common reason a scraper silently breaks.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>A Bonus Skill — Parsing Greek Dates from Document Text</h2>
+
+      <p>In this project the date is already available on the list page as <code>24/04/2026</code> — no extra work needed. But many Greek government documents store dates in the running text of the document body, in a format like:</p>
+
+      <p><code>Αθήνα, 22 Απριλίου 2025</code></p>
+
+      <p>You will encounter this pattern in court filings, ministerial decisions, and other official PDFs converted to text. The technique below extracts it: a regex matches "Αθήνα," followed by a day number, a Greek month name, and a four-digit year, and a dictionary maps the month name to its number.</p>
+
+      <p>One cleaning step is always required first: replace non-breaking spaces (<code>\xa0</code>) with regular spaces. Greek government documents often contain <code>\xa0</code> characters from old word processors, and without this step the regex fails silently on many pages.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import re
+
+def parse_date(text):
+    months = {
+        "Ιανουαρίου":  1,  "Φεβρουαρίου": 2,  "Μαρτίου":     3,
+        "Απριλίου":    4,  "Μαΐου":        5,  "Ιουνίου":     6,
+        "Ιουλίου":     7,  "Αυγούστου":    8,  "Σεπτεμβρίου": 9,
+        "Οκτωβρίου":  10,  "Νοεμβρίου":   11,  "Δεκεμβρίου": 12,
+    }
+    match = re.search(r"Αθήνα,\s+(\d+\s+\w+\s+\d{4})", text)
+    if not match:
+        return ""
+    day, month_text, year = match.group(1).split()
+    month = months.get(month_text, "")
+    return f"{day}/{month}/{year}" if month else ""
+
+# Simulate text extracted from detail pages (\xa0 = non-breaking space)
+sample_texts = [
+    "ΕΛΛΗΝΙΚΗ\xa0ΔΗΜΟΚΡΑΤΙΑ\nΑθήνα,  22  Απριλίου  2025\nΗΜΕΡΗΣΙΑ ΔΙΑΤΑΞΗ",
+    "ΕΛΛΗΝΙΚΗ ΔΗΜΟΚΡΑΤΙΑ\nΑθήνα, 3 Ιανουαρίου 2024\nΗΜΕΡΗΣΙΑ ΔΙΑΤΑΞΗ",
+    "ΕΛΛΗΝΙΚΗ ΔΗΜΟΚΡΑΤΙΑ\nΑθήνα, 15 Νοεμβρίου 2023\nΗΜΕΡΗΣΙΑ ΔΙΑΤΑΞΗ",
+    "ΕΛΛΗΝΙΚΗ ΔΗΜΟΚΡΑΤΙΑ\nΑθήνα, 1 Μαΐου 2025\nΗΜΕΡΗΣΙΑ ΔΙΑΤΑΞΗ",
+]
+
+for raw_text in sample_texts:
+    clean_text  = raw_text.replace("\xa0", " ")
+    date        = parse_date(clean_text)
+    header_line = [l for l in clean_text.split("\n") if "Αθήνα" in l][0].strip()
+    print(f"Input : {header_line}")
+    print(f"Output: {date}")
+    print()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Why <code>\s+</code> instead of a single space?</strong> The regex uses <code>\s+</code> (one or more whitespace characters) between each part of the date. Government documents are inconsistently spaced — sometimes a single space, sometimes two or three. <code>\s+</code> handles all of them.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>The Complete 74-Page Scraper</h2>
+
+      <p>Now put it all together. The strategy, in order:</p>
+
+      <ol>
+        <li>Build the list-page URL using the page number and fetch it.</li>
+        <li>Find <code>div.pagecontent</code>, then the <code>ul</code>, then all <code>li</code> elements.</li>
+        <li>For each item: read the date directly from the link text, extract the <code>lpr_id</code> with regex, build the detail URL.</li>
+        <li>Fetch the detail page and extract its full text content.</li>
+        <li>Append a dictionary with all fields to <code>all_records</code>. Sleep 0.5 s between detail requests.</li>
+        <li>Print progress after each list page. Sleep 1 s before the next list page.</li>
+        <li>After all 74 pages: build a DataFrame and save to CSV.</li>
+      </ol>
+
+      <p><code>try/except</code> blocks appear at two levels: one wraps each list-page request so a single failed page does not stop the entire run, and another wraps each detail-page request so a single failed item does not lose the rest of the list.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import requests # the library that sends HTTP requests to websites
+import re # the library for searching text with patterns (regular expressions)
+import time # the library that lets us pause between requests
+from bs4 import BeautifulSoup # the library that reads and searches HTML
+import pandas as pd # the library that stores data in tables and saves CSV files
+
+BASE_URL = "https://www.hellenicparliament.gr" # the website's root address
+LIST_PATH = "/Nomothetiko-Ergo/dailyplan" # the path to the daily plans section
+TOTAL_PAGES = 74 # how many list pages we want to scrape
+
+HEADERS = {
+    # these headers make our request look like a real browser visit
+    "accept": (
+        "text/html,application/xhtml+xml,application/xml;q=0.9,"
+        "image/avif,image/webp,image/apng,*/*;q=0.8,"
+        "application/signed-exchange;v=b3;q=0.7"
+    ),
+    "accept-language": "en-US,en;q=0.9,el;q=0.8", # tell the server we understand Greek and English
+    "cache-control": "max-age=0", # ask for a fresh copy, not a cached one
+    "referer": "https://www.hellenicparliament.gr/Nomothetiko-Ergo/Syzitiseis-kai-Psifisi", # tell the server which page we came from
+    "sec-ch-ua": '"Google Chrome";v="147", "Not.A/Brand";v="8", "Chromium";v="147"', # browser brand and version
+    "sec-ch-ua-mobile": "?0", # we are NOT on a mobile device
+    "sec-ch-ua-platform": '"macOS"', # our operating system
+    "sec-fetch-dest": "document", # we are requesting a full HTML page
+    "sec-fetch-mode": "navigate", # this is a normal navigation, not a background script
+    "sec-fetch-site": "same-origin", # the request comes from the same website
+    "sec-fetch-user": "?1", # a real user triggered this request
+    "upgrade-insecure-requests": "1", # redirect HTTP to HTTPS if needed
+    "user-agent": ( # identify ourselves as a Chrome browser on macOS
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/147.0.0.0 Safari/537.36"
+    ),
+}
+
+all_records = [] # empty list — we will add one dictionary per daily plan here
+
+for page_number in range(1, TOTAL_PAGES + 1): # loop through page numbers 1 to 74
+    list_url = f"{BASE_URL}{LIST_PATH}?more=true&pageNo={page_number}" # build the URL for this list page
+
+    try: # try everything below — if it fails, jump to except at the bottom
+        response = requests.get(list_url, headers=HEADERS, timeout=30) # send the request and wait up to 30 seconds
+
+        if response.status_code != 200: # if the server did NOT return a successful response (200 = OK)
+            print(f"Page {page_number}: status {response.status_code} — skipping.") # print the error code
+            continue # skip this page and move on to the next one
+
+        soup = BeautifulSoup(response.content, "html.parser") # parse the HTML bytes into a searchable object
+        container = soup.find("div", class_="pagecontent") # find the main content div by its CSS class
+        ul = container.find("ul") if container else None # find the list inside the div
+
+        if not ul: # if there is no list on this page, something is wrong
+            print(f"Page {page_number}: no list found — stopping.")
+            break # stop the entire loop
+
+        items = ul.find_all("li") # collect every list item inside the ul
+        page_count = 0 # counter to track how many items we scrape on this page
+
+        for item in items: # loop through each list item one by one
+            a = item.find("a") # find the link tag inside this list item
+            if not a: # if there is no link tag, skip this item
+                continue
+
+            date = a.get_text(strip=True) # the link text IS the date, already formatted as DD/MM/YYYY
+            href = a.get("href", "") # get the href attribute — the relative URL of the detail page
+            id_match = re.search(r"lpr_id=([\w-]+)", href) # search the href for the unique session ID
+            if not id_match: # if no ID was found in the href, skip this item
+                continue
+            lpr_id = id_match.group(1) # extract the ID value — group(1) is what is inside the parentheses
+            detail_url = f"{BASE_URL}{LIST_PATH}?lpr_id={lpr_id}" # build the full URL of the detail page
+
+            try: # try to fetch the detail page
+                detail_resp = requests.get(detail_url, headers=HEADERS, timeout=30) # send the request
+
+                if detail_resp.status_code != 200: # if the detail page did not load successfully
+                    print(f"  Detail {lpr_id}: status {detail_resp.status_code} — skipping.") # print the error code
+                    content = "" # store an empty string and continue
+                else:
+                    detail_soup = BeautifulSoup(detail_resp.content, "html.parser") # parse the detail page HTML
+                    detail_container = detail_soup.find("div", class_="pagecontent") # find the content div
+                    # extract all text and replace non-breaking spaces (\xa0) with normal spaces
+                    content = detail_container.get_text(" ", strip=True).replace("\xa0", " ") if detail_container else ""
+
+            except Exception: # if the request fails entirely (timeout, connection error, etc.)
+                content = "" # store an empty string — don't crash the whole run
+
+            all_records.append({ # add a new dictionary (one row) to our list
+                "page": page_number, # which list page this record came from
+                "date": date, # the session date in DD/MM/YYYY format
+                "lpr_id": lpr_id, # the unique ID of this daily plan document
+                "url": detail_url, # the direct link to the full document
+                "content": content, # the full text of the agenda
+            })
+            page_count += 1 # count this item as successfully scraped
+            time.sleep(0.5) # wait half a second before the next detail request — be polite to the server
+
+        print(f"Page {page_number:>2}/{TOTAL_PAGES}: {page_count} items (total so far: {len(all_records)})")
+        time.sleep(1) # wait one full second before requesting the next list page
+
+    except Exception as e: # if the list page request itself fails completely
+        print(f"Page {page_number}: error — {e}") # print what went wrong and keep going
+
+df = pd.DataFrame(all_records) # convert the list of dictionaries into a pandas DataFrame (a table)
+df.to_csv("parliament_daily_plans.csv", index=False, encoding="utf-8-sig") # save to CSV; utf-8-sig makes Greek readable in Excel
+
+print(f"\nDone. {len(df)} rows saved to parliament_daily_plans.csv") # final confirmation</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>The CSV is saved with <code>encoding="utf-8-sig"</code>. The BOM prefix this adds tells Microsoft Excel to open the file as UTF-8 automatically, so Greek characters display correctly without any manual import step.</p>
+
+      <div class="callout">
+        <strong>What this scraper produces:</strong> a CSV with one row per daily plan — list-page number, session date (already <code>DD/MM/YYYY</code> from the list), unique ID, direct URL, and the full text of the agenda document. At roughly 10–20 items per page across 74 pages, expect 700–1 400 rows covering years of parliamentary sessions — a complete, structured archive built with the same tools you used throughout this book.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book5-chapter-8.html">Previous: Chapter 8 — Pagination and the Full Pipeline</a>
+        <a href="../index.html">Back to: All Books</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python and BeautifulSoup run entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book5-app.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>
