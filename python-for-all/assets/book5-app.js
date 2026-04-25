@@ -198,11 +198,20 @@ else:
       });
     });
 
-    // Auto-resize and wire up copy buttons for read-only notebook cells
+    // Auto-resize, syntax-highlight, and wire up copy buttons for read-only notebook cells
     document.querySelectorAll(".cell-static").forEach(cell => {
       const ta  = cell.querySelector("textarea");
       const btn = cell.querySelector(".btn-copy");
       if (ta) {
+        const shell     = document.createElement("div");
+        shell.className = "editor-shell";
+        const highlight = document.createElement("pre");
+        highlight.className  = "code-highlight";
+        highlight.innerHTML  = highlightPython(ta.value);
+        ta.parentNode.insertBefore(shell, ta);
+        shell.appendChild(highlight);
+        shell.appendChild(ta);
+        ta.classList.add("is-syntax-active");
         ta.style.height = "auto";
         ta.style.height = ta.scrollHeight + "px";
       }
