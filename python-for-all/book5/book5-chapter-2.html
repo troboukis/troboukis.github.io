@@ -104,6 +104,7 @@
           <li><a href="../book6/book6-chapter-1.html">Chapter One — What is an API?</a></li>
           <li><a href="../book6/book6-chapter-2.html">Chapter Two — Your First API Request</a></li>
           <li><a href="../book6/book6-chapter-3.html">Chapter Three — Saving PDFs to a Folder</a></li>
+          <li><a href="../book6/book6-chapter-4.html">Chapter Four — Finding Hidden APIs or Files</a></li>
         </ol>
       </details>
 
@@ -168,7 +169,49 @@ print(html[:200])</textarea>
       <p class="section-label">Part Two</p>
       <h2>Looking Like a Browser</h2>
 
-      <p>Real sites often expect browser-like headers. The most important one is <code>User-Agent</code>. For Greek content, it also helps to set <code>Accept-Language</code>.</p>
+      <p>Real sites often expect browser-like headers. The most important one is <code>User-Agent</code>, which tells the server what browser you are using. For Greek content, it also helps to set <code>Accept-Language</code>. Without these, many sites return a <code>403 Forbidden</code> or serve you a stripped-down page.</p>
+
+      <h3>Where do the right headers come from?</h3>
+
+      <p>The safest source is your own browser. When you visit a page, your browser sends a complete set of headers to the server. You can see them by opening the <strong>DevTools Network tab</strong>. Here is how:</p>
+
+      <ol>
+        <li>Open the page you want to scrape in Chrome or Firefox (e.g. <code>https://www.kathimerini.gr/epikairothta/</code>).<br>
+          <img src="images/headers1.png" alt="Opening the target page in Chrome" style="margin: 12px 0 4px; max-width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+        </li>
+        <li>Press <kbd>F12</kbd> (Windows / Linux) or <kbd>Cmd ⌘ + Option ⌥ + I</kbd> (Mac) to open DevTools.</li>
+        <li>Click the <strong>Network</strong> tab at the top of the DevTools panel.</li>
+        <li>Reload the page with <kbd>Cmd ⌘ + R</kbd> (Mac) or <kbd>Ctrl + R</kbd> (Windows). You will see a list of requests appear.</li>
+        <li>Click the very first request in the list — it is the one for the page itself, not for images or scripts. Its name matches the URL you typed.<br>
+          <img src="images/headers2.png" alt="Selecting the first request in the Network tab" style="margin: 12px 0 4px; max-width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+        </li>
+        <li>In the panel that opens on the right, scroll down to the <strong>Request Headers</strong> section.</li>
+        <li>You will see a list like this:</li>
+      </ol>
+
+      <div class="callout">
+        <strong>Example — what DevTools shows you:</strong>
+        <pre>accept: text/html,application/xhtml+xml,...
+accept-encoding: gzip, deflate, br
+accept-language: el-GR,el;q=0.9,en-US;q=0.8
+cache-control: max-age=0
+user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36</pre>
+      </div>
+
+      <p>Right-click on any header line and choose <strong>Copy value</strong>, or select all the text and copy it. You now have the raw header list your real browser sent.</p>
+      <img src="images/headers3.png" alt="Request Headers section in Chrome DevTools" style="margin: 0 0 24px; max-width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+
+      <h3>Ask Claude to format the headers for you</h3>
+
+      <p>The headers in DevTools are shown as plain text, one per line. You need them as a Python dictionary. The easiest way is to paste the raw text into Claude and ask:</p>
+
+      <div class="callout">
+        <strong>Prompt you can copy to Claude:</strong><br><br>
+        Here are the request headers from Chrome DevTools. Please convert them into a Python dictionary called <code>headers</code> that I can pass to <code>requests.get()</code>. Format the result as clean Python code.<br><br>
+        [paste your headers here]
+      </div>
+
+      <p>Claude will return something like this, ready to paste straight into your notebook:</p>
 
       <div class="cell cell-static">
         <div class="cell-label">Python · Copy to your notebook</div>
@@ -183,6 +226,7 @@ headers = {
         "Chrome/124.0.0.0 Safari/537.36"
     ),
     "Accept-Language": "el-GR,el;q=0.9,en-US;q=0.8",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
 
 response = requests.get(URL, headers=headers, timeout=30)

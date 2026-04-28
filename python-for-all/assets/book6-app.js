@@ -199,6 +199,15 @@ else:
       const ta  = cell.querySelector("textarea");
       const btn = cell.querySelector(".btn-copy");
       if (ta) {
+        const shell     = document.createElement("div");
+        shell.className = "editor-shell";
+        const highlight = document.createElement("pre");
+        highlight.className = "code-highlight";
+        highlight.innerHTML = highlightPython(ta.value);
+        ta.parentNode.insertBefore(shell, ta);
+        shell.appendChild(highlight);
+        shell.appendChild(ta);
+        ta.classList.add("is-syntax-active");
         ta.style.height = "auto";
         ta.style.height = ta.scrollHeight + "px";
       }

@@ -251,6 +251,30 @@
       border-radius: 3px;
     }
 
+    kbd {
+      font-family: 'Source Code Pro', 'Courier New', monospace;
+      font-size: 0.82em;
+      background: #f7f7f7;
+      border: 1px solid #ccc;
+      border-bottom-width: 2px;
+      border-radius: 4px;
+      padding: 1px 6px;
+      color: #333;
+      white-space: nowrap;
+    }
+
+    .callout pre {
+      font-family: 'Source Code Pro', 'Courier New', monospace;
+      font-size: 0.82em;
+      background: #f2f2f2;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 10px 0 0;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: #333;
+    }
+
     /* ── Callout ── */
     .callout {
       background: #faf9f5;
