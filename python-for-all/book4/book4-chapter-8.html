@@ -491,7 +491,860 @@ print(f"Organic premium: €{(organic_avg - nonorganic_avg):.2f}")</textarea>
       </div>
 
       <div class="callout">
-        <strong>You now have a full analysis workflow.</strong> You can load, inspect, clean, filter, aggregate, sort, and enrich tabular data using pandas. In the next chapter, you will learn how to save your data to CSV files and load CSV files back into pandas — the basic file workflow used in almost every real project.
+        <strong>You now have a full analysis workflow.</strong> You can load, inspect, clean, filter, aggregate, sort, and enrich tabular data using pandas. In Part Six you will learn how to combine multiple DataFrames — an essential skill whenever your data arrives in separate files or tables.
+      </div>
+    </section>
+
+    <!-- ── Part 6: Combining DataFrames ── -->
+    <section id="part6">
+      <p class="section-label">Part Six</p>
+      <h2>Combining DataFrames — concat, merge, and join</h2>
+
+      <p><span class="dropcap">R</span>eal projects rarely live in a single table. You might have price data from two different supermarkets in separate files, or product details in one table and prices in another. pandas gives you three main tools for combining DataFrames: <code>pd.concat()</code> stacks them, <code>pd.merge()</code> joins them on a shared column, and <code>.join()</code> joins them on their index.</p>
+
+      <h3>pd.concat() — stack DataFrames</h3>
+
+      <p><code>pd.concat()</code> glues DataFrames together end-to-end. By default it stacks rows (adding more observations). Pass <code>axis=1</code> to stack columns side by side instead.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — stacking two surveys</div>
+        <textarea>import pandas as pd
+
+# Survey from supermarket A
+store_a = pd.DataFrame({
+    "item":     ["Bread", "Milk", "Eggs"],
+    "price":    [1.29, 0.99, 2.49],
+    "store":    ["A", "A", "A"]
+})
+
+# Survey from supermarket B
+store_b = pd.DataFrame({
+    "item":     ["Bread", "Milk", "Butter"],
+    "price":    [1.39, 1.09, 1.99],
+    "store":    ["B", "B", "B"]
+})
+
+# Stack them into one DataFrame
+combined = pd.concat([store_a, store_b], ignore_index=True)
+print(combined)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>ignore_index=True</code> resets the row numbers in the result so you get a clean 0, 1, 2 … sequence instead of the original indexes repeating. Without it, row 0 would appear twice — once from each source DataFrame.</p>
+
+      <h3>pd.merge() — join on a shared column</h3>
+
+      <p><code>pd.merge()</code> works like a SQL JOIN: it matches rows from two DataFrames based on a shared key column. The <code>how</code> parameter controls which rows survive:</p>
+      <ul>
+        <li><strong>inner</strong> (default) — only rows that appear in <em>both</em> tables.</li>
+        <li><strong>left</strong> — all rows from the left table; unmatched rows from the right become <code>NaN</code>.</li>
+        <li><strong>right</strong> — all rows from the right table.</li>
+        <li><strong>outer</strong> — all rows from both tables.</li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — inner merge</div>
+        <textarea>import pandas as pd
+
+# Product details
+products = pd.DataFrame({
+    "item":     ["Bread", "Milk", "Eggs", "Cheese"],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy"],
+    "organic":  [False, True, True, False]
+})
+
+# Prices from a survey
+prices = pd.DataFrame({
+    "item":  ["Milk", "Eggs", "Butter", "Bread"],
+    "price": [0.99, 2.49, 1.89, 1.29]
+})
+
+# Inner merge — only items found in both tables
+merged = pd.merge(products, prices, on="item")
+print("Inner merge (items in both tables):")
+print(merged)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — left merge (keep all products)</div>
+        <textarea>import pandas as pd
+
+products = pd.DataFrame({
+    "item":     ["Bread", "Milk", "Eggs", "Cheese"],
+    "category": ["Bakery", "Dairy", "Dairy", "Dairy"],
+    "organic":  [False, True, True, False]
+})
+
+prices = pd.DataFrame({
+    "item":  ["Milk", "Eggs", "Butter", "Bread"],
+    "price": [0.99, 2.49, 1.89, 1.29]
+})
+
+# Left merge — keep all products; Cheese gets NaN for price
+merged_left = pd.merge(products, prices, on="item", how="left")
+print("Left merge (all products, NaN where no price):")
+print(merged_left)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>df.join() — join on the index</h3>
+
+      <p><code>.join()</code> is a shortcut for merging on the DataFrame index rather than a named column. It is handy when both DataFrames share the same index — for example, after you set the item name as the index.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — join by index</div>
+        <textarea>import pandas as pd
+
+# Set "item" as the index on each DataFrame
+details = pd.DataFrame({
+    "category": ["Bakery", "Dairy", "Dairy"],
+    "organic":  [False, True, True]
+}, index=["Bread", "Milk", "Eggs"])
+
+prices = pd.DataFrame({
+    "price": [1.29, 0.99, 2.49]
+}, index=["Bread", "Milk", "Eggs"])
+
+# Join matches rows by their shared index
+result = details.join(prices)
+print(result)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>When to use which:</strong> Use <code>pd.concat()</code> when you have multiple DataFrames with the same columns and want to stack them. Use <code>pd.merge()</code> when two tables share a key column and you want to combine their columns — this is the everyday workhorse. Use <code>.join()</code> as a convenience when you have already set a meaningful index.
+      </div>
+    </section>
+
+    <!-- ── Part 7: String methods with regex ── -->
+    <section id="part7">
+      <p class="section-label">Part Seven</p>
+      <h2>String Methods — .str.contains(), .str.extract(), .str.split()</h2>
+
+      <p><span class="dropcap">T</span>ext columns in real datasets are rarely clean. Product names arrive with extra words, codes, or units embedded inside them. pandas exposes Python's regex engine directly through the <code>.str</code> accessor, so you can search, extract, and split text across an entire column in one line.</p>
+
+      <h3>.str.contains() — filter rows by pattern</h3>
+
+      <p><code>.str.contains(pattern)</code> returns a boolean Series — <code>True</code> wherever the pattern matches. You use it exactly like any other boolean filter.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — find items with "oil" or "Oil" in the name</div>
+        <textarea>import pandas as pd
+
+df = pd.DataFrame({
+    "item":  ["Olive Oil", "Sunflower Oil", "Bread", "Milk", "Coconut Oil", "Eggs"],
+    "price": [5.49, 3.29, 1.29, 0.99, 4.79, 2.49]
+})
+
+# regex=True is the default; na=False treats NaN cells as non-matching
+oils = df[df["item"].str.contains("oil", case=False, regex=True, na=False)]
+print(oils)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — regex pattern: items that start with a vowel</div>
+        <textarea>import pandas as pd
+
+df = pd.DataFrame({
+    "item":  ["Olive Oil", "Eggs", "Apples", "Bread", "Onions", "Milk"],
+    "price": [5.49, 2.49, 1.99, 1.29, 0.69, 0.99]
+})
+
+# ^ anchors to start of string; na=False so any NaN rows are excluded
+starts_vowel = df[df["item"].str.contains(r"^[AEIOUaeiou]", na=False)]
+print(starts_vowel)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.str.extract() — pull a pattern out into a new column</h3>
+
+      <p><code>.str.extract(pattern)</code> applies a regex with a capture group <code>( )</code> and returns the captured text as a new column. It only captures the <em>first</em> match per cell.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — extract the unit from a combined price string</div>
+        <textarea>import pandas as pd
+
+# Raw data where price and unit are stuck together
+df = pd.DataFrame({
+    "item":       ["Olive Oil", "Milk", "Pasta", "Rice"],
+    "price_raw":  ["5.49€/L", "0.99€/L", "1.19€/kg", "0.89€/kg"]
+})
+
+# Capture group (\w+) grabs the unit after the slash
+df["unit"] = df["price_raw"].str.extract(r"/(\w+)")
+
+# Capture group ([\d.]+) grabs the numeric price
+df["price"] = df["price_raw"].str.extract(r"([\d.]+)").astype(float)
+
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — extractall() captures every match, not just the first</div>
+        <textarea>import pandas as pd
+
+# Each cell contains multiple codes separated by commas
+df = pd.DataFrame({
+    "item":  ["Bread", "Olive Oil"],
+    "codes": ["BIO-12, LOCAL-07", "PDO-03, ORG-11, LOCAL-02"]
+})
+
+# extractall returns one row per match; use a capture group
+matches = df["codes"].str.extractall(r"([A-Z]+-\d+)")
+print(matches)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>.str.split() — break a string into parts</h3>
+
+      <p><code>.str.split(pattern)</code> splits each string on a delimiter and returns a list. Add <code>expand=True</code> to spread the parts into separate columns automatically.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — split a "category / subcategory" column</div>
+        <textarea>import pandas as pd
+
+df = pd.DataFrame({
+    "item":     ["Full-Fat Milk", "Greek Yoghurt", "Cheddar Cheese"],
+    "cat_raw":  ["Dairy / Milk", "Dairy / Yoghurt", "Dairy / Cheese"]
+})
+
+# Split on " / " and expand into two columns
+df[["category", "subcategory"]] = df["cat_raw"].str.split(" / ", expand=True)
+
+print(df[["item", "category", "subcategory"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Other useful .str methods</h3>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — strip, lower, replace</div>
+        <textarea>import pandas as pd
+
+df = pd.DataFrame({
+    "item": ["  Bread ", "MILK", "eggs", " Olive Oil  "]
+})
+
+# Strip whitespace, then lowercase everything
+df["item_clean"] = df["item"].str.strip().str.lower()
+
+# Replace spaces with underscores (useful for column-safe names)
+df["item_slug"] = df["item_clean"].str.replace(r"\s+", "_", regex=True)
+
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Two parameters to always remember:</strong> Pass <code>na=False</code> to <code>.str.contains()</code> whenever your column might have missing values — without it, <code>NaN</code> cells return <code>NaN</code> instead of <code>False</code>, which breaks boolean filters. Pass <code>regex=True</code> to make the intent explicit; it is the default for <code>.str.contains()</code> and <code>.str.extract()</code>, but must be set explicitly on <code>.str.replace()</code> in newer pandas versions. The <code>.str</code> accessor chains freely: <code>df["col"].str.strip().str.lower().str.replace(…)</code> all in one expression.
+      </div>
+    </section>
+
+    <!-- ── Part 8: Wide vs Long ── -->
+    <section id="part8">
+      <p class="section-label">Part Eight</p>
+      <h2>Wide Data vs Long Data — and How to Convert Between Them</h2>
+
+      <p><span class="dropcap">I</span>magine you are tracking the price of five grocery items across three months. There are two completely different ways to arrange that information in a table, and the choice has enormous consequences for what you can do with the data afterwards.</p>
+
+      <h3>What is wide data?</h3>
+
+      <p>In a <strong>wide</strong> table, each subject (here, each grocery item) occupies exactly one row, and every measurement gets its own column. The table literally grows <em>wider</em> as you add more measurements.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · See it — a wide price table</div>
+        <textarea>import pandas as pd
+
+# Wide format: one row per item, one column per month.
+# A human reading this spreadsheet can instantly compare
+# January vs February vs March for any given item.
+wide = pd.DataFrame({
+    "item":    ["Bread", "Milk", "Eggs", "Olive Oil", "Pasta"],
+    "jan":     [1.29,    0.99,   2.49,   5.49,        1.19],
+    "feb":     [1.35,    0.99,   2.59,   5.49,        1.19],
+    "mar":     [1.39,    1.09,   2.79,   5.99,        1.29],
+})
+
+print(wide)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Wide format is natural for humans. A journalist glancing at that table immediately sees that Olive Oil jumped from €5.49 to €5.99. It is the format that Excel spreadsheets, government statistical publications, and most printed reports use. It is compact — five items across three months fit in five rows and four columns.</p>
+
+      <h3>What is long data?</h3>
+
+      <p>In a <strong>long</strong> table, each individual measurement gets its own row. Instead of spreading months across columns, you add a <em>variable</em> column (which month?) and a <em>value</em> column (what was the price?). The table grows <em>taller</em> as you add more measurements — five items across three months produce fifteen rows.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · See it — the same data in long format</div>
+        <textarea>import pandas as pd
+
+# Long format: one row per observation (one item on one month).
+# Every row answers three questions: which item? which month? what price?
+# Notice: 5 items × 3 months = 15 rows.
+long = pd.DataFrame({
+    "item":  ["Bread","Bread","Bread",
+              "Milk", "Milk", "Milk",
+              "Eggs", "Eggs", "Eggs",
+              "Olive Oil","Olive Oil","Olive Oil",
+              "Pasta","Pasta","Pasta"],
+    "month": ["jan","feb","mar",
+              "jan","feb","mar",
+              "jan","feb","mar",
+              "jan","feb","mar",
+              "jan","feb","mar"],
+    "price": [1.29,1.35,1.39,
+              0.99,0.99,1.09,
+              2.49,2.59,2.79,
+              5.49,5.49,5.99,
+              1.19,1.19,1.29],
+})
+
+print(long)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Why would anyone use wide format?</h3>
+
+      <p>Wide format wins whenever a human needs to <em>read</em> the table directly:</p>
+      <ul>
+        <li><strong>Side-by-side comparison.</strong> It is much easier to scan a row and compare January vs February vs March than to hunt through fifteen rows.</li>
+        <li><strong>Compact reporting.</strong> A published table with five rows fits on one page. A fifteen-row table does not.</li>
+        <li><strong>Spreadsheet formulas.</strong> Excel and Google Sheets functions like <code>SUM(B2:D2)</code> assume your data is wide.</li>
+        <li><strong>Certain statistical software.</strong> Some older tools (SPSS, certain R functions) expect one row per subject.</li>
+        <li><strong>Data entry.</strong> It is faster and less error-prone for a human to fill in one row per item than to create a new row for every month.</li>
+      </ul>
+
+      <h3>Why would anyone use long format?</h3>
+
+      <p>Long format wins whenever a <em>computer</em> needs to process the data:</p>
+      <ul>
+        <li><strong>groupby and aggregation.</strong> <code>df.groupby("month")["price"].mean()</code> works instantly on long data. On wide data, you would have to select columns by name and write separate logic for each month — and adding a fourth month means rewriting your code.</li>
+        <li><strong>Filtering.</strong> <code>df[df["month"] == "feb"]</code> is one line. Filtering wide data for a specific month means knowing and referencing an exact column name.</li>
+        <li><strong>Plotting.</strong> Seaborn, Plotly, and most visualisation libraries expect long format. They need a single column to map to the x-axis, a single column for y, and a single column for colour — wide data cannot provide that cleanly.</li>
+        <li><strong>Scalability.</strong> If you add a fourth month to long data, you add five rows. If you add a fourth month to wide data, you add a whole new column — which breaks every formula, query, and chart that referenced column positions.</li>
+        <li><strong>Databases and SQL.</strong> Relational databases are built around long format. A SQL query like <code>GROUP BY month</code> requires a column called <code>month</code>.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>The rule of thumb:</strong> Collect and store data in long format. Reshape it to wide format only at the last step, when you need to present it to a human reader. This is the same principle as keeping a database normalised and only denormalising for a report.
+      </div>
+
+      <h3>pd.melt() — turning wide into long</h3>
+
+      <p><code>pd.melt()</code> is the standard pandas function for unpivoting a wide table into long format. You tell it which columns are <em>identifiers</em> (the columns that stay fixed — here, <code>item</code>) and which columns are <em>values</em> to be melted down into rows (here, <code>jan</code>, <code>feb</code>, <code>mar</code>). It creates two new columns: one holding the old column names and one holding the old cell values.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · pd.melt() — wide to long</div>
+        <textarea>import pandas as pd
+
+wide = pd.DataFrame({
+    "item":    ["Bread", "Milk", "Eggs", "Olive Oil", "Pasta"],
+    "jan":     [1.29,    0.99,   2.49,   5.49,        1.19],
+    "feb":     [1.35,    0.99,   2.59,   5.49,        1.19],
+    "mar":     [1.39,    1.09,   2.79,   5.99,        1.29],
+})
+
+long = pd.melt(
+    wide,
+
+    # id_vars: columns that identify the subject.
+    # These are NOT melted — they repeat once per measurement.
+    id_vars="item",
+
+    # value_vars: columns that hold measurements to be melted.
+    # Each column name becomes a row in the new "month" column.
+    # If you omit value_vars, every non-id column is melted.
+    value_vars=["jan", "feb", "mar"],
+
+    # var_name: what to call the new column that holds
+    # the old column names ("jan", "feb", "mar").
+    var_name="month",
+
+    # value_name: what to call the new column that holds
+    # the actual cell values (the prices).
+    value_name="price",
+)
+
+# Sort so we can read item by item
+long = long.sort_values(["item", "month"]).reset_index(drop=True)
+
+print(long)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Now that the data is long, all of pandas' analytical tools work naturally. Here is why that matters in practice:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Why long format pays off — groupby on the melted data</div>
+        <textarea>import pandas as pd
+
+wide = pd.DataFrame({
+    "item":    ["Bread", "Milk", "Eggs", "Olive Oil", "Pasta"],
+    "jan":     [1.29,    0.99,   2.49,   5.49,        1.19],
+    "feb":     [1.35,    0.99,   2.59,   5.49,        1.19],
+    "mar":     [1.39,    1.09,   2.79,   5.99,        1.29],
+})
+
+long = pd.melt(wide, id_vars="item",
+               value_vars=["jan", "feb", "mar"],
+               var_name="month", value_name="price")
+
+# Question 1: what was the average basket price each month?
+# On wide data this would require manually averaging three different columns.
+# On long data it is one line that works regardless of how many months you have.
+avg_by_month = long.groupby("month")["price"].mean().round(2)
+print("Average price by month:")
+print(avg_by_month)
+print()
+
+# Question 2: which item had the biggest price rise across the period?
+item_min = long.groupby("item")["price"].min()
+item_max = long.groupby("item")["price"].max()
+rise = (item_max - item_min).sort_values(ascending=False).round(2)
+print("Price rise per item (max minus min):")
+print(rise)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>df.pivot() — turning long back into wide</h3>
+
+      <p><code>.pivot()</code> is the reverse operation. You give it three arguments: the column whose unique values become the new row index, the column whose unique values become the new column headers, and the column that fills the cells.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · df.pivot() — long back to wide</div>
+        <textarea>import pandas as pd
+
+# Starting from long format (as you would have it after analysis)
+long = pd.DataFrame({
+    "item":  ["Bread","Bread","Bread","Milk","Milk","Milk","Eggs","Eggs","Eggs"],
+    "month": ["jan","feb","mar","jan","feb","mar","jan","feb","mar"],
+    "price": [1.29,1.35,1.39, 0.99,0.99,1.09, 2.49,2.59,2.79],
+})
+
+wide = long.pivot(
+    # index: the column whose values become row labels.
+    # Each unique item gets one row.
+    index="item",
+
+    # columns: the column whose values become column headers.
+    # Each unique month gets one column.
+    columns="month",
+
+    # values: the column that fills the cells at each (item, month) intersection.
+    values="price",
+)
+
+# pivot() keeps the column axis name ("month") as a label above the headers.
+# Removing it makes the table look like a plain report.
+wide.columns.name = None
+
+print(wide)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>pivot() vs pivot_table():</strong> <code>.pivot()</code> requires that the combination of <code>index</code> and <code>columns</code> is unique — one price per (item, month) pair. If your data has duplicates (e.g. two price readings for the same item and month), <code>.pivot()</code> will raise an error. Use <code>pd.pivot_table()</code> instead, which accepts an <code>aggfunc</code> argument (e.g. <code>aggfunc="mean"</code>) to collapse duplicates automatically.
+      </div>
+    </section>
+
+    <!-- ── Part 9: Applying functions ── -->
+    <section id="part9">
+      <p class="section-label">Part Nine</p>
+      <h2>Applying Your Own Functions to a DataFrame</h2>
+
+      <p><span class="dropcap">P</span>andas built-in methods cover a lot of ground, but sooner or later you will need logic that does not exist as a ready-made function. The <code>.apply()</code> method bridges that gap: it calls any Python function you write — once per cell, once per row, or once per column — and collects the results back into the DataFrame.</p>
+
+      <h3>The problem: messy item names from the real world</h3>
+
+      <p>Scraped product names are rarely clean. The same item might arrive as <code>"  ελαιόλαδο  "</code>, <code>"ΕΛΑΙΌΛΑΔΟ"</code>, or <code>"Elaiolado (extra virgin)"</code> depending on the source. Before you can group, merge, or compare, you need every name reduced to a single canonical form. This is exactly the kind of multi-step logic that belongs in a <code>def</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Define normalize_string()</div>
+        <textarea>import unicodedata
+import re
+
+def normalize_string(text):
+    """
+    Turn any messy product name into a clean, comparable slug.
+    Steps: strip → lowercase → remove accents → keep only letters/digits/spaces → collapse spaces.
+    """
+    # Guard: if the value is not a string (e.g. NaN, a number), return it unchanged.
+    # This prevents a crash when the column has missing values.
+    if not isinstance(text, str):
+        return text
+
+    # Step 1 — strip leading and trailing whitespace.
+    # "  Olive Oil  " → "Olive Oil"
+    text = text.strip()
+
+    # Step 2 — lowercase everything so "MILK" and "milk" are treated as the same item.
+    text = text.lower()
+
+    # Step 3 — decompose accented characters into base letter + combining accent mark,
+    # then discard every combining mark (category "Mn" = Mark, Nonspacing).
+    # "elaiólaðo" → "elaiolado"
+    # Without this step, "αθήνα" and "αθηνα" would sort as different strings.
+    text = unicodedata.normalize("NFD", text)
+    text = "".join(ch for ch in text if unicodedata.category(ch) != "Mn")
+
+    # Step 4 — strip anything that is not a letter, a digit, or a space.
+    # Removes parentheses, dashes, asterisks, and other punctuation that
+    # would make two otherwise identical names fail to match.
+    text = re.sub(r"[^\w\s]", "", text)
+
+    # Step 5 — collapse runs of whitespace (spaces, tabs) into a single space.
+    # "olive   oil" → "olive oil"
+    text = re.sub(r"\s+", " ", text).strip()
+
+    return text
+
+# Test the function on individual strings before applying it to a whole column
+test_cases = [
+    "  Ελαιόλαδο  ",
+    "OLIVE OIL (extra virgin)",
+    "γάλα  πλήρες",
+    "Feta-Cheese*",
+    42,          # non-string — should pass through unchanged
+]
+
+for t in test_cases:
+    print(repr(t), "→", repr(normalize_string(t)))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Always test a function on a handful of representative values before unleashing it on thousands of rows. The <code>repr()</code> calls above show the exact string boundaries so you can spot stray spaces or invisible characters that a plain <code>print()</code> would hide.</p>
+
+      <h3>Series.apply() — one column at a time</h3>
+
+      <p><code>Series.apply(func)</code> calls <code>func</code> once for each value in the column and returns a new Series of the same length. It is the simplest and most common form of <code>.apply()</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Apply normalize_string() to a column</div>
+        <textarea>import pandas as pd
+import unicodedata
+import re
+
+def normalize_string(text):
+    if not isinstance(text, str):
+        return text
+    text = text.strip()
+    text = text.lower()
+    text = unicodedata.normalize("NFD", text)
+    text = "".join(ch for ch in text if unicodedata.category(ch) != "Mn")
+    text = re.sub(r"[^\w\s]", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+# Realistic messy data: same items from three different sources
+df = pd.DataFrame({
+    "raw_name": [
+        "  Ελαιόλαδο  ",
+        "OLIVE OIL (extra virgin)",
+        "γάλα πλήρες",
+        "Milk (Full-Fat)*",
+        "Feta-Cheese",
+        "ΦΕΤΑ",
+    ],
+    "price": [5.49, 5.99, 0.99, 1.09, 3.79, 4.29]
+})
+
+# .apply() passes each value in "raw_name" into normalize_string() one at a time.
+# The result is a new Series that we store as a new column.
+df["name_clean"] = df["raw_name"].apply(normalize_string)
+
+print(df[["raw_name", "name_clean", "price"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>DataFrame.apply() with axis=1 — one row at a time</h3>
+
+      <p>When you pass <code>axis=1</code>, pandas calls your function once per <em>row</em>, passing the entire row as a Series. This lets you combine values from multiple columns in one step — something <code>Series.apply()</code> cannot do alone.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · axis=1 — build a display label from two columns</div>
+        <textarea>import pandas as pd
+import unicodedata
+import re
+
+def normalize_string(text):
+    if not isinstance(text, str):
+        return text
+    text = text.strip()
+    text = text.lower()
+    text = unicodedata.normalize("NFD", text)
+    text = "".join(ch for ch in text if unicodedata.category(ch) != "Mn")
+    text = re.sub(r"[^\w\s]", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+df = pd.DataFrame({
+    "item":     ["  Ελαιόλαδο  ", "MILK (Full-Fat)*", "Feta-Cheese"],
+    "store":    [" AB  Vassilopoulos", "Sklavenitis ", "  LIDL"],
+    "price":    [5.49, 1.09, 3.79]
+})
+
+# axis=1 passes a whole row to the function.
+# row["item"] and row["store"] are individual values from that row.
+def make_key(row):
+    clean_item  = normalize_string(row["item"])
+    clean_store = normalize_string(row["store"])
+    # Combine into a single lookup key: "elaiolado | ab vassilopoulos"
+    return f"{clean_item} | {clean_store}"
+
+df["lookup_key"] = df.apply(make_key, axis=1)
+
+print(df[["item", "store", "lookup_key"]])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Lambda vs def — when to use which</h3>
+
+      <p>A <strong>lambda</strong> is an <em>anonymous function</em> — a function with no name, written in a single expression instead of a full <code>def</code> block. The syntax is:</p>
+
+      <p><code>lambda argument : expression</code></p>
+
+      <p>The word <code>lambda</code> replaces <code>def</code>. Everything to the left of the colon is the parameter list. Everything to the right is the return value — no <code>return</code> keyword needed, because a lambda always returns the result of that one expression.</p>
+
+      <p>So <code>lambda p: round(p * 1.24, 2)</code> is exactly the same as writing:</p>
+
+      <pre><code>def apply_vat(p):
+    return round(p * 1.24, 2)</code></pre>
+
+      <p>The difference is that a lambda is created inline, at the point where it is used, and then discarded. It has no name you can call elsewhere in your code, and it cannot contain more than one expression — no <code>if/elif</code> chains, no loops, no multiple statements. That limitation is also its strength: when you read <code>.apply(lambda p: round(p * 1.24, 2))</code>, the entire logic is visible right there in the line, without having to scroll up to find the function definition.</p>
+
+      <p>For very short transformations — one expression, no guard clause — a <code>lambda</code> avoids the overhead of naming a function. For anything with more than one step, a named <code>def</code> is clearer and easier to test.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Lambda for simple transforms, def for complex ones</div>
+        <textarea>import pandas as pd
+
+df = pd.DataFrame({
+    "item":  ["Bread", "Milk", "Eggs", "Olive Oil"],
+    "price": [1.29,    0.99,   2.49,   5.49],
+})
+
+# Lambda is fine here — one expression, no branching
+df["price_with_vat"] = df["price"].apply(lambda p: round(p * 1.24, 2))
+
+# For anything with conditionals or multiple steps,
+# a named def is easier to read and to debug
+def price_band(price):
+    if price < 1.50:
+        return "budget"
+    elif price < 4.00:
+        return "mid"
+    else:
+        return "premium"
+
+df["band"] = df["price"].apply(price_band)
+
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <h3>Series.map() — functions, dictionaries, and lookup tables</h3>
+
+      <p><code>.map()</code> works element-wise on a single Series, exactly like <code>Series.apply()</code> when you pass it a function. The critical difference is that <code>.map()</code> also accepts a <strong>dictionary</strong> or another <strong>Series</strong> as its argument, turning it into a vectorised lookup table — something <code>.apply()</code> cannot do.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · map with a function — identical to Series.apply()</div>
+        <textarea>import pandas as pd
+
+df = pd.DataFrame({
+    "item":  ["Bread", "Milk", "Eggs", "Olive Oil"],
+    "price": [1.29,    0.99,   2.49,   5.49],
+})
+
+# Passing a function: map calls it once per value, just like apply.
+# For element-wise work on a single column, map and apply are interchangeable.
+df["price_rounded"] = df["price"].map(lambda p: round(p * 1.24, 2))
+
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · map with a dictionary — the feature apply does not have</div>
+        <textarea>import pandas as pd
+
+df = pd.DataFrame({
+    "item":     ["Bread", "Milk", "Eggs", "Olive Oil", "Pasta"],
+    "category": ["Bakery", "Dairy", "Dairy", "Oils", "Grains"],
+    "price":    [1.29, 0.99, 2.49, 5.49, 1.19],
+})
+
+# A lookup table that maps each category to a VAT rate.
+# This is far more readable than a chain of if/elif statements.
+vat_rates = {
+    "Bakery": 0.06,
+    "Dairy":  0.06,
+    "Oils":   0.13,
+    "Grains": 0.06,
+}
+
+# .map(dict) looks up each value in the "category" column as a key.
+# Any value not in the dict becomes NaN — useful for spotting unmapped categories.
+df["vat_rate"] = df["category"].map(vat_rates)
+
+# price * (1 + vat_rate) is the standard "gross-up" formula.
+# Multiplying by 1 adds the original price; multiplying by vat_rate adds the tax.
+# e.g. Bread: 1.29 * (1 + 0.06) = 1.29 * 1.06 = 1.3674 → rounded to 1.37
+# This is equivalent to writing price + (price * vat_rate), but shorter.
+df["price_with_vat"] = (df["price"] * (1 + df["vat_rate"])).round(2)
+
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The NaN-for-unmatched behaviour is a feature, not a bug. After the <code>.map()</code> call, <code>df["vat_rate"].isnull().sum()</code> instantly tells you how many rows have a category your lookup table does not recognise — a natural data-quality check.</p>
+
+      <h3>DataFrame.map() — apply a function to every cell</h3>
+
+      <p><code>DataFrame.map()</code> (added in pandas 2.1, replacing the older <code>applymap()</code>) calls a function on every individual cell in the entire DataFrame. Use it when you want to transform all values in one pass — for example, rounding every number in a table of prices.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · DataFrame.map() — round every numeric cell</div>
+        <textarea>import pandas as pd
+
+# A price comparison table across three stores
+prices = pd.DataFrame({
+    "item":  ["Bread", "Milk", "Eggs"],
+    "AB":    [1.2934, 0.9901, 2.4870],
+    "Skl":   [1.3499, 1.0850, 2.5000],
+    "Lidl":  [1.1990, 0.9450, 2.3999],
+})
+
+# Select only the numeric columns (the store columns)
+# and apply DataFrame.map() to round every cell to 2 decimal places.
+# DataFrame.map() calls the function once per cell, left to right, top to bottom.
+store_cols = ["AB", "Skl", "Lidl"]
+prices[store_cols] = prices[store_cols].map(lambda x: round(x, 2))
+
+print(prices)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Choosing between apply, map, and map(dict):</strong>
+        Use <code>Series.apply(func)</code> or <code>Series.map(func)</code> interchangeably for element-wise work on one column — they produce the same result. Reach for <code>Series.map(dict)</code> whenever you need a lookup table; it is faster and more readable than an equivalent <code>if/elif</code> chain inside <code>.apply()</code>. Use <code>DataFrame.apply(axis=1)</code> when your function needs values from more than one column. Use <code>DataFrame.map(func)</code> when you want to transform every cell in the table at once.
+      </div>
+
+      <div class="callout">
+        <strong>A note on speed:</strong> <code>.apply()</code> calls your Python function in a loop, one value at a time. For very large datasets this can be slow. If a vectorised pandas method exists — <code>.str.lower()</code>, <code>.str.strip()</code>, arithmetic operators — prefer it over <code>.apply()</code>. Use <code>.apply()</code> when you need logic that pandas cannot express natively: multi-step conditionals, external lookups, or anything that requires a full Python function.
       </div>
     </section>
 

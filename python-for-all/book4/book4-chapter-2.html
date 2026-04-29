@@ -366,9 +366,110 @@ print(df.describe(include="all"))</textarea>
       <p>The <code>top</code> and <code>freq</code> rows for the <code>category</code> column tell you that <em>Dairy</em> is the most common category, appearing 4 times — something you might not have noticed by eye.</p>
     </section>
 
-    <!-- ── Part 5: Your turn ── -->
+    <!-- ── Part 5: pd.set_option ── -->
     <section id="part5">
       <p class="section-label">Part Five</p>
+      <h2>Controlling Display with pd.set_option</h2>
+
+      <p>As your DataFrames grow, pandas will start truncating the output — collapsing rows in the middle or cutting off long text values. <code>pd.set_option</code> lets you control exactly how much gets shown, and how numbers are formatted.</p>
+
+      <h3>Showing more rows and columns</h3>
+
+      <p>By default, pandas shows at most 60 rows and 20 columns before truncating. You can raise or remove those limits:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "category": ["Bakery","Dairy","Dairy","Dairy","Dairy","Oils","Grains","Grains","Vegetables","Vegetables","Vegetables","Meat","Meat","Fish","Fish"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+    "unit": ["loaf","litre","dozen","200g","250g","500ml","500g","kg","kg","kg","kg","kg","kg","fillet","can"],
+    "organic": [False,True,True,False,True,True,False,False,True,True,False,True,False,True,False]
+}
+df = pd.DataFrame(data)
+
+# Show all rows — no truncation
+pd.set_option("display.max_rows", None)
+
+# Show all columns
+pd.set_option("display.max_columns", None)
+
+print(df)</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Passing <code>None</code> removes the limit entirely. This is useful when you want to inspect a full table without pandas hiding rows in the middle. For very large datasets, set a specific number instead — <code>pd.set_option("display.max_rows", 100)</code> — to avoid flooding your output.</p>
+
+      <h3>Formatting numbers</h3>
+
+      <p>When prices have many decimal places, the display can become hard to read. <code>display.float_format</code> lets you apply a format string to every float in the output:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+data = {
+    "item": ["Bread","Milk","Eggs","Cheese","Butter","Olive Oil","Pasta","Rice","Tomatoes","Onions","Potatoes","Chicken","Beef","Salmon","Tuna"],
+    "price": [1.29,0.99,2.49,3.79,1.89,5.49,1.19,0.89,1.49,0.69,0.79,4.99,7.49,8.99,1.59],
+}
+df = pd.DataFrame(data)
+
+# Always show exactly 2 decimal places
+pd.set_option("display.float_format", "{:.2f}".format)
+
+print(df.describe())</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The format string <code>"{:.2f}"</code> means: show 2 digits after the decimal point. You can use <code>"{:,.0f}"</code> for whole numbers with thousand separators, or <code>"{:.4f}"</code> for more precision.</p>
+
+      <h3>Resetting to defaults</h3>
+
+      <p>Options you set persist for the rest of your session. To undo a specific option, use <code>pd.reset_option</code>:</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import pandas as pd
+
+# Set an option
+pd.set_option("display.max_rows", 10)
+print("max_rows is now:", pd.get_option("display.max_rows"))
+
+# Reset just that option to its default
+pd.reset_option("display.max_rows")
+print("After reset:", pd.get_option("display.max_rows"))</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Common options at a glance:</strong><br>
+        <code>display.max_rows</code> — max rows shown (default 60) &nbsp;·&nbsp;
+        <code>display.max_columns</code> — max columns shown (default 20) &nbsp;·&nbsp;
+        <code>display.max_colwidth</code> — max characters in a text cell (default 50) &nbsp;·&nbsp;
+        <code>display.float_format</code> — number format function
+      </div>
+    </section>
+
+    <!-- ── Part 6: Your turn ── -->
+    <section id="part6">
+      <p class="section-label">Part Six</p>
       <h2>Your Turn — First Look at a New Dataset</h2>
 
       <p>Below is a second dataset — weekly prices at a different market. Use the exploration tools you have learned to answer these questions without reading the raw data by eye:</p>
@@ -415,7 +516,7 @@ print(df_b.describe())</textarea>
       </div>
 
       <div class="callout">
-        <strong>What you learned in this chapter:</strong> how to inspect a new dataset with <code>.shape</code>, <code>.columns</code>, <code>.dtypes</code>, <code>.head()</code>, <code>.tail()</code>, and <code>.describe()</code>. These six tools are the first things every data analyst runs on any new file. In the next chapter you will learn to select specific rows and columns.
+        <strong>What you learned in this chapter:</strong> how to inspect a new dataset with <code>.shape</code>, <code>.columns</code>, <code>.dtypes</code>, <code>.head()</code>, <code>.tail()</code>, and <code>.describe()</code> — and how to control what pandas shows you with <code>pd.set_option</code>. These tools are the first things every data analyst runs on any new file. In the next chapter you will learn to select specific rows and columns.
       </div>
     </section>
 
