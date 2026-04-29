@@ -161,6 +161,31 @@
       line-height: 1.5;
     }
 
+    .toc-search {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #ebebeb;
+    }
+
+    .toc-search-input {
+      width: 100%;
+      border: 1px solid #e0e0e0;
+      border-radius: 2px;
+      padding: 8px 12px;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 0.88rem;
+      color: #111;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .toc-search-input:focus { border-color: #111; }
+
+    .toc-search-input::placeholder {
+      color: #bbb;
+      font-style: italic;
+    }
+
     .toc a.is-current {
       border-bottom-color: #111;
       text-decoration: underline;

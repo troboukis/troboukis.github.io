@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Python for All</title>
+  <title>Search · Python for All</title>
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Python for All" />
-  <meta property="og:description" content="A beginner-friendly, hands-on Python course where you learn step by step by running real code in your browser." />
+  <meta property="og:title" content="Search · Python for All" />
+  <meta property="og:description" content="Search all chapters of Python for All." />
   <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
@@ -15,13 +15,118 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css" />
   <link rel="stylesheet" href="assets/auth.css" />
+  <style>
+    .search-wrap {
+      padding-top: 48px;
+    }
+
+    .search-form {
+      display: flex;
+      gap: 0;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+
+    .search-form:focus-within {
+      border-color: #111;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 14px 18px;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1rem;
+      color: #111;
+      background: #fff;
+    }
+
+    .search-input::placeholder {
+      color: #bbb;
+      font-style: italic;
+    }
+
+    .search-btn {
+      background: #111;
+      color: #fff;
+      border: none;
+      padding: 14px 24px;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    .search-btn:hover { background: #333; }
+
+    .search-status {
+      margin-top: 28px;
+      font-size: 0.88rem;
+      color: #999;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .search-results {
+      margin-top: 8px;
+    }
+
+    .search-result {
+      padding: 20px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .search-result:first-child {
+      border-top: 1px solid #e0e0e0;
+      margin-top: 16px;
+    }
+
+    .search-result-meta {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #999;
+      margin: 0 0 6px;
+    }
+
+    .search-result-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #111;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+      letter-spacing: -0.01em;
+    }
+
+    .search-result-title:hover {
+      border-bottom-color: #111;
+    }
+
+    .search-empty {
+      padding-top: 48px;
+      text-align: center;
+      color: #bbb;
+      font-style: italic;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 <body id="top">
   <header id="page-top">
     <p class="kicker">An Introduction to Programming</p>
     <h1><a href="index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
-    <p class="subtitle">A beginner-friendly, hands-on, free Python course where you learn step by step by running real code in your browser.</p>
-    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; troboukis[at]gmail[dot]com &nbsp;·&nbsp; <a href="https://troboukis.gr" style="color:inherit;">troboukis.gr</a></p>
+    <p class="subtitle">Search All Content</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="index.html" style="color:inherit;">All Chapters</a></p>
   </header>
 
   <nav>
@@ -122,59 +227,103 @@
         <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
         <p class="toc-book-soon">Coming soon</p>
       </div>
-      <form class="toc-search" action="search.html" method="get">
-        <input class="toc-search-input" type="search" name="q" placeholder="Search all content…" autocomplete="off" />
-      </form>
     </div>
   </nav>
 
   <main>
-    <section>
-      <p class="section-label">About The Course</p>
-      <h2>Why Learn Python?</h2>
-      <p><span class="dropcap">A</span>s we move into a new era in which humanity will be called upon to interact ever more frequently with artificial intelligence systems, the need for a basic understanding of how they function becomes increasingly urgent. This is not a technical luxury, but a fundamental requirement of digital literacy.</p>
-
-      <p>Artificial intelligence models are trained on vast volumes of data, including text, images, and other forms of human knowledge. Through this process, they learn to recognize patterns, categorize information, and generate responses in ways that often resemble human communication.</p>
-
-      <p>Acquiring foundational programming skills can act as a catalyst. It allows us not only to meaningfully approach the world of computer science, but also to demystify the very concept of artificial intelligence. Free from exaggerations and fear-driven narratives, we can assess with clarity both the historically significant benefits and the very real risks.</p>
-
-      <p>At a time when a narrow technological elite develops AI models under limited oversight and ambiguous regulatory frameworks, society must possess the cognitive tools needed to participate substantively in the conversation. Understanding is not merely knowledge; it is a prerequisite for democratic accountability.</p>
-
-      <p>Python is one of the most popular programming languages in the world. It is known for its clear syntax, readability, and practical use in many areas such as data analysis, automation, web development, and artificial intelligence.</p>
-
-      <p>This course is designed for beginners. You will learn by reading short explanations and running code directly in your browser, step by step.</p>
-
-      <p>This application was inspired by my experience learning Python from <a href="https://jonathansoma.com/" target="_blank" rel="noopener noreferrer">Jonathan Soma</a> as a <a href="https://www.snf.org/" target="_blank" rel="noopener noreferrer">Stavros Niarchos Foundation</a> Fellow in 2018 in the <a href="https://ledeprogram.com/" target="_blank" rel="noopener noreferrer">LEDE program</a> at Columbia Journalism School.</p>
-    </section>
-
-    <section>
-      <p class="section-label">Learning Outcomes</p>
-      <h2>By The End Of This Course, You Will Know How To</h2>
-      <ol>
-        <li><strong>Write Python programs</strong> using variables, strings, numbers, lists, dictionaries, loops, conditions, and functions — and read code written by others with confidence.</li>
-        <li><strong>Use the terminal</strong> to navigate your file system, manage files and folders, search inside datasets, and run scripts from the command line.</li>
-        <li><strong>Build HTML pages</strong> — structure content with semantic markup, style it with CSS, embed charts and media, and publish your work online for free.</li>
-        <li><strong>Analyse data with Python</strong> — load, clean, filter, and summarise datasets using libraries like pandas, and turn raw numbers into findings.</li>
-        <li><strong>Scrape websites</strong> — use Python to extract structured data from web pages, identify HTML elements with CSS selectors, and automate data collection at scale.</li>
-        <li><strong>Communicate through APIs</strong> — send requests to external data services, parse JSON responses, and integrate live data into your work.</li>
-        <li><strong>Create maps</strong> — build interactive and static maps to visualise geographic data, plot locations, and tell spatial stories.</li>
-        <li><strong>Use JavaScript and D3</strong> — learn the essential JavaScript you need and build custom data visualisations with the D3 library.</li>
-        <li><strong>Build and publish your web app</strong> — package your data-driven investigation as a self-contained web application and host it online for free.</li>
-      </ol>
-      <div class="callout"><strong>Goal:</strong> build the full technical toolkit of a modern data journalist — from the command line to the published page.</div>
-    </section>
-
-    <section class="chapter-next">
-      <p class="chapter-number">Take a slow, deep breath and</p>
-      <h2><a href="chapters/chapter-1.html">Start The Journey</a></h2>
-      <p class="chapter-desc">Begin with Chapter One and progress step by step.</p>
-    </section>
+    <div class="search-wrap">
+      <form id="search-form" class="search-form" action="search.html" method="get">
+        <input
+          id="search-input"
+          class="search-input"
+          type="search"
+          name="q"
+          placeholder="Search for a topic, function, or concept…"
+          autocomplete="off"
+          autofocus
+        />
+        <button type="submit" class="search-btn">Search</button>
+      </form>
+      <p id="search-status" class="search-status"></p>
+      <div id="search-results" class="search-results"></div>
+    </div>
   </main>
 
   <footer>
-   Thanasis Troboukis&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+    Thanasis Troboukis&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
   </footer>
+
   <script src="assets/lang.js"></script>
   <script type="module" src="assets/auth.js"></script>
+  <script>
+    let index = null;
+
+    async function loadIndex() {
+      if (index) return index;
+      const res = await fetch('search-index.json');
+      index = await res.json();
+      return index;
+    }
+
+    function doSearch(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) return [];
+      return index.filter(entry => {
+        const haystack = entry.book + ' ' + entry.chapter + ' ' + entry.partLabel + ' ' + entry.partTitle + ' ' + entry.text;
+        return haystack.includes(q);
+      });
+    }
+
+    function renderResults(results, query) {
+      const status = document.getElementById('search-status');
+      const container = document.getElementById('search-results');
+      const q = query.trim();
+
+      if (!q) {
+        status.textContent = '';
+        container.innerHTML = '';
+        return;
+      }
+
+      if (results.length === 0) {
+        status.textContent = `No results for "${q}"`;
+        container.innerHTML = '<p class="search-empty">Try a different keyword or browse the table of contents.</p>';
+        return;
+      }
+
+      status.textContent = `${results.length} result${results.length === 1 ? '' : 's'} for "${q}"`;
+      container.innerHTML = results.map(r => `
+        <article class="search-result">
+          <p class="search-result-meta">${r.book} &nbsp;·&nbsp; ${r.chapter}</p>
+          <a class="search-result-title" href="${r.url}">${r.partLabel} — ${r.partTitle}</a>
+        </article>
+      `).join('');
+    }
+
+    async function runSearch(query) {
+      await loadIndex();
+      const results = doSearch(query);
+      renderResults(results, query);
+    }
+
+    const params = new URLSearchParams(location.search);
+    const initialQuery = params.get('q') || '';
+    const input = document.getElementById('search-input');
+    input.value = initialQuery;
+    if (initialQuery) runSearch(initialQuery);
+
+    let debounceTimer;
+    input.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => runSearch(input.value), 200);
+    });
+
+    document.getElementById('search-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const q = input.value.trim();
+      if (q) history.replaceState(null, '', '?q=' + encodeURIComponent(q));
+      runSearch(input.value);
+    });
+  </script>
 </body>
 </html>
