@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 7 · Chapter Two — Why Visualise Data? · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 7 · Chapter Two — Why Visualise Data? · Python for All" />
+  <meta property="og:description" content="Discover why charts reveal patterns that tables hide, and build your first matplotlib figure from scratch." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 7 — Data Visualisation and Maps</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Two — Why Visualise Data?</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Seven · Chapter Two</p>
+      <h2>Why Visualise Data?</h2>
+      <p class="chapter-desc">Numbers in a table tell you something. A chart tells you something <em>immediately</em>. In this book you will learn to turn raw data into charts and maps using Python's matplotlib library and, later, interactive geographic maps. This first chapter asks the fundamental question — why bother? — and then gets you drawing your first figure.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>The Problem with Tables</h2>
+
+      <p><span class="dropcap">H</span>ere are the monthly average temperatures in Athens, in degrees Celsius, for a recent year:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Jan</th>
+            <th>Feb</th>
+            <th>Mar</th>
+            <th>Apr</th>
+            <th>May</th>
+            <th>Jun</th>
+            <th>Jul</th>
+            <th>Aug</th>
+            <th>Sep</th>
+            <th>Oct</th>
+            <th>Nov</th>
+            <th>Dec</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>°C</strong></td>
+            <td>10</td>
+            <td>11</td>
+            <td>14</td>
+            <td>18</td>
+            <td>23</td>
+            <td>28</td>
+            <td>32</td>
+            <td>32</td>
+            <td>27</td>
+            <td>21</td>
+            <td>16</td>
+            <td>11</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>You can read the numbers, but you have to hold them all in your head to understand the shape of the year — the rise toward summer, the plateau in July and August, the descent back to winter. Now look at the same data as a line chart.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import matplotlib.pyplot as plt
+
+months = ["Jan","Feb","Mar","Apr","May","Jun",
+          "Jul","Aug","Sep","Oct","Nov","Dec"]
+temps  = [10, 11, 14, 18, 23, 28, 32, 32, 27, 21, 16, 11]
+
+plt.plot(months, temps, marker="o")  # marker="o" draws a circle at each data point
+plt.title("Average Monthly Temperature — Athens")
+plt.ylabel("°C")
+plt.show()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The summer plateau, the symmetry of the climb and descent — all of that is visible at a glance. The chart does not add any information that was not already in the table. But it removes the cognitive effort of constructing the mental image yourself.</p>
+
+      <div class="callout">
+        <strong>Note:</strong> This browser runs Python using Pyodide with matplotlib pre-loaded. Charts appear directly below the cell when you click Run. You do not need to install anything.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Anatomy of a matplotlib Figure</h2>
+
+      <p>Before you start drawing, it helps to understand the two main objects matplotlib uses.</p>
+
+      <p>A <strong>Figure</strong> is the whole canvas — the outermost container. A <strong>Axes</strong> (confusingly plural even for one chart) is the actual plot area inside the figure, where data is drawn. One figure can hold multiple axes side by side. For a single chart, you almost always create both at once with <code>plt.subplots()</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+
+print(type(fig))   # Figure — the canvas
+print(type(ax))    # Axes  — the plot area
+
+ax.set_title("An empty axes")
+ax.set_xlabel("x axis")
+ax.set_ylabel("y axis")
+
+plt.show()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>You will notice two styles in matplotlib code. The <strong>object-oriented style</strong> calls methods on <code>ax</code> directly: <code>ax.plot()</code>, <code>ax.set_title()</code>. The <strong>pyplot style</strong> calls functions on <code>plt</code>: <code>plt.plot()</code>, <code>plt.title()</code>. Both produce the same result. This course uses a mix — pyplot for quick one-off charts, the object-oriented style when you have multiple subplots.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Object-oriented style</th>
+            <th>pyplot style</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>ax.set_title("…")</code></td>
+            <td><code>plt.title("…")</code></td>
+            <td>Set the chart title</td>
+          </tr>
+          <tr>
+            <td><code>ax.set_xlabel("…")</code></td>
+            <td><code>plt.xlabel("…")</code></td>
+            <td>Label the x axis</td>
+          </tr>
+          <tr>
+            <td><code>ax.set_ylabel("…")</code></td>
+            <td><code>plt.ylabel("…")</code></td>
+            <td>Label the y axis</td>
+          </tr>
+          <tr>
+            <td><code>ax.plot(x, y)</code></td>
+            <td><code>plt.plot(x, y)</code></td>
+            <td>Draw a line</td>
+          </tr>
+          <tr>
+            <td><code>ax.bar(x, height)</code></td>
+            <td><code>plt.bar(x, height)</code></td>
+            <td>Draw bars</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Labels, Titles, and the Grid</h2>
+
+      <p>A chart without labels is almost always incomplete. At a minimum, every chart should have a title and labelled axes. The grid is optional but often helps readers estimate values.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import matplotlib.pyplot as plt
+
+months = ["Jan","Feb","Mar","Apr","May","Jun",
+          "Jul","Aug","Sep","Oct","Nov","Dec"]
+temps  = [10, 11, 14, 18, 23, 28, 32, 32, 27, 21, 16, 11]
+
+fig, ax = plt.subplots()
+
+ax.plot(months, temps,
+        marker="o",         # shape at each data point — see callout below for all options
+        color="steelblue",  # CSS colour name, hex like "#2a6496", or "r"/"g"/"b" shorthand
+        linewidth=2)        # line thickness in points; try 1, 1.5, or 3
+
+ax.set_title("Average Monthly Temperature — Athens",
+             fontsize=13)   # font size in points; matplotlib's default is ~10
+
+ax.set_ylabel("°C")
+ax.set_xlabel("Month")
+
+ax.grid(axis="y",          # "y" = horizontal grid lines only; "x" = vertical; "both" = full grid
+        linestyle="--",    # line style — see callout below for all options
+        alpha=0.5)         # transparency: 0.0 = invisible, 1.0 = fully opaque
+
+plt.tight_layout()  # adjusts margins so labels are never clipped
+plt.show()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>A few things to notice:</p>
+      <ul>
+        <li><code>marker="o"</code> draws a dot at each data point.</li>
+        <li><code>color="steelblue"</code> sets the line colour. Matplotlib accepts any CSS colour name, hex codes like <code>"#2a6496"</code>, or shorthand letters like <code>"r"</code> for red.</li>
+        <li><code>alpha=0.5</code> makes the grid lines semi-transparent.</li>
+        <li><code>plt.tight_layout()</code> adjusts spacing so nothing is clipped. Make it a habit to call it before <code>plt.show()</code>.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Marker options</strong> — pass any of these as <code>marker=</code>:<br><br>
+        <code>"o"</code> circle &nbsp;·&nbsp; <code>"s"</code> square &nbsp;·&nbsp; <code>"^"</code> triangle up &nbsp;·&nbsp; <code>"v"</code> triangle down &nbsp;·&nbsp; <code>"D"</code> diamond &nbsp;·&nbsp; <code>"*"</code> star &nbsp;·&nbsp; <code>"+"</code> plus &nbsp;·&nbsp; <code>"x"</code> cross &nbsp;·&nbsp; <code>"."</code> small dot &nbsp;·&nbsp; <code>None</code> no marker (line only)
+        <br><br>
+        <strong>Line style options</strong> — pass any of these as <code>linestyle=</code> (or the shorthand <code>ls=</code>):<br><br>
+        <code>"-"</code> solid (default) &nbsp;·&nbsp; <code>"--"</code> dashed &nbsp;·&nbsp; <code>"-."</code> dash-dot &nbsp;·&nbsp; <code>":"</code> dotted &nbsp;·&nbsp; <code>"None"</code> no line (markers only)
+        <br><br>
+        <strong>Colour options</strong> — pass any of these as <code>color=</code> (or the shorthand <code>c=</code>):<br><br>
+        Named: <code>"steelblue"</code>, <code>"tomato"</code>, <code>"mediumseagreen"</code>, <code>"goldenrod"</code>, <code>"coral"</code>, <code>"royalblue"</code>, <code>"slategray"</code>, <code>"darkorange"</code> — any of the 148 CSS colour names work.<br>
+        Hex code: <code>"#2a6496"</code>, <code>"#e74c3c"</code>, etc.<br>
+        Shorthand letters: <code>"r"</code> red, <code>"g"</code> green, <code>"b"</code> blue, <code>"c"</code> cyan, <code>"m"</code> magenta, <code>"y"</code> yellow, <code>"k"</code> black, <code>"w"</code> white.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Two Lines on One Chart</h2>
+
+      <p>You can call <code>ax.plot()</code> more than once on the same axes. Each call adds a new line. When you have multiple lines, add a <strong>legend</strong> so the reader knows which is which.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import matplotlib.pyplot as plt
+
+months = ["Jan","Feb","Mar","Apr","May","Jun",
+          "Jul","Aug","Sep","Oct","Nov","Dec"]
+
+athens = [10, 11, 14, 18, 23, 28, 32, 32, 27, 21, 16, 11]
+berlin = [ 2,  3,  7, 12, 17, 20, 23, 23, 18, 12,  6,  3]
+
+fig, ax = plt.subplots()
+
+ax.plot(months, athens, marker="o", label="Athens")  # "o" = circle
+ax.plot(months, berlin, marker="s", label="Berlin")  # "s" = square; each call adds a new line
+
+ax.set_title("Monthly Temperature Comparison")
+ax.set_ylabel("°C")
+
+# label= on each plot() call feeds the legend; ax.legend() renders it
+# control position with loc=: "upper left", "lower right", "center", etc.
+ax.legend()
+
+ax.grid(axis="y", linestyle="--", alpha=0.4)
+
+plt.tight_layout()
+plt.show()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The <code>label=</code> parameter on each <code>plot()</code> call gives the line its legend entry. Then <code>ax.legend()</code> renders the legend box. If you forget either step — no legend appears.</p>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn</h2>
+
+      <p>The cell below contains precipitation data (millimetres of rain per month) for Athens and Thessaloniki. Your task: plot both on one chart with appropriate labels, a title, a legend, and a horizontal grid.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import matplotlib.pyplot as plt
+
+months = ["Jan","Feb","Mar","Apr","May","Jun",
+          "Jul","Aug","Sep","Oct","Nov","Dec"]
+
+# Monthly precipitation in mm
+athens       = [60, 46, 40, 26, 18,  6,  4,  6, 16, 51, 68, 72]
+thessaloniki = [46, 40, 42, 34, 44, 28, 24, 20, 28, 52, 64, 56]
+
+# Plot both lines, add title "Monthly Precipitation", y-label "mm",
+# a legend, and a horizontal dashed grid
+
+fig, ax = plt.subplots()
+
+# your code here</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> a chart communicates data structure at a glance in a way a table cannot. Matplotlib's two main objects are the <code>Figure</code> (canvas) and the <code>Axes</code> (plot area). You draw with <code>ax.plot()</code>, pass DataFrame columns directly as x and y arguments, add a second y axis with <code>ax.twinx()</code>, and polish with <code>plt.tight_layout()</code>. In the next chapter you will move on to bar charts and learn when to use each chart type.
+      </div>
+    </section>
+
+    <section id="part6">
+      <p class="section-label">Part Six</p>
+      <h2>Visualising a DataFrame</h2>
+
+      <p>In Book 4 you worked with pandas DataFrames. Every DataFrame column is already a list of numbers or labels, which means you can pass it directly to matplotlib — no manual list-building needed.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import matplotlib.pyplot as plt
+import pandas as pd
+
+# Build a small DataFrame — the same kind you loaded from CSV in Book 4
+df = pd.DataFrame({
+    "month": ["Jan","Feb","Mar","Apr","May","Jun",
+              "Jul","Aug","Sep","Oct","Nov","Dec"],
+    "athens_temp":  [10, 11, 14, 18, 23, 28, 32, 32, 27, 21, 16, 11],
+    "rainfall_mm":  [60, 46, 40, 26, 18,  6,  4,  6, 16, 51, 68, 72],
+})
+
+print(df.head())  # inspect the data first</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>DataFrame columns behave exactly like Python lists when passed to matplotlib. You reference them with <code>df["column_name"]</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import matplotlib.pyplot as plt
+import pandas as pd
+
+df = pd.DataFrame({
+    "month": ["Jan","Feb","Mar","Apr","May","Jun",
+              "Jul","Aug","Sep","Oct","Nov","Dec"],
+    "athens_temp":  [10, 11, 14, 18, 23, 28, 32, 32, 27, 21, 16, 11],
+    "rainfall_mm":  [60, 46, 40, 26, 18,  6,  4,  6, 16, 51, 68, 72],
+})
+
+fig, ax = plt.subplots()
+
+# Pass DataFrame columns directly — df["month"] and df["athens_temp"] are list-like
+ax.plot(df["month"], df["athens_temp"],
+        marker="o", color="tomato", label="Temperature (°C)")
+
+ax.set_title("Athens Climate")
+ax.set_ylabel("°C")
+ax.legend()
+ax.grid(axis="y", linestyle="--", alpha=0.4)
+
+plt.tight_layout()
+plt.show()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>You can also put two y axes on one chart when your columns have very different scales — temperature in degrees and rainfall in millimetres cannot share a y axis meaningfully. The <code>ax.twinx()</code> method creates a second y axis on the right side of the same chart.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — two y axes</div>
+        <textarea>import matplotlib.pyplot as plt
+import pandas as pd
+
+df = pd.DataFrame({
+    "month": ["Jan","Feb","Mar","Apr","May","Jun",
+              "Jul","Aug","Sep","Oct","Nov","Dec"],
+    "athens_temp":  [10, 11, 14, 18, 23, 28, 32, 32, 27, 21, 16, 11],
+    "rainfall_mm":  [60, 46, 40, 26, 18,  6,  4,  6, 16, 51, 68, 72],
+})
+
+fig, ax1 = plt.subplots()
+
+# Left y axis — temperature
+ax1.plot(df["month"], df["athens_temp"],
+         color="tomato", marker="o", label="Temp (°C)")
+ax1.set_ylabel("Temperature (°C)", color="tomato")
+ax1.tick_params(axis="y", labelcolor="tomato")  # colour the y-axis numbers to match
+
+# Right y axis — shares the same x axis but has its own y scale
+ax2 = ax1.twinx()
+ax2.bar(df["month"], df["rainfall_mm"],
+        color="steelblue", alpha=0.4, label="Rainfall (mm)")
+ax2.set_ylabel("Rainfall (mm)", color="steelblue")
+ax2.tick_params(axis="y", labelcolor="steelblue")
+
+fig.suptitle("Athens Climate — Temperature and Rainfall")
+fig.legend(loc="upper right", bbox_to_anchor=(0.88, 0.88))  # combined legend for both axes
+
+plt.tight_layout()
+plt.show()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>pandas .plot() shortcut:</strong> pandas DataFrames have a built-in <code>.plot()</code> method that calls matplotlib for you — <code>df.plot(x="month", y="athens_temp")</code>. It is convenient for quick exploration but gives you less control than calling matplotlib directly. Once you need custom colours, annotations, or multiple axes, the approach above is more flexible.
+      </div>
+    </section>
+
+    <section id="part7">
+      <p class="section-label">Part Seven</p>
+      <h2>Saving a Chart and Publishing It on a Web Page</h2>
+
+      <p>Running a chart in a notebook is one thing. Putting it on an actual web page is another. matplotlib makes it straightforward: instead of calling <code>plt.show()</code>, call <code>plt.savefig()</code> with a file path.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Save to file</div>
+        <textarea>import matplotlib.pyplot as plt
+
+years = [2019, 2020, 2021, 2022, 2023]
+values = [34.0, 7.4, 14.7, 27.8, 32.7]
+
+fig, ax = plt.subplots()
+ax.bar(years, values, color="steelblue")
+ax.set_title("Tourists to Greece (millions)")
+ax.set_ylabel("Millions")
+
+# savefig() must come BEFORE plt.show() — show() clears the figure
+plt.savefig(
+    "tourists.png",       # filename; extension sets the format: .png, .svg, .pdf
+    dpi=150,              # dots per inch — 150 is sharp on screen, 300 for print
+    bbox_inches="tight",  # crop whitespace around the figure
+    transparent=False,    # True gives a transparent background (useful for overlays)
+)
+
+# plt.show()  # optional — omit when saving for a web page</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>This writes <code>tourists.png</code> to the same folder as your script. You can then embed it in any HTML page with a standard image tag:</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">HTML · Embed the chart</div>
+        <textarea><img src="tourists.png"
+     alt="Bar chart showing tourists to Greece 2019–2023"
+     style="max-width:100%;" /></textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>For web publishing, <strong>SVG</strong> is often a better choice than PNG. An SVG file is a vector format — it scales to any size without becoming blurry, and it is usually smaller than a high-DPI PNG. Change the extension to <code>.svg</code> and matplotlib handles the rest. The HTML embed is identical.</p>
+
+      <div class="callout">
+        <strong>PNG vs SVG:</strong> use PNG when the chart contains many data points (scatter plots with thousands of dots render faster as PNG). Use SVG for bar charts, line charts, and anything you might need to display at different sizes — it will look sharper on retina screens and when printed. Both embed in HTML with a plain <code>&lt;img&gt;</code> tag.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book7-chapter-1.html">Previous: Chapter 1 — What Makes a Good Chart?</a>
+        <a href="book7-chapter-3.html">Next: Chapter 3 — Bar Charts and Line Charts</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book7-app.js"></script>
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

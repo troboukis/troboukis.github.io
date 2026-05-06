@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 7 · Chapter Four — Scatter Plots and Histograms · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 7 · Chapter Four — Scatter Plots and Histograms · Python for All" />
+  <meta property="og:description" content="Reveal relationships with scatter plots and distributions with histograms — then combine multiple charts into one figure using subplots." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 7 — Data Visualisation and Maps</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Four — Scatter Plots and Histograms</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Seven · Chapter Four</p>
+      <h2>Scatter Plots and Histograms</h2>
+      <p class="chapter-desc">Not all stories are about how things change over time. Sometimes the story is about relationships — does higher education spending correlate with better outcomes? Sometimes it is about shape — are prices clustered tightly or spread widely? Scatter plots and histograms answer those questions.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Scatter Plots — Revealing Relationships</h2>
+
+      <p><span class="dropcap">A</span> scatter plot places each observation as a dot on a two-dimensional plane. The x position encodes one variable, the y position encodes another. If a pattern emerges — a diagonal cloud, a curve, a cluster — there is a relationship worth investigating.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import matplotlib.pyplot as plt
+
+# GDP per capita (thousand €) vs. life expectancy for 15 EU countries
+gdp_per_capita  = [15, 18, 22, 26, 28, 31, 34, 36, 38, 41, 44, 48, 52, 58, 65]
+life_expectancy = [74, 75, 76, 77, 78, 78, 79, 79, 80, 80, 81, 81, 82, 82, 83]
+
+fig, ax = plt.subplots()
+
+ax.scatter(gdp_per_capita, life_expectancy,
+           color="steelblue",  # single colour for all dots; or pass a list for per-dot colour
+           alpha=0.8,           # transparency — essential when dots overlap; try 0.3 or 0.5
+           s=80,                # dot size in points²; try 20 (tiny) or 300 (large)
+           marker="o")          # dot shape — same options as plot(): "o" "s" "^" "D" "*" "+"
+
+ax.set_title("GDP per Capita vs. Life Expectancy — EU Sample")
+ax.set_xlabel("GDP per capita (thousand €)")
+ax.set_ylabel("Life expectancy (years)")
+ax.grid(linestyle="--", alpha=0.3)
+
+plt.tight_layout()
+plt.show()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The upward trend is visible immediately — wealthier countries tend to have longer life expectancy. Notice the <code>s=80</code> parameter, which sets the marker size in points squared. Increase it if you have few data points; decrease it if you have many and dots overlap.</p>
+
+      <div class="callout">
+        <strong>Correlation is not causation:</strong> a scatter plot shows that two things move together. It does not tell you which one causes the other, or whether both are caused by a third factor. Scatter plots are for spotting patterns, not for proving cause and effect.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Using Colour and Size as Extra Dimensions</h2>
+
+      <p>A basic scatter plot encodes two variables. But a dot can carry more information: its colour can encode a category, and its size can encode a third numeric variable. This is how classic "bubble charts" work.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import matplotlib.pyplot as plt
+
+# Greek regional capitals: population, avg income (€/yr), unemployment %
+cities      = ["Athens", "Thessaloniki", "Patras", "Heraklion",
+               "Larissa", "Volos", "Ioannina", "Kavala"]
+population  = [664_046, 315_196, 167_446, 173_993,
+               163_380, 144_449, 112_486,  54_027]
+income      = [18200, 15800, 13200, 14100, 12800, 13500, 12400, 11900]
+unemployment = [12.1, 14.3, 18.2, 15.6, 16.8, 15.1, 17.4, 19.2]
+
+# Scale population to a reasonable dot size
+sizes = [p / 3000 for p in population]
+
+fig, ax = plt.subplots(figsize=(9, 5))
+
+scatter = ax.scatter(
+    income, unemployment,
+    s=sizes,             # dot size — here driven by population; a scalar sets all dots equal
+    c=income,            # maps a numeric array to colours using the scale in cmap=
+    cmap="RdYlGn",       # colour map — see callout below for options
+    alpha=0.7,           # transparency; lower values help when dots overlap
+    edgecolors="gray",   # ring colour around each dot; "none" removes the ring entirely
+    linewidths=0.5       # thickness of that ring in points
+)
+
+# Label each city
+for i, city in enumerate(cities):
+    ax.annotate(city, (income[i], unemployment[i]),
+                textcoords="offset points", xytext=(5, 4), fontsize=8)
+
+ax.set_title("Greek Regional Capitals — Income vs. Unemployment")
+ax.set_xlabel("Average annual income (€)")
+ax.set_ylabel("Unemployment (%)")
+ax.grid(linestyle="--", alpha=0.3)
+
+plt.colorbar(scatter, ax=ax, label="Income (€)")
+plt.tight_layout()
+plt.show()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>This chart encodes four variables: x (income), y (unemployment), colour (income again — reinforcing the pattern), and size (population). The <code>cmap="RdYlGn"</code> parameter uses a red-yellow-green colour map — low values in red, high in green. <code>plt.colorbar()</code> adds the legend strip that explains the colour scale.</p>
+
+      <div class="callout">
+        <strong>Don't overdo it:</strong> encoding four or five variables on one chart is only useful if each dimension adds a distinct insight. If colour and x axis tell the same story, the colour is redundant. Here it deliberately reinforces the message — higher income, greener dot, lower unemployment.
+      </div>
+
+      <div class="callout">
+        <strong>Colour map options</strong> — pass any of these as <code>cmap=</code>:<br><br>
+        Sequential (low → high): <code>"Blues"</code> <code>"Greens"</code> <code>"Reds"</code> <code>"Oranges"</code> <code>"viridis"</code> <code>"plasma"</code> <code>"YlOrRd"</code> <code>"YlGnBu"</code><br>
+        Diverging (low ↔ high around a midpoint): <code>"RdYlGn"</code> <code>"RdBu"</code> <code>"coolwarm"</code> <code>"bwr"</code><br>
+        Perceptually uniform (good default choice): <code>"viridis"</code> <code>"cividis"</code> <code>"inferno"</code><br><br>
+        Append <code>"_r"</code> to any name to reverse the direction — e.g. <code>"Blues_r"</code> goes from dark to light.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Histograms — Showing Distributions</h2>
+
+      <p>A histogram answers a different question from a scatter plot. Instead of "how do two variables relate?", it asks "how are values distributed?" You give it a single list of numbers and it divides them into bins, counting how many fall into each.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import matplotlib.pyplot as plt
+
+# Monthly rents (€) for 40 apartments listed in Athens
+rents = [
+    # main market cluster
+    620,  680,  710,  730,  750,  760,  770,  780,  790,  800,
+    810,  820,  830,  840,  850,  860,  870,  880,  900,  920,
+    940,  960,  980,  690,  840,  760,  810,  720,  870,  950,
+    # premium segment
+   1300, 1350, 1400, 1420, 1450, 1500, 1380, 1600, 1250, 1480,
+]
+
+fig, ax = plt.subplots()
+
+ax.hist(rents,
+        bins=12,             # number of bins — try 5 (coarse) or 25 (granular) to see the effect
+        color="steelblue",
+        edgecolor="white",   # line between bars; "none" removes it for a solid block look
+        linewidth=0.5,       # thickness of that edge line
+        alpha=0.85)          # bar transparency
+
+# Other useful hist() options (not shown here):
+# density=True    → y axis shows probability density instead of raw count
+# histtype="step" → unfilled outline only; "barstacked" → stacked bars for multiple datasets
+# cumulative=True → each bar shows the running total count up to that point
+
+ax.set_title("Distribution of Monthly Apartment Rents — Athens")
+ax.set_xlabel("Rent (€/month)")
+ax.set_ylabel("Number of apartments")
+ax.grid(axis="y", linestyle="--", alpha=0.4)
+
+plt.tight_layout()
+plt.show()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The shape reveals something a mean or median cannot: there are two clusters of rents — a main market around €800 and a smaller premium market around €1,400. Reporting only the average would obscure this bimodal structure.</p>
+
+      <p>The <code>bins=</code> parameter controls how many bars the range is divided into. Too few bins and you lose detail; too many and noise dominates. Try changing it to <code>bins=5</code> and <code>bins=60</code> to see the effect.</p>
+
+      <div class="callout">
+        <strong>Mean vs. median in skewed distributions:</strong> when a histogram has a long tail to the right (a few very expensive apartments), the mean is pulled upward by those outliers. The median — the value that splits the distribution in half — is more representative. Both numbers together tell a richer story.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Subplots — Multiple Charts in One Figure</h2>
+
+      <p>Often the most informative layout is to place two or three related charts side by side. <code>plt.subplots(nrows, ncols)</code> creates a grid of axes. The second return value is an array of axes objects — one per cell in the grid.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import matplotlib.pyplot as plt
+
+# Monthly rents (€) for 25 apartments in each city
+athens = [
+     650,  720,  780,  830,  690,  910,  760,  840,  700,  870,
+     980, 1050,  750,  820,  670,  930,  800,  740,  860,  710,
+    1100,  790,  680, 1200,  770,
+]
+thessaloniki = [
+    480, 530, 560, 510, 590, 620, 470, 545, 575, 500,
+    640, 490, 555, 610, 525, 460, 580, 535, 565, 495,
+    660, 515, 545, 485, 630,
+]
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+
+# Left subplot
+axes[0].hist(athens, bins=10, color="steelblue", edgecolor="white")
+axes[0].set_title("Athens")
+axes[0].set_xlabel("Rent (€/month)")
+axes[0].set_ylabel("Count")
+
+# Right subplot
+axes[1].hist(thessaloniki, bins=10, color="tomato", edgecolor="white")
+axes[1].set_title("Thessaloniki")
+axes[1].set_xlabel("Rent (€/month)")
+
+# Share y axis so both charts use the same scale
+axes[0].sharey(axes[1])
+
+fig.suptitle("Rent Distributions — Athens vs. Thessaloniki", fontsize=13)
+
+plt.tight_layout()
+plt.show()</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>axes[0].sharey(axes[1])</code> forces both plots to use the same y scale, which is essential for a fair comparison. Without it, a chart with fewer data points could use a taller y axis and appear to show a broader distribution.</p>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Your Turn</h2>
+
+      <p>The data below shows exam scores for two groups of students: one that attended extra study sessions and one that did not. Create a side-by-side histogram comparing the two distributions. Are the distributions different in shape, not just in average?</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>import matplotlib.pyplot as plt
+
+# Exam scores (out of 100) for two groups of 30 students
+with_sessions = [
+    85, 78, 90, 72, 88, 76, 83, 91, 69, 80,
+    74, 87, 93, 71, 82, 79, 68, 85, 77, 88,
+    92, 73, 81, 86, 70, 84, 89, 75, 83, 78,
+]
+without_sessions = [
+    62, 55, 70, 48, 65, 73, 58, 44, 67, 51,
+    78, 60, 42, 69, 53, 71, 57, 46, 63, 74,
+    50, 68, 55, 77, 49, 61, 72, 56, 64, 59,
+]
+
+# Create a 1x2 subplot figure.
+# Left chart: histogram for "with_sessions" in steelblue
+# Right chart: histogram for "without_sessions" in tomato
+# Share the y axis. Add a figure supertitle.
+# x-label for both: "Score"
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+
+# your code here</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> scatter plots reveal relationships between two numeric variables; colour and size can encode two more. Histograms reveal the shape of a distribution — something a mean can never show. Subplots let you place multiple charts in one figure for direct comparison; share axes with <code>sharey()</code> or <code>sharex()</code> to keep comparisons fair. In the next chapter you will leave charts behind and move into the third dimension of data journalism: geography.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book7-chapter-3.html">Previous: Chapter 3 — Bar Charts and Line Charts</a>
+        <a href="book7-chapter-5.html">Next: Chapter 5 — Geographic Data and Maps</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book7-app.js"></script>
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>
