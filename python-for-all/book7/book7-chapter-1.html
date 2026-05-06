@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 7 · Chapter One — What Makes a Good Chart? · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 7 · Chapter One — What Makes a Good Chart? · Python for All" />
+  <meta property="og:description" content="Before you write a single line of Python, learn the principles that separate a chart that informs from one that misleads or bores." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 7 — Data Visualisation and Maps</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter One — What Makes a Good Chart?</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Seven · Chapter One</p>
+      <h2>What Makes a Good Chart?</h2>
+      <p class="chapter-desc">Before you write a single line of Python, you need the principles that separate a chart that informs from one that misleads or bores. This chapter is about thinking — about what visualisation is for, how the human eye reads a page, why pie charts are almost always the wrong choice, and how colour can carry meaning or destroy it.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>Two Reasons to Visualise</h2>
+
+      <p><span class="dropcap">T</span>here are two fundamentally different reasons to make a chart, and confusing them is the root cause of most bad visualisations.</p>
+
+      <p>The first reason is <strong>analytical</strong>. You are using a chart to think — to find patterns in data you do not yet understand. The statistician John Tukey called this <em>Exploratory Data Analysis</em>. In 1977 he argued that before you test a hypothesis, you should look at your data. Draw it. Rotate it. See what is there. These charts are rough, quick, and private. They are not meant to be published.</p>
+
+      <p>The second reason is <strong>presentative</strong>. You have already found your story and now you are building a chart to communicate it to an audience. This chart will be seen by people who did not collect the data, who are busy, and who will give it a few seconds before moving on. It must earn their attention instantly.</p>
+
+      <p>Florence Nightingale's 1858 rose diagram — one of the most famous charts in history — is a perfect example of presentative visualisation. Nightingale had already done her analytical work; she knew that more soldiers were dying from preventable disease than from battle wounds. The rose diagram was not how she found that fact. It was how she persuaded the British military to change.</p>
+
+      <figure style="margin:2rem 0;text-align:center;">
+        <img src="images/nightingale.jpg" alt="Florence Nightingale's 1858 rose diagram showing causes of mortality in the British army" style="max-width:100%;border-radius:4px;" />
+        <figcaption style="margin-top:0.6rem;font-size:0.85rem;color:#666;">Florence Nightingale, <em>Diagram of the Causes of Mortality in the Army in the East</em>, 1858. Blue = preventable disease, red = battle wounds, black = other causes.</figcaption>
+      </figure>
+
+      <p>Presentative visualisation comes with a specific set of obligations that analytical charts do not have:</p>
+
+      <ul>
+        <li><strong>You must understand your audience.</strong> The same data can require completely different approaches depending on whether the reader is a specialist, a policy-maker, or the general public. What is obvious to you — axis units, the meaning of a percentage, what counts as a large number in your domain — may be entirely opaque to them.</li>
+        <li><strong>You show patterns, comparisons, or trends — not raw data points.</strong> Do not plot every observation and expect readers to find the story themselves. Your job is to find it first, then make it visible.</li>
+        <li><strong>You need to guide the audience through your data.</strong> The chart should have a reading order: a title that tells readers what they are about to see, a visual that confirms it, and annotations that point to the moment that matters.</li>
+        <li><strong>You need to provide focus.</strong> A chart that shows everything equally emphasises nothing. If everything is important, nothing is.</li>
+        <li><strong>Remember that you know what the columns and encodings represent. Your audience does not.</strong> Every axis, colour, and shape needs to be explained. What feels like over-labelling to you often feels like barely enough to a reader seeing the data for the first time.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>The question to ask before you start:</strong> Am I visualising to <em>discover</em>, or to <em>communicate</em>? The answer changes almost every decision that follows — how much time to spend, how much annotation to add, whether to explain methodology, and what the reader is expected to take away.
+      </div>
+
+      <p>In this book you will mostly be building presentative charts. The analytical work — loading data, calculating summaries, spotting outliers — happens in the Python cells. The charts are what you show to a reader who has not seen any of that work.</p>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>Visual Hierarchy</h2>
+
+      <p>Human eyes do not scan a page randomly. They move from large to small, dark to light, coloured to grey, isolated to crowded. This is <strong>visual hierarchy</strong> — the implicit reading order your chart creates before the reader has read a single word.</p>
+
+      <p>A good chart uses hierarchy deliberately. The most important piece of information should be the most visually dominant. The least important — the axis labels, the source note, the tick marks — should recede. When a reader's eye lands on your chart, the story should be obvious before they have had time to read the title.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2rem 0;">
+        <figure style="margin:0;text-align:center;">
+          <img src="images/with.png" alt="Chart without visual hierarchy — equal visual weight on all elements" style="max-width:100%;border-radius:4px;border:1px solid #e0e0e0;" />
+          <figcaption style="margin-top:0.6rem;font-size:0.85rem;color:#666;">Without hierarchy — every element competes equally for attention.</figcaption>
+        </figure>
+        <figure style="margin:0;text-align:center;">
+          <img src="images/without.png" alt="Chart with visual hierarchy — key information visually dominant" style="max-width:100%;border-radius:4px;border:1px solid #e0e0e0;" />
+          <figcaption style="margin-top:0.6rem;font-size:0.85rem;color:#666;">With hierarchy — the story is obvious before the reader has finished reading the title.</figcaption>
+        </figure>
+      </div>
+
+      <p>The four tools that create hierarchy are:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>How it works</th>
+            <th>Common mistake</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Size</strong></td>
+            <td>Larger elements attract attention first.</td>
+            <td>Making the title enormous and the data small.</td>
+          </tr>
+          <tr>
+            <td><strong>Colour</strong></td>
+            <td>Saturated or contrasting colours stand out from grey or muted ones.</td>
+            <td>Colouring every bar a different colour so nothing stands out.</td>
+          </tr>
+          <tr>
+            <td><strong>Weight</strong></td>
+            <td>Bold or thick lines pull attention before thin ones.</td>
+            <td>Using bold for axis labels and normal weight for data labels.</td>
+          </tr>
+          <tr>
+            <td><strong>Position</strong></td>
+            <td>Top-left is read before bottom-right; isolated elements attract attention.</td>
+            <td>Burying the key number in the bottom-right corner.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>The cognitive load rule:</strong> When readers must work to decipher a chart — searching for a legend, mentally converting units, puzzling over an unlabelled axis — they stop absorbing the information. Every second spent decoding is a second not spent understanding. Remove all friction.
+      </div>
+
+      <p>In practice this means: put labels directly on lines instead of using a legend, write the unit in the axis title rather than leaving the reader to guess, and annotate the one data point that is the story rather than expecting readers to find it themselves.</p>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Rule One — No Pie Charts</h2>
+
+      <p>The pie chart is the most popular chart type in the world, and it is almost always the wrong choice. Here is why.</p>
+
+      <p>A pie chart asks readers to compare <em>angles</em>, or <em>arc lengths</em>, or <em>areas</em> — depending on where they look. Humans are very poor at all three. We are good at comparing lengths along a common baseline. That is exactly what a bar chart provides.</p>
+
+      <p>Consider a pie chart with five slices: 31%, 27%, 22%, 12%, and 8%. Can you rank them instantly? Now imagine the same five numbers as horizontal bars. The ranking is obvious before you have finished reading the labels.</p>
+
+      <figure style="margin:2rem 0;text-align:center;">
+        <img src="images/pie.png" alt="Example pie chart illustrating the difficulty of comparing slice sizes" style="max-width:100%;border-radius:4px;" />
+        <figcaption style="margin-top:0.6rem;font-size:0.85rem;color:#666;">How many slices can you rank confidently without reading the labels?</figcaption>
+      </figure>
+
+      <p>The problem compounds when slices have similar values. Two slices of 31% and 29% are visually indistinguishable in a pie chart. In a bar chart, the difference is clear. The moment you add a percentage label to each slice to compensate, you have admitted that the chart is not doing its job — the reader is reading numbers, not seeing a visual comparison.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Pie chart</th>
+            <th>Bar chart</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Compares angles and areas — humans are poor at this.</td>
+            <td>Compares lengths along a common baseline — humans excel at this.</td>
+          </tr>
+          <tr>
+            <td>Falls apart with more than four or five slices.</td>
+            <td>Handles any number of categories cleanly.</td>
+          </tr>
+          <tr>
+            <td>Cannot show similar values clearly.</td>
+            <td>Small differences are immediately visible.</td>
+          </tr>
+          <tr>
+            <td>Often requires percentage labels to be readable — defeating the purpose.</td>
+            <td>Optionally enhanced with value labels, but readable without them.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>The only valid use of a pie chart</strong> is when you have exactly two categories and you want to emphasise that one of them is roughly half, a third, or a quarter of the whole — proportions that humans can estimate from a circle. For everything else, use a bar chart.
+      </div>
+
+      <p>The same argument applies to <strong>donut charts</strong>, which are pie charts with a hole in the middle. The hole makes the comparison even harder by removing the central reference point. If you see a donut chart, replace it with a bar chart.</p>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Colour as a Narrative Tool</h2>
+
+      <p>Colour is the most powerful and most misused tool in data visualisation. Used well, it carries meaning before the reader reads a word. Used carelessly, it creates noise and introduces bias.</p>
+
+      <figure style="margin:2rem 0;text-align:center;">
+        <img src="images/color.png" alt="Examples of colour palettes and their emotional effect in data visualisation" style="max-width:100%;border-radius:4px;" />
+      </figure>
+
+      <h3>Colour has emotional weight</h3>
+
+      <p>Dark, desaturated palettes read as serious, authoritative, and sober. Bright, saturated palettes read as playful, urgent, or alarming. This is not accidental — it is cultural convention built up over decades of media, branding, and design. A chart about road fatalities in dark navy and charcoal will land differently than the same chart in cheerful pastels, even with identical numbers.</p>
+
+      <p>Think of colour as a second title. The <em>first</em> title says what the chart is about. The colour palette says how you feel about it. Both are editorial decisions, and readers will sense them even if they cannot articulate them.</p>
+
+      <h3>Colour carries cultural assumptions</h3>
+
+      <p>Some colour associations are near-universal: red for danger, green for safe, blue for water or cold, yellow for caution. Others are deeply cultural. In many Western contexts, pink is associated with girls and blue with boys — a stereotype so entrenched that reaching for those colours when charting gender data is almost automatic. Resist it. That colour choice is not neutral; it reinforces the category it purports to merely label.</p>
+
+      <p>Before you assign colours to categories, ask: <em>Am I choosing this colour because it encodes information, or because it confirms an expectation?</em> The former is visualisation. The latter is propaganda.</p>
+
+      <h3>Colour and overlap</h3>
+
+      <p>When data points or shapes overlap — scatter plots, area charts, bubble maps — solid colours hide whatever is underneath. Reducing the opacity (the <code>alpha</code> parameter in matplotlib) reveals density. Where many points overlap, the area darkens; where points are sparse, it stays light. This turns a problem — overlap — into a feature — a density map.</p>
+
+      <h3>Building a palette</h3>
+
+      <p>For most charts, use a single colour for all bars or lines and vary only when the variation carries meaning. If you are comparing two groups, use two colours. If you are highlighting one bar out of ten, make nine bars grey and one bar your accent colour. A chart that uses ten different colours for ten bars is not more informative — it is more confusing.</p>
+
+      <div class="callout">
+        <strong>Tool:</strong> <a href="https://coolors.co" target="_blank" rel="noopener">coolors.co</a> generates harmonious colour palettes and lets you check them for colour-blind accessibility. About 8% of men have some form of colour vision deficiency — red-green combinations are the most dangerous. If your chart relies on red and green to encode a distinction, it is invisible to a significant fraction of your readers.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Where to Look for Inspiration</h2>
+
+      <p>Learning to make good charts is partly technical and partly aesthetic. The technical part you can learn from documentation. The aesthetic part you learn by looking at work that is excellent and asking: <em>What did they do, and why does it work?</em></p>
+
+      <p>These are the resources worth bookmarking:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Resource</th>
+            <th>What it offers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>data-to-viz.com</strong></td>
+            <td>A decision tree: given your data type, which chart is appropriate? Includes common mistakes for each chart type and Python/R code examples.</td>
+          </tr>
+          <tr>
+            <td><strong>The Pudding</strong> (pudding.cool)</td>
+            <td>Long-form data journalism with custom, innovative visualisations. Each piece demonstrates what is possible when you treat the chart as part of the story rather than an appendix to it.</td>
+          </tr>
+          <tr>
+            <td><strong>NYT Graphics</strong> (nytimes.com/spotlight/graphics)</td>
+            <td>The gold standard for news-driven data visualisation. Study how they annotate, how they handle mobile layouts, and how they explain methodology without interrupting the story.</td>
+          </tr>
+          <tr>
+            <td><strong>Reuters Graphics</strong> (graphics.reuters.com)</td>
+            <td>Clean, international, rigorous. Particularly strong on maps and on presenting data across very different cultural contexts.</td>
+          </tr>
+          <tr>
+            <td><strong>FlowingData</strong> (flowingdata.com)</td>
+            <td>Nathan Yau's site: tutorials, analysis of good and bad charts, and a weekly newsletter. One of the best places to develop critical judgment about visualisation choices.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The habit that will improve your work faster than any tutorial is this: when you see a published chart that stops you — that makes you understand something immediately — ask yourself what it did. Was it the sorting? The colour? The annotation? The fact that it stripped away three things you would have included? Note it down. Build a file of examples. Your eye will train faster than your hands.</p>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> visualisation is either analytical (thinking) or presentative (communicating) — and the difference changes everything about how you build it. Visual hierarchy is not decoration; it is the reading order you impose on your reader. Pie charts ask readers to compare angles and areas, which humans do poorly; bar charts ask them to compare lengths, which they do instantly. Colour carries emotional weight and cultural assumptions before a word is read. In the next chapter you will write your first Python chart with matplotlib.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="../book6/book6-chapter-4.html">Previous: Book 6 · Chapter 4</a>
+        <a href="book7-chapter-2.html">Next: Chapter 2 — Why Visualise Data?</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

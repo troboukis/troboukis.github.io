@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 7 · Chapter Five — Geographic Data and Maps · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 7 · Chapter Five — Geographic Data and Maps · Python for All" />
+  <meta property="og:description" content="Learn how geographic data is structured, explore GeoJSON, and build interactive maps that plot locations from real data." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+  <!-- Leaflet for the live interactive map demo -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 7 — Data Visualisation and Maps</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Five — Geographic Data and Maps</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner">
+      <p class="chapter-number">Book Seven · Chapter Five</p>
+      <h2>Geographic Data and Maps</h2>
+      <p class="chapter-desc">Every location on Earth can be described with two numbers. Every boundary — a country, a municipality, a flood zone — can be described as a list of coordinate pairs. Once you understand that, geographic data stops being mysterious and becomes just another dataset. In this chapter you will learn how location data is structured, how to work with it in Python, and how to build interactive maps.</p>
+    </div>
+
+    <section id="part1">
+      <p class="section-label">Part One</p>
+      <h2>The Language of Place — Latitude and Longitude</h2>
+
+      <p><span class="dropcap">E</span>very point on Earth has two coordinates: <strong>latitude</strong> (how far north or south of the equator, from −90° to 90°) and <strong>longitude</strong> (how far east or west of the prime meridian, from −180° to 180°). Together they pinpoint any location uniquely.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>City</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Athens</td><td>37.9838</td><td>23.7275</td></tr>
+          <tr><td>Thessaloniki</td><td>40.6401</td><td>22.9444</td></tr>
+          <tr><td>Heraklion</td><td>35.3387</td><td>25.1442</td></tr>
+          <tr><td>Patras</td><td>38.2466</td><td>21.7346</td></tr>
+          <tr><td>Rhodes</td><td>36.4341</td><td>28.2176</td></tr>
+        </tbody>
+      </table>
+
+      <p>In Python, these are just numbers. A city is a dictionary. A list of cities is a list of dictionaries — the same structure you have been working with since Book 4.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>cities = [
+    {"name": "Athens",       "lat": 37.9838, "lon": 23.7275, "population": 664_046},
+    {"name": "Thessaloniki", "lat": 40.6401, "lon": 22.9444, "population": 315_196},
+    {"name": "Heraklion",   "lat": 35.3387, "lon": 25.1442, "population": 173_993},
+    {"name": "Patras",       "lat": 38.2466, "lon": 21.7346, "population": 167_446},
+    {"name": "Rhodes",       "lat": 36.4341, "lon": 28.2176, "population":  50_267},
+]
+
+# Print a summary
+for city in cities:
+    print(f"{city['name']:15}  lat={city['lat']}  lon={city['lon']}")
+
+# Find the northernmost city
+northernmost = max(cities, key=lambda c: c["lat"])
+print("\nNorthernmost city:", northernmost["name"])</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Order matters:</strong> different systems use different conventions. Leaflet.js (the JavaScript mapping library) expects <code>[latitude, longitude]</code>. GeoJSON (the geographic data format) expects <code>[longitude, latitude]</code> — the opposite. Getting this backwards is one of the most common mapping bugs. Always check the documentation.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>GeoJSON — Geography as Data</h2>
+
+      <p>GeoJSON is the standard format for geographic data on the web. It is JSON — the same format you learned in Book 6 — with a specific structure for describing points, lines, and polygons.</p>
+
+      <p>A <strong>Point</strong> is a single location. A <strong>LineString</strong> is a sequence of points forming a path (a road, a river). A <strong>Polygon</strong> is a closed area (a country, a park). All three wrap their geometry in a <strong>Feature</strong>, and a list of Features is a <strong>FeatureCollection</strong>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it</div>
+        <textarea>import json
+
+# A GeoJSON FeatureCollection with two city points.
+# GeoJSON structure: FeatureCollection → features list → Feature → geometry + properties
+geojson = {
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",               # other types: "LineString", "Polygon", "MultiPolygon"
+                "coordinates": [23.7275, 37.9838]  # GeoJSON order is [longitude, latitude] — not lat/lon!
+            },
+            "properties": {         # properties can hold any extra fields you need
+                "name": "Athens",
+                "population": 664_046
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [22.9444, 40.6401]
+            },
+            "properties": {
+                "name": "Thessaloniki",
+                "population": 315_196
+            }
+        }
+    ]
+}
+
+# Access it exactly as you would any nested dictionary
+for feature in geojson["features"]:
+    coords = feature["geometry"]["coordinates"]  # [lon, lat]
+    props  = feature["properties"]
+    print(f"{props['name']}: lon={coords[0]}, lat={coords[1]}, pop={props['population']:,}")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>A GeoJSON file is just a text file with a <code>.geojson</code> extension. You read it with <code>json.load()</code>, and you work with it as a regular Python dictionary. Boundary files for every country and administrative division in the world are available for free from sources like Natural Earth and the EU's GISCO service.</p>
+
+      <div class="callout">
+        <strong>Finding GeoJSON files:</strong> Natural Earth (<code>naturalearthdata.com</code>) provides country and region boundaries at multiple scales. The EU's GISCO service provides administrative boundaries for Greece and all EU member states. Search for "GeoJSON Greece municipalities" to find pre-made files ready to use.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>Your First Interactive Map — Leaflet.js</h2>
+
+      <p>Python's <code>folium</code> library generates interactive maps as HTML files. Under the hood it uses <strong>Leaflet.js</strong>, a JavaScript mapping library. Because Leaflet is JavaScript, you can also use it directly in any HTML page — exactly as you did in Book 3.</p>
+
+      <p>The map below is a live Leaflet.js map embedded in this page. Zoom in and out, and click the markers.</p>
+
+      <div id="demo-map" style="height:350px;border-radius:6px;border:1px solid #ddd;margin:24px 0;"></div>
+
+      <script>
+        (function() {
+          const map = L.map("demo-map").setView([38.5, 24.5], 6);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+          }).addTo(map);
+
+          const cities = [
+            {name: "Athens",       lat: 37.9838, lon: 23.7275, pop: "664,046"},
+            {name: "Thessaloniki", lat: 40.6401, lon: 22.9444, pop: "315,196"},
+            {name: "Heraklion",   lat: 35.3387, lon: 25.1442, pop: "173,993"},
+            {name: "Patras",       lat: 38.2466, lon: 21.7346, pop: "167,446"},
+            {name: "Rhodes",       lat: 36.4341, lon: 28.2176, pop: "50,267"},
+          ];
+
+          cities.forEach(c => {
+            L.marker([c.lat, c.lon])
+              .bindPopup(`<strong>${c.name}</strong><br>Population: ${c.pop}`)
+              .addTo(map);
+          });
+        })();
+      </script>
+
+      <p>That map was produced by a small block of JavaScript at the bottom of this page. You do not need to write it from scratch — the <code>folium</code> library generates exactly this kind of code for you from Python. Here is the equivalent Python code you would run in a Jupyter notebook or a local script:</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import folium
+
+# Create a map centred on Greece
+m = folium.Map(location=[38.5, 24.5], zoom_start=6)
+
+cities = [
+    {"name": "Athens",       "lat": 37.9838, "lon": 23.7275, "population": 664_046},
+    {"name": "Thessaloniki", "lat": 40.6401, "lon": 22.9444, "population": 315_196},
+    {"name": "Heraklion",   "lat": 35.3387, "lon": 25.1442, "population": 173_993},
+    {"name": "Patras",       "lat": 38.2466, "lon": 21.7346, "population": 167_446},
+    {"name": "Rhodes",       "lat": 36.4341, "lon": 28.2176, "population":  50_267},
+]
+
+for city in cities:
+    folium.Marker(
+        location=[city["lat"], city["lon"]],
+        popup=f"{city['name']} — pop. {city['population']:,}",
+        tooltip=city["name"]
+    ).addTo(m)
+
+# Save to an HTML file you can open in any browser
+m.save("greek_cities.html")</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Install folium:</strong> <code>pip install folium</code> in your terminal or <code>!pip install folium</code> in a Jupyter notebook cell. Folium is not available in this browser environment, but it runs locally on your machine. The output is a standalone HTML file you can open in any browser or embed in a web page.
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>Scaling Marker Size to Data</h2>
+
+      <p>A map of points is more informative when the size or colour of each marker encodes a value. In folium you use <code>folium.CircleMarker</code> instead of <code>folium.Marker</code>, and you compute the radius from your data.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import folium
+import math
+
+cities = [
+    {"name": "Athens",       "lat": 37.9838, "lon": 23.7275, "population": 664_046},
+    {"name": "Thessaloniki", "lat": 40.6401, "lon": 22.9444, "population": 315_196},
+    {"name": "Heraklion",   "lat": 35.3387, "lon": 25.1442, "population": 173_993},
+    {"name": "Patras",       "lat": 38.2466, "lon": 21.7346, "population": 167_446},
+    {"name": "Rhodes",       "lat": 36.4341, "lon": 28.2176, "population":  50_267},
+]
+
+m = folium.Map(location=[38.5, 24.5], zoom_start=6)
+
+for city in cities:
+    # Scale radius logarithmically so Athens doesn't dwarf everything
+    radius = math.log(city["population"]) * 1.5
+
+    folium.CircleMarker(
+        location=[city["lat"], city["lon"]],
+        radius=radius,
+        color="steelblue",
+        fill=True,
+        fill_color="steelblue",
+        fill_opacity=0.5,
+        popup=f"{city['name']}<br>{city['population']:,} inhabitants"
+    ).addTo(m)
+
+m.save("greek_cities_sized.html")</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>Using <code>math.log(population)</code> compresses the scale so that Athens (664,000 people) does not produce a circle 13 times larger than Rhodes (50,000). The logarithm preserves the relative ordering while making all circles visually comparable.</p>
+
+      <p>Below is a live version of the same idea, rendered directly with Leaflet.js:</p>
+
+      <div id="bubble-map" style="height:350px;border-radius:6px;border:1px solid #ddd;margin:24px 0;"></div>
+
+      <script>
+        (function() {
+          const map = L.map("bubble-map").setView([38.5, 24.5], 6);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+          }).addTo(map);
+
+          const cities = [
+            {name: "Athens",       lat: 37.9838, lon: 23.7275, pop: 664046},
+            {name: "Thessaloniki", lat: 40.6401, lon: 22.9444, pop: 315196},
+            {name: "Heraklion",   lat: 35.3387, lon: 25.1442, pop: 173993},
+            {name: "Patras",       lat: 38.2466, lon: 21.7346, pop: 167446},
+            {name: "Rhodes",       lat: 36.4341, lon: 28.2176, pop:  50267},
+          ];
+
+          cities.forEach(c => {
+            const radius = Math.log(c.pop) * 1.5;
+            L.circleMarker([c.lat, c.lon], {
+              radius: radius,
+              color: "steelblue",
+              fillColor: "steelblue",
+              fillOpacity: 0.5,
+              weight: 1
+            })
+            .bindPopup(`<strong>${c.name}</strong><br>${c.pop.toLocaleString()} inhabitants`)
+            .bindTooltip(c.name)
+            .addTo(map);
+          });
+        })();
+      </script>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>Choropleth Maps — Colouring Regions by Value</h2>
+
+      <p>A <strong>choropleth</strong> map colours geographic regions by a numeric value. You have seen them in news coverage of election results, unemployment rates, or COVID case rates. The two inputs are a GeoJSON boundary file and a dataset that shares an identifier with the boundaries.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Copy to your notebook</div>
+        <textarea readonly>import folium
+import pandas as pd
+
+# A DataFrame linking region codes to unemployment rates
+data = pd.DataFrame({
+    "region_code": ["EL30", "EL41", "EL52", "EL61", "EL62", "EL63", "EL64", "EL65"],
+    "region_name": ["Attica", "North Aegean", "South Aegean", "Thessaly",
+                    "Ionian Islands", "Western Greece", "Central Greece", "Peloponnese"],
+    "unemployment": [13.2, 18.1, 11.4, 17.6, 12.8, 22.1, 19.3, 18.7]
+})
+
+# Load a GeoJSON file with Greek region boundaries
+# (download from: https://ec.europa.eu/eurostat/web/gisco/geodata)
+# geojson_path = "greece_regions.geojson"
+
+m = folium.Map(location=[38.5, 24.0], zoom_start=6)
+
+folium.Choropleth(
+    geo_data=geojson_path,          # path to your GeoJSON file
+    data=data,
+    columns=["region_code", "unemployment"],
+    key_on="feature.properties.NUTS_ID",  # the key in the GeoJSON properties
+    fill_color="YlOrRd",
+    fill_opacity=0.7,
+    line_opacity=0.3,
+    legend_name="Unemployment rate (%)",
+    nan_fill_color="lightgray"
+).add_to(m)
+
+m.save("greece_unemployment.html")</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>The key line is <code>key_on="feature.properties.NUTS_ID"</code>. This tells folium which field inside the GeoJSON properties to use as the join key — it must match a column in your DataFrame. Every boundary file uses different property names, so always inspect the GeoJSON first to find the right field.</p>
+
+      <div class="callout">
+        <strong>Colour scales:</strong> folium supports all ColorBrewer scales. <code>"YlOrRd"</code> (yellow-orange-red) works well for rates where higher values are bad. <code>"RdYlGn"</code> (red-yellow-green) is good when higher is better. Avoid rainbow scales (<code>"Spectral"</code>) for continuous data — they are hard to interpret and inaccessible to colour-blind readers.
+      </div>
+    </section>
+
+    <section id="part6">
+      <p class="section-label">Part Six</p>
+      <h2>Your Turn — Explore the Map</h2>
+
+      <p>The Python cells in this chapter run in your browser and support coordinates and geographic data structures. Try the exercises below.</p>
+
+      <p>First: given a list of locations, find which two are furthest apart (largest difference in latitude). Use plain Python — no libraries needed.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Your turn</div>
+        <textarea>locations = [
+    {"name": "Alexandroupoli", "lat": 40.8453, "lon": 25.8742},
+    {"name": "Athens",          "lat": 37.9838, "lon": 23.7275},
+    {"name": "Kalamata",        "lat": 37.0365, "lon": 22.1143},
+    {"name": "Rhodes",          "lat": 36.4341, "lon": 28.2176},
+    {"name": "Thessaloniki",    "lat": 40.6401, "lon": 22.9444},
+    {"name": "Heraklion",       "lat": 35.3387, "lon": 25.1442},
+]
+
+# Find the northernmost and southernmost cities,
+# then print the difference in latitude between them.
+
+northernmost = max(locations, key=lambda c: c["lat"])
+southernmost = min(locations, key=lambda c: c["lat"])
+
+print("Northernmost:", northernmost["name"], northernmost["lat"])
+print("Southernmost:", southernmost["name"], southernmost["lat"])
+print(f"Latitude span: {northernmost['lat'] - southernmost['lat']:.2f}°")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Now try a more interesting calculation: the approximate straight-line distance between two points using the Haversine formula. You do not need to memorise this formula — you can always look it up — but it is worth running once to see how coordinate arithmetic translates into real-world distances.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Try it — distance between two cities</div>
+        <textarea>import math
+
+def haversine(lat1, lon1, lat2, lon2):
+    # Returns the great-circle distance in km between two lat/lon points.
+    # The haversine formula accounts for Earth's curvature — straight-line
+    # Euclidean distance on flat coordinates would be inaccurate at large scales.
+    R = 6371                           # Earth's mean radius in km
+    dlat = math.radians(lat2 - lat1)  # degree difference → radians
+    dlon = math.radians(lon2 - lon1)
+    a = (math.sin(dlat / 2) ** 2 +
+         math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) *
+         math.sin(dlon / 2) ** 2)
+    return R * 2 * math.asin(math.sqrt(a))
+
+# Store each city as a (lat, lon) tuple for convenient unpacking
+athens       = (37.9838, 23.7275)
+thessaloniki = (40.6401, 22.9444)
+heraklion    = (35.3387, 25.1442)
+
+# *athens unpacks to lat1, lon1; *thessaloniki unpacks to lat2, lon2
+print(f"Athens → Thessaloniki: {haversine(*athens, *thessaloniki):.0f} km")
+print(f"Athens → Heraklion:    {haversine(*athens, *heraklion):.0f} km")</textarea>
+        <div class="cell-controls">
+          <button class="btn-run">Run</button>
+          <button class="btn-clear">Clear</button>
+          <span class="run-status"></span>
+        </div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>What you learned in this chapter:</strong> every location is two numbers — latitude and longitude. GeoJSON is standard JSON with a defined structure for points, lines, and polygons — and its coordinate order (longitude first) is the opposite of Leaflet's (latitude first). Folium translates Python data into interactive Leaflet.js maps with a few function calls: <code>folium.Marker</code> for pins, <code>folium.CircleMarker</code> for scaled bubbles, and <code>folium.Choropleth</code> for colouring regions by value. The output is always a standalone HTML file.
+      </div>
+    </section>
+
+    <section id="part7">
+      <p class="section-label">Part Seven</p>
+      <h2>Publishing Your Map on a Web Page</h2>
+
+      <p>When you call <code>m.save("map.html")</code>, Folium writes a complete, self-contained HTML file that includes Leaflet.js, your data, and all the styles. It runs in any browser with no server required. Publishing it is a two-step process: save the file, then embed it.</p>
+
+      <h3>Saving the map</h3>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Python · Save to file</div>
+        <textarea>import folium
+
+m = folium.Map(location=[37.9838, 23.7275], zoom_start=6)
+
+folium.Marker(
+    location=[37.9838, 23.7275],
+    popup="Athens",
+    tooltip="Click me",
+).add_to(m)
+
+m.save("greece_map.html")   # writes a standalone HTML file to the current folder
+print("Map saved.")</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <h3>Embedding the map with an iframe</h3>
+
+      <p>The standard way to embed a saved map HTML file inside another web page is with an <code>&lt;iframe&gt;</code>. The <code>src</code> attribute points to the saved file; <code>width</code> and <code>height</code> control how much space it takes up on the page.</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">HTML · Embed the map</div>
+        <textarea><iframe
+  src="greece_map.html"
+  width="100%"
+  height="500"
+  style="border:none;border-radius:4px;"
+  loading="lazy"
+  title="Interactive map of Greece">
+</iframe></textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>Put both files — your article HTML and <code>greece_map.html</code> — in the same folder and the embed will work. If you move the map file to a subfolder, update the <code>src</code> path accordingly (e.g. <code>src="maps/greece_map.html"</code>).</p>
+
+      <div class="callout">
+        <strong>iframe vs inline:</strong> an iframe is a separate browsing context — the map's Leaflet.js, CSS, and event handlers are isolated from your page's code. This is the right approach for Folium maps because Folium generates its own HTML structure. Trying to paste the map's raw HTML directly into your article page will almost always break either the map or your page's layout.
+      </div>
+
+      <h3>Hosting considerations</h3>
+
+      <p>When you open a local HTML file directly in a browser (<code>file://...</code>), iframes pointing to other local files are blocked by most browsers for security reasons. To test the embed locally, run a simple web server from your project folder:</p>
+
+      <div class="cell cell-static">
+        <div class="cell-label">Terminal · Local server for testing</div>
+        <textarea>python -m http.server 8000
+# Then open http://localhost:8000/your_article.html in your browser</textarea>
+        <div class="cell-controls">
+          <button class="btn-copy">Copy</button>
+          <span class="copy-status"></span>
+        </div>
+      </div>
+
+      <p>Once you upload both files to a real web host (GitHub Pages, Netlify, your own server), the iframe will work without any extra steps — the browser restriction only applies to local <code>file://</code> URLs.</p>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book7-chapter-4.html">Previous: Chapter 4 — Scatter Plots and Histograms</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/book7-app.js"></script>
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>
