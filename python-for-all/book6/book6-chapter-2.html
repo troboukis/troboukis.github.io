@@ -400,6 +400,15 @@ print("Decisions in 2024:", data["info"]["total"])</textarea>
       <div class="callout">
         <strong>fq can be stacked.</strong> If you need to filter by both organisation and date, you can pass a list as the value: <code>"fq": ['organizationUid:"6167"', "issueDate:[DT(2024-01-01T00:00:00) TO DT(2024-12-31T23:59:59)]"]</code>. The <code>requests</code> library will send both as separate <code>fq</code> parameters.
       </div>
+
+      <div class="callout">
+        <strong>The API enforces a 180-day limit on date ranges.</strong> Two automatic rules apply:
+        <ul style="margin: 10px 0 0; padding-left: 1.4em;">
+          <li>If your query has <strong>no <code>issueDate</code> criterion</strong>, the API silently adds one covering the 180 days before the current date. For example, a query of <code>q=subject:"ΑΠΟΦΑΣΗ ΑΝΑΛΗΨΗΣ ΥΠΟΧΡΕΩΣΗΣ"</code> sent on 15/07/2020 is treated as <code>q=subject:"ΑΠΟΦΑΣΗ ΑΝΑΛΗΨΗΣ ΥΠΟΧΡΕΩΣΗΣ" AND issueDate:[DT(2020-01-17T00:00:00) TO DT(2020-07-15T23:59:59)]</code>.</li>
+          <li>If your <code>issueDate</code> range <strong>spans more than 180 days</strong>, the API replaces the "to" date with the "from" date plus 180 days. For example, <code>issueDate:[DT(2020-01-01T00:00:00) TO DT(2020-07-15T00:00:00)]</code> becomes <code>issueDate:[DT(2020-01-01T00:00:00) TO DT(2020-06-29T23:59:59)]</code>.</li>
+        </ul>
+        <p style="margin: 10px 0 0;">To retrieve more than 180 days of decisions, you need to issue multiple requests with non-overlapping date windows and combine the results.</p>
+      </div>
     </section>
 
     <section id="part6">
@@ -493,6 +502,7 @@ for row in rows:
       <p class="chapter-desc">Move between chapters.</p>
       <div class="chapter-next-links">
         <a href="book6-chapter-1.html">Previous: Chapter 1 — What is an API?</a>
+        <a href="book6-chapter-3.html">Next: Chapter 3 — Saving PDFs to a Folder</a>
       </div>
     </section>
   </main>
