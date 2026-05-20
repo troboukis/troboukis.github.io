@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Twelve — Understanding Errors · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Chapter Twelve — Understanding Errors · Python for All" />
+  <meta property="og:description" content="A beginner-friendly, hands-on Python course where you learn step by step by running real code in your browser." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">An Introduction to Programming</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Twelve — Understanding Errors</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Chapters</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner" id="part1">
+      <p class="chapter-number">Chapter Twelve</p>
+      <h2>Understanding Errors</h2>
+      <p class="chapter-desc">When Python stops and shows an error message, it is giving you information. Learning to read that message is one of the most useful skills a programmer can have.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Part One</p>
+      <h2>Reading an Error Message</h2>
+
+      <p><span class="dropcap">W</span>hen Python cannot run your code, it prints a <strong>traceback</strong>. A traceback is a report that tells you where the problem is and what went wrong. Run this cell to see a real one.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Run this — it will produce an error</div>
+        <textarea>name = "Maria"
+print(nane)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>You will see something like this:</p>
+
+      <pre style="background:#f5f5f5; padding:1em; border-left:3px solid #ccc; margin:20px 0; font-size:0.9em; overflow-x:auto;">Traceback (most recent call last):
+  File "&lt;string&gt;", line 2, in &lt;module&gt;
+    print(nane)
+NameError: name 'nane' is not defined</pre>
+
+      <p>Here is how to read it:</p>
+
+      <table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:0.95em;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Part of the message</th>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">What it means</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;"><code>line 2</code></td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">The problem is on line 2 of your code.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;"><code>print(nane)</code></td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">This is the exact line that caused the error.</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;"><code>NameError: name 'nane' is not defined</code></td>
+            <td style="padding:8px;">The error type and a short explanation of what went wrong.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>Always read the last line first.</strong> It names the error type and tells you what Python could not do. Then look up one line to see which line of code triggered it.
+      </div>
+    </section>
+
+    <section id="part2">
+      <p class="section-label">Part Two</p>
+      <h2>SyntaxError — Python Cannot Understand the Code</h2>
+
+      <p>Python reads your entire program before it runs a single line. If it finds something it cannot parse — a missing colon, an unclosed parenthesis, an unclosed string — it stops immediately with a <strong>SyntaxError</strong>.</p>
+
+      <p>Common causes:</p>
+      <ul>
+        <li>Missing <code>:</code> after <code>if</code>, <code>for</code>, or <code>def</code></li>
+        <li>A parenthesis or bracket that was opened but never closed</li>
+        <li>A string that starts with <code>"</code> but never ends</li>
+      </ul>
+
+      <div class="cell">
+        <div class="cell-label">Python · Run this — missing colon after if</div>
+        <textarea>age = 20
+if age > 18
+    print("Adult")</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The error points to line 2 and says <code>invalid syntax</code>. The fix is to add the missing colon after <code>if age > 18</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Fixed version</div>
+        <textarea>age = 20
+if age > 18:
+    print("Adult")</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Nothing runs when there is a SyntaxError.</strong> Because Python reads the whole file first, even lines that appear before the broken one will not execute. Fix the syntax and run again.
+      </div>
+    </section>
+
+    <section id="part3">
+      <p class="section-label">Part Three</p>
+      <h2>NameError — Python Does Not Know That Name</h2>
+
+      <p>A <strong>NameError</strong> means you used a name — a variable, a function, anything — that Python has never seen before in your program. The two most common causes are a typo in the name and using a variable before you have defined it.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Run this — typo in variable name</div>
+        <textarea>city = "Athens"
+print(citty)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The message says <code>name 'citty' is not defined</code>. Python tells you the exact name it could not find. Comparing <code>citty</code> to your code reveals the typo instantly.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Run this — variable used before it is defined</div>
+        <textarea>print(score)
+score = 10</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>Python runs code from top to bottom. When it reaches line 1, <code>score</code> does not exist yet. Moving the assignment above the <code>print</code> fixes it.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Fixed version</div>
+        <textarea>score = 10
+print(score)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+    </section>
+
+    <section id="part4">
+      <p class="section-label">Part Four</p>
+      <h2>TypeError — Wrong Type for the Operation</h2>
+
+      <p>A <strong>TypeError</strong> means the operation makes sense in general, but the types you gave it do not match. The classic example is trying to join a number and a string with <code>+</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Run this — adding a number to a string</div>
+        <textarea>age = 25
+message = "My age is " + age
+print(message)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The message says something like <code>can only concatenate str (not "int") to str</code>. Python knows how to join two strings, but not a string and an integer. Convert the number first with <code>str()</code>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Fixed version — convert the number to a string</div>
+        <textarea>age = 25
+message = "My age is " + str(age)
+print(message)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>TypeErrors also appear when you call something that is not a function, or when you pass the wrong number of arguments to a function.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Run this — calling a value that is not a function</div>
+        <textarea>number = 42
+number()</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p><code>number</code> holds an integer, not a function. You cannot call an integer with <code>()</code>.</p>
+
+      <div class="callout">
+        <strong>f-strings avoid the string + number problem entirely.</strong> <code>f"My age is {age}"</code> handles the conversion automatically, so you never need to write <code>str(age)</code> inside an f-string.
+      </div>
+    </section>
+
+    <section id="part5">
+      <p class="section-label">Part Five</p>
+      <h2>ValueError — Right Type, Wrong Value</h2>
+
+      <p>A <strong>ValueError</strong> happens when the type is correct but the value does not make sense for the operation. The most common example is trying to convert a word to a number.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Run this — converting a word to an integer</div>
+        <textarea>number = int("hello")
+print(number)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The message says <code>invalid literal for int() with base 10: 'hello'</code>. <code>int()</code> can convert <code>"42"</code> to <code>42</code>, but it cannot make sense of a word. The value needs to actually look like a number.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · This works — the string contains a valid number</div>
+        <textarea>number = int("42")
+print(number)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Remember:</strong> <code>int()</code> needs a string that looks like a whole number. <code>float()</code> is more flexible — <code>float("3.14")</code> works — but neither can parse a word.
+      </div>
+    </section>
+
+    <section id="part6">
+      <p class="section-label">Part Six</p>
+      <h2>IndexError and KeyError — Looking Up Something That Is Not There</h2>
+
+      <p>These two errors both happen when you ask for something that does not exist: a position in a list that is too large, or a key in a dictionary that was never added.</p>
+
+      <p><strong>IndexError</strong></p>
+      <p>A list with three items has positions 0, 1, and 2. Asking for position 3 or beyond raises an <strong>IndexError</strong>.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Run this — index out of range</div>
+        <textarea>fruits = ["apple", "banana", "cherry"]
+print(fruits[5])</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The message says <code>list index out of range</code>. The list only goes up to index 2. Use <code>len(fruits)</code> if you are unsure how many items a list contains — the last valid index is always <code>len(fruits) - 1</code>.</p>
+
+      <p><strong>KeyError</strong></p>
+      <p>A <strong>KeyError</strong> happens when you ask a dictionary for a key that does not exist in it.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Run this — key not in dictionary</div>
+        <textarea>person = {"name": "Elena", "age": 30}
+print(person["email"])</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <p>The message shows <code>KeyError: 'email'</code>. The dictionary has no <code>"email"</code> key. You can check before accessing with <code>if "email" in person:</code>, or use <code>.get()</code> which returns <code>None</code> instead of raising an error.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Safe lookup with .get()</div>
+        <textarea>person = {"name": "Elena", "age": 30}
+email = person.get("email")
+print(email)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Quick reference — the errors you now know:</strong><br />
+        <code>SyntaxError</code> — Python cannot parse the code.<br />
+        <code>NameError</code> — a name was never defined.<br />
+        <code>TypeError</code> — the types do not match the operation.<br />
+        <code>ValueError</code> — the type is right but the value makes no sense.<br />
+        <code>IndexError</code> — list position does not exist.<br />
+        <code>KeyError</code> — dictionary key does not exist.
+      </div>
+    </section>
+
+    <section id="part7">
+      <p class="section-label">Part Seven</p>
+      <h2>Your Turn</h2>
+
+      <p>Each cell below contains broken code. Run it, read the error message, figure out what is wrong, and fix it.</p>
+
+      <div class="cell">
+        <div class="cell-label">Python · Exercise 1 — fix the error</div>
+        <textarea>def greet(name)
+    print("Hello, " + name)
+
+greet("Nikos")</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Exercise 2 — fix the error</div>
+        <textarea>temperature = 36
+print("Temperature: " + temperature + " °C")</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Exercise 3 — fix the error</div>
+        <textarea>colours = ["red", "green", "blue"]
+print(colours[3])</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">Python · Exercise 4 — fix the error</div>
+        <textarea>year = int("two thousand and twenty-five")
+print(year)</textarea>
+        <div class="cell-controls"><button class="btn-run">Run</button><button class="btn-clear">Clear</button><span class="run-status"></span></div>
+        <pre class="out"></pre>
+      </div>
+
+      <div class="callout">
+        <strong>Congratulations — you have completed Book 1.</strong> You now know variables, strings, lists, dictionaries, booleans, functions, regex basics, file handling, and how to read error messages. That is a strong base for everything that comes next.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="chapter-11.html#part1">Previous: Chapter 11</a>
+        <a href="chapter-13.html#ch13">Next: Chapter 13</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Python runs entirely in your browser — no installation needed.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <div id="loading-banner"><span>Loading Python environment — this may take a moment…</span></div>
+  <script type="module" src="../assets/app.js"></script>
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

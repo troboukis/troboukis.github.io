@@ -15,6 +15,8 @@
           <li><a data-toc-path="chapters/chapter-9.html">Chapter Nine — Regex Basics</a></li>
           <li><a data-toc-path="chapters/chapter-10.html">Chapter Ten — Exercises</a></li>
           <li><a data-toc-path="chapters/chapter-11.html">Chapter Eleven — Reading and Writing Text Files</a></li>
+          <li><a data-toc-path="chapters/chapter-12.html">Chapter Twelve — Understanding Errors</a></li>
+          <li><a data-toc-path="chapters/chapter-13.html">Chapter Thirteen — Test</a></li>
         </ol>
       </details>
 

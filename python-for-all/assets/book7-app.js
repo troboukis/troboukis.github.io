@@ -6,7 +6,7 @@
     const pyodide = await loadPyodide();
 
     if (bannerSpan) bannerSpan.textContent = "Loading matplotlib…";
-    await pyodide.loadPackage(["matplotlib", "numpy"]);
+    await pyodide.loadPackage(["matplotlib", "numpy", "pandas"]);
 
     await pyodide.runPythonAsync(`
 import matplotlib
