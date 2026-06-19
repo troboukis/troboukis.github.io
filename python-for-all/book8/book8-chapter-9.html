@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 8 · Chapter Nine — Writing the Story · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 8 · Chapter Nine — Writing the Story · Python for All" />
+  <meta property="og:description" content="A practical methodology for data journalism: from choosing a topic to publication and follow-up." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 8 — Investigating with Data</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Nine — Writing the Story</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner" id="book8-ch9">
+      <p class="chapter-number">Chapter Nine</p>
+      <h2>Writing the Story</h2>
+      <p class="chapter-desc">Data journalism lives or dies in the writing. The best analysis, buried in inaccessible prose, reaches no one. The central finding must be clear from the first paragraph.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Part One</p>
+      <h2>The Central Finding and the Lead</h2>
+
+      <p><span class="dropcap">B</span>efore you write the first word, answer this question in one sentence: what did you find? Not what you looked at, not what dataset you used — what did you find?</p>
+
+      <p>That sentence is your lead. It states the finding, grounds it in evidence, and gives the reader a reason to keep reading. Everything else in the story exists to prove, qualify, or contextualise it.</p>
+
+      <p>A lead that buries the finding — that describes the dataset, the investigation, or the context before stating what was found — loses most readers before they reach the point. State the finding first. Provide the context second.</p>
+
+      <div class="callout">
+        <strong>Write the lead last.</strong> You often cannot write the best lead until you have written the whole story and know exactly what matters most. Draft a placeholder, write the rest, then come back and write the lead with the full picture in view.
+      </div>
+    </section>
+
+    <section id="book8-ch9-part2">
+      <p class="section-label">Part Two</p>
+      <h2>Story Structure</h2>
+
+      <p>A data investigation typically moves through six elements. They do not need to appear in this order, and not every investigation needs every one — but each should be present somewhere.</p>
+
+      <table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:0.95em;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Element</th>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Finding</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">The main claim, stated clearly and attributed to evidence.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Evidence</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">The data and methodology that support it.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Example</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">A specific case that makes the abstract concrete and human.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Counter-argument</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">The strongest objection to your finding, addressed fairly.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Context</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">The broader picture that explains why this matters.</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;">Return</td>
+            <td style="padding:8px;">Back to the human story or specific case where the article began.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="book8-ch9-part3">
+      <p class="section-label">Part Three</p>
+      <h2>Where the Data Go</h2>
+
+      <p>Data belong in specific places in a story, not distributed evenly throughout. Summary statistics that establish the scale of the finding appear near the top, early enough to anchor the lead. Specific data points appear alongside the individual examples they describe. Methodology belongs at the end, in a clearly labelled section that readers can consult without it interrupting the narrative.</p>
+
+      <p>Do not reproduce large tables in the prose. Link to downloadable data or embed interactive tables where space allows. Numbers in running text should be rounded, contextualised, and limited to what the reader needs to follow the argument at that point.</p>
+
+      <div class="callout">
+        <strong>One number per sentence is usually enough.</strong> A sentence with three statistics in it requires readers to hold three numbers in mind simultaneously while also parsing the grammar. Break it into shorter sentences, or move two of the numbers to a chart.
+      </div>
+    </section>
+
+    <section id="book8-ch9-part4">
+      <p class="section-label">Part Four</p>
+      <h2>Plain Language</h2>
+
+      <p>Every number in the story must pass a plain-language test: could a reader who is not a specialist understand this, in context, on first reading?</p>
+
+      <ul>
+        <li>Prefer ratios and proportions to large absolute numbers: "one in five" is more legible than "21.4 percent" in running text, and both are more legible than "2.3 million out of 11.1 million".</li>
+        <li>Round where precision is not meaningful. €2.3 million is correct; €2,287,403 implies a false exactness and is harder to read.</li>
+        <li>Explain every statistical term the first time it appears. Do not assume your reader knows what a median, a confidence interval, or a regression is.</li>
+        <li>Avoid passive constructions that obscure agency. "Contracts were awarded" is weaker than "the ministry awarded contracts". Data journalism is about who did what — make the subject of each sentence do the work.</li>
+      </ul>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book8-chapter-8.html">Previous: Chapter 8 — Journalistic Verification</a>
+        <a href="book8-chapter-10.html">Next: Chapter 10 — Fact-checking and Legal Review</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Investigating with Data.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

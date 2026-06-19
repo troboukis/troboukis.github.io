@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 8 · Chapter Six — Statistical Analysis · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 8 · Chapter Six — Statistical Analysis · Python for All" />
+  <meta property="og:description" content="A practical methodology for data journalism: from choosing a topic to publication and follow-up." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 8 — Investigating with Data</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Six — Statistical Analysis</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner" id="book8-ch6">
+      <p class="chapter-number">Chapter Six</p>
+      <h2>Statistical Analysis</h2>
+      <p class="chapter-desc">Before you can tell a story with data, you need to spend time listening to it. This chapter is about interrogating your cleaned dataset before you reach for a conclusion.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Part One</p>
+      <h2>Interviewing the Data</h2>
+
+      <p><span class="dropcap">T</span>he phrase "interview the data" describes the first pass of analysis: open-ended, exploratory, deliberately avoiding the temptation to confirm the hypothesis you started with.</p>
+
+      <p>Start with summary statistics for every variable: count, mean, median, minimum, maximum, standard deviation. Look at distributions. Compute group totals and group averages. Sort by every relevant column and read the top and bottom entries carefully.</p>
+
+      <p>You are looking for patterns you did not predict as much as patterns you did. The unexpected finding — the one that was not in the hypothesis — is often the most important one.</p>
+
+      <div class="callout">
+        <strong>The median is often more informative than the mean.</strong> In distributions with extreme values — incomes, contract sizes, sentence lengths — the mean is pulled toward the outliers. The median tells you what a typical case looks like.
+      </div>
+    </section>
+
+    <section id="book8-ch6-part2">
+      <p class="section-label">Part Two</p>
+      <h2>Trends, Categories, and Extremes</h2>
+
+      <p>Three analytical moves consistently produce the most journalistic insight from a dataset.</p>
+
+      <p><strong>Trends over time</strong>: how has the measurement changed year by year, quarter by quarter? Is the most recent value above or below the long-run average? Is the rate of change accelerating or slowing? Plot the full time series before drawing any conclusions from a single year's figures.</p>
+
+      <p><strong>Category breakdowns</strong>: which group — by region, institution, type, demographic — accounts for the largest share of the total? Which group is overrepresented or underrepresented relative to its share of the population, the budget, or some other appropriate baseline?</p>
+
+      <p><strong>Extremes</strong>: which individual entity — person, organisation, contract, transaction — sits at the top or bottom of the distribution? Are the extremes explainable by size or context, or do they require investigation regardless of scale?</p>
+    </section>
+
+    <section id="book8-ch6-part3">
+      <p class="section-label">Part Three</p>
+      <h2>Normalisation</h2>
+
+      <p>Raw totals are rarely comparable on their own. A city with a million residents will have more hospital admissions than a city with ten thousand residents — that tells you nothing about the quality of care. Before comparing, normalise.</p>
+
+      <table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:0.95em;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Denominator</th>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">When to use it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Per capita</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Any measure where population drives volume.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Per budget</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Spending comparisons across institutions of different sizes.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Per year</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">When comparing periods of different lengths.</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;">Per area</td>
+            <td style="padding:8px;">Geographic density comparisons.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The choice of denominator is an analytical decision that affects your conclusions. Choose it deliberately, based on what the story is actually about. State the denominator clearly every time you publish a normalised figure.</p>
+    </section>
+
+    <section id="book8-ch6-part4">
+      <p class="section-label">Part Four</p>
+      <h2>Uncertainty and Limits</h2>
+
+      <p>Every statistical claim has limits. Before you finalise your analysis, work through three questions explicitly.</p>
+
+      <p>What assumptions am I making about the data that I cannot verify from the data itself? All analyses rest on assumptions — about completeness, about consistency of definitions, about what the missing values represent. Identify yours and state them.</p>
+
+      <p>What would change if those assumptions were wrong? If your conclusion depends entirely on an assumption that might not hold, the conclusion is weaker than it appears.</p>
+
+      <p>What does this data genuinely not allow me to claim? The things you cannot say are as important as the things you can. Correlation does not establish causation. A pattern in aggregate data does not describe any individual. A trend over three years is not a long-run trend. State these limits in your analysis notes, and carry them through to the published story.</p>
+
+      <div class="callout">
+        <strong>Write down what you cannot claim before you write what you can.</strong> This forces you to be precise about the strength of your evidence — and protects you when your conclusions are challenged.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book8-chapter-5.html">Previous: Chapter 5 — Cleaning Your Data</a>
+        <a href="book8-chapter-7.html">Next: Chapter 7 — Visualising Your Findings</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Investigating with Data.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

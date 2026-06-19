@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 8 · Chapter Two — Searching for Data · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 8 · Chapter Two — Searching for Data · Python for All" />
+  <meta property="og:description" content="A practical methodology for data journalism: from choosing a topic to publication and follow-up." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 8 — Investigating with Data</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Two — Searching for Data</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner" id="book8-ch2">
+      <p class="chapter-number">Chapter Two</p>
+      <h2>Searching for Data</h2>
+      <p class="chapter-desc">Find out what data exists, who holds it, and how to get it — before you commit to an investigation that turns out to have no data.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Part One</p>
+      <h2>Start with the Ideal</h2>
+
+      <p><span class="dropcap">B</span>efore you search for what actually exists, describe what you wish existed. What variables would your perfect dataset contain? What time period would it cover? What is the unit of analysis — a person, a transaction, an institution, a geographic area?</p>
+
+      <p>Write this down. The gap between the ideal dataset and what you can actually obtain is your reporting challenge. Sometimes that gap is the story: the fact that data which should be collected is not collected, or is collected but never released, is itself a finding.</p>
+
+      <div class="callout">
+        <strong>The ideal scenario is not wishful thinking.</strong> It is an analytical tool. Knowing what you want makes it easier to assess what you find — and to explain to readers what is missing from the picture.
+      </div>
+    </section>
+
+    <section id="book8-ch2-part2">
+      <p class="section-label">Part Two</p>
+      <h2>Breaking Down the Variables</h2>
+
+      <p>List every variable your investigation needs, not just the headline measurement. A story about hospital waiting times needs the waiting times — but also the hospital, the specialty, the time period, the region, and a population denominator to make comparisons fair.</p>
+
+      <table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:0.95em;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Variable type</th>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">What it tells you</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Main measurement</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">What you are counting or measuring — the core of the story.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Identifiers</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Who or what the measurement belongs to.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Time</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">When — essential for detecting trends.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Geography</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Where — enables regional comparison.</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;">Denominators</td>
+            <td style="padding:8px;">Population, budget, area — needed to normalise and make comparisons fair.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>For each variable, ask: who collects this? Who publishes it? In what format does it exist, and how frequently is it updated?</p>
+    </section>
+
+    <section id="book8-ch2-part3">
+      <p class="section-label">Part Three</p>
+      <h2>How to Get the Data</h2>
+
+      <p>Data reaches journalists through several routes. Use them in parallel — a formal access request can take months, while a scrape of the same information might take an afternoon.</p>
+
+      <table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:0.95em;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Route</th>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">When to use it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Open data portal</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">First stop. Free, public, often machine-readable.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">FOIA / access request</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">When a public body holds data but has not released it.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Scraping</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">When the data is on a website but not downloadable.</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Source</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">When an insider can share records directly.</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;">Interview</td>
+            <td style="padding:8px;">When the data lives in someone's head and must be elicited through conversation.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="book8-ch2-part4">
+      <p class="section-label">Part Four</p>
+      <h2>Talk to the Right People</h2>
+
+      <p>Every dataset has a human owner. Find who publishes it, who maintains it, and who designed the methodology. A short conversation with the right statistician can answer questions that would otherwise take weeks to work out from the data alone.</p>
+
+      <p>Identify also the domain experts you need: specialists who can help you interpret what the data does and does not show. This conversation should happen before you draw any conclusions — not after you have already decided what the story is.</p>
+
+      <div class="callout">
+        <strong>Ask the methodologist, not just the press officer.</strong> Press officers explain what an institution wants you to understand. The statistician who built the dataset can tell you what the data actually measures — and what it does not.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book8-chapter-1.html">Previous: Chapter 1 — Choosing a Topic</a>
+        <a href="book8-chapter-3.html">Next: Chapter 3 — Exploring Your Data Source</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Investigating with Data.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 8 · Chapter Three — Exploring Your Data Source · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 8 · Chapter Three — Exploring Your Data Source · Python for All" />
+  <meta property="og:description" content="A practical methodology for data journalism: from choosing a topic to publication and follow-up." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 8 — Investigating with Data</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Three — Exploring Your Data Source</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner" id="book8-ch3">
+      <p class="chapter-number">Chapter Three</p>
+      <h2>Exploring Your Data Source</h2>
+      <p class="chapter-desc">Before you trust a number, you must understand where it comes from. Read a dataset the way you would read a primary source document.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Part One</p>
+      <h2>Read the Documentation First</h2>
+
+      <p><span class="dropcap">E</span>very serious dataset comes with documentation: a data dictionary, a methodology note, a technical report, or at minimum a set of footnotes. Read it before you open the file.</p>
+
+      <p>If there is no documentation, that itself is a problem worth noting. An undocumented dataset is one you cannot fully trust, and one whose limitations you cannot accurately communicate to readers.</p>
+
+      <p>From the documentation, establish four things: what is the unit of observation? What definitions are used for each variable? Who collected the data, under what authority, and using what method? And what are the known limitations?</p>
+
+      <div class="callout">
+        <strong>The absence of documentation is information.</strong> It tells you that the producer of the data either does not want to explain their methodology, or has not thought carefully enough about it to write it down. Both are relevant facts.
+      </div>
+    </section>
+
+    <section id="book8-ch3-part2">
+      <p class="section-label">Part Two</p>
+      <h2>Understanding Fields and Values</h2>
+
+      <p>Open the data and work through every column. For each field, ask: what does this represent? What does each distinct value mean? Are there coded values that need a lookup table to decode? Are there known categories absent from this dataset entirely?</p>
+
+      <p>Check the distributions. What is the range of values? Are there entries that fall outside plausible limits? Are there columns that appear to duplicate others — suggesting the data was assembled from multiple sources that may not be fully consistent?</p>
+
+      <div class="callout">
+        <strong>Pay attention to zeros and nulls.</strong> A zero may mean the true value is zero, or it may be a placeholder for missing data. A null may mean the value was not collected, or that the category did not apply. These distinctions matter for every calculation you will run.
+      </div>
+    </section>
+
+    <section id="book8-ch3-part3">
+      <p class="section-label">Part Three</p>
+      <h2>Testing with Parameters</h2>
+
+      <p>If the data comes from a query — an API, a search form, or a filterable portal — test what happens when you change the parameters systematically.</p>
+
+      <p>Does changing the date range affect the denominator as well as the numerator? Does a regional filter exclude national-level institutions, or include them? Do different combinations of filters produce overlapping results that could lead to double-counting?</p>
+
+      <p>These tests reveal hidden assumptions baked into the data collection process — assumptions the documentation may not mention because they seemed obvious to the people who built the system.</p>
+
+      <div class="callout">
+        <strong>Check the API limits.</strong> If the source uses an API, find the rate limits, the maximum page size, and the maximum time range per request. These constraints affect how you collect the data and whether the collection can be repeated reliably.
+      </div>
+    </section>
+
+    <section id="book8-ch3-part4">
+      <p class="section-label">Part Four</p>
+      <h2>Gaps and Methodological Changes</h2>
+
+      <p>Ask explicitly whether there are temporal gaps: years or months where data was not collected, was collected differently, or was lost. Ask whether the definitions of key terms changed at any point.</p>
+
+      <p>Changes in methodology are one of the most common sources of artificial trends in longitudinal data. A rise in recorded incidents over ten years might reflect a change in how incidents are classified, not a genuine rise. A drop might reflect a change in who is required to report, not a real improvement.</p>
+
+      <p>The only way to know is to ask — of the documentation, of the data provider, and of experts who have worked with the same dataset over time.</p>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book8-chapter-2.html">Previous: Chapter 2 — Searching for Data</a>
+        <a href="book8-chapter-4.html">Next: Chapter 4 — Verifying Data Accuracy</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Investigating with Data.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

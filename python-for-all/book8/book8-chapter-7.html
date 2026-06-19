@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 8 · Chapter Seven — Visualising Your Findings · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 8 · Chapter Seven — Visualising Your Findings · Python for All" />
+  <meta property="og:description" content="A practical methodology for data journalism: from choosing a topic to publication and follow-up." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 8 — Investigating with Data</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Seven — Visualising Your Findings</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner" id="book8-ch7">
+      <p class="chapter-number">Chapter Seven</p>
+      <h2>Visualising Your Findings</h2>
+      <p class="chapter-desc">A chart is not decoration. It is an argument. Every design decision — scale, colour, sort order — either clarifies or distorts the underlying data.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Part One</p>
+      <h2>Choosing the Right Chart</h2>
+
+      <p><span class="dropcap">S</span>tart from the finding, not from the chart type. Ask: what relationship or pattern am I trying to communicate? Then choose the form that shows it most clearly and honestly.</p>
+
+      <table style="width:100%; border-collapse:collapse; margin:20px 0; font-size:0.95em;">
+        <thead>
+          <tr>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">What you want to show</th>
+            <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Chart to consider</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Comparison between categories</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Bar chart</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Change over time</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Line chart</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Geographic distribution</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Map</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Relationship between two variables</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Scatterplot</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Precise values for a small number of items</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Table</td>
+          </tr>
+          <tr>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">The same pattern repeated across many groups</td>
+            <td style="border-bottom:1px solid #e5e5e5; padding:8px;">Small multiples</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;">Connections and flows between entities</td>
+            <td style="padding:8px;">Network graph</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Resist the temptation to use a more complicated chart when a simple one works. Complexity is not sophistication — it is often the opposite.</p>
+    </section>
+
+    <section id="book8-ch7-part2">
+      <p class="section-label">Part Two</p>
+      <h2>Scale, Normalisation, and Uncertainty</h2>
+
+      <p>Three technical decisions most commonly produce misleading visuals.</p>
+
+      <p><strong>Scale</strong>: does the y-axis start at zero? For bar charts comparing quantities, it almost always should — a truncated axis exaggerates differences. For line charts showing proportional change over time, the answer depends on context, but the choice must be explicit. Never truncate an axis without a label that draws attention to it.</p>
+
+      <p><strong>Normalisation</strong>: are you showing raw totals or rates? A map of total cases in a country will show only where people live; a map of cases per 100,000 residents shows where the problem is most concentrated. Make this clear in the chart title, not buried in a footnote.</p>
+
+      <p><strong>Uncertainty</strong>: if your data has a margin of error, show it. A single line or bar implies a precision the underlying data may not justify. Use error bars, confidence bands, or explicit language to communicate what you do not know as clearly as what you do.</p>
+    </section>
+
+    <section id="book8-ch7-part3">
+      <p class="section-label">Part Three</p>
+      <h2>Annotations and Source Lines</h2>
+
+      <p>Every chart published in a news context must carry four things.</p>
+
+      <ul>
+        <li><strong>A title that states the finding</strong>, not just the topic. "Hospital waiting times rose 40% in three years" is a title. "Hospital waiting times over time" is a label.</li>
+        <li><strong>A subtitle or note</strong> explaining non-obvious choices: the time period covered, the geographic scope, any categories excluded from the chart.</li>
+        <li><strong>A source line</strong> crediting the data provider by name, with enough detail for a reader to locate the original data themselves.</li>
+        <li><strong>A methodological note</strong> if any transformation was applied — normalised per capita, adjusted for inflation, seasonally adjusted — stated precisely.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>These are not optional extras.</strong> They are what distinguishes a publishable chart from a working spreadsheet. Without them, a reader has no way to assess whether to trust what they are looking at.
+      </div>
+    </section>
+
+    <section id="book8-ch7-part4">
+      <p class="section-label">Part Four</p>
+      <h2>The Reader Test</h2>
+
+      <p>Before publishing any visual, apply one test: can a reader understand the main point of this chart without reading the accompanying article?</p>
+
+      <p>If the answer is no, the chart is not finished. Add annotations that point to the key finding. Simplify the design to remove elements that do not carry information. Or reconsider whether a well-constructed table would communicate the finding more clearly than a chart.</p>
+
+      <p>A chart that requires explanation to be understood has not done its job. The goal is not to reward careful study — it is to communicate at a glance.</p>
+
+      <div class="callout">
+        <strong>Show the chart to someone outside the investigation.</strong> If they cannot state the main finding after ten seconds, the chart needs more work. This is the most reliable test, and the cheapest one to run.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book8-chapter-6.html">Previous: Chapter 6 — Statistical Analysis</a>
+        <a href="book8-chapter-8.html">Next: Chapter 8 — Journalistic Verification</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Investigating with Data.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

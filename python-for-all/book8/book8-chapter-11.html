@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 8 · Chapter Eleven — Documentation and Reproducibility · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 8 · Chapter Eleven — Documentation and Reproducibility · Python for All" />
+  <meta property="og:description" content="A practical methodology for data journalism: from choosing a topic to publication and follow-up." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 8 — Investigating with Data</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Eleven — Documentation and Reproducibility</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner" id="book8-ch11">
+      <p class="chapter-number">Chapter Eleven</p>
+      <h2>Documentation and Reproducibility</h2>
+      <p class="chapter-desc">An investigation is not finished when it is published. It is finished when anyone — a reader, an editor, a regulator, a judge — can follow your steps from raw data to published claim.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Part One</p>
+      <h2>What to Keep</h2>
+
+      <p><span class="dropcap">R</span>etain the following materials from every investigation, indefinitely, in a form that a colleague who was not involved could navigate without guidance.</p>
+
+      <ul>
+        <li>The raw data exactly as received, unmodified — in the original format and file name</li>
+        <li>The cleaned data after each significant transformation — not just the final version</li>
+        <li>Every script used in the analysis, with comments explaining the logic of each step</li>
+        <li>A data dictionary defining every variable and every coded value in the dataset</li>
+        <li>Records of every communication with data providers: emails, letters, responses to access requests</li>
+        <li>The cleaning log: a record of every decision made about the data, including exclusions and the reasons for them</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Use version control.</strong> Store scripts and data dictionaries in a git repository from the start of the investigation. Version control gives you a complete history of every change and makes it possible to return to any earlier state of the analysis. It is also the standard tool for collaborative data work.
+      </div>
+    </section>
+
+    <section id="book8-ch11-part2">
+      <p class="section-label">Part Two</p>
+      <h2>The Methodological Note</h2>
+
+      <p>Every published data investigation should include a methodological note — either embedded in the article or on a dedicated page linked from it. The note explains the investigation in enough detail that a competent journalist or statistician who was not involved can follow every step and reproduce the main results.</p>
+
+      <p>The note covers six things: where the data came from; how it was obtained; what cleaning and transformation was applied; what was excluded and why; what the analysis consisted of; and what the data does and does not allow you to conclude.</p>
+
+      <p>The methodological note is not a defence. It is an invitation to scrutiny. Write it as if you expect a knowledgeable reader to try to replicate your work — because the best ones will.</p>
+
+      <div class="callout">
+        <strong>Write the note as you go, not at the end.</strong> A methodological note written from memory after the investigation is finished is less accurate and less useful than one assembled from notes taken throughout the process. Keep a running document from day one.
+      </div>
+    </section>
+
+    <section id="book8-ch11-part3">
+      <p class="section-label">Part Three</p>
+      <h2>What to Publish</h2>
+
+      <p>Consider publishing alongside the article: the cleaned dataset, the analysis scripts, the data dictionary, and the methodological note in full. Publishing data and code serves two purposes — it enables readers and other journalists to verify your work, and it makes the dataset available for further investigation by others.</p>
+
+      <p>Some material cannot be published. Records containing personal information whose release is not justified by public interest. Data received under conditions of confidentiality from a source. Material whose publication would cause harm disproportionate to its news value. Commercially sensitive information obtained under a restricted access agreement.</p>
+
+      <p>Document the reasons for any restriction in the methodological note. "Some data cannot be published for legal reasons" is less informative — and less credible — than a specific explanation of which data, which legal restriction, and what steps you took to verify the restriction applies.</p>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book8-chapter-10.html">Previous: Chapter 10 — Fact-checking and Legal Review</a>
+        <a href="book8-chapter-12.html">Next: Chapter 12 — Publication and Follow-up</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Investigating with Data.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

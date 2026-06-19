@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 8 · Chapter Four — Verifying Data Accuracy · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 8 · Chapter Four — Verifying Data Accuracy · Python for All" />
+  <meta property="og:description" content="A practical methodology for data journalism: from choosing a topic to publication and follow-up." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 8 — Investigating with Data</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Four — Verifying Data Accuracy</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner" id="book8-ch4">
+      <p class="chapter-number">Chapter Four</p>
+      <h2>Verifying Data Accuracy</h2>
+      <p class="chapter-desc">You cannot publish numbers you have not checked. Verification is not optional — it is the step that separates data journalism from data laundering.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Part One</p>
+      <h2>Cross-referencing Published Figures</h2>
+
+      <p><span class="dropcap">B</span>efore you use any dataset as the basis for a claim, check the headline totals against what has already been published. Do your row counts match the official totals cited in reports, press releases, or parliamentary answers?</p>
+
+      <p>If there is a discrepancy, investigate it before going further. Common causes: you are using a different version of the dataset; the official figure applies a different date range or geographic scope; or there is an error in the published figure — itself a story.</p>
+
+      <p>Document every check and its result, even when the figures match. This documentation is your evidence that you verified the data, not just that you used it.</p>
+
+      <div class="callout">
+        <strong>Match to independent sources, not just official ones.</strong> Cross-reference against academic studies, audit reports, or international databases that use the same underlying data. Consistency across sources increases confidence; inconsistency demands explanation.
+      </div>
+    </section>
+
+    <section id="book8-ch4-part2">
+      <p class="section-label">Part Two</p>
+      <h2>The Legal and Regulatory Context</h2>
+
+      <p>Every dataset that records public activity — spending, contracts, permits, court cases — exists within a legal framework. Identify which laws or regulations govern what must be recorded, what can be withheld, and what the key definitions mean in legal terms.</p>
+
+      <p>This matters for two reasons. It explains why certain categories of data may be missing: an exemption, a threshold, a classification that moves certain records outside the scope of disclosure. And it tells you what obligations apply to the body that produced the data — and whether those obligations have been met.</p>
+
+      <div class="callout">
+        <strong>Legal definitions are not always intuitive.</strong> "Public contract", "public official", "income", and "residence" all have legal definitions that may differ from everyday usage. Use the legal definition that applies to the dataset you are working with, and state it clearly when you publish.
+      </div>
+    </section>
+
+    <section id="book8-ch4-part3">
+      <p class="section-label">Part Three</p>
+      <h2>Accounting for Missing Data</h2>
+
+      <p>Missing data is not neutral. Before you proceed with any analysis, establish how much data is missing in absolute terms and as a percentage of the total. Then ask whether missingness is random or systematic.</p>
+
+      <p>Systematic missingness — where certain institutions, regions, time periods, or population groups are more likely to be missing — is far more serious than random gaps. It can bias every aggregate you compute. It is also, frequently, a story in itself: the absence of data about a particular group is a fact worth reporting.</p>
+
+      <p>Decide explicitly what you will do about missing data: exclude it and note the exclusion, estimate it from related sources, or report the gap without attempting to fill it. Document this decision and its rationale.</p>
+    </section>
+
+    <section id="book8-ch4-part4">
+      <p class="section-label">Part Four</p>
+      <h2>Sanity Checks</h2>
+
+      <p>Before any analysis aimed at finding the story, run a round of exploratory charts and summary statistics designed specifically to catch errors. This is not the time to look for interesting patterns — it is the time to look for implausible ones.</p>
+
+      <ul>
+        <li>Values that fall outside physically or legally plausible ranges</li>
+        <li>Sudden spikes or drops that coincide with changes in collection methodology rather than real-world events</li>
+        <li>Duplicated rows that should be unique</li>
+        <li>Counts or totals that change unexpectedly depending on how you filter</li>
+      </ul>
+
+      <div class="callout">
+        <strong>If something looks surprising, assume error before assuming finding.</strong> The most important question after an unexpected result is not "what does this mean?" but "why does this number look like this?" Investigate before you interpret.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book8-chapter-3.html">Previous: Chapter 3 — Exploring Your Data Source</a>
+        <a href="book8-chapter-5.html">Next: Chapter 5 — Cleaning Your Data</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Investigating with Data.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book 8 · Chapter Ten — Fact-checking and Legal Review · Python for All</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Book 8 · Chapter Ten — Fact-checking and Legal Review · Python for All" />
+  <meta property="og:description" content="A practical methodology for data journalism: from choosing a topic to publication and follow-up." />
+  <meta property="og:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://troboukis.gr/python-for-all/assets/cover.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <link rel="stylesheet" href="../assets/auth.css" />
+</head>
+<body id="top">
+  <header id="page-top">
+    <p class="kicker">Book 8 — Investigating with Data</p>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">Python for All</a></h1>
+    <p class="subtitle">Chapter Ten — Fact-checking and Legal Review</p>
+    <p class="byline">Thanasis Troboukis &nbsp;·&nbsp; <a href="../index.html" style="color:inherit;">All Books</a></p>
+  </header>
+
+  <nav data-shared-toc></nav>
+
+  <main>
+    <div class="chapter-banner" id="book8-ch10">
+      <p class="chapter-number">Chapter Ten</p>
+      <h2>Fact-checking and Legal Review</h2>
+      <p class="chapter-desc">Before a data investigation is published, every factual claim must be independently verified and every legal risk identified. This step is not a formality — it is a firewall.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Part One</p>
+      <h2>Checking Every Number and Name</h2>
+
+      <p><span class="dropcap">G</span>o through the final draft line by line and verify every checkable fact independently — not from memory, and not from your own notes, but from the original source.</p>
+
+      <ul>
+        <li>Every proper name: correct spelling, correct title, correct role at the time of the events being described</li>
+        <li>Every date: day, month, year — checked against a primary source</li>
+        <li>Every number: amount, percentage, rank, count — traced back to the source data, not to the earlier draft where you first wrote it</li>
+        <li>Every law or regulation cited: exact title and article number</li>
+        <li>Every quote: verified against the recording or transcript, not from memory</li>
+      </ul>
+
+      <p>Mark each item in the draft as checked. Work through the document systematically, from first word to last. Do not rely on the fact that you checked these things earlier in the process — the draft may have changed since then.</p>
+    </section>
+
+    <section id="book8-ch10-part2">
+      <p class="section-label">Part Two</p>
+      <h2>Evidence for Every Claim</h2>
+
+      <p>Every claim in the story that could be challenged must be supported by a documentary record: data, a document, a recording, or a contemporaneous note. Claims that cannot be documented must either be removed, clearly attributed as a source's view, or explicitly flagged as contested.</p>
+
+      <p>Three types of claim deserve particular scrutiny.</p>
+
+      <p><strong>Causal claims</strong> — "X caused Y", "the policy led to Z" — require evidence beyond correlation. Two things moving together over time does not establish that one drives the other. If you cannot demonstrate a mechanism, hedge the language accordingly.</p>
+
+      <p><strong>Claims of intent</strong> — "deliberately", "knowingly", "in order to" — require direct evidence. They cannot be inferred from a pattern in data, however strong. Reserve them for cases where you have a document, a recording, or a source with direct knowledge of the decision.</p>
+
+      <p><strong>Characterisations of individuals or institutions</strong> — "corrupt", "negligent", "fraudulent" — require supporting facts, not conclusions. Either show the facts and let the reader draw the characterisation, or carry the legal risk of stating it yourself.</p>
+    </section>
+
+    <section id="book8-ch10-part3">
+      <p class="section-label">Part Three</p>
+      <h2>Defamation and Personal Data</h2>
+
+      <p>Two legal risks require specific review before any data investigation is published.</p>
+
+      <p><strong>Defamation</strong>: does any statement in the article make a false factual claim about an identifiable person or organisation that could damage their reputation? If yes, either the factual basis must be unimpeachable — documented, verified, and capable of being proved in court — or the statement must be removed or substantially reworded. Defamation law varies by jurisdiction; consult a media lawyer who knows the law that applies to your publication.</p>
+
+      <p><strong>Personal data</strong>: does the article, the linked dataset, or any associated visualisation identify individuals whose privacy is protected under applicable data protection law? If yes, assess whether publication is justified by the public interest in the specific case — not in general. Anonymise where it is not. Document the decision either way.</p>
+
+      <div class="callout">
+        <strong>Both risks require a lawyer, not just a judgment call.</strong> The cost of a pre-publication legal review is a fraction of the cost of a dispute, a correction, or a retraction. Commission it routinely for investigations that name individuals or publish personal data, not only when you feel uncertain.
+      </div>
+    </section>
+
+    <section class="chapter-next">
+      <p class="chapter-number">Chapter Navigation</p>
+      <p class="chapter-desc">Move between chapters.</p>
+      <div class="chapter-next-links">
+        <a href="book8-chapter-9.html">Previous: Chapter 9 — Writing the Story</a>
+        <a href="book8-chapter-11.html">Next: Chapter 11 — Documentation and Reproducibility</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Investigating with Data.&nbsp;&nbsp;·&nbsp;&nbsp;Python for All
+  </footer>
+
+  <script src="../assets/toc.js"></script>
+  <script src="../assets/lang.js"></script>
+  <script type="module" src="../assets/auth.js"></script>
+</body>
+</html>
