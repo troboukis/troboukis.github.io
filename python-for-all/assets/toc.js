@@ -96,10 +96,23 @@
         </ol>
       </details>
 
-      <div class="toc-book toc-book--soon">
-        <p class="toc-book-label">Book 8 — JavaScript and D3 Basics</p>
-        <p class="toc-book-soon">Coming soon</p>
-      </div>
+      <details class="toc-book" data-toc-book>
+        <summary class="toc-book-label">Book 8 — Investigating with Data</summary>
+        <ol>
+          <li><a data-toc-path="book8/book8-chapter-1.html">Chapter One — Choosing a Topic</a></li>
+          <li><a data-toc-path="book8/book8-chapter-2.html">Chapter Two — Searching for Data</a></li>
+          <li><a data-toc-path="book8/book8-chapter-3.html">Chapter Three — Exploring Your Data Source</a></li>
+          <li><a data-toc-path="book8/book8-chapter-4.html">Chapter Four — Verifying Data Accuracy</a></li>
+          <li><a data-toc-path="book8/book8-chapter-5.html">Chapter Five — Cleaning Your Data</a></li>
+          <li><a data-toc-path="book8/book8-chapter-6.html">Chapter Six — Statistical Analysis</a></li>
+          <li><a data-toc-path="book8/book8-chapter-7.html">Chapter Seven — Visualising Your Findings</a></li>
+          <li><a data-toc-path="book8/book8-chapter-8.html">Chapter Eight — Journalistic Verification</a></li>
+          <li><a data-toc-path="book8/book8-chapter-9.html">Chapter Nine — Writing the Story</a></li>
+          <li><a data-toc-path="book8/book8-chapter-10.html">Chapter Ten — Fact-checking and Legal Review</a></li>
+          <li><a data-toc-path="book8/book8-chapter-11.html">Chapter Eleven — Documentation and Reproducibility</a></li>
+          <li><a data-toc-path="book8/book8-chapter-12.html">Chapter Twelve — Publication and Follow-up</a></li>
+        </ol>
+      </details>
 
       <div class="toc-book toc-book--soon">
         <p class="toc-book-label">Book 9 — Building and Publishing Your Web App</p>
